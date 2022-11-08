@@ -17,19 +17,19 @@
 
 <body>
  
-        <header >
+        <header class="bg-white">
             <div class="row">
-                <div class=" col-small-2 nav-logo">
+                <div class=" col-3 nav-logo">
                     <img src="../../public/assets/images/logo.svg" alt="logo">
                 </div>
-                <nav class="col-small-8 nav-link bold">
-                    <a href="index.html">Home</a>
-                    <a href="feed.html">Feed</a>
-                    <a href="listing.html">Listing</a>
+                <nav class="col-6  nav-link flex header-nb">
+                    <a class="padding-3" href="index.html">Home</a>
+                    <a class="padding-3" href="feed.html">Feed</a>
+                    <a class="padding-3" href="listing.html">Listing</a>
                 </nav>
-                <div class="col-small-2 nav-signup">
-                    <a href="signup.html"><button>Sign Up</button></a>
-                    <a href="signin.html"><button>Sign In</button></a>
+                <div class="col-3 nav-signup flex ">
+                    <a href="signup.html"><button class="header-2 border-black margin-2 bg-white black border-1 border-rounded">Sign Up</button></a>
+                    <a href="signin.html"><button class="header-2 border-black margin-2 bg-black white border-1 border-rounded">Sign In</button></a>
                 </div>
             </div>
 

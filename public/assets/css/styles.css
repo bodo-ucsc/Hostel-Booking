@@ -2,6 +2,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     font-size: 13px;
+    margin: 0;
     font-weight: 400;
     width: 100vw; 
     height: 100vh;
@@ -98,7 +99,77 @@ body {
 .bg-red{
     background-color: #C83A3A;
 }
-  
+
+/* border */
+.border-1{
+  border: 1px solid;
+}
+.border-2{
+  border: 2px solid;
+}
+.border-none{
+  border: none;
+}
+
+.border-rounded{
+  border-radius: 10px;
+}
+
+.border-rounded-more{
+  border-radius: 15px;
+}
+
+.border-circle{
+  border-radius: 50%;
+}
+
+.border-white {
+  border-color: #fff;
+}
+.border-black {
+  border-color: #000;
+}
+.border-blue {
+  border-color: #006DFF;
+}
+.border-neutral {
+  border-color: #D3EAE8;
+}
+.border-accent {
+  border-color: #288684;
+}
+.border-light {
+  border-color: #F8F8FF;
+}
+.border-grey {
+  border-color: #788292;
+}
+.border-light-grey {
+  border-color: #EAEAEA;
+}
+.border-red{
+  border-color: #C83A3A;
+}
+
+
+/* Elements */
+
+a {
+  text-decoration: none;
+  color: #788292;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #006DFF;
+}
+
+button{
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  border: none;
+}
 
 
 /* Header */
@@ -108,11 +179,18 @@ header {
     position: fixed;
     width: 100vw;
     top: 0;
+    z-index: 100;
+    left: 0;
     vertical-align: middle;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); 
+    align-items: center; 
+    justify-items: center;
 }
+ 
 
+header .nav-link a.active {
+  color: #006DFF;
+}
 header .nav-logo {
     width: 200px; 
     float: left;
@@ -123,9 +201,29 @@ header .nav-signup {
     top: 0;
     float: right;
 }
+ 
 
+/* Responsive Sizing */
+.full-height{
+  height: 100vh;
+}
+.full-width{
+  width: 100vw;
+}
 
+.position-absolute{
+  position: absolute;
+}
 
+.position-relative{
+  position: relative;
+}
+
+.flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* css grid system */
 
@@ -135,7 +233,7 @@ header .nav-signup {
     margin-right: auto;
     padding-left: 15px;
     padding-right: 15px;
-  }
+  } 
   
   @media (min-width: 768px) {
     .container {
