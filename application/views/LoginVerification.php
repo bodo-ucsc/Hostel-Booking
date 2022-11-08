@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../public/assets/css/styles.css">
+    <link rel="shortcut icon" href="../../public/assets/images/favicon.png" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
         <header >
             <div class="row">
                 <div class=" col-small-2 nav-logo">
-                    <img src="images/logo.svg" alt="logo">
+                    <img src="../../public/assets/images/logo.svg" alt="logo">
                 </div>
                 <nav class="col-small-8 nav-link bold">
                     <a href="index.html">Home</a>

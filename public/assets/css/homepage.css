@@ -1,0 +1,23 @@
+.main{
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button{
+    margin-top: 15px;
+    padding: 5px;
+    background-color: #292955;
+    border: none;
+    color: white;
+    height: 35px;
+    width: 100px;
+    border-radius: 6px;
+    transition: all 1s ease;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(115%);
+  }
