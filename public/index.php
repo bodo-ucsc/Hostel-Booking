@@ -1,6 +1,9 @@
-<?php
-session_start();
-require_once '../config/config.php';
-require_once '../system/init.php';
+<?php 
 
+require_once '../app/init.php';
 
+require_once '../app/Config.php';
+
+$app = new App;
+
+?>
