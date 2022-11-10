@@ -14,5 +14,10 @@ class SignIn extends Controller
     {
         $this->view('signIn/verificationTeam/index');
     }
-
+    public function professional()
+    {
+        $this->view('signIn/professional/index');
+    }
 }
+
+?>
