@@ -30,7 +30,7 @@ body {
   font-weight: 400;
 }
 
-.smallall {
+.small {
   font-size: 10px;
   font-weight: 400;
 }
@@ -359,6 +359,7 @@ a.inverse:hover {
 }
 
 input[type=button],
+input[type=submit],
 button {
   width: fit-content;
   height: fit-content;
@@ -369,16 +370,17 @@ button {
   cursor: pointer;
   box-sizing: border-box;
 }
-
-
+ 
 input[type=button].fill-container,
+input[type=submit].fill-container, 
 button.fill-container {
   width: 100%;
   height: 100%;
 }
 
-input[type=button].padded,
-button.padded {
+input[type=button].padded, 
+input[type=submit].padded,
+button.padded { 
   padding: 15px;
 }
 
