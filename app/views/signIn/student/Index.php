@@ -18,8 +18,8 @@
 <body>
 
     <?php
-        $header = PATH . "/public/components/navigation/guest.php";
-        include_once($header);
+    $header = PATH . "/public/components/navigation/guest.php";
+    include_once($header);
     ?>
 
 
@@ -39,6 +39,8 @@
                     <p style="display: inline-block; font-size: 12px; padding-left: 2.5em;">Don't have an account?&nbsp;
                     </p><a class="register-link" href="#">Register</a>
                 </form>
+
+               
             </div>
 
         </div>

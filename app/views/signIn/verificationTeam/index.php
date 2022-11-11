@@ -26,13 +26,13 @@
             <div class="col-5 bg-white flex full-height">
                 <div>
                     <h2 class="header-2">Verification Team Sign In</h2>
-                    <form style="">
+                    <form action="../Users" method="POST">
                         <label for="username" class="bold black">Username</label><br>
                         <input type="text" id="username" name="username" placeholder="Enter Username"><br>
                         <label for="password" class="bold black">Password</label><br>
                         <input type="password" id="password" name="password" placeholder="Enter Password">
                         <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded "
-                            type="button" value="Sign In"><br>
+                            type="submit" value="Sign In"><br>
                         <p>Don't have an account? <a class="inverse" href="#">Register</a> </p>
                     </form>
                 </div>
