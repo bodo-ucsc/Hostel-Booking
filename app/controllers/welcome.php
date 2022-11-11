@@ -7,11 +7,12 @@ class Welcome extends Controller
         $this->view('welcome');
     }
     
-    public function signout()
-    {
-        session_start();
-        session_destroy();
-        header('Location: ' . BASEURL . '/welcome');
-    }
+    // public function signout()
+    // {
+    //     session_start();
+    //     session_destroy();
+    //     header('Location: ' . BASEURL . '/welcome');
+    // }
 
 }
+?>

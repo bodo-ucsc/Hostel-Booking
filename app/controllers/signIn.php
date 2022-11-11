@@ -44,7 +44,7 @@ class SignIn extends Controller
             $_SESSION['role'] = 'student'; 
             echo "success";
 
-            header('Location: ' . BASEURL. '/welcome');
+            //header('Location: ' . BASEURL. '/welcome');
         } else {
             // $this->view('signIn/student', ['error' => 'Invalid username or password']);
             echo "fail";
@@ -56,8 +56,8 @@ class SignIn extends Controller
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        echo $username;
-        echo $password;
+        //echo $username;
+        //echo $password;
 
         $result = $this->model('loginModel')->adminLogin($username, $password);
 
@@ -68,7 +68,7 @@ class SignIn extends Controller
             $_SESSION['role'] = 'admin'; 
             echo "success";
 
-            header('Location: ' . BASEURL. '/welcome');
+            header('Location: ' . BASEURL. '/adminhome');
         } else {
             // $this->view('signIn/student', ['error' => 'Invalid username or password']);
             echo "fail";

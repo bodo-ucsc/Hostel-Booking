@@ -28,7 +28,7 @@ class loginModel extends Model
 
     public function adminLogin($username, $password)
     {
-        $result = $this->get('admin', "username = '$username' AND password = '$password'");
+        $result = $this->get('multi', "username = '$username' AND password = '$password'");
         return $result;
     }
     public function boardingOwnerLogin($username, $password)
