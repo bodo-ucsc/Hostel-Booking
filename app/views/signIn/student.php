@@ -17,9 +17,9 @@
 
 <body>
 
-    <?php
-        $header = PATH . "/public/components/navigation/guest.php";
-        include_once($header);
+    <?php 
+        $header = "components/navigation/guest.php";
+        include_once($header); 
     ?>
 
 
@@ -29,8 +29,8 @@
                 <img class="login-img" src="student-login.png">
             </div>
             <div class="col-6 bg-white flex">
-                <p style="">Student Sign In</p>
-                <form style="">
+                <p>Student Sign In</p>
+                <form>
                     <label for="username">Username:</label><br>
                     <input type="text" id="username" name="username" placeholder="Enter Username"><br>
                     <label for="pwd">Password:</label><br>
@@ -39,6 +39,8 @@
                     <p style="display: inline-block; font-size: 12px; padding-left: 2.5em;">Don't have an account?&nbsp;
                     </p><a class="register-link" href="#">Register</a>
                 </form>
+
+               
             </div>
 
         </div>
