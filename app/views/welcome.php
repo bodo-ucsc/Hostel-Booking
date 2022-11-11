@@ -1,4 +1,3 @@
- 
 Hello hi 
 
 <?php
@@ -15,4 +14,4 @@ if (isset($_SESSION['username'])) {
 
 ?>
 <br>
-<a href="file1">click</a> 
+<a href="file1">click</a>

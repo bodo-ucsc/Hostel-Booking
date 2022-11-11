@@ -1,16 +1,30 @@
 <?php
 
-class Database extends PDO {
+class Database
+{
 
-    function __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASSWORD) {
-        parent::__construct($DB_TYPE . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASSWORD);
-    }
-    
-    public function runQuery($query){
-        $stmt = $this->prepare($query);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-}
+    public $mysqli;
 
-?>
+    public function __construct()
+    {
+        $this->db_connect();
+    }
+
+    private function db_connect()
+    {
+        $this->mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        return $this->mysqli;
+    }
+
+    public function numRows($result)
+    {
+        return $result->num_rows;
+    }
+
+    public function runQuery($sql)
+    {
+        $result = $this->mysqli->query($sql);
+        return $result;
+    }
+
+} 

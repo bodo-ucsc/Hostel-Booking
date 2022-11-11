@@ -17,9 +17,9 @@
 
 <body>
 
-    <?php
-    $header = PATH . "/public/components/navigation/guest.php";
-    include_once($header);
+    <?php 
+        $header = "components/navigation/guest.php";
+        include_once($header); 
     ?>
 
 

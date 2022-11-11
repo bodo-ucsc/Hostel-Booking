@@ -18,15 +18,15 @@
 <body>
 
     <?php
-    $header = PATH . "/public/components/navigation/guest.php";
+    $header =   "components/navigation/guest.php";
     include_once($header);
     ?>
     <main class=" full-width overflow-hidden position-absolute">
         <div class="row full-height">
             <div class="col-5 bg-white flex full-height">
                 <div>
-                    <h2 class="header-2">Verification Team Sign In</h2>
-                    <form action="../Users" method="POST">
+                    <h2 class="header-2">Verification Team Sign In</h2> 
+                    <form action="verificationTeamLogin" method="post"> 
                         <label for="username" class="bold black">Username</label><br>
                         <input type="text" id="username" name="username" placeholder="Enter Username"><br>
                         <label for="password" class="bold black">Password</label><br>
