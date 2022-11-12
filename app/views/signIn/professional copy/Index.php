@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-12">
                         <h2 class="header-2">Professional Sign In</h2>
-                        <form style="">
+                        <form >
                             <label for="username" class="bold black">Username</label><br>
                             <input type="text" id="username" name="username" placeholder="Enter Username"><br>
                             <label for="password" class="bold black">Password</label><br>

@@ -46,10 +46,11 @@ session_start();
             <h2>Hello <?= htmlspecialchars($_SESSION["username"]) ?> </h2>
 
             <!-- <button><a href="./boardingOwner/home.php">Boarding owner Manage</a></button> -->
-            <button><a href="boardingOwner/home">Boarding owner Manage</a></button>
+            <button><a href="adminhome/manageboardingOwner">Boarding owner Manage</a></button>
             <button><a href="#">Boarder Manage</a></button>
             <button><a href="#">Verification Team Manage</a></button>
-            <P><a href="signout">Sign out</a></P>
+            <!-- <P><a href="signout">Sign out</a></P> -->
+            <P><a href="adminhome/signout">Sign out</a></P>
 
 
         <?php } else { ?>
