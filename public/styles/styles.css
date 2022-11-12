@@ -30,7 +30,7 @@ body {
   font-weight: 400;
 }
 
-.smallall {
+.small {
   font-size: 10px;
   font-weight: 400;
 }
@@ -359,6 +359,7 @@ a.inverse:hover {
 }
 
 input[type=button],
+input[type=submit],
 button {
   width: fit-content;
   height: fit-content;
@@ -369,16 +370,17 @@ button {
   cursor: pointer;
   box-sizing: border-box;
 }
-
-
+ 
 input[type=button].fill-container,
+input[type=submit].fill-container, 
 button.fill-container {
   width: 100%;
   height: 100%;
 }
 
-input[type=button].padded,
-button.padded {
+input[type=button].padded, 
+input[type=submit].padded,
+button.padded { 
   padding: 15px;
 }
 
@@ -472,52 +474,9 @@ header .nav-signup {
   align-content: center;
   justify-content: center;
 }
-
-/* offset */
-
-
-.offset-1 {
-  margin-left: 8.33333333%;
-}
-
-.offset-2 {
-  margin-left: 16.66666667%;
-}
-
-.offset-3 {
-  margin-left: 25%;
-}
-
-.offset-4 {
-  margin-left: 33.33333333%;
-}
-
-.offset-5 {
-  margin-left: 41.66666667%;
-}
-
-.offset-6 {
-  margin-left: 50%;
-}
-
-.offset-7 {
-  margin-left: 58.33333333%;
-}
-
-.offset-8 {
-  margin-left: 66.66666667%;
-}
-
-.offset-9 {
-  margin-left: 75%;
-}
-
-.offset-10 {
-  margin-left: 83.33333333%;
-}
-
-.offset-11 {
-  margin-left: 91.66666667%;
+ 
+.center {
+  text-align: center;
 }
 
 /* Grid container */
