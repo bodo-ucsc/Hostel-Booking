@@ -1,7 +1,7 @@
 
 <?php
 class Adminhome extends Controller
-{ 
+{
     public function index()
     {
         $this->view('adminhome');
@@ -9,20 +9,21 @@ class Adminhome extends Controller
 
     public function manageboardingOwner()
     {
-        
+        session_start();
         $this->view('boardingOwner/BOhome');
     }
     public function addBoardingOwner()
     {
-        
+
         $this->view('boardingOwner/add');
     }
 
-    public function boardingownerSignup(){
+    public function boardingownerSignup()
+    {
 
         echo $_POST['username'];
         echo $_POST['password'];
-        header('Location: '. BASEURL . '/register/boardingownerSignup');
+        header('Location: ' . BASEURL . '/register/boardingownerSignup');
     }
 
     public function signout()

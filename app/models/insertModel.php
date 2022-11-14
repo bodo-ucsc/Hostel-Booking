@@ -40,13 +40,13 @@ class insertModel extends Model
 
     public function check_boardingOwner($username,$password)
     {
-        $result = $this->get('tmpbdowner', "username = '$username' AND password = '$password'");
+        $result = $this->get('boardingowner', "username = '$username' AND password = '$password'");
         return $result;
     }
 
     public function boardingOwnerInsert($data)
     {
-        $this->insert('tmpbdowner', $data);
+        $this->insert('boardingowner', $data);
     }
 
     // public function insert_user($username, $password)

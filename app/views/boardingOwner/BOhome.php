@@ -1,11 +1,11 @@
 <?php
-session_start();
+//session_start();
 include("connect.php");
 
 
 if (!isset($_POST['btn'])) {
 } else {
-  $q = "select * from tmpbdowner";
+  $q = "select * from boardingowner";
   $query = mysqli_query($connection, $q);
 }
 ?>
@@ -29,109 +29,105 @@ if (!isset($_POST['btn'])) {
 
 <body>
 
+  <div class="row">
+    <?php
+    $header =   "components/navigation/guest.php";
+    include_once($header);
+    ?>
+  </div>
+  <main class=" position-absolute">
+    <div class=" center ">
+      <div class="">
+        <div>
 
-  <?php
-  $header =   "components/navigation/guest.php";
-  include_once($header);
-  ?>
-  <main>
-    <main class=" full-width overflow-hidden position-absolute">
-      <div class="row full-height ">
-        <div class="">
-          <div>
+          <?php
+          
+          if (isset($_SESSION["username"])) { ?>
+            <div class="header-1 margin-5 padding-vertical-5 small">
+              <h1>Boarding Owner Listing</h1>
+            </div>
+            <div class=" container">
+              </br></br>
+              <button class=" bg-neutral"><a href="addBoardingOwner">Add Boarding Owner</a></button></br></br>
+            </div>
 
             <?php
 
-            if (isset($_SESSION["username"])) { ?>
+            //$sql = "SELECT fname,lname,nic,email,gender,password,postcode,street,city,contactNo FROM boardingowner";
+            $sql = "SELECT * FROM boardingowner";
+            $result = $connection->query($sql);
 
-              <div>
-                <h1>Boarding Owner Listing</h1>
-                </br></br>
-                <a href="addBoardingOwner">Add Boarding Owner</a></br></br>
+            if ($result->num_rows > 0) {
+            ?>
 
-              </div>
-
-              <?php
-
-              //$sql = "SELECT fname,lname,nic,email,gender,password,postcode,street,city,contactNo FROM boardingowner";
-              $sql = "SELECT * FROM tmpbdowner";
-              $result = $connection->query($sql);
-
-              if ($result->num_rows > 0) {
-              ?>
-
-                <div class="tbl">
-                  <table border="1" cellspacing="0" cellpadding="3">
-                    <tr>
-                    <th>User Name</th> 
-                    <th>Password</th> 
-                    <!-- <th>First Name</th>
+              <div class=" center col-12 container">
+                <table border="1" cellspacing="0" cellpadding="3">
+                  <tr>
+                    <th>User Name</th>
+                    <th>Password</th>
+                    <th>First Name</th>
                       <th>Last Name</th>
                       <th>NIC</th>
                       <th>Email</th>
-                      <th>Password</th>
                       <th>Gender</th>
                       <th>DOB</th>
                       <th>PostCode</th>
                       <th>Street</th>
                       <th>City</th>
-                      <th>ContactNo</th> -->
-                      <th>Action</th>
-                    </tr>
+                      <th>ContactNo</th>
+                    <th>Action</th>
+                  </tr>
 
-                    <!-- // output data of each row -->
-                    <?php
-                    while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-                    ?>
-                      <tr>
-                        <td><?php echo $row['username']; ?></td>
-                        <td><?php echo $row['password']; ?></td>
-                        <!-- <td><?php echo $row['fname']; ?></td>
-                        <td><?php echo $row['lname']; ?></td>
+                  <!-- // output data of each row -->
+                  <?php
+                  while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                  ?>
+                    <tr>
+                      <td><?php echo $row['username']; ?></td>
+                      <td><?php echo $row['password']; ?></td>
+                      <td><?php echo $row['first_name']; ?></td>
+                        <td><?php echo $row['last_name']; ?></td>
                         <td><?php echo $row['nic']; ?></td>
                         <td><?php echo $row['email']; ?></td>
-                        <td><?php echo $row['Password']; ?></td>
                         <td><?php echo $row['gender']; ?></td>
                         <td><?php echo $row['DOB']; ?></td>
                         <td><?php echo $row['postcode']; ?></td>
                         <td><?php echo $row['street']; ?></td>
                         <td><?php echo $row['city']; ?></td>
-                        <td><?php echo $row['contactNo']; ?></td> -->
-                        <td><button><a href="update.php?id=<?php echo $qq['id']; ?>" class="card-link">Edit</a></button>
-                          <button><a href="delete.php?id=<?php echo $qq['id']; ?>" class="card-link">Delete</a></button>
-                        </td>
+                        <td><?php echo $row['contactNo']; ?></td>
+                      <td><button><a href="update.php?id=<?php echo $qq['id']; ?>" class="card-link">Edit</a></button>
+                        <button><a href="delete.php?id=<?php echo $qq['id']; ?>" class="card-link">Delete</a></button>
+                      </td>
 
-                      </tr>
+                    </tr>
 
-                  <?php
-                    }
-                  } else {
-                    echo "0 results";
+                <?php
                   }
+                } else {
+                  echo "0 results";
+                }
 
-                  ?>
-                  </table>
-                </div>
-                <?php $connection->close(); ?>
+                ?>
+                </table>
+              </div>
+              <?php $connection->close(); ?>
 
-                <div>
-                  <br />
-                  <button><a href="../adminhome">Back</a></button></br>
-                  <!-- <button><a href="../adminhome/signout">Sign out</a></button> -->
-                  <button><a href="../adminhome/signout">Sign out</a></button>
-                </div>
+              <div class=" container">
+                <br />
+                <button><a href="../adminhome">Back</a></button></br>
+                <button><a href="../adminhome/signout">Sign out</a></button>
+              </div>
+            <?php } else { ?>
 
-              <?php } else { ?>
+              <P>Please Sign In first</P>
+              <P><a href="../signIn/admin">Sign In </a></P>
 
-                <P>Please Sign In first</P>
-                <P><a href="../signIn/admin">Sign In </a></P>
+            <?php }  ?>
 
-              <?php }  ?>
-
-          </div>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
 </body>
 
 </html>

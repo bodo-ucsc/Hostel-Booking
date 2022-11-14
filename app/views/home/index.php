@@ -34,16 +34,13 @@
                 if (isset($_SESSION['username'])) {
                     echo $_SESSION['username'];
                     echo ' <br><a href="' . BASEURL . '/home/signout">Sign Out</a>  <br>';
+                   
                 } else {
-                    echo '<br>You are not logged in';
+                    echo '<br>You are not signed in';
+                    echo '<br><a href="<?php echo BASEURL ?>/signin/admin">click to sign in</a></br>';
                 }
 
                 ?>
-
-
-                <br>
-                <a href="<?php echo BASEURL ?>/signin/admin">click</a>
-
             </div>
         </div>
 

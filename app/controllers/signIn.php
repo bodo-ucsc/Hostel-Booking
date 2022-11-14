@@ -1,8 +1,8 @@
 <?php 
 session_start();
 if(isset($_SESSION['username'])){
-    header('Location: '.BASEURL.'/home');
-} 
+    header('Location: '.BASEURL.'/adminhome');
+}
 class SignIn extends Controller
 {
     public function index()
