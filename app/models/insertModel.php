@@ -31,22 +31,27 @@ class insertModel extends Model
         $result = $this->insert('multi', "username = '$username' AND password = '$password'");
         return $result;
     }
-    public function boardingOwnerInsert($username, 
-                                        $password,
-                                        $fname,
-                                        $lname,
-                                        $email,
-                                        $gender,
-                                        $DOB,
-                                        $postcode,
-                                        $street,
-                                        $city,
-                                        $contactNo,)
+    // public function boardingOwnerInsert($username, $password,$fname,$lname,$email,$gender,$DOB,$postcode,$street,$city,$contactNo,){
+
+    //     $result = $this->insert('boardingowner', "username='$username',password='$password',fname='$fname',lname='$lname',
+    //     email='$email',gender='$gender',DOB='$DOB',postcode='$postcode',street='$street',city='$city',contactNo='$contactNo'");
+    //     return $result;
+    // }
+
+    public function check_boardingOwner($username,$password)
     {
-        $result = $this->insert('boardingowner', "");
+        $result = $this->get('tmpbdowner', "username = '$username' AND password = '$password'");
         return $result;
     }
+
+    public function boardingOwnerInsert($data)
+    {
+        $this->insert('tmpbdowner', $data);
+    }
+
+    // public function insert_user($username, $password)
+    // {
+    //     $result = $this->insert('tmpbdowner', "$username,$password");
+    //     return $result;
+    // }
 }
-
-
-?>

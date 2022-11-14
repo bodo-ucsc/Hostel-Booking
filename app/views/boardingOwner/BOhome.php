@@ -5,7 +5,7 @@ include("connect.php");
 
 if (!isset($_POST['btn'])) {
 } else {
-  $q = "select * from boardingOwner";
+  $q = "select * from tmpbdowner";
   $query = mysqli_query($connection, $q);
 }
 ?>
@@ -47,14 +47,14 @@ if (!isset($_POST['btn'])) {
               <div>
                 <h1>Boarding Owner Listing</h1>
                 </br></br>
-                <a href="add">Add Boarding Owner</a></br></br>
+                <a href="addBoardingOwner">Add Boarding Owner</a></br></br>
 
               </div>
 
               <?php
 
               //$sql = "SELECT fname,lname,nic,email,gender,password,postcode,street,city,contactNo FROM boardingowner";
-              $sql = "SELECT * FROM boardingowner";
+              $sql = "SELECT * FROM tmpbdowner";
               $result = $connection->query($sql);
 
               if ($result->num_rows > 0) {
@@ -63,7 +63,9 @@ if (!isset($_POST['btn'])) {
                 <div class="tbl">
                   <table border="1" cellspacing="0" cellpadding="3">
                     <tr>
-                      <th>First Name</th>
+                    <th>User Name</th> 
+                    <th>Password</th> 
+                    <!-- <th>First Name</th>
                       <th>Last Name</th>
                       <th>NIC</th>
                       <th>Email</th>
@@ -73,7 +75,7 @@ if (!isset($_POST['btn'])) {
                       <th>PostCode</th>
                       <th>Street</th>
                       <th>City</th>
-                      <th>ContactNo</th>
+                      <th>ContactNo</th> -->
                       <th>Action</th>
                     </tr>
 
@@ -82,7 +84,9 @@ if (!isset($_POST['btn'])) {
                     while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
                     ?>
                       <tr>
-                        <td><?php echo $row['fname']; ?></td>
+                        <td><?php echo $row['username']; ?></td>
+                        <td><?php echo $row['password']; ?></td>
+                        <!-- <td><?php echo $row['fname']; ?></td>
                         <td><?php echo $row['lname']; ?></td>
                         <td><?php echo $row['nic']; ?></td>
                         <td><?php echo $row['email']; ?></td>
@@ -92,7 +96,7 @@ if (!isset($_POST['btn'])) {
                         <td><?php echo $row['postcode']; ?></td>
                         <td><?php echo $row['street']; ?></td>
                         <td><?php echo $row['city']; ?></td>
-                        <td><?php echo $row['contactNo']; ?></td>
+                        <td><?php echo $row['contactNo']; ?></td> -->
                         <td><button><a href="update.php?id=<?php echo $qq['id']; ?>" class="card-link">Edit</a></button>
                           <button><a href="delete.php?id=<?php echo $qq['id']; ?>" class="card-link">Delete</a></button>
                         </td>
@@ -113,7 +117,8 @@ if (!isset($_POST['btn'])) {
                 <div>
                   <br />
                   <button><a href="../adminhome">Back</a></button></br>
-                  <button><a href="../signout">Logout</a></button>
+                  <!-- <button><a href="../adminhome/signout">Sign out</a></button> -->
+                  <button><a href="../adminhome/signout">Sign out</a></button>
                 </div>
 
               <?php } else { ?>

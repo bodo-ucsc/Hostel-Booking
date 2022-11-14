@@ -58,12 +58,12 @@ class SignIn extends Controller
 
             header('Location: ' . BASEURL. '/adminhome');
         } else {
-            // $this->view('signIn/student', ['error' => 'Invalid username or password']);
-            echo "fail";
+            
+            echo "Invalid login";
+            echo ' <br><a href="admin">Sign In Again</a>  <br>';
+            
         }
     }
-
-
 
     public function verificationTeamLogin()
     {

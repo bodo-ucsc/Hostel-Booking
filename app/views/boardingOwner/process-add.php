@@ -1,9 +1,7 @@
 <?php
 
 if (isset($_POST["btn"])) {
-    include("connect.php");
-
-
+    //include("connect.php");
 
     // if( !empty($_POST['email']) || !filter_var($_POST["email"])) {
     //     die("Vlaid email is required");

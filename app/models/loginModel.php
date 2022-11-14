@@ -47,7 +47,16 @@ class loginModel extends Model
     public function adminLogin($username, $password)
     {
         $result = $this->get('admin', "username = '$username' AND password = '$password'");
-        return $result;
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if ( $password == $row['password']) {
+                return $this->get('admin', "username = '$username' ");
+            } else {
+               return null;
+            }
+        } else {
+            return null;
+        }
     }
     public function boardingOwnerLogin($username, $password)
     {

@@ -4,7 +4,7 @@
 		$dbhost = "localhost";
 		$dbuser = "root";
 		$dbpass = "";
-		$dbname = "test";
+		$dbname = "bodo";
 		//$connection=mysqli_connect("localhost","root","","grocerydb");
 		$connection=mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
 		if(!$connection)

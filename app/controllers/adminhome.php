@@ -10,12 +10,19 @@ class Adminhome extends Controller
     public function manageboardingOwner()
     {
         
-        $this->view('boardingOwner/home');
+        $this->view('boardingOwner/BOhome');
     }
-    public function AddBoardingOwner()
+    public function addBoardingOwner()
     {
         
         $this->view('boardingOwner/add');
+    }
+
+    public function boardingownerSignup(){
+
+        echo $_POST['username'];
+        echo $_POST['password'];
+        header('Location: '. BASEURL . '/register/boardingownerSignup');
     }
 
     public function signout()
@@ -23,7 +30,7 @@ class Adminhome extends Controller
         session_start();
         session_destroy();
         unset($_SESSION['username']);
-        header('Location: ' . BASEURL . '/home');
+        header('Location: ' . BASEURL . '/signin/admin');
         //$this->view('boardingOwner/process-add');
     }
 

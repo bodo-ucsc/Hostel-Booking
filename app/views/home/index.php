@@ -42,7 +42,7 @@
 
 
                 <br>
-                <a href="<?php echo BASEURL ?>/file1">click</a>
+                <a href="<?php echo BASEURL ?>/signin/admin">click</a>
 
             </div>
         </div>
