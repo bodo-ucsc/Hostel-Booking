@@ -5,7 +5,7 @@
 
             </div>
             <nav class="col-6  nav-link flex header-nb">
-                <a class="padding-3" href="index.html">Home</a>
+                <a class="padding-3" href="<?php echo BASEURL ?>/adminhome">Home</a>
                 <a class="padding-3" href="feed.html">Feed</a>
                 <a class="padding-3" href="listing.html">Listing</a>
             </nav>

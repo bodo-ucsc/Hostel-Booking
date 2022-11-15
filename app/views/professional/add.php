@@ -18,7 +18,7 @@
 <body>
     <div class="row">
         <?php
-        $header = "components/navigation/guest.php";
+        $header =   "components/navigation/guest.php";
         include_once($header);
         ?>
     </div>
@@ -27,52 +27,50 @@
             <div class="  center header-2 small margin-top-5 padding-vertical-5">
                 <h1>Add Boarding Owner</h1></br></br>
             </div>
-            <div class=" margin-left-5">
+            <div class="">
                 <form action="<?php echo BASEURL ?>/register/boardingownerSignup" method="POST">
 
                     <div>
 
                         <div class=" container">
-
                             <label for="username" class="bold black">UserName</label><br>
                             <input type="text" id="username" name="username" required />
                             <label for="first_name" class="bold black">First Name</label><br>
-                            <input type="text" id="first_name" name="first_name" />
+                            <input type="text" id="first_name" name="first_name"  />
                             <label for="last_name" class="bold black">Last Name</label><br>
-                            <input type="text" id="last_name" name="last_name" />
+                            <input type="text" id="last_name" name="last_name"  />
                             <label for="nic" class="bold black">NIC</label><br>
-                            <input type="text" id="nic" name="nic" required />
+                            <input type="text" id="nic" name="nic" required/>
                             <label for="email" class="bold black">Email</label><br>
-                            <input type="email" id="email" name="email" required /><br>
+                            <input type="email" id="email" name="email"  required/><br>
                             <label for="password" class="bold black">Password</label><br>
                             <input class="bold black" type="password" id="password" placeholder="Enter password" name="password" required>
                             <label for="ComPassword" class="bold black">Confirm Password</label><br>
                             <input class="bold black" type="password" id="ComPassword" placeholder="Confirm password" name="ComPassword" required>
                             <label for="gender" class="bold black">Gender</label><br>
-                            <input type="text" id="gender" name="gender" />
+                            <input type="text" id="gender" name="gender"  />
                             <label for="DOB" class="bold black">DOB</label><br>
-                            <input type="date" id="DOB" name="DOB" /><br><br>
+                            <input type="date" id="DOB" name="DOB"  /><br><br>
                             <label class=" bold black">Address</label><br>
                             <label for="postcode" class="bold black">Postcode</label>
-                            <input type="text" id="postcode" name="postcode" />
+                            <input type="text" id="postcode" name="postcode"  />
                             <label for="street" class="bold black">Street</label>
-                            <input type="text" id="street" name="street" />
+                            <input type="text" id="street" name="street"  />
                             <label for="city" class="bold black">City</label>
-                            <input type="text" id="city" name="city" />
+                            <input type="text" id="city" name="city"  />
                             <label for="contactNo" class="bold black">Contact NO</label><br>
-                            <input type="text" id="contactNo" name="contactNo" />
+                            <input type="text" id="contactNo" name="contactNo"  />
                         </div>
 
-
                         <div class=" container">
-
+                
                             <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Submit" name="submit"><br><br>
                         </div>
                     </div>
                 </form>
             </div>
 
-            <div class=" justify-content margin-left-5">
+            <div class=" justify-content">
                 <button><a href="manageboardingOwner">Back</a></button>
             </div>
         </div>

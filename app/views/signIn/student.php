@@ -17,11 +17,11 @@
 
 <body>
 
-    <?php 
-        $header = "components/navigation/guest.php";
-        include_once($header); 
+    <?php
+    $header = "components/navigation/guest.php";
+    include_once($header);
     ?>
-
+   
 
     <main class=" full-width position-absolute">
         <div class="row full-height">
@@ -40,7 +40,7 @@
                     </p><a class="register-link" href="#">Register</a>
                 </form>
 
-               
+
             </div>
 
         </div>
