@@ -17,9 +17,8 @@
 
 <body>
 
-    <?php 
-        $header = "components/navigation/guest.php";
-        include_once($header); 
+    <?php
+        $header = new Navigation();
     ?>
 
 
@@ -40,7 +39,7 @@
                     </p><a class="register-link" href="#">Register</a>
                 </form>
 
-               
+
             </div>
 
         </div>

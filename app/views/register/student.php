@@ -18,8 +18,7 @@
 <body>
 
     <?php 
-        $header = "components/navigation/guest.php";
-        include_once($header); 
+        $header =   new Navigation();
     ?>
 
 
