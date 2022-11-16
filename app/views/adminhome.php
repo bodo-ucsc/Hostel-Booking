@@ -22,15 +22,16 @@ session_start();
 <body>
 
     <?php
-    $header =   "components/navigation/guest.php";
-    include_once($header);
+        $header =   new Navigation();
+        
     ?>
 
     <?php
 
     if (isset($_SESSION["username"])) {
+        $sidebar = new SideBarNav("user","admin"); 
     ?>
-        <div class=" margin-top-5  margin-top-4 padding-top-5 position-absolute">
+        <!-- <div class=" margin-top-5  margin-top-4 padding-top-5 position-absolute">
             <div class="">
                 <ul>
                     <li><a href="<?php echo BASEURL ?>/adminhome">Admin Home</a></li>
@@ -40,10 +41,13 @@ session_start();
                     <li><a href="#">Property</a></li>
                 </ul>
             </div>
-        </div>
-        <main class=" full-width overflow-hidden ">
+        </div> -->
+        
 
-            <div class=" row full-height ">
+
+        <main class=" full-width full-height overflow-hidden ">
+
+            <div class=" row sidebar-offset full-height ">
                 <div class=" col-5 bg-white flex shadow border-rounded  position-absolute padding-5 ">
                     <div>
 
@@ -56,7 +60,8 @@ session_start();
                         //$user = $result->fetch_assoc();
 
                         ?>
-                        <h1>Admin Home</h1>
+                        <div class="header-1">Admin Home</div>
+                       
                         <h2>Hello <?= htmlspecialchars($_SESSION["username"]) ?> </h2>
 
 
@@ -85,10 +90,10 @@ session_start();
                                         </div>
                                     </div>
                                 </div>
-                                <?php }; ?>
-                                </div>
+                            <?php }; ?>
                     </div>
                 </div>
+            </div>
 
         </main>
 </body>

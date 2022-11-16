@@ -18,8 +18,8 @@
 <body>
     <div class="row">
         <?php
-        $header = "components/navigation/guest.php";
-        include_once($header);
+        
+        $header =   new Navigation();
         ?>
     </div>
     <main class="">

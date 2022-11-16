@@ -31,8 +31,8 @@ if (!isset($_POST['btn'])) {
 
   <div class="row">
     <?php
-    $header =   "components/navigation/guest.php";
-    include_once($header);
+   
+    $header =   new Navigation();
     ?>
   </div>
 
