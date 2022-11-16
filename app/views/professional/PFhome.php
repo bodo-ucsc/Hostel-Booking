@@ -59,6 +59,7 @@ if (!isset($_POST['btn'])) {
           <?php
 
           //if (isset($_SESSION["username"])) { 
+            $sidebar = new SideBarNav("user","admin"); 
           ?>
 
           <div class="header-1 margin-0 padding-vertical-0 small">

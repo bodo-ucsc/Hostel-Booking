@@ -31,14 +31,14 @@ class SideBarNav
 
         if ($active == 'user' && $type == 'admin') {
             echo "   
-            <a href='$base' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base/adminhome' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2  fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Admin</span> 
             </div></a> 
                 ";
         } else {
             echo "    
-            <a href='$base' class=''><div class='row padding-vertical-1'>   
+            <a href='$base/adminhome' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Admin</span> 
             </div></a> 
@@ -61,14 +61,14 @@ class SideBarNav
         }
         if ($active == 'user' && $type == 'student') {
             echo "   
-            <a href='$base' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base/adminhome/managestudent' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2  fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Student</span> 
             </div></a> 
                 ";
         } else {
             echo "    
-            <a href='$base' class=''><div class='row padding-vertical-1'>   
+            <a href='$base/adminhome/managestudent' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Student</span> 
             </div></a> 
@@ -76,14 +76,14 @@ class SideBarNav
         }
         if ($active == 'user' && $type == 'professional') {
             echo "   
-            <a href='$base/file1' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base/adminhome/manageprofessional' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Professional</span> 
             </div></a> 
                 ";
         } else {
             echo "    
-            <a href='$base/file1' class=''><div class='row padding-vertical-1'>   
+            <a href='$base/adminhome/manageprofessional' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Professional</span> 
             </div></a> 
@@ -91,14 +91,14 @@ class SideBarNav
         }
         if ($active == 'user' && $type == 'boardingOwner') {
             echo "   
-            <a href='$base/file1' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base/adminhome/manageboardingOwner' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Boarding Owner</span> 
             </div></a> 
                 ";
         } else {
             echo "    
-            <a href='$base/file1' class=''><div class='row padding-vertical-1'>   
+            <a href='$base/adminhome/manageboardingOwner' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Boarding Owner</span> 
             </div></a> 

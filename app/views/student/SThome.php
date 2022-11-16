@@ -49,21 +49,18 @@ if (!isset($_POST['btn'])) {
 
 
 
-  <div class=" margin-left-5 padding-left-5 full-height">
-    <div class=" ">
+  <main class=" full-width full-height overflow-hidden ">
+    <div class=" row sidebar-offset full-height ">
       <div class=" margin-left-5 full-height">
         <div>
 
-
           <?php
-
-
-
-          //if (isset($_SESSION["username"])) { 
+          //if (isset($_SESSION["username"])) {
+          $sidebar = new SideBarNav("user", "admin");
           ?>
 
-          <div class="header-1 margin-0 padding-vertical-0 small">
-            <h1>Student Listing</h1>
+          <div class=" margin-top-5">
+            <div class="header-1">Student Listing</div>
           </div>
 
           <div class=" ">
@@ -148,7 +145,7 @@ if (!isset($_POST['btn'])) {
         </div>
       </div>
     </div>
-  </div>
+    </div>
 </body>
 
 </html>

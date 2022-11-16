@@ -56,7 +56,7 @@ class Register extends Controller
     public function boardingownerSignup()
     {
         if (isset($_POST['submit'])) {
-            session_start();
+            //session_start();
             $username = $_POST['username'];
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
@@ -65,7 +65,7 @@ class Register extends Controller
             $password = $_POST['password'];
             $gender = $_POST['gender'];
             $DOB = $_POST['DOB'];
-            $city = $_POST['city'];
+            $address = $_POST['address'];
             $contactNo = $_POST['contactNo'];
 
             if ($_POST["password"] !== $_POST["ComPassword"]) {
@@ -76,11 +76,14 @@ class Register extends Controller
                     die("Date Of Birth is a future date");
                 } else {
 
-
                     $passwordHash = password_hash($_POST["password"],PASSWORD_DEFAULT);
-                    $count = $this->model('insertModel')->check_boardingOwner($username, $passwordHash);
+                    //$res = $this->model('insertModel')->check_boardingOwner($username, $passwordHash);
+
+                    //in here have to check in user table in db not bo table
+                    $count = $this->model('insertModel')->check_boardingOwner($username, $passwordHash); 
+                    //if ($res->num_rows > 0) {
                     if ($count->num_rows > 0) {
-                        echo 'This User Already Exists';
+                        echo 'This User Already Exists'; //have to look in users table in db
                         echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
                     } else {
                         $data = array(
@@ -95,6 +98,13 @@ class Register extends Controller
                             'address' => $_POST['address'],
                             'contactNo' => $_POST['contactNo']
                         );
+                        $userData = array(
+                            'username' => $username, 
+                            'passwordHash' => $passwordHash,
+                            'role' => "boardingowner"
+                        );
+
+                        $this->model('insertModel')->userInsert($userData);
 
                         $this->model('insertModel')->boardingOwnerInsert($data);
                         echo ' <br><a href="../adminhome/manageboardingOwner">View Records</a>  <br>';

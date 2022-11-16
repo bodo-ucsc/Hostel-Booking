@@ -41,12 +41,12 @@ class loginModel extends Model
         return $result;
     }
 
-    public function adminLogin($username, $password)
+    public function adminLogin($username,$password)
     {
-        $result = $this->get('admin', "username = '$username' AND password = '$password'");
+        $result = $this->get('admin', "username = '$username'");
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            if ( $password == $row['password']) {
+            if(password_verify($password, $row["password"])){
                 return $this->get('admin', "username = '$username' ");
             } else {
                return null;

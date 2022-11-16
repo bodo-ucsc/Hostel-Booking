@@ -40,6 +40,7 @@ class insertModel extends Model
 
     public function check_boardingOwner($username,$password)
     {
+        //$result = $this->get('user', "username = '$username' AND passwordHash = '$password'");
         $result = $this->get('boardingowner', "username = '$username' AND password = '$password'");
         return $result;
     }
@@ -49,6 +50,10 @@ class insertModel extends Model
         $this->insert('boardingowner', $data);
     }
 
+    public function userInsert($data)
+    {
+        $this->insert('user', $data);
+    }
     // public function insert_user($username, $password)
     // {
     //     $result = $this->insert('tmpbdowner', "$username,$password");

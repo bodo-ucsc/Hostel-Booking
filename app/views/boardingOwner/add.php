@@ -24,9 +24,11 @@
     </div>
     <main class="">
         <div>
-            <div class="  center header-2 small margin-top-5 padding-vertical-5">
-                <h1>Add Boarding Owner</h1></br></br>
-            </div>
+            
+            <div class=" center margin-top-5 padding-vertical-5">
+                <span class=" header-2 ">Add Boarding Owner</span>
+                </div>
+           
             <div class=" margin-left-5">
                 <form action="<?php echo BASEURL ?>/register/boardingownerSignup" method="POST">
 
@@ -54,21 +56,21 @@
                             <input type="date" id="DOB" name="DOB" /><br><br>
                             <label for="address" class="bold black">Address</label>
                             <input type="text" id="address" name="address" />
-                            <label for="contactNo" class="bold black">Contact NO</label><br>
+                            <label for="contactNo" class="bold black">Mobile</label><br>
                             <input type="text" id="contactNo" name="contactNo" />
                         </div>
 
 
                         <div class=" container">
 
-                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Submit" name="submit"><br><br>
+                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Save Changes" name="submit"><br><br>
                         </div>
                     </div>
                 </form>
             </div>
 
             <div class=" justify-content margin-left-5">
-                <button><a href="manageboardingOwner">Back</a></button>
+            <button class=" bg-blue border-rounded-more margin-bottom-3 margin-top-3"><a href="manageboardingOwner" class=" white white-hover">Back</a></button>
             </div>
         </div>
     </main>

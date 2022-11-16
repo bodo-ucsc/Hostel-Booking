@@ -1,6 +1,6 @@
-<?php  
-if(isset($_SESSION['username'])){
-    header('Location: '.BASEURL.'/adminhome');
+<?php
+if (isset($_SESSION['username'])) {
+    header('Location: ' . BASEURL . '/adminhome');
 }
 class SignIn extends Controller
 {
@@ -12,22 +12,22 @@ class SignIn extends Controller
     {
         $this->view('signIn/student');
     }
-//     public function verificationteam( $error= null   )
-//     {
-//      if($code==1){
-//             $code="Incorrect username";
-//         }
-//         else if($code==2){
-//             $code="Incorrect password";
-//         }
-//         else if($code==3){
-//             $code="Unknown Error";
-//         if($error=='error'){
-//             $code="Incorrect username or password";
-//         } 
-//         $this->view('signIn/verificationTeam' , ['error' => $error]);
-//     } 
-// }
+    //     public function verificationteam( $error= null   )
+    //     {
+    //      if($code==1){
+    //             $code="Incorrect username";
+    //         }
+    //         else if($code==2){
+    //             $code="Incorrect password";
+    //         }
+    //         else if($code==3){
+    //             $code="Unknown Error";
+    //         if($error=='error'){
+    //             $code="Incorrect username or password";
+    //         } 
+    //         $this->view('signIn/verificationTeam' , ['error' => $error]);
+    //     } 
+    // }
     public function professional()
     {
         $this->view('signIn/professional');
@@ -39,7 +39,7 @@ class SignIn extends Controller
     public function boardingowner()
     {
         $this->view('signIn/boardingowner');
-    } 
+    }
 
     public function adminLogin()
     {
@@ -50,20 +50,21 @@ class SignIn extends Controller
         //echo $password;
 
         $result = $this->model('loginModel')->adminLogin($username, $password);
-
+    
         if ($result != null) {
+            session_destroy();
             session_start();
             $row = $result->fetch_assoc();
-            $_SESSION['username'] = $row['username']; 
-            $_SESSION['role'] = 'admin'; 
+
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role'] = 'admin';
             echo "success";
 
-            header('Location: ' . BASEURL. '/adminhome');
+            header('Location: ' . BASEURL . '/adminhome');
         } else {
-            
+
             echo "Invalid login";
             echo ' <br><a href="admin">Sign In Again</a>  <br>';
-            
         }
     }
 
@@ -80,14 +81,12 @@ class SignIn extends Controller
             session_destroy();
             session_start();
             $row = $result->fetch_assoc();
-            $_SESSION['username'] = $row['username']; 
-            $_SESSION['role'] = 'student'; 
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role'] = 'student';
             echo "success";
             header('Location: ../home');
-        } else { 
+        } else {
             header('Location: ./verificationteam/error');
- 
         }
     }
-
-}  
+}
