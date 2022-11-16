@@ -27,28 +27,12 @@ class Register extends Controller
         $this->view('register/boardingowner');
     } 
 
-    public function verificationTeamLogin()
+    public function verificationTeamSignUp()
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        echo $username;
-        echo $password;
-
-        $result = $this->model('loginModel')->verificationTeamLogin($username, $password);
-
-        if ($result != null) {
-            session_start();
-            $row = $result->fetch_assoc();
-            $_SESSION['username'] = $row['username']; 
-            $_SESSION['role'] = 'student'; 
-            echo "success";
-
-            header('Location: ' . BASEURL. '/welcome');
-        } else {
-            // $this->view('register/student', ['error' => 'Invalid username or password']);
-            echo "fail";
-        }
+        $this->model('registerModel')->verificationTeamRegister($username, $password);
     }
 
 }  

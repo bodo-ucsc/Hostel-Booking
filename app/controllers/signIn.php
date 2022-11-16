@@ -13,18 +13,12 @@ class SignIn extends Controller
     {
         $this->view('signIn/student');
     }
-    public function verificationteam( $error= null , $code=null )
+    public function verificationteam( $error= null   )
     {
-        if($code==1){
-            $code="Incorrect username";
-        }
-        else if($code==2){
-            $code="Incorrect password";
-        }
-        else if($code==3){
-            $code="Unknown Error";
+        if($error=='error'){
+            $code="Incorrect username or password";
         } 
-        $this->view('signIn/verificationTeam' , ['error' => $error,'code' => $code]);
+        $this->view('signIn/verificationTeam' , ['error' => $error]);
     } 
     public function professional()
     {
@@ -49,13 +43,8 @@ class SignIn extends Controller
         echo $password;
 
         $result = $this->model('loginModel')->verificationTeamLogin($username, $password);
-        if($result == "iu"){
-            header('Location: ./verificationteam/error/1');
-        }
-        else if($result == "ip"){
-            header('Location: ./verificationteam/error/2');
-        } 
-        else if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) {
+            session_destroy();
             session_start();
             $row = $result->fetch_assoc();
             $_SESSION['username'] = $row['username']; 
@@ -64,7 +53,7 @@ class SignIn extends Controller
             header('Location: ../home');
         } else { 
 
-            header('Location: ./verificationteam/error/3');
+            header('Location: ./verificationteam/error');
  
         }
     }

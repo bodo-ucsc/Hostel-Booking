@@ -22,10 +22,25 @@
     include_once($header);
     ?>
 
+<<<<<<< Updated upstream
     <main>
         <div class="container padding-top-5">
             <div class="padding-top-5">
                 Hello
+=======
+    <main class=" home full-width full-height overflow-hidden ">
+        <div class="row margin-left-5 full-height">
+            <div class=" col-large-7 fill-container padding-left-5  ">
+                <div class=" fill-container cover-text">Boarding?</div>
+                <div class="margin-left-3">
+                    <?php
+                        $search = new Search();
+                        $filter = new Filter();
+                    ?>
+                </div>
+            </div>
+            <div class="col-1"></div>
+>>>>>>> Stashed changes
 
                 <?php
 

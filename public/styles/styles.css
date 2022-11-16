@@ -84,38 +84,47 @@ body {
 
 /* Color hover */
 .white-hover {
+  cursor: pointer;
   color: #fff;
 }
 
 .black-hover {
+  cursor: pointer;
   color: #000;
 }
 
 .blue-hover {
+  cursor: pointer;
   color: #006DFF;
 }
 
 .neutral-hover {
+  cursor: pointer;
   color: #D3EAE8;
 }
 
 .accent-hover {
+  cursor: pointer;
   color: #288684;
 }
 
 .light-hover {
+  cursor: pointer;
   color: #F8F8FF;
 }
 
 .grey-hover {
+  cursor: pointer;
   color: #788292;
 }
 
 .light-grey-hover {
+  cursor: pointer;
   color: #EAEAEA;
 }
 
 .red-hover {
+  cursor: pointer;
   color: #C83A3A;
 }
 
@@ -152,7 +161,7 @@ body {
 }
 
 .red-hover:hover {
-  color: #d55151;
+  color: #702424;
 }
 
 
@@ -198,38 +207,47 @@ body {
 
 /* Background Color hover */
 .bg-white-hover {
+  cursor: pointer;
   background-color: #fff;
 }
 
 .bg-black-hover {
+  cursor: pointer;
   background-color: #000;
 }
 
 .bg-blue-hover {
+  cursor: pointer;
   background-color: #006DFF;
 }
 
 .bg-neutral-hover {
+  cursor: pointer;
   background-color: #D3EAE8;
 }
 
 .bg-accent-hover {
+  cursor: pointer;
   background-color: #288684;
 }
 
 .bg-light-hover {
+  cursor: pointer;
   background-color: #F8F8FF;
 }
 
 .bg-grey-hover {
+  cursor: pointer;
   background-color: #788292;
 }
 
 .bg-light-grey-hover {
+  cursor: pointer;
   background-color: #EAEAEA;
 }
 
 .bg-red-hover {
+  cursor: pointer;
   background-color: #C83A3A;
 }
 
@@ -385,7 +403,10 @@ button.padded {
 }
 
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 /* Form */
 input[type=text],
 input[type=password] {
@@ -401,6 +422,40 @@ input[type=password] {
 }
 
 
+<<<<<<< Updated upstream
+=======
+input[type=button].fill-container,
+input[type=submit].fill-container,
+input[type=text].fill-container,
+input[type=password].fill-container,
+button.fill-container {
+
+  width: 100%;
+  height: 100%;
+}
+
+/* components */
+
+.row.searchbar {
+  border: 2px solid #EAEAEA;
+  background: #F2F2F2;
+  grid-gap: 0px;
+  width: 100%;
+}
+
+.searchbar input {
+  border: none;
+  margin: 0%;
+}
+
+.filter{
+  top: 0;
+  right: 0;
+  width: 300px;
+}
+
+
+>>>>>>> Stashed changes
 /* Header */
 
 header {
@@ -460,6 +515,10 @@ header .nav-signup {
   position: relative;
 }
 
+.position-fixed {
+  position: fixed;
+}
+
 .flex {
   display: flex;
   align-items: center;
@@ -478,6 +537,20 @@ header .nav-signup {
 .center {
   text-align: center;
 }
+<<<<<<< Updated upstream
+=======
+
+.left {
+
+  text-align: left;
+}
+
+.left {
+ 
+  text-align: right;
+}
+
+>>>>>>> Stashed changes
 /* Grid container */
 .container {
   margin-left: auto;

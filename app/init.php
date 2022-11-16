@@ -4,4 +4,10 @@ require_once 'core/App.php';
 require_once 'core/Controller.php';
 require_once 'core/Database.php';
 require_once 'core/Model.php';
+<<<<<<< Updated upstream
+=======
+require_once '../public/components/navigation.php'; 
+require_once '../public/components/search.php'; 
+require_once '../public/components/filter.php'; 
+>>>>>>> Stashed changes
 ?>
