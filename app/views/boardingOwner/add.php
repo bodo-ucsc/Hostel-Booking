@@ -52,13 +52,8 @@
                             <input type="text" id="gender" name="gender" />
                             <label for="DOB" class="bold black">DOB</label><br>
                             <input type="date" id="DOB" name="DOB" /><br><br>
-                            <label class=" bold black">Address</label><br>
-                            <label for="postcode" class="bold black">Postcode</label>
-                            <input type="text" id="postcode" name="postcode" />
-                            <label for="street" class="bold black">Street</label>
-                            <input type="text" id="street" name="street" />
-                            <label for="city" class="bold black">City</label>
-                            <input type="text" id="city" name="city" />
+                            <label for="address" class="bold black">Address</label>
+                            <input type="text" id="address" name="address" />
                             <label for="contactNo" class="bold black">Contact NO</label><br>
                             <input type="text" id="contactNo" name="contactNo" />
                         </div>

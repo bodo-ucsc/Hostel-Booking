@@ -34,6 +34,7 @@ if (!isset($_POST['btn'])) {
     $header =   "components/navigation/guest.php";
     include_once($header);
     ?>
+
   </div>
   <?php if (isset($_SESSION["username"])) { ?>
     <div class=" margin-top-5  margin-top-4 padding-top-5 position-absolute">
@@ -47,14 +48,14 @@ if (!isset($_POST['btn'])) {
         </ul>
       </div>
     </div>
-
+<main class=" padding-top-5">
     <div class=" margin-left-5 padding-left-5 full-height">
-      <div class=" ">
-        <div class=" margin-left-5 full-height">
+      <div class="  margin-top-5">
+        <div class=" margin-left-5 full-height margin-top-5 ">
           <div>
-
-            <div class=" margin-left-3 header-1  margin-top-5 padding-top-5 small">
-              <h1>Boarding Owner Listing</h1>
+          <!-- margin-left-3 header-1  margin-top-5 padding-top-5 small -->
+            <div >
+              <span class=" header-1 ">Boarding Owner Listing</span>
             </div>
             <div class=" margin-left-3">
               </br></br>
@@ -72,16 +73,16 @@ if (!isset($_POST['btn'])) {
                   <table border="1" cellspacing="0" cellpadding="3">
                     <tr>
                       <th>User Name</th>
-                      <th>Password</th>
+                      <!-- <th>Password</th> -->
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>NIC</th>
                       <th>Email</th>
                       <th>Gender</th>
-                      <th>DOB</th>
-                      <th>PostCode</th>
-                      <th>Street</th>
-                      <th>City</th>
+                      <th>Date Of Birth</th>
+                      <!-- <th>PostCode</th>
+                      <th>Street</th> -->
+                      <th>Address</th>
                       <th>ContactNo</th>
                       <th>Action</th>
                     </tr>
@@ -92,16 +93,16 @@ if (!isset($_POST['btn'])) {
                     ?>
                       <tr>
                         <td><?php echo $row['username']; ?></td>
-                        <td><?php echo $row['password']; ?></td>
+                        <!-- <td><?php echo $row['password']; ?></td> -->
                         <td><?php echo $row['first_name']; ?></td>
                         <td><?php echo $row['last_name']; ?></td>
                         <td><?php echo $row['nic']; ?></td>
                         <td><?php echo $row['email']; ?></td>
                         <td><?php echo $row['gender']; ?></td>
                         <td><?php echo $row['DOB']; ?></td>
-                        <td><?php echo $row['postcode']; ?></td>
-                        <td><?php echo $row['street']; ?></td>
-                        <td><?php echo $row['city']; ?></td>
+                        <!-- <td><?php echo $row['postcode']; ?></td>
+                        <td><?php echo $row['street']; ?></td> -->
+                        <td><?php echo $row['address']; ?></td>
                         <td><?php echo $row['contactNo']; ?></td>
                         <td><button><a href="update.php?id=<?php echo $qq['id']; ?>" class="card-link">Edit</a></button>
                           <button><a href="delete.php?id=<?php echo $qq['id']; ?>" class="card-link">Delete</a></button>
@@ -146,6 +147,7 @@ if (!isset($_POST['btn'])) {
         </div>
       </div>
     </div>
+    </main>
 </body>
 
 </html>

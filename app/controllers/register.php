@@ -58,14 +58,12 @@ class Register extends Controller
             session_start();
             $username = $_POST['username'];
             $first_name = $_POST['first_name'];
-            $lat_name = $_POST['last_name'];
+            $last_name = $_POST['last_name'];
             $nic = $_POST['nic'];
             $email = $_POST['email'];
             $password = $_POST['password'];
             $gender = $_POST['gender'];
             $DOB = $_POST['DOB'];
-            $postcode = $_POST['postcode'];
-            $street = $_POST['street'];
             $city = $_POST['city'];
             $contactNo = $_POST['contactNo'];
 
@@ -77,7 +75,9 @@ class Register extends Controller
                     die("Date Of Birth is a future date");
                 } else {
 
-                    $count = $this->model('insertModel')->check_boardingOwner($username, $password);
+
+                    $passwordHash = password_hash($_POST["password"],PASSWORD_DEFAULT);
+                    $count = $this->model('insertModel')->check_boardingOwner($username, $passwordHash);
                     if ($count->num_rows > 0) {
                         echo 'This User Already Exists';
                         echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
@@ -88,12 +88,10 @@ class Register extends Controller
                             'last_name' => $_POST['last_name'],
                             'nic' => $_POST['nic'],
                             'email' => $_POST['email'],
-                            'password' => $_POST['password'],
+                            'password' => $passwordHash,
                             'gender' => $_POST['gender'],
                             'DOB' => $_POST['DOB'],
-                            'postcode' => $_POST['postcode'],
-                            'street' => $_POST['street'],
-                            'city' => $_POST['city'],
+                            'address' => $_POST['address'],
                             'contactNo' => $_POST['contactNo']
                         );
 
@@ -108,7 +106,22 @@ class Register extends Controller
         }
     }
 }
-        // if (isset($_POST['submit'])) {
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if (isset($_POST['submit'])) {
         // session_start();
         //     $username = $_POST['username'];
         //     $first_name = $_POST['first_name'];
@@ -120,7 +133,7 @@ class Register extends Controller
         //     $DOB = $_POST['DOB'];
         //     $postcode = $_POST['postcode'];
         //     $street = $_POST['street'];
-        //     $city = $_POST['city'];
+        //     $address = $_POST['address'];
         //     $contactNo = $_POST['contactNo'];
 
         //     if ($_POST["password"] !== $_POST["ComPassword"]) {
