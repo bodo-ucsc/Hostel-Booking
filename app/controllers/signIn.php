@@ -1,5 +1,4 @@
-<?php 
-session_start();
+<?php  
 if(isset($_SESSION['username'])){
     header('Location: '.BASEURL.'/home');
 } 
@@ -52,7 +51,6 @@ class SignIn extends Controller
             echo "success";
             header('Location: ../home');
         } else { 
-
             header('Location: ./verificationteam/error');
  
         }

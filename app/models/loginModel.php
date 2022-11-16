@@ -2,6 +2,7 @@
 
 class loginModel extends Model
 {
+    protected $result;
 
     public function __construct()
     {
@@ -18,9 +19,7 @@ class loginModel extends Model
             } else {
                 return null;
             }
-        } else {
-            return "incorrect";
-        }
+        }  
     }
 
     public function verificationTeamLogin($username, $password)

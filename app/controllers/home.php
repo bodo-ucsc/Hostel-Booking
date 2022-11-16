@@ -7,6 +7,11 @@ class Home extends Controller
         $this->view('home/index');
     }  
 
+    public function text() 
+    {
+        $this->view('home/text');
+    }  
+
     public function signout()
     {
         session_start();

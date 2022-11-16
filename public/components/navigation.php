@@ -14,28 +14,21 @@ class Navigation
                             <div class=' col-3 nav-logo'>
                                 <img src='$base/public/images/logo.svg' alt='logo'>
                             </div>
-                            <nav class='col-6  nav-link flex fill-container header-nb'>";
+                            <nav class='col-6  nav-link  fill-container header-nb'>";
         if ($active == 'home') {
-            echo "          
-                                <a class='padding-3 active' href='$base'>Home</a>
-                                <a class='padding-3' href='feed.html'>Feed</a>
-                                <a class='padding-3' href='listing.html'>Listing</a>";
-        } else if ($active == 'feed') {
-            echo "          
-                                <a class='padding-3' href='$base'>Home</a>
-                                <a class='padding-3 active' href='feed.html'>Feed</a>
-                                <a class='padding-3' href='listing.html'>Listing</a>";
-        } else if ($active == 'listing') {
-            echo "          
-                                <a class='padding-3' href='$base'>Home</a>
-                                <a class='padding-3' href='feed.html'>Feed</a>
-                                <a class='padding-3 active' href='listing.html'>Listing</a>";
-        } else {
-            echo "          
-                                <a class='padding-3' href='$base'>Home</a>
-                                <a class='padding-3' href='feed.html'>Feed</a>
-                                <a class='padding-3' href='listing.html'>Listing</a>";
-        }
+            echo "              <a class='padding-3 active' href='$base'>Home</a>";
+        }   else {
+            echo "              <a class='padding-3' href='$base'>Home</a>"; }
+        if ($active == 'feed') {
+            echo "              <a class='padding-3 active' href='$base/feed'>Feed</a>";
+        }   else {
+            echo "              <a class='padding-3' href='$base/feed'>Feed</a>"; }
+        if ($active == 'listing') {
+            echo "              <a class='padding-3 active' href='$base/listing'>Listing</a>";
+        }   else {
+            echo "              <a class='padding-3' href='$base/listing'>Listing</a>"; }
+            
+        
         echo "              </nav>";
 
         if (isset($_SESSION['username'])) {
