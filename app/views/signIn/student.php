@@ -17,7 +17,7 @@
 
 <body>
 
-    <?php
+    <?php 
         $header = new Navigation();
     ?>
 
