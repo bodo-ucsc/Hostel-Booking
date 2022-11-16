@@ -2,6 +2,7 @@
 
 class loginModel extends Model
 {
+    protected $result;
 
     public function __construct()
     {
@@ -18,9 +19,7 @@ class loginModel extends Model
             } else {
                 return null;
             }
-        } else {
-            return "incorrect";
-        }
+        }  
     }
 
     public function verificationTeamLogin($username, $password)
@@ -28,13 +27,11 @@ class loginModel extends Model
         $result = $this->get('verificationTeamLogin', "username = '$username' ");
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            if ( $password == $row['password']) {
+            if (password_verify($password, $row['password'])) {
                 return $this->get('verificationTeamLogin', "username = '$username' ");
             } else {
-                return "ip";
+                return null;
             }
-        } else {
-            return "iu";
         }
     }
 

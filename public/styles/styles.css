@@ -13,7 +13,17 @@ body {
   overflow-x: hidden;
 }
 
+.home{
+  background: url('../images/home.svg');
+  background-repeat: no-repeat; 
+  background-size: auto 70%;
+  background-position: bottom right;
+}
 /* Font styles */
+
+.cover-text {
+  font-size: 128px;
+}
 
 .header-1 {
   font-size: 34px;
@@ -161,6 +171,10 @@ body {
 
 .bg-white {
   background-color: #fff;
+}
+
+.bg-transparent {
+  background-color: transparent;
 }
 
 .bg-black {
@@ -349,19 +363,23 @@ a:hover {
   color: #006DFF;
 }
 
-a.inverse {
+a.inverse,
+a.active {
   text-decoration: none;
   color: #006DFF;
 }
 
 a.inverse:hover {
   text-decoration: none;
-  color: #788292;
+  color: #416fb7;
 }
 
 input[type=button],
 input[type=submit],
 button {
+  width: -moz-fit-content;
+  height: -moz-fit-content;
+
   width: fit-content;
   height: fit-content;
   padding: 10px;
@@ -371,23 +389,8 @@ button {
   cursor: pointer;
   box-sizing: border-box;
 }
- 
-input[type=button].fill-container,
-input[type=submit].fill-container, 
-button.fill-container {
-  width: 100%;
-  height: 100%;
-}
 
-input[type=button].padded, 
-input[type=submit].padded,
-button.padded { 
-  padding: 15px;
-}
-
-
-
-/* Form */
+/* Form and Inputs */
 input[type=text],
 input[type=password] {
   width: 100%;
@@ -399,6 +402,50 @@ input[type=password] {
   border: 2px solid #EAEAEA;
   background: #F2F2F2;
   box-sizing: border-box;
+}
+
+
+input[type=button].fill-container,
+input[type=submit].fill-container,
+input[type=text].fill-container,
+input[type=password].fill-container,
+button.fill-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* components */
+
+.sidebar{
+  width: 300px;
+  top:0
+}
+
+.sidebar-offset{
+  padding-left: 320px;
+}
+
+.sidebar.large{
+  width:325px;
+}
+
+.sidebar.left{
+  left:0;
+}
+.sidebar.right{
+  right:0;
+}
+
+.row.searchbar {
+  border: 2px solid #EAEAEA;
+  background: #F2F2F2;
+  grid-gap: 0px;
+  width: 100%;
+}
+
+.searchbar input {
+  border: none;
+  margin: 0%;
 }
 
 
@@ -433,6 +480,9 @@ header .nav-signup {
   float: right;
 }
 
+.dp {
+  width: 40px;
+}
 
 
 /* Responsive Sizing */
@@ -446,7 +496,18 @@ header .nav-signup {
 
 .fill-container {
   width: 100%;
+}
 
+.fill-vertical {
+  height: 100%;
+}
+
+.height-90 {
+  height: 90%;
+}
+
+.width-90 {
+  width: 90%;
 }
 
 .overflow-hidden {
@@ -461,11 +522,104 @@ header .nav-signup {
   position: relative;
 }
 
+.position-fixed {
+  position: fixed;
+}
+
 .flex {
   display: flex;
   align-items: center;
   justify-items: center;
+  justify-content: center;
 }
+ 
+
+.right-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  right: 0;
+  border-radius: 15px;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.dropdown-button {
+  text-align: right;
+  min-width: 120px;
+}
+
+
+.dropdown:hover .dropdown-button {
+  border-radius: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+.left-flex {
+  display: flex;
+  direction: rtl; 
+  justify-content: flex-end;
+}
+
+.right-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  right: 0;
+  border-radius: 15px;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.dropdown-button {
+  text-align: right;
+  min-width: 120px;
+}
+
+
+.dropdown:hover .dropdown-button {
+  border-radius: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 
 /* css grid system */
 
@@ -475,9 +629,14 @@ header .nav-signup {
   align-content: center;
   justify-content: center;
 }
- 
+
+
 .center {
   text-align: center;
+}
+
+.left {
+  text-align: left;
 }
 
 /* Grid container */

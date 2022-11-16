@@ -27,7 +27,7 @@ class Register extends Controller
         $this->view('register/boardingowner');
     }
 
-    public function verificationTeamLogin()
+    public function verificationTeamSignUp()
     {
 
 
@@ -51,6 +51,7 @@ class Register extends Controller
             // $this->view('register/student', ['error' => 'Invalid username or password']);
             echo "fail";
         }
+
     }
     public function boardingownerSignup()
     {

@@ -19,43 +19,22 @@
 
     <?php
     $header = new Navigation("home");
+    $sidebar = new SideBarNav("user","admin"); //pass the parameter to set active
+                  
     ?>
 
-    <main>
-        <div class="container padding-top-5">
-            <div class="padding-top-5">
-                Hello
-
-                <?php
-
-                session_start();
-
-                if (isset($_SESSION['username'])) {
-                    echo $_SESSION['username'];
-                    echo ' <br><a href="' . BASEURL . '/home/signout">Sign Out</a>  <br>';
-                   
-                } else {
-                    echo '<br>You are not signed in';
-                    echo '<br><a href="<?php echo BASEURL ?>/signin/admin">click to sign in</a></br>';
-                }
-
-                ?>
     <main class=" home full-width full-height overflow-hidden ">
-        <div class="row margin-left-5 full-height">
-            <div class=" col-large-7 fill-container padding-left-5  ">
+        <div class="row sidebar-offset full-height">
+            <div class=" col-large-10 fill-container padding-left-5  ">
                 <div class=" fill-container cover-text">Boarding?</div>
                 <div class="margin-left-3">
                     <?php
-                    $search = new Search();
-                    $filter = new Filter();
-                    $sidebar = new SideBarNav("user","admin"); //pass the parameter to set active
+                        $search = new Search();
                     ?>
                 </div>
             </div>
-            <div class="col-1"></div>
-
+            <div class="col-12 border-1 border-accent fill-container flex">Hi</div>
         </div>
-
 
     </main>
 

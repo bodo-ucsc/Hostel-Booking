@@ -18,22 +18,26 @@
 <body>
 
     <?php
-    $header =   "components/navigation/guest.php";
-    include_once($header);
+        $header = new Navigation();
     ?>
     <main class=" full-width overflow-hidden position-absolute">
         <div class="row full-height">
             <div class="col-5 bg-white flex full-height">
                 <div>
-                    <h2 class="header-2">Verification Team Sign In</h2> 
-                    <form action="verificationTeamLogin" method="post"> 
+ 
+                    <h2 class="header-2">Verification Team Sign Up</h2>
+                    <form action="verificationTeamSignUp" method="post">
+ 
                         <label for="username" class="bold black">Username</label><br>
-                        <input type="text" id="username" name="username" placeholder="Enter Username"><br>
+                        <input type="text" id="username" name="username" placeholder="Enter Username" required><br>
                         <label for="password" class="bold black">Password</label><br>
-                        <input type="password" id="password" name="password" placeholder="Enter Password">
+                        <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                        <label for="repassword" class="bold black">Re Type Password</label><br>
+                        <input type="password" id="repassword" name="repassword" placeholder="Re Type Password" required>
+                        <span id='message'></span>
                         <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded "
-                            type="submit" value="Sign In"><br>
-                        <p>Don't have an account? <a class="inverse" href="#">Register</a> </p>
+                            type="submit" value="Sign Up"><br>
+                        <p>Have an account? <a class="inverse" href="signin">Sign In</a> </p>
                     </form>
                 </div>
             </div>
@@ -46,6 +50,22 @@
 
         </div>
     </main>
+
+    <script>
+        var password = document.getElementById("password")
+            , confirm_password = document.getElementById("repassword");
+
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
 
 </body>
 
