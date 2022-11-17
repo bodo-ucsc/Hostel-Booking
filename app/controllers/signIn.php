@@ -3,7 +3,7 @@ if (isset($_SESSION['username'])) {
     header('Location: ' . BASEURL . '/adminhome');
 }
 class SignIn extends Controller
-{
+{ 
     public function index()
     {
         $this->view('signIn/student');

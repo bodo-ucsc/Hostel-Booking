@@ -29,8 +29,6 @@ class Register extends Controller
 
     public function verificationTeamSignUp()
     {
-
-
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -56,7 +54,7 @@ class Register extends Controller
     public function boardingownerSignup()
     {
         if (isset($_POST['submit'])) {
-            //session_start();
+            
             $username = $_POST['username'];
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
@@ -77,10 +75,10 @@ class Register extends Controller
                 } else {
 
                     $passwordHash = password_hash($_POST["password"],PASSWORD_DEFAULT);
-                    //$res = $this->model('insertModel')->check_boardingOwner($username, $passwordHash);
+                    //$res = $this->model('registerModel')->check_boardingOwner($username, $passwordHash);
 
                     //in here have to check in user table in db not bo table
-                    $count = $this->model('insertModel')->check_boardingOwner($username, $passwordHash); 
+                    $count = $this->model('registerModel')->check_boardingOwner($username, $passwordHash); 
                     //if ($res->num_rows > 0) {
                     if ($count->num_rows > 0) {
                         echo 'This User Already Exists'; //have to look in users table in db
@@ -104,15 +102,19 @@ class Register extends Controller
                             'role' => "boardingowner"
                         );
 
-                        $this->model('insertModel')->userInsert($userData);
+                        $this->model('registerModel')->userInsert($userData);
 
-                        $this->model('insertModel')->boardingOwnerInsert($data);
-                        echo ' <br><a href="../adminhome/manageboardingOwner">View Records</a>  <br>';
+                        $this->model('registerModel')->boardingOwnerInsert($data);
+                        echo "Data added successfully";?>
+                        <br>
+                        <?php
+                        echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';
+                        //echo "header('Location: ' . BASEURL . '/adminhome')";
                     }
                 }
             }
         } else {
-            echo "not submitted";
+            echo "Not Submitted";
             echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
         }
     }
@@ -156,7 +158,7 @@ class Register extends Controller
         //         } else {
 
 
-        //     $result = $this->model('insertModel')->check_boardingOwner($username, $password);
+        //     $result = $this->model('registerModel')->check_boardingOwner($username, $password);
         // if ($count->num_rows > 0) {
         //     echo 'This User Already Exists';
         //     echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
@@ -179,7 +181,7 @@ class Register extends Controller
         // 'contactNo' => $_POST['contactNo']
         //      );
 
-        // $this->model('insertModel')->boardingOwnerInsert($data);
+        // $this->model('registerModel')->boardingOwnerInsert($data);
         // echo ' <br><a href="../adminhome/manageboardingOwner">View Records</a>  <br>';
 
         //        }   }
@@ -190,7 +192,7 @@ class Register extends Controller
 
 
 
-        // $count = $this->model('insertModel')->check_user($nic, $email);
+        // $count = $this->model('registerModel')->check_user($nic, $email);
         // if ($count > 0) {
         //     echo 'This User Already Exists';
         // } else {
@@ -209,7 +211,7 @@ class Register extends Controller
         //         'contactNo' => $_POST['contactNo']
 
         //     );
-        // $this->model('insertModel')->boardingOwnerInsert($data);
+        // $this->model('registerModel')->boardingOwnerInsert($data);
         // echo ' <br><a href="../adminhome/manageboardingOwner">View Records</a>  <br>';     
         // }
         //header('location:index');

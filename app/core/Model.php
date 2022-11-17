@@ -1,7 +1,5 @@
 <?php
 
- 
-
 class Model extends Database
 {
     public function __construct()
@@ -33,7 +31,6 @@ class Model extends Database
         }
         $sql = substr($sql, 0, -2);
         $result = $this->runQuery($sql);
-        echo "data added successfully";
         return $result;
     }
 

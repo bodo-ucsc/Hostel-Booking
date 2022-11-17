@@ -18,9 +18,7 @@
 <body>
 
     <?php
-    // $header =   "components/navigation/guest.php";
-    //include_once($header);
-    $header =   new Navigation();
+        $header =   new Navigation();
     ?>
     <main class=" full-width overflow-hidden position-absolute">
         <div class="row">

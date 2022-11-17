@@ -7,24 +7,40 @@ class Adminhome extends Controller
         $this->view('adminhome');
     }
 
-
-//boarding owner
+    //boarding owner
     public function manageboardingOwner()
     {
-        session_start();
+        //$this->view('boardingOwner/BOhome');
+    }
+
+    // to view list of BO s
+    public function viewboardingOwner()
+    {
+        $data = $this->model('viewModel')->getAllrecords();
+        $this->view('boardingOwner/BOhome', $data);
+    }
+
+    public function deleteboardingOwner($user_id)
+    {
+        $this->model('deleteModel')->deleteboardingOwner($user_id);
         $this->view('boardingOwner/BOhome');
     }
+
+
     public function addBoardingOwner()
     {
         $this->view('boardingOwner/add');
     }
 
+    //add Boarding Owner
     public function boardingownerSignup()
     {
         echo $_POST['username'];
         echo $_POST['password'];
         header('Location: ' . BASEURL . '/register/boardingownerSignup');
     }
+
+
 
     public function processAdd()
     {
@@ -37,17 +53,14 @@ class Adminhome extends Controller
         session_destroy();
         unset($_SESSION['username']);
         header('Location: ' . BASEURL . '/signin/admin');
-        //$this->view('boardingOwner/process-add');
     }
 
 
 
-
     //student 
-
     public function managestudent()
     {
-        session_start();
+
         $this->view('student/SThome');
     }
     public function addStudent()
@@ -64,7 +77,7 @@ class Adminhome extends Controller
         header('Location: ' . BASEURL . '/register/studentSignup');
     }
 
-  
+
 
 
 
@@ -72,7 +85,7 @@ class Adminhome extends Controller
     //professional
     public function manageprofessional()
     {
-        session_start();
+
         $this->view('professional/PFhome');
     }
     public function addProfessional()
@@ -89,6 +102,3 @@ class Adminhome extends Controller
         header('Location: ' . BASEURL . '/register/professionalSignup');
     }
 }
-
-?>
-

@@ -1,15 +1,3 @@
-<?php
-//session_start();
-include("connect.php");
-
-
-if (!isset($_POST['btn'])) {
-} else {
-  $q = "select * from boardingowner";
-  $query = mysqli_query($connection, $q);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,9 +19,7 @@ if (!isset($_POST['btn'])) {
 
   <div class="row">
     <?php
-
     $header =   new Navigation();
-
     ?>
 
   </div>
@@ -46,9 +32,9 @@ if (!isset($_POST['btn'])) {
       <div class="">
         <ul>
           <li><a href="<?php echo BASEURL ?>/adminhome">Admin Home</a></li>
-          <li><a href="<?php echo BASEURL ?>/adminhome/managestudent">Student</a></li>
-          <li><a href="<?php echo BASEURL ?>/adminhome/manageprofessional"">Professional</a></li>
-      <li><a href=" <?php echo BASEURL ?>/adminhome/manageboardingOwner">Boarding Owner</a></li>
+          <li><a href="<?php echo BASEURL ?>/adminhome/viewstudent">Student</a></li>
+          <li><a href="<?php echo BASEURL ?>/adminhome/viewprofessional"">Professional</a></li>
+      <li><a href=" <?php echo BASEURL ?>/adminhome/viewboardingOwner">Boarding Owner</a></li>
           <li><a href="#">Property</a></li>
         </ul>
       </div>
@@ -68,32 +54,25 @@ if (!isset($_POST['btn'])) {
                 $header =   new Search();
                 ?>
               </div> -->
-              
-                <div class='row border-rounded-more margin-top-4'>
-                  <div class='col-small-1 col-1 '>
-                    <i data-feather='search'></i>
-                  </div>
-                  <div class='col-small-5 col-7 fill-container'>
-                    <input class=' header-nb border-none fill-container' type='text' placeholder='Find boarding owners'>
-                  </div>
-                  <div class='col-small-1 col-2 fill-container'>
-                    <button class=' fill-container bg-black-hover white-hover border-rounded-more'>Search</button>
-                  </div>
+
+              <div class='row border-rounded-more margin-top-4'>
+                <div class='col-small-1 col-1 '>
+                  <i data-feather='search'></i>
                 </div>
-             
-
-
+                <div class='col-small-5 col-7 fill-container'>
+                  <input class=' header-nb border-none fill-container' type='text' placeholder='Find boarding owners'>
+                </div>
+                <div class='col-small-1 col-2 fill-container'>
+                  <button class=' fill-container bg-black-hover white-hover border-rounded-more'>Search</button>
+                </div>
+              </div>
 
               <button class=" bg-blue border-rounded-more margin-bottom-3 margin-top-3">
                 <a href="addBoardingOwner" class=" white white-hover">Add Boarding Owners</a></button>
 
               <?php
 
-              //$sql = "SELECT fname,lname,nic,email,gender,password,postcode,street,city,contactNo FROM boardingowner";
-              $sql = "SELECT * FROM boardingowner";
-              $result = $connection->query($sql);
-
-              if ($result->num_rows > 0) {
+              if ($data) {
               ?>
 
                 <div class="bg-white shadow border-rounded padding-1 full-width ">
@@ -112,7 +91,7 @@ if (!isset($_POST['btn'])) {
                       </tr>
                     </div>
                     <?php
-                    while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                    foreach ($data as $row) {
                     ?>
                       <tr>
                         <td><?php echo $row['first_name']; ?></td>
@@ -124,8 +103,8 @@ if (!isset($_POST['btn'])) {
                         <td><?php echo $row['address']; ?></td>
                         <td><?php echo $row['contactNo']; ?></td>
 
-                        <td><button><a href="update.php?id=<?php echo $qq['id']; ?>" class="card-link">Edit</a></button>
-                          <button><a href="delete.php?id=<?php echo $qq['id']; ?>" class="card-link">Delete</a></button>
+                        <td><button><a href= "<?php echo BASEURL ?>/boardingOwner/updateboardingOwner?user_id=<?php echo $row['user_id']; ?>" class="card-link">Edit</a></button>
+                          <button><a href="<?php echo BASEURL ?>/adminhome/deleteboardingOwner?user_id=<?php echo $row['user_id']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
                         </td>
                       </tr>
 
@@ -139,13 +118,11 @@ if (!isset($_POST['btn'])) {
                   </table>
                 </div>
             </div>
-
-            <?php $connection->close(); ?>
           </div>
           <div class="">
             <br />
             <!-- <button><a href="../adminhome">Back</a></button></br>
-            <button><a href="../adminhome/signout">Sign out</a></button> -->
+            <button><a href="../home/signout">Sign out</a></button> -->
           </div>
         </div>
       <?php } else { ?>
