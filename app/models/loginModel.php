@@ -9,46 +9,16 @@ class loginModel extends Model
         parent::__construct();
     }
 
-    public function studentLogin($username, $password)
+    public function login($username, $password, $usertype)
     {
-        $result = $this->get('student', "username = '$username'");
+        $result = $this->get('user', "Username = '$username' AND UserType = '$usertype'");
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            if (password_verify($password, $row['password'])) {
-                return $result;
-            } else {
-                return null;
-            }
-        }  
-    }
-
-    public function verificationTeamLogin($username, $password)
-    {
-        $result = $this->get('verificationTeamLogin', "username = '$username' ");
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            if (password_verify($password, $row['password'])) {
-                return $this->get('verificationTeamLogin', "username = '$username' ");
+            if (password_verify($password, $row['Password'])) {
+                return $this->get('user', "Username = '$username' ");
             } else {
                 return null;
             }
         }
-    }
-
-    public function professionalLogin($username, $password)
-    {
-        $result = $this->get('professional', "username = '$username' AND password = '$password'");
-        return $result;
-    }
-
-    public function adminLogin($username, $password)
-    {
-        $result = $this->get('admin', "username = '$username' AND password = '$password'");
-        return $result;
-    }
-    public function boardingOwnerLogin($username, $password)
-    {
-        $result = $this->get('boardingOwner', "username = '$username' AND password = '$password'");
-        return $result;
     }
 }

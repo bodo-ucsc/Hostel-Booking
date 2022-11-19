@@ -2,9 +2,9 @@
 
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root'); 
-define('DB_NAME', 'test');
-define('DB_PASSWORD', 'root'); 
+define('DB_USER', 'bodo-admin'); 
+define('DB_NAME', 'BODO');
+define('DB_PASSWORD', 'jvatsbodo'); 
 define("BASEURL", "http://localhost/Bodo");
 
 $path = $_SERVER['DOCUMENT_ROOT'];
