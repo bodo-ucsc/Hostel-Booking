@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$header = new HTMLHeader("Login | Admin");
+$nav = new Navigation("home");
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -38,15 +40,23 @@
                                 <label for="password" class="bold black">Password</label><br>
                                 <input type="password" id="password" name="password" placeholder="Enter Password">
                                 <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Sign In"><br>
-
+                                <a class="center" href="#">Forgot Password</a>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
 
-</body>
 
-</html>
+
+    </div>
+</main>
+
+<?php
+if (isset($data['error'])) {
+    $footer = new HTMLFooter($data['error']);
+} else {
+    $footer = new HTMLFooter();
+}
+?>

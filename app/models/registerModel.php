@@ -59,4 +59,21 @@ class insertModel extends Model
     //     $result = $this->insert('tmpbdowner', "$username,$password");
     //     return $result;
     // }
+
+    public function Register($firstname,$lastname,$username,$password,$usertype)
+
+    {
+        //hashing the password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $this->insert('user', ['FirstName' => $firstname,'LastName' => $lastname,'Username' => $username, 'Password' => $password, 'UserType' => $usertype]);
+        //return last id
+        return $this->lastInsertId();
+    } 
+
+    public function addVerificationTeam($id,$mobile,$dob,$email,$gender,$address,$nic){
+        $this->insert('VerificationTeam', ['VerificationTeamId'=> $id, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender]);
+        
+    }
+    
+    
 }
