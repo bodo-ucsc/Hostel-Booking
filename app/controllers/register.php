@@ -53,7 +53,6 @@ class Register extends Controller
             // $this->view('register/student', ['error' => 'Invalid username or password']);
             echo "fail";
         }
-
     }
 }
     
@@ -125,4 +124,4 @@ class Register extends Controller
         }
     }
 }
-}
+

@@ -12,46 +12,19 @@ class SignIn extends Controller
         }
         $this->view('signIn/student', ['error' => $error]);
     }
-    public function student()
-    {
-        $this->view('signIn/student');
-    }
-    //     public function verificationteam( $error= null   )
-    //     {
-    //      if($code==1){
-    //             $code="Incorrect username";
-    //         }
-    //         else if($code==2){
-    //             $code="Incorrect password";
-    //         }
-    //         else if($code==3){
-    //             $code="Unknown Error";
-    //         if($error=='error'){
-    //             $code="Incorrect username or password";
-    //         } 
-    //         $this->view('signIn/verificationTeam' , ['error' => $error]);
-    //     } 
+    // public function admin()
+    // {
+    //     $this->view('signIn/adminLogin');
     // }
-    public function professional()
-    {
-        $this->view('signIn/professional');
-    }
-    public function admin()
-    {
-        $this->view('signIn/admin');
-    }
-    public function boardingowner()
-    {
-        $this->view('signIn/boardingowner');
-    }
+    // public function boardingowner()
+    // {
+    //     $this->view('signIn/boardingowner');
+    // }
 
     public function adminLogin()
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
-
-        //echo $username;
-        //echo $password;
 
         $result = $this->model('loginModel')->adminLogin($username, $password);
     
@@ -88,18 +61,18 @@ class SignIn extends Controller
         $this->view('signIn/verificationTeam', ['error' => $error]);
     
 
-        $result = $this->model('loginModel')->verificationTeamLogin($username, $password);
-        if ($result->num_rows > 0) {
-            session_destroy();
-            session_start();
-            $row = $result->fetch_assoc();
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['role'] = 'student';
-            echo "success";
-            header('Location: ../home');
-        } else {
-            header('Location: ./verificationteam/error');
-        }
+        // $result = $this->model('loginModel')->verificationTeamLogin($username, $password);
+        // if ($result->num_rows > 0) {
+        //     session_destroy();
+        //     session_start();
+        //     $row = $result->fetch_assoc();
+        //     $_SESSION['username'] = $row['username'];
+        //     $_SESSION['role'] = 'student';
+        //     echo "success";
+        //     header('Location: ../home');
+        // } else {
+        //     header('Location: ./verificationteam/error');
+        // }
     }
 
     public function professional($error = null)
@@ -127,20 +100,19 @@ class SignIn extends Controller
     }
 
     // Login Implementation
+    // public function adminLogin()
+    // { 
+    //     if (isset($_POST['username'])) {
 
-    public function adminLogin()
-    { 
-        if (isset($_POST['username'])) {
+    //         $username = $_POST['username'];
+    //         $password = $_POST['password'];
 
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-
-            $this->login($username, $password, 'Admin');
-        }
-        else {
-            header("Location: " . BASEURL . "/signin/admin");
-        }
-    }
+    //         $this->login($username, $password, 'Admin');
+    //     }
+    //     else {
+    //         header("Location: " . BASEURL . "/signin/admin");
+    //     }
+    // }
 
     public function verificationTeamLogin()
     { 
