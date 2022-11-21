@@ -91,7 +91,7 @@
                       </tr>
                     </div>
                     <?php
-                    foreach ($data as $row) {
+                    while($row =$data->fetch_assoc()) {
                     ?>
                       <tr>
                         <td><?php echo $row['first_name']; ?></td>
@@ -103,8 +103,8 @@
                         <td><?php echo $row['address']; ?></td>
                         <td><?php echo $row['contactNo']; ?></td>
 
-                        <td><button><a href= "<?php echo BASEURL ?>/boardingOwner/updateboardingOwner?user_id=<?php echo $row['user_id']; ?>" class="card-link">Edit</a></button>
-                          <button><a href="<?php echo BASEURL ?>/adminhome/deleteboardingOwner?user_id=<?php echo $row['user_id']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
+                        <td><button><a href= "<?php echo BASEURL ?>/adminhome/editboardingOwner/<?php echo $row['user_id']; ?>" class="card-link">Edit</a></button>
+                          <button><a href="<?php echo BASEURL ?>/adminhome/deleteboardingOwner/<?php echo $row['user_id']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
                         </td>
                       </tr>
 

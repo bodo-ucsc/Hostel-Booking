@@ -8,9 +8,36 @@ class Adminhome extends Controller
     }
 
     //boarding owner
-    public function manageboardingOwner()
+    public function editboardingOwner($user_id = null)
     {
+      
+        if (isset($user_id)) {
+    
+            $res= $this->model('viewModel')->viewOnerecord($user_id); 
+            if($res != null){
+                
+                $row =$res->fetch_assoc();
+                $this->view('boardingOwner/update', ['res'=>$row]);
+
+            }
+         
+        } else {
+           
+            echo "NO user";
+        }
         //$this->view('boardingOwner/BOhome');
+    }
+
+    public function updateboardingOwner()
+    {
+        // if we have POST data to create a new Bo
+        if (isset($_POST["submit"])) {
+            //$this->model->updateboardingOwner($_POST["artist"], $_POST["track"],  $_POST["link"], $_POST['song_id']);
+        }
+
+        // where to go after BO has been added
+        //header('location: ' . BASEURL . 'boardingOwner/BOhome');
+        $this->viewboardingOwner();
     }
 
     // to view list of BO s
@@ -20,7 +47,7 @@ class Adminhome extends Controller
         $this->view('boardingOwner/BOhome', $data);
     }
 
-    public function deleteboardingOwner($user_id)
+    public function deleteboardingOwner($user_id) 
     {
         $this->model('deleteModel')->deleteboardingOwner($user_id);
         $this->view('boardingOwner/BOhome');
@@ -39,7 +66,6 @@ class Adminhome extends Controller
         echo $_POST['password'];
         header('Location: ' . BASEURL . '/register/boardingownerSignup');
     }
-
 
 
     public function processAdd()

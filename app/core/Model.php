@@ -21,6 +21,8 @@ class Model extends Database
         }
         $result = $this->runQuery($sql);
         return $result;
+        
+
     }
 
     public function insert($table, $data)

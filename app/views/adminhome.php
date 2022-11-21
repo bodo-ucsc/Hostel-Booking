@@ -42,8 +42,6 @@
             </div>
         </div> -->
 
-
-
         <main class=" full-width full-height overflow-hidden ">
 
             <div class=" row sidebar-offset full-height ">
@@ -62,10 +60,10 @@
 
                         <h2>Hello <?= htmlspecialchars($_SESSION["username"]) ?> </h2>
 
-                        <button><a href="adminhome/viewboardingOwner">Boarding owner Manage</a></button>
+                        <button><a href="<?php echo BASEURL ?>/adminhome/viewboardingOwner">Boarding owner Manage</a></button>
                         <button><a href="#">Property Manage</a></button>
-                        <button><a href="adminhome/viewstudent">Student Manage</a></button>
-                        <button><a href="adminhome/viewprofessional">Professional Manage</a></button>
+                        <button><a href="<?php echo BASEURL ?>/adminhome/viewstudent">Student Manage</a></button>
+                        <button><a href="<?php echo BASEURL ?>/adminhome/viewprofessional">Professional Manage</a></button>
                         <button><a href="#">Verification Team Manage</a></button>
 
                         <!-- <br><br><br>

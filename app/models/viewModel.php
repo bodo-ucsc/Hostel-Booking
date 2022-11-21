@@ -13,11 +13,11 @@ class viewModel extends Model
         return $res;
 	}
 
-    
-	public function viewOnerecord($id)
+	public function viewOnerecord($user_id)
 	{
-		//return $this->db->select("SELECT * FROM `mvc` WHERE id='".$id."' LIMIT 1");
-        return $this->get('boardingowner',"user_id = '$id'");
+	 echo $user_id;
+        $res = $this->get('boardingowner',"user_id = '$user_id'");
+		return $res;
 	}
 
 

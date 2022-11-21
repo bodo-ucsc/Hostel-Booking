@@ -391,7 +391,8 @@ button {
 }
 
 /* Form and Inputs */
-input[type=text],
+input[type=text],input[type=email],
+input[type=date],
 input[type=password] {
   width: 100%;
   height: 40px;
@@ -408,6 +409,8 @@ input[type=password] {
 input[type=button].fill-container,
 input[type=submit].fill-container,
 input[type=text].fill-container,
+input[type=email].fill-container,
+input[type=date].fill-container,
 input[type=password].fill-container,
 button.fill-container {
   width: 100%;

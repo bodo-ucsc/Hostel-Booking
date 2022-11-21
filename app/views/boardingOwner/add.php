@@ -17,63 +17,73 @@
 
 <body>
     <div class="row">
-        <?php
-        
-        $header =   new Navigation();
-        ?>
+        <?php $header =   new Navigation(); ?>
     </div>
-    <main class="">
-        <div>
-            
-            <div class=" center margin-top-5 padding-vertical-5">
-                <span class=" header-2 ">Add Boarding Owner</span>
-                </div>
-           
-            <div class=" margin-left-5">
-                <form action="<?php echo BASEURL ?>/register/boardingownerSignup" method="POST">
+    <?php if (isset($_SESSION["username"])) {
+        $sidebar = new SideBarNav("user", "admin");
+    ?>
+        <main class="  full-width full-height overflow-hidden ">
+            <div class=" row sidebar-offset full-height ">
+                <div class="  margin-top-5">
+                    <div class=" margin-left-4 full-height margin-top-5 ">
 
-                    <div>
-
-                        <div class=" container">
-
-                            <label for="username" class="bold black">UserName</label><br>
-                            <input type="text" id="username" name="username" required />
-                            <label for="first_name" class="bold black">First Name</label><br>
-                            <input type="text" id="first_name" name="first_name" />
-                            <label for="last_name" class="bold black">Last Name</label><br>
-                            <input type="text" id="last_name" name="last_name" />
-                            <label for="nic" class="bold black">NIC</label><br>
-                            <input type="text" id="nic" name="nic" required />
-                            <label for="email" class="bold black">Email</label><br>
-                            <input type="email" id="email" name="email" required /><br>
-                            <label for="password" class="bold black">Password</label><br>
-                            <input class="bold black" type="password" id="password" placeholder="Enter password" name="password" required>
-                            <label for="ComPassword" class="bold black">Confirm Password</label><br>
-                            <input class="bold black" type="password" id="ComPassword" placeholder="Confirm password" name="ComPassword" required>
-                            <label for="gender" class="bold black">Gender</label><br>
-                            <input type="text" id="gender" name="gender" />
-                            <label for="DOB" class="bold black">DOB</label><br>
-                            <input type="date" id="DOB" name="DOB" /><br><br>
-                            <label for="address" class="bold black">Address</label>
-                            <input type="text" id="address" name="address" />
-                            <label for="contactNo" class="bold black">Mobile</label><br>
-                            <input type="text" id="contactNo" name="contactNo" />
+                        <div class=" margin-top-5 padding-vertical-3">
+                            <span class=" header-1 ">Add Boarding Owner</span>
                         </div>
 
+                        <form action="<?php echo BASEURL ?>/register/boardingownerSignup" method="POST">
+                            <div class=" right-flex margin-right-5 padding-right-5">
+                                <input class=" bg-accent-hover white-hover  bold padded border-rounded " type="submit" value="Save Changes" name="submit"><br><br>
+                            </div>
+                            <div class=" container full-width">
+                            <span class=" header-2"> Personal Details</span>
+                                <div class=" row fill-container padding-top-4">
+                                   
+                                    <label for="username" class="bold black">UserName</label>
+                                    <input type="text" id="username" name="username" required />
+                                    <label for="first_name" class="bold black">First Name</label>
+                                    <input type="text" id="first_name" name="first_name" />
+                                    <label for="last_name" class="bold black">Last Name</label>
+                                    <input type="text" id="last_name" name="last_name" />
+                                    <label for="gender" class="bold black">Gender</label>
+                                    <input type="radio" id="male" name="gender" value="male">
+                                    <label for="male">Male</label>
+                                    <input type="radio" id="female" name="gender" value="female">
+                                    <label for="female">Female</label>
+                                </div>
+                                <div class=" row">
+                                    <label for="nic" class="bold black">NIC</label>
+                                    <input type="text" id="nic" name="nic" required />
+                                    <label for="contactNo" class="bold black">Mobile</label>
+                                    <input type="text" id="contactNo" name="contactNo" />
+                                    <label for="DOB" class="bold black">DOB</label>
+                                    <input type="date" id="DOB" name="DOB" />
+                                </div>
+                                <div class=" row">
+                                    <label for="address" class="bold black">Address</label>
+                                    <input type="text" id="address" name="address" />
+                                    <label for="email" class="bold black">Email</label>
+                                    <input type="email" id="email" name="email" required />
 
-                        <div class=" container">
-
-                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Save Changes" name="submit"><br><br>
+                                </div>
+                                <div class=" row">
+                                    <label for="password" class="bold black">Password</label>
+                                    <input class="bold black" type="password" id="password" placeholder="Enter password" name="password" required>
+                                    <label for="ComPassword" class="bold black">Confirm Password</label>
+                                    <input class="bold black" type="password" id="ComPassword" placeholder="Confirm password" name="ComPassword" required>
+                                </div>
+                            </div>
+                        </form>
+                        <div class=" justify-content margin-left-5">
+                            <button class=" bg-blue border-rounded-more margin-bottom-3 margin-top-3"><a href="<?php echo BASEURL ?>/adminhome/viewboardingOwner" class=" white white-hover">Back</a></button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-
-            <div class=" justify-content margin-left-5">
-            <button class=" bg-blue border-rounded-more margin-bottom-3 margin-top-3"><a href="manageboardingOwner" class=" white white-hover">Back</a></button>
-            </div>
-        </div>
-    </main>
+        </main>
+    <?php
+    }
+    ?>
 </body>
 
 </html>
