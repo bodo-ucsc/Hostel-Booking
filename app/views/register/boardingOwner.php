@@ -1,0 +1,118 @@
+<?php
+$header = new HTMLHeader("Register | Boarding Owner");
+$nav = new Navigation("home");
+?>
+<main>
+<div class="row">
+<div class="col-4 fill-container">
+    <img width="300px" height="219px" src="My project.png">
+    <div class="">
+        <button class="">Boarding owner</button><br>
+        <button class="">Professional</button>
+        <button class="">Student</button>
+    </div>
+</div>
+<div class="col-8 margin-5 fill-container">
+    <form action="boardingOwnerSignUp" method="post">
+        <div class="row" style="margin-right: min(0,9999px);">
+            <div class="col-9"><div class="header-1">
+                Create Boarding Owner Account
+            </div>
+            <div class="header-2">Personal details</div><p></p>
+                <div class="row">                   
+                    <div class="col-3">
+                        <label class="big" for="first-name">First Name</label>
+                        <input class="margin-top-2" type="text" name="first-name" id="first-name">                   
+                    </div>
+                    <div class="col-3">                
+                        <label class="big" for="last-name">Last Name</label>
+                        <input class="margin-top-2" type="text" name="last-name" id="last-name">
+                    </div>                    
+                    <div class="col-3" style="display: grid; align-items: baseline;">                        
+                        <label class="big padding-bottom-3" style="margin-top: -1.5em;" for="gender">Gender</label><br>
+                        <div>
+                            <input  type="radio" name="gender" value="Male">
+                            <lable for="Male">Male</lable>  
+                            <input  type="radio" name="gender" value="Female">
+                            <lable for="Female">Female</lable>                      
+                        </div>                                              
+                    </div>                                    
+                </div> 
+            </div>
+            <div class="col-3" style="display: flex; flex-direction: flex-start; margin-left: min(-20vw, -250px)">
+                <div class="col-3 margin-bottom-3" style="background-color:#eaeaea; height: 12em; width: 12em; border-radius: 100%;"></div>
+            </div>
+        </div> 
+        <div class="row">                  
+            <div class="col-3">
+                <label class="big" for="nic-number">NIC Number</label>
+                <input class="margin-top-2" type="text" name="nic-number" id="nic-number">                   
+            </div>
+            <div class="col-3">
+                <label class="big" for="mobile-number">Mobile Number</label>
+                <input class="margin-top-2" type="text" name="mobile-number" id="mobile-number">                   
+            </div>
+            <div class="col-3">
+                <label class="big" for="dob">Date of Birth</label>
+                <input class="margin-top-2" type="date" name="dob" id="dob">                   
+            </div>
+        </div>
+        <div class="row">                  
+            <div class="col-4 fill-container"><div>
+                <label class="big" for="address">Address</label>
+                <input class="margin-top-2" type="text" name="address" id="address"></div>                   
+            </div>
+            <div class="col-6" style="margin-right: 20%;">
+                <label class="big" for="nic-copy">Upload a scanned copy of national ID</label>
+                <div class="row" style="display:flex;">
+                <div class="col-4 bg-light-grey margin-top-2" style="height:40px; width: 100%; margin-top: -0.05em;"></div>
+                    <div class="col-2">
+                    <input type="submit" name="nic-copy" value="Upload File">
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="row">                  
+            <div class="col-3">
+                <label class="big" for="email-address">E-mail Address</label>
+                <input class="margin-top-2" type="text" name="email-address" id="email-address">                   
+            </div>
+            <div class="col-3">
+                <label class="big" for="occupation">Occupation</label>
+                <input class="margin-top-2" type="text" name="occupation" id="occupation">                   
+            </div>
+            <div class="col-3">
+                <label class="big" for="workplace">Work Place</label>
+                <input class="margin-top-2" type="text" name="workplace" id="workplace">                   
+            </div>
+        </div>  
+        <div class="header-2">Login Credentials</div> 
+        <div class="row">                   
+            <div class="col-3">
+                <label class="big" for="username">Username</label>
+                <input class="margin-top-2" type="text" name="username" id="username">                   
+            </div>
+            <div class="col-3">                
+                <label class="big" for="password">Password</label>
+                <input class="margin-top-2" type="password" name="password" id="password">
+            </div>                    
+            <div class="col-3">                
+                <label class="big" for="password-repaet">Re-Type Password</label>
+                <input class="margin-top-2" type="password" name="password-repaet" id="password-repaet">
+            </div>                                       
+        </div>  
+        <div class="row">
+            <div class="col-9">
+                <input type="checkbox" id="agreement" name="agreement" value="True">
+                I agree to all <a>Terms</a> and <a>Privacy Policy</a><br>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-9">
+            <input class="boarding-owner-btn" type="button" value="Create Account"><br>
+        </div>
+        </div>           
+    </form>
+</div>
+</main>

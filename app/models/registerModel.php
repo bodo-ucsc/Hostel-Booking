@@ -23,5 +23,8 @@ class registerModel extends Model
         
     }
     
-    
+    public function addBoardingOwner($id,$mobile,$dob,$email,$gender,$address,$nic,$occupation){
+        $this->insert('BoardingOwner', ['BoardingOwnerId'=> $id, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender, 'Occupation'=>$occupation]);
+        
+    }    
 }
