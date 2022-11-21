@@ -2,7 +2,7 @@
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_NAME', 'bodo');
+define('DB_NAME', 'bodo1');
 define('DB_PASSWORD', '');
 define("BASEURL", "http://localhost/Bodo");
 
