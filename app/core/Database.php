@@ -7,10 +7,14 @@ class Database
 
     public function __construct()
     {
-        $this->db_connect();
+        $this->dbConnect();
+    }
+    public function __destruct()
+    {
+        $this->dbClose();
     }
 
-    private function db_connect()
+    private function dbConnect()
     {
         $this->mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
         return $this->mysqli;
@@ -27,4 +31,14 @@ class Database
         return $result;
     }
 
-} 
+    public function lastInsertId()
+    {
+        return $this->mysqli->insert_id;
+    }
+
+    public function dbClose()
+    {
+        $this->mysqli->close();
+    }
+
+}

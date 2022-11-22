@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$header = new HTMLHeader("Login | Student");
+$nav = new Navigation("home");
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=" <?php echo BASEURL . '/public/styles/styles.css' ?>">
-    <link rel="shortcut icon" href=" <?php echo BASEURL . '/public/images/favicon.png' ?>" type="image/x-icon">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <title>Login | Student</title>
-</head>
-
-<body>
-
-    <?php 
-        $header = new Navigation();
-    ?>
 
 <main class=" full-width overflow-hidden position-absolute">
         <div class="row full-height">
@@ -49,8 +32,11 @@
 
         </div>
     </main>
-
-
-</body>
-
-</html>
+    
+<?php
+    if (isset($data['error'])) {
+        $footer = new HTMLFooter($data['error']);
+    } else {
+        $footer = new HTMLFooter();
+    }
+    ?>
