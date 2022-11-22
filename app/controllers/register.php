@@ -73,8 +73,6 @@ class Register extends Controller
 
             $id = $this->model('registerModel')->register($firstname,$lastname,$username,$password,$usertype);
 
-            echo $id;
-
             $mobile = $_POST['mobile'];
             $dob = $_POST['dob'];
             $email = $_POST['email'];
@@ -85,14 +83,6 @@ class Register extends Controller
             $verificationStatus = "not";
             $workplace = $_POST['workplace'];
             $nicLink = $_POST['niclink'];
-
-            echo $mobile;
-            echo $dob;
-            echo $email;
-            echo $gender;
-            echo $address;
-            echo $nic;
-
             
             $this->model('registerModel')->addBoardingOwner($id,$verificationStatus,$nicLink,$mobile,$dob,$email,$gender,$address,$nic,$occupation,$workplace);
 
@@ -101,6 +91,5 @@ class Register extends Controller
             header("Location: " . BASEURL);
         }
     }
-
 
 }
