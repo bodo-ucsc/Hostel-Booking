@@ -80,8 +80,11 @@ class Register extends Controller
             $email = $_POST['email'];
             $gender = $_POST['gender'];
             $address = $_POST['address'];
-            $nic = $_POST['nic'];
+            $nic = $_POST['nic-number'];
             $occupation = $_POST['occupation'];
+            $verificationStatus = "not";
+            $workplace = $_POST['workplace'];
+            $nicLink = $_POST['niclink'];
 
             echo $mobile;
             echo $dob;
@@ -89,8 +92,9 @@ class Register extends Controller
             echo $gender;
             echo $address;
             echo $nic;
+
             
-            $this->model('registerModel')->addVerificationTeam($id,$mobile,$dob,$email,$gender,$address,$nic,$occupation);
+            $this->model('registerModel')->addBoardingOwner($id,$verificationStatus,$nicLink,$mobile,$dob,$email,$gender,$address,$nic,$occupation,$workplace);
 
             // header("Location: " . BASEURL . "/signin/verificationTeam");
         } else {

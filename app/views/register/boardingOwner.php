@@ -31,10 +31,10 @@ $nav = new Navigation("home");
                     <div class="col-3" style="display: grid; align-items: baseline;">                        
                         <label class="big padding-bottom-3" style="margin-top: -1.5em;" for="gender">Gender</label><br>
                         <div>
-                            <input  type="radio" name="gender" value="Male">
-                            <lable for="Male">Male</lable>  
-                            <input  type="radio" name="gender" value="Female">
-                            <lable for="Female">Female</lable>                      
+                            <input  type="radio" name="gender" value="m">
+                            <lable for="m">Male</lable>  
+                            <input  type="radio" name="gender" value="f">
+                            <lable for="f">Female</lable>                      
                         </div>                                              
                     </div>                                    
                 </div> 
@@ -58,18 +58,13 @@ $nav = new Navigation("home");
             </div>
         </div>
         <div class="row">                  
-            <div class="col-4 fill-container"><div>
+            <div class="col-5 fill-container"><div>
                 <label class="big" for="address">Address</label>
                 <input class="margin-top-2" type="text" name="address" id="address"></div>                   
             </div>
             <div class="col-6" style="margin-right: 20%;">
-                <label class="big" for="nic-copy">Upload a scanned copy of national ID</label>
-                <div class="row" style="display:flex;">
-                <div class="col-4 bg-light-grey margin-top-2" style="height:40px; width: 100%; margin-top: -0.05em;"></div>
-                    <div class="col-2">
-                    <input type="submit" name="nic-copy" value="Upload File">
-                    </div>
-                </div>                
+                <label class="big" for="niclink">NIC Upload Link</label>
+                <input class="margin-top-2" type="text" name="niclink" id="niclink">             
             </div>
         </div>
         <div class="row">                  
@@ -104,7 +99,7 @@ $nav = new Navigation("home");
         <div class="row">
             <div class="col-9">
                 <input type="checkbox" id="agreement" name="agreement" value="True">
-                I agree to all <a>Terms</a> and <a>Privacy Policy</a><br>
+                I agree to all <a class="inverse">Terms</a> and <a class="inverse">Privacy Policy</a><br>
             </div>
         </div>
         <br>
