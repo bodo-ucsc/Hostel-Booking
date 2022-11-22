@@ -2,13 +2,22 @@
 
 class Home extends Controller
 {
-    public function index($name = '')
+    public function index() 
     {
-        // echo 'home/index';
-        $user = $this->model('User');
-        $user->name = $name;
-        
-        $this->view('home/index', ['name' => $user->name]);
+        $this->view('home/index');
+    }  
+
+    public function text() 
+    {
+        $this->view('home/text');
+    }  
+
+    public function signout()
+    {
+        session_start();
+        session_destroy();
+        header('Location: '.BASEURL.'/home');
     }
+    
 
 }

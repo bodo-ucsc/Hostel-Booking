@@ -12,20 +12,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <title>Login | Verification</title>
+    <title>Login | Student</title>
 </head>
 
 <body>
 
-    <?php
-    $header = PATH . "/public/components/navigation/guest.php";
-    include_once($header);
+    <?php 
+        $header = new Navigation();
     ?>
-    <main class=" full-width overflow-hidden position-absolute">
+
+<main class=" full-width overflow-hidden position-absolute">
         <div class="row full-height">
-            <div class="col-5 bg-white flex full-height">
+
+             <div class="col-8 bg-light-grey flex  full-height">
+                            <div class=" padding-5 margin-top-5">
+                                <img class=" fill-container " src="<?php echo BASEURL . '/public/images/studentSignIn.svg' ?>">
+                            </div>
+                        </div>
+
+            <div class="col-4 bg-white flex full-height">
                 <div>
-                    <h2 class="header-2">Verification Team Sign In</h2>
+                    <h2 class="header-2">Student Sign In</h2>
                     <form style="">
                         <label for="username" class="bold black">Username</label><br>
                         <input type="text" id="username" name="username" placeholder="Enter Username"><br>
@@ -37,15 +44,12 @@
                     </form>
                 </div>
             </div>
-            <div class="col-7 bg-light-grey flex  full-height">
-                <div class=" padding-5 margin-top-5">
-                    <img class=" fill-container " src="<?php echo BASEURL . '/public/images/verificationSignIn.svg' ?>">
-                </div>
-            </div>
+
 
 
         </div>
     </main>
+
 
 </body>
 
