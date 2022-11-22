@@ -12,38 +12,7 @@ class SignIn extends Controller
         }
         $this->view('signIn/student', ['error' => $error]);
     }
-    // public function admin()
-    // {
-    //     $this->view('signIn/adminLogin');
-    // }
-    // public function boardingowner()
-    // {
-    //     $this->view('signIn/boardingowner');
-    // }
 
-    public function adminLogin()
-    {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-
-        $result = $this->model('loginModel')->adminLogin($username, $password);
-    
-        if ($result != null) {
-            session_destroy();
-            session_start();
-            $row = $result->fetch_assoc();
-
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['role'] = 'admin';
-            echo "success";
-
-            header('Location: ' . BASEURL . '/adminhome');
-        } else {
-
-            echo "Invalid login";
-            echo ' <br><a href="admin">Sign In Again</a>  <br>';
-        }
-    }
 
     public function student($error = null)
     {
@@ -59,7 +28,7 @@ class SignIn extends Controller
             $error = "Incorrect username or password";
         }
         $this->view('signIn/verificationTeam', ['error' => $error]);
-    
+
 
         // $result = $this->model('loginModel')->verificationTeamLogin($username, $password);
         // if ($result->num_rows > 0) {
@@ -99,73 +68,70 @@ class SignIn extends Controller
         $this->view('signIn/boardingowner', ['error' => $error]);
     }
 
+
     // Login Implementation
-    // public function adminLogin()
-    // { 
-    //     if (isset($_POST['username'])) {
 
-    //         $username = $_POST['username'];
-    //         $password = $_POST['password'];
+    public function adminLogin()
+    {
+        if (isset($_POST['username'])) {
 
-    //         $this->login($username, $password, 'Admin');
-    //     }
-    //     else {
-    //         header("Location: " . BASEURL . "/signin/admin");
-    //     }
-    // }
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
+            $this->login($username, $password, 'Admin');
+        } else {
+            header("Location: " . BASEURL . "/signin/admin");
+        }
+    }
 
     public function verificationTeamLogin()
-    { 
+    {
         if (isset($_POST['username'])) {
 
             $username = $_POST['username'];
             $password = $_POST['password'];
 
             $this->login($username, $password, 'VerificationTeam');
-        }
-        else {
+        } else {
             header("Location: " . BASEURL . "/signin/verificationTeam");
         }
     }
 
     public function studentLogin()
-    { 
+    {
         if (isset($_POST['username'])) {
 
             $username = $_POST['username'];
             $password = $_POST['password'];
 
             $this->login($username, $password, 'Student');
-        }
-        else {
+        } else {
             header("Location: " . BASEURL . "/signin/student");
         }
     }
 
     public function professionalLogin()
-    { 
+    {
         if (isset($_POST['username'])) {
 
             $username = $_POST['username'];
             $password = $_POST['password'];
 
             $this->login($username, $password, 'Professional');
-        }
-        else {
+        } else {
             header("Location: " . BASEURL . "/signin/professional");
         }
     }
 
     public function boardingOwnerLogin()
-    { 
+    {
         if (isset($_POST['username'])) {
 
             $username = $_POST['username'];
             $password = $_POST['password'];
 
             $this->login($username, $password, 'BoardingOwner');
-        }
-        else {
+        } else {
             header("Location: " . BASEURL . "/signin/boardingOwner");
         }
     }
@@ -180,7 +146,7 @@ class SignIn extends Controller
 
             $result = $this->model('loginModel')->login($username, $password, $usertype);
 
-            if ($result!=null) {
+            if ($result != null) {
                 session_destroy();
                 session_start();
                 $row = $result->fetch_assoc();
@@ -190,16 +156,18 @@ class SignIn extends Controller
                 $_SESSION['role'] = $row['UserType'];
                 echo "success";
                 // header('Location: ../home');
+                if ($row['UserType'] == 'Admin') {
+                    
+                    header('Location: ' . BASEURL . '/adminhome');
+                }
             } else {
                 echo "error";
                 header("Location: ./$usertype/error");
-
             }
-
         } else {
+            
+            echo "Invalid user";
             header("Location: " . BASEURL . "/signin");
         }
-
     }
-
 }

@@ -13,10 +13,10 @@ class viewModel extends Model
         return $res;
 	}
 
-	public function viewOnerecord($user_id)
+	public function viewOnerecord($Userid)
 	{
-	 echo $user_id;
-        $res = $this->get('boardingowner',"user_id = '$user_id'");
+	 //echo $Userid;
+        $res = $this->get('boardingowner',"Userid = '$Userid'");
 		return $res;
 	}
 

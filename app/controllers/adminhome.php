@@ -4,25 +4,30 @@ class Adminhome extends Controller
 {
     public function index()
     {
-        $this->view('adminhome');
+        if (isset($_SESSION['username'])) {
+
+            $this->view('adminhome');
+        }else {
+
+            echo "Invalid user";
+            header("Location: " . BASEURL . "/signin");
+        }
     }
 
     //boarding owner
     public function editboardingOwner($user_id = null)
     {
-      
-        if (isset($user_id)) {
-    
-            $res= $this->model('viewModel')->viewOnerecord($user_id); 
-            if($res != null){
-                
-                $row =$res->fetch_assoc();
-                $this->view('boardingOwner/update', ['res'=>$row]);
 
+        if (isset($user_id)) {
+
+            $res = $this->model('viewModel')->viewOnerecord($user_id);
+            if ($res != null) {
+
+                $row = $res->fetch_assoc();
+                $this->view('boardingOwner/update', ['res' => $row]);
             }
-         
         } else {
-           
+
             echo "NO user";
         }
         //$this->view('boardingOwner/BOhome');
@@ -47,7 +52,7 @@ class Adminhome extends Controller
         $this->view('boardingOwner/BOhome', $data);
     }
 
-    public function deleteboardingOwner($user_id) 
+    public function deleteboardingOwner($user_id)
     {
         $this->model('deleteModel')->deleteboardingOwner($user_id);
         $this->view('boardingOwner/BOhome');

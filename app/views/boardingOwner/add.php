@@ -77,6 +77,30 @@
                         <div class=" justify-content margin-left-5">
                             <button class=" bg-blue border-rounded-more margin-bottom-3 margin-top-3"><a href="<?php echo BASEURL ?>/adminhome/viewboardingOwner" class=" white white-hover">Back</a></button>
                         </div>
+
+
+                        <div class="col-12 col-large-4 shadow padding-3 width-90">
+                        <h2 class="header-2">Login Credentials</h2>
+                        <div class="row fill-container">
+                            <div class="col-12 col-medium-4 col-large-12 fill-container">
+                                <label for="username" class="bold black">Username</label><br>
+                                <input type="text" id="username" name="username" placeholder="Enter Username"
+                                    required><br>
+                            </div>
+                            <div class="col-12 col-medium-4 col-large-12 fill-container">
+                                <label for="password" class="bold black">Password</label><br>
+                                <input type="password" id="password" name="password" placeholder="Enter Password"
+                                    required>
+                            </div>
+                            <div class="col-12 col-medium-4 col-large-12 fill-container">
+                                <label for="repassword" class="bold black">Re Type Password</label><br>
+                                <input type="password" id="repassword" name="repassword" placeholder="Re Type Password"
+                                    required>
+                            </div>
+                        </div>
+
+
+                    </div>
                     </div>
                 </div>
             </div>

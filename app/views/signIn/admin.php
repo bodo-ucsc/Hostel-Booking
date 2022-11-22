@@ -20,7 +20,7 @@ $nav = new Navigation("home");
 <body>
 
     <?php
-        $header =   new Navigation();
+    $header =   new Navigation();
     ?>
     <main class=" full-width overflow-hidden position-absolute">
         <div class="row">
@@ -36,7 +36,7 @@ $nav = new Navigation("home");
                             <h2 class="header-2">Admin Sign In</h2>
                             <form action="adminLogin" method="post">
                                 <label for="username" class="bold black">Username</label><br>
-                                <input type="text" id="username" name="username" placeholder="Enter Username"><br>
+                                <input type="text" id="username" name="username" placeholder="Enter username"><br>
                                 <label for="password" class="bold black">Password</label><br>
                                 <input type="password" id="password" name="password" placeholder="Enter Password">
                                 <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Sign In"><br>
@@ -50,13 +50,13 @@ $nav = new Navigation("home");
 
 
 
-    </div>
-</main>
+        </div>
+    </main>
 
-<?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
-} else {
-    $footer = new HTMLFooter();
-}
-?>
+    <?php
+    if (isset($data['error'])) {
+        $footer = new HTMLFooter($data['error']);
+    } else {
+        $footer = new HTMLFooter();
+    }
+    ?>
