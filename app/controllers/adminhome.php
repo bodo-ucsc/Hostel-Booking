@@ -61,7 +61,9 @@ class Adminhome extends Controller
 
     public function addBoardingOwner()
     {
-        $this->view('boardingOwner/add');
+    //   $this->view('boardingOwner/add');
+    $this->view('register/boardingOwner');
+       // header('Location: ' . BASEURL . '/register/boardingownerSignup');
     }
 
     //add Boarding Owner

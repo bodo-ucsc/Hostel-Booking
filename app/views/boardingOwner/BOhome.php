@@ -68,7 +68,7 @@
               </div>
 
               <button class=" bg-blue border-rounded-more margin-bottom-3 margin-top-3">
-                <a href="addBoardingOwner" class=" white white-hover">Add Boarding Owners</a></button>
+                <a href="<?php echo BASEURL ?>/adminhome/addBoardingOwner" class=" white white-hover">Add Boarding Owners</a></button>
 
               <?php
 

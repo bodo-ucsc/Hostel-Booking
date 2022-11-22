@@ -1,85 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$header = new HTMLHeader("Register | Boarding Owner");
+$nav = new Navigation("home");
+$sidebar = new SidebarNav("user", "Boarding Owner");
+?>
+<main class=" full-width ">
+    <form action="boardingownerSignup" method="post">
+        <div class="row sidebar-offset navbar-offset ">
+            <div class="col-12 col-medium-12 width-90">
+                <div class="row ">
+                    <div class="col-12 col-medium-8 fill-container left">
+                        <h1 class="header-1 ">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=" <?php echo BASEURL . '/public/styles/styles.css' ?>">
-    <link rel="shortcut icon" href=" <?php echo BASEURL . '/public/images/favicon.png' ?>" type="image/x-icon">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <title>Admin | BoardingOnwer</title>
-</head>
-
-<body>
-    <div class="row">
-        <?php $header =   new Navigation(); ?>
-    </div>
-    <?php if (isset($_SESSION["username"])) {
-        $sidebar = new SideBarNav("user", "admin");
-    ?>
-        <main class="  full-width full-height overflow-hidden ">
-            <div class=" row sidebar-offset full-height ">
-                <div class="  margin-top-5">
-                    <div class=" margin-left-4 full-height margin-top-5 ">
-
-                        <div class=" margin-top-5 padding-vertical-3">
-                            <span class=" header-1 ">Add Boarding Owner</span>
-                        </div>
-
-                        <form action="<?php echo BASEURL ?>/register/boardingownerSignup" method="POST">
-                            <div class=" right-flex margin-right-5 padding-right-5">
-                                <input class=" bg-accent-hover white-hover  bold padded border-rounded " type="submit" value="Save Changes" name="submit"><br><br>
+                            <i data-feather="chevron-left"></i>
+                            Add Boarding Owner
+                        </h1>
+                    </div>
+                    <div class="col-12 col-medium-4 fill-container right">
+                        <button type="submit" class="bg-blue white border-rounded header-nb padding-3 right">
+                            <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i> <span>Save</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row margin-top-5 fill-container">
+                    <div class="col-12 col-large-8 fill-container ">
+                        <h2 class="header-2">Personal Details</h2>
+                        <div class="row">
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="firstname" class="bold black">First Name</label><br>
+                                <input type="text" class="fill-container" id="firstname" name="firstname"
+                                    placeholder="Enter First Name" required><br>
                             </div>
-                            <div class=" container full-width">
-                            <span class=" header-2"> Personal Details</span>
-                                <div class=" row fill-container padding-top-4">
-                                   
-                                    <label for="username" class="bold black">UserName</label>
-                                    <input type="text" id="username" name="username" required />
-                                    <label for="first_name" class="bold black">First Name</label>
-                                    <input type="text" id="first_name" name="first_name" />
-                                    <label for="last_name" class="bold black">Last Name</label>
-                                    <input type="text" id="last_name" name="last_name" />
-                                    <label for="gender" class="bold black">Gender</label>
-                                    <input type="radio" id="male" name="gender" value="male">
-                                    <label for="male">Male</label>
-                                    <input type="radio" id="female" name="gender" value="female">
-                                    <label for="female">Female</label>
-                                </div>
-                                <div class=" row">
-                                    <label for="nic" class="bold black">NIC</label>
-                                    <input type="text" id="nic" name="nic" required />
-                                    <label for="contactNo" class="bold black">Mobile</label>
-                                    <input type="text" id="contactNo" name="contactNo" />
-                                    <label for="DOB" class="bold black">DOB</label>
-                                    <input type="date" id="DOB" name="DOB" />
-                                </div>
-                                <div class=" row">
-                                    <label for="address" class="bold black">Address</label>
-                                    <input type="text" id="address" name="address" />
-                                    <label for="email" class="bold black">Email</label>
-                                    <input type="email" id="email" name="email" required />
-
-                                </div>
-                                <div class=" row">
-                                    <label for="password" class="bold black">Password</label>
-                                    <input class="bold black" type="password" id="password" placeholder="Enter password" name="password" required>
-                                    <label for="ComPassword" class="bold black">Confirm Password</label>
-                                    <input class="bold black" type="password" id="ComPassword" placeholder="Confirm password" name="ComPassword" required>
-                                </div>
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="lastname" class="bold black">Last Name</label><br>
+                                <input type="text" class="fill-container" id="lastname" name="lastname"
+                                    placeholder="Enter Last Name" required><br>
                             </div>
-                        </form>
-                        <div class=" justify-content margin-left-5">
-                            <button class=" bg-blue border-rounded-more margin-bottom-3 margin-top-3"><a href="<?php echo BASEURL ?>/adminhome/viewboardingOwner" class=" white white-hover">Back</a></button>
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="dob" class="bold black">Date of Birth</label><br>
+                                <input type="date" id="dob" name="dob" required><br>
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="mobile" class="bold black">Mobile</label><br>
+                                <input type="tel" class="fill-container" id="mobile" name="mobile"
+                                    placeholder="+94 077 123 4567" required><br>
+                            </div>
+                            <div class="col-12 col-medium-5 fill-container">
+                                <label for="email" class="bold black">Email</label><br>
+                                <input type="email" class="fill-container" id="email" name="email"
+                                    placeholder="Enter Email" required><br>
+                            </div>
+                            <div class="col-12 col-medium-3 fill-container padding-bottom-4">
+                                <!-- gender radio buttons-->
+                                <div class="bold black padding-bottom-2 ">Gender</div>
+                                <input type="radio" name="gender" value="m" id="male" id="" checked>
+                                <label for="male" class="">Male</label>
 
-
-                        <div class="col-12 col-large-4 shadow padding-3 width-90">
+                                <input type="radio" name="gender" value="f" id="female" id="">
+                                <label for="female" class="">Female</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-medium-8 fill-container">
+                                <label for="address" class="bold black">Address</label><br>
+                                <input type="text" class="fill-container" id="address" name="address"
+                                    placeholder="Enter Address" required><br>
+                            </div>
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="nic" class="bold black">NIC Number</label><br>
+                                <input type="text" class="fill-container" id="nic" name="nic"
+                                    placeholder="Enter NIC Number" required><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-large-4 shadow padding-3 width-90">
                         <h2 class="header-2">Login Credentials</h2>
                         <div class="row fill-container">
                             <div class="col-12 col-medium-4 col-large-12 fill-container">
@@ -101,13 +96,35 @@
 
 
                     </div>
-                    </div>
                 </div>
-            </div>
-        </main>
-    <?php
-    }
-    ?>
-</body>
 
-</html>
+            </div>
+        </div>
+    </form>
+</main>
+
+
+<script>
+    var password = document.getElementById("password")
+        , confirm_password = document.getElementById("repassword");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+</script>
+
+<?php
+if (isset($data['error'])) {
+    $footer = new HTMLFooter($data['error']);
+} else {
+    $footer = new HTMLFooter();
+}
+?>

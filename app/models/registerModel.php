@@ -38,10 +38,9 @@ class insertModel extends Model
     //     return $result;
     // }
 
-    public function check_boardingOwner($username,$password)
+    public function check_boardingOwner($username)
     {
-        //$result = $this->get('user', "username = '$username' AND passwordHash = '$password'");
-        $result = $this->get('boardingowner', "username = '$username' AND password = '$password'");
+        $result = $this->get('user', "username = '$username'");
         return $result;
     }
 
@@ -72,6 +71,11 @@ class insertModel extends Model
 
     public function addVerificationTeam($id,$mobile,$dob,$email,$gender,$address,$nic){
         $this->insert('VerificationTeam', ['VerificationTeamId'=> $id, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender]);
+        
+    }
+
+    public function addBoardingOwner($id,$mobile,$dob,$email,$gender,$address,$nic){
+        $this->insert('BoardingOwner', ['BoardingOwnerId'=> $id, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender]);
         
     }
     

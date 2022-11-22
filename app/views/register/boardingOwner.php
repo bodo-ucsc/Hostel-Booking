@@ -4,7 +4,7 @@ $nav = new Navigation("home");
 $sidebar = new SidebarNav("user", "Boarding Owner");
 ?>
 <main class=" full-width ">
-    <form action="verificationTeamSignUp" method="post">
+    <form action="boardingownerSignup" method="post">
         <div class="row sidebar-offset navbar-offset ">
             <div class="col-12 col-medium-12 width-90">
                 <div class="row ">
