@@ -105,7 +105,8 @@ class SideBarNav
                 ";
         }
         if ($active == "properties") {
-            echo "  
+            echo "
+            <a href='$base/#' class=''>  
             <div class='row padding-top-3 padding-bottom-1 padding-horizontal-4 '> 
             <div class='col-12 flex left fill-container padding-horizontal-3  bg-blue border-rounded padding-vertical-2'>
                 <i data-feather='grid' class='white'></i>
@@ -115,10 +116,32 @@ class SideBarNav
         ";
         } else {
             echo "  
+            <a href='$base/#' class=''>
             <div class='row padding-top-3 padding-bottom-1  padding-horizontal-4'> 
             <div class='col-12 flex left fill-container  padding-horizontal-3'>
                 <i data-feather='grid' class='grey'></i>
                 <span class=' fill-container  margin-left-2 header-nb'>Properties</span> 
+            </div>   
+            </div>   
+        ";
+        }
+        if ($active == "Advertisements") {
+            echo "  
+            <a href='$base/adminhome/feed' class=''>
+            <div class='row padding-top-3 padding-bottom-1 padding-horizontal-4 '> 
+            <div class='col-12 flex left fill-container padding-horizontal-3  bg-blue border-rounded padding-vertical-2'>
+                <i data-feather='shopping-bag' class='white'></i>
+                <span class=' fill-container margin-left-2 header-nb white'>Advertisements</span> 
+            </div>   
+            </div>   
+        ";
+        } else {
+            echo "  
+            <a href='$base/adminhome/feed' class=''>
+            <div class='row padding-top-3 padding-bottom-1  padding-horizontal-4'> 
+            <div class='col-12 flex left fill-container  padding-horizontal-3'>
+                <i data-feather='shopping-bag' class='grey'></i>
+                <span class=' fill-container  margin-left-2 header-nb'>Advertisements</span> 
             </div>   
             </div>   
         ";

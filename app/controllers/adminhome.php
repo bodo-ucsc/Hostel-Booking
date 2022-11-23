@@ -6,7 +6,7 @@ class Adminhome extends Controller
     {
         if (isset($_SESSION['username'])) {
 
-            $this->view('adminhome');
+            $this->view('admin/adminhome');
         }else {
 
             echo "Invalid user";
@@ -37,7 +37,7 @@ class Adminhome extends Controller
     {
         // if we have POST data to create a new Bo
         if (isset($_POST["submit"])) {
-            //$this->model->updateboardingOwner($_POST["artist"], $_POST["track"],  $_POST["link"], $_POST['song_id']);
+            
         }
 
         // where to go after BO has been added
@@ -113,8 +113,6 @@ class Adminhome extends Controller
 
 
 
-
-
     //professional
     public function manageprofessional()
     {
@@ -133,5 +131,18 @@ class Adminhome extends Controller
         echo $_POST['username'];
         echo $_POST['password'];
         header('Location: ' . BASEURL . '/register/professionalSignup');
+    }
+
+
+    public function feed()
+    {
+        $this->view('propertyFeed/feedHome');
+    }
+    public function addUpdate()
+    {
+        if(isset($_POST['addUpdate'])) {
+            $this->view('propertyFeed/addUpdate');
+        }
+        
     }
 }

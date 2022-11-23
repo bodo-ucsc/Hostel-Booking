@@ -393,6 +393,7 @@ button {
 
 /* Form and Inputs */
 input[type=text],
+input[type=textbox],
 input[type=password],
 input[type=tel],
 input[type=email],
