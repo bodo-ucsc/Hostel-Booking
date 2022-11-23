@@ -5,12 +5,17 @@ $nav = new Navigation("home");
 <main class="navbar-offset">
     <div class="row">
         <div class="col-5 fill-container justify-content center">
-            <img width="300px" height="219px" src="<?php echo BASEURL . '/public/images/verificationSignIn.svg' ?>">
-            <!--   <div class="margin-top-5">
-        <button class="">Boarding owner</button><br>
+            <img width="374px" height="510px" src="<?php echo BASEURL . '/public/images/professionalSignIn.svg' ?>">
+      <!-- <div class="margin-top-5"> -->
+        <!-- <button class="">Boarding owner</button><br>
         <button class="">Professional</button>
-        <button class="">Student</button>
-    </div>-->
+        <button class="">Student</button> -->
+
+        <!-- <div class="col-3 fill-container"> -->
+                        <!-- <input class=" padding-5 bg-blue-hover white-hover" type="submit" value="Boarding owner">
+                        <input class=" padding-5 bg-blue-hover white-hover" type="submit" value="Professional"> -->
+                    <!-- </div> -->
+    <!-- </div> -->
         </div>
         <div class="col-7 margin-3 fill-container">
             <form action="<?php echo BASEURL ?>/register/professionalSignUp" method="post">
@@ -112,7 +117,7 @@ $nav = new Navigation("home");
                 <div class="row ">
                     <div class="col-4"></div>
                     <div class="col-4 fill-container">
-                        <input class=" fill-container padding-5 bg-blue-hover white-hover" type="submit"
+                        <input class=" fill-container padding-5 bg-blue-hover white-hover border-rounded" type="submit"
                             value="Create Account">
                     </div>
 
