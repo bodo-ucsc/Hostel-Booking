@@ -92,4 +92,34 @@ class Register extends Controller
         }
     }
 
+    public function professionalSignUp()
+    {
+        if (isset($_POST['username'])) {
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $usertype="BoardingOwner";
+
+            $id = $this->model('registerModel')->register($firstname,$lastname,$username,$password,$usertype);
+
+            $mobile = $_POST['mobile'];
+            $dob = $_POST['dob'];
+            $email = $_POST['email'];
+            $gender = $_POST['gender'];
+            $address = $_POST['address'];
+            $nic = $_POST['nic-number'];
+            $occupation = $_POST['occupation'];
+            $verificationStatus = "not";
+            $workplace = $_POST['workplace'];
+            $nicLink = $_POST['niclink'];
+            
+            $this->model('registerModel')->addBoardingOwner($id,$verificationStatus,$nicLink,$mobile,$dob,$email,$gender,$address,$nic,$occupation,$workplace);
+
+            // header("Location: " . BASEURL . "/signin/verificationTeam");
+        } else {
+            header("Location: " . BASEURL);
+        }
+    }
+
 }
