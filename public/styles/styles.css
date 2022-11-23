@@ -297,8 +297,12 @@ body {
   border: none;
 }
 
-.border-rounded {
+/* .border-rounded {
   border-radius: 10px;
+} */
+
+.border-rounded {
+  border-radius: 5px;
 }
 
 .border-rounded-more {
