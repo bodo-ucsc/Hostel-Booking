@@ -2,13 +2,13 @@
 $header = new HTMLHeader("Sign In | Boarding Owner");
 $nav = new Navigation("home");
 ?>
-<main class="navbar-offset center justify-content">
-    <div class="justify-content">
-        <div class="row width-90 margin-vertical-5 shadow border-rounded fill-container justify-content">
-            <div class="col-4 fill-container">
-                <img class=" fill-container " src="<?php echo BASEURL . '/public/images/verificationSignIn.svg' ?>">
+<main class="navbar-offset flex">
+    <div class="justify-content margin-5">
+        <div class="row width-90 margin-vertical-5 shadow border-rounded">
+            <div class="col-6">
+                <img height="400px" src="<?php echo BASEURL . '/public/images/verificationSignIn.svg' ?>">
             </div>
-            <div class="col-4 justify-content fill-container">
+            <div class="col-6">
                 <p class="header-2">Boarding Owner Sign In</p>
                 <form action="boardingOwnerLogin" method="post">
                     <label for="username">Username<label><br>

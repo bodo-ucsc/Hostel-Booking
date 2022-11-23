@@ -4,13 +4,13 @@ $nav = new Navigation("home");
 ?>
 <main class="navbar-offset">
 <div class="row">
-<div class="col-4 fill-container justify-content">
-    <img width="300px" height="219px" src="My project.png">
-    <div class="">
+<div class="col-4 fill-container justify-content center">
+    <img width="300px" height="219px" src="<?php echo BASEURL . '/public/images/verificationSignIn.svg' ?>">
+ <!--   <div class="margin-top-5">
         <button class="">Boarding owner</button><br>
         <button class="">Professional</button>
         <button class="">Student</button>
-    </div>
+    </div>-->
 </div>
 <div class="col-8 margin-5 fill-container">
     <form action="<?php echo BASEURL ?>/register/boardingOwnerSignUp" method="post">
@@ -62,7 +62,7 @@ $nav = new Navigation("home");
                 <label class="big" for="address">Address</label>
                 <input class="margin-top-2" type="text" name="address" id="address"></div>                   
             </div>
-            <div class="col-6" style="margin-right: 20%;">
+            <div class="col-6" style="margin-right: 30%;">
                 <label class="big" for="niclink">NIC Upload Link</label>
                 <input class="margin-top-2" type="text" name="niclink" id="niclink">             
             </div>
@@ -93,7 +93,7 @@ $nav = new Navigation("home");
             </div>                    
             <div class="col-3">                
                 <label class="big" for="password-repaet">Re-Type Password</label>
-                <input class="margin-top-2" type="password" name="password-repaet" id="password-repaet">
+                <input class="margin-top-2" type="password" name="password-repaet" id="repassword">
             </div>                                       
         </div>  
         <div class="row">
