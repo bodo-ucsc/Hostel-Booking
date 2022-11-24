@@ -1,12 +1,12 @@
 <?php
 $header = new HTMLHeader("PropertyFeed | Advertisements");
-$nav = new Navigation("home");
+$nav = new Navigation();
 $sidebar = new SidebarNav("user", "Advertisements");
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
         <div class="col-12 col-medium-12 width-90">
-            <form action="#" method="post">
+            <form action="postUpdate" method="post">
                 <div class="row ">
                     <div class="col-12 col-medium-8 fill-container left">
                         <h1 class="header-1 ">
@@ -16,8 +16,8 @@ $sidebar = new SidebarNav("user", "Advertisements");
                     </div>
 
                     <div class="col-12 col-medium-4 fill-container right ">
-                        <input type="button" class="bg-blue white border-rounded header-nb padding-3 right">
-                        <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i> <span>Save Changes</span>
+                        <button type="submit" class="bg-blue white border-rounded header-nb padding-3 right">
+                                <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i><span>Save Changes</span></button>
                     </div>
                 </div>
 
@@ -27,7 +27,7 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="name" class="bold black">Name</label><br>
-                                <input type="text" class="fill-container" id="name" name="firstname" placeholder="Enter Name" required><br>
+                                <input type="text" class="fill-container" id="name" name="name" placeholder="Enter Name" required><br>
                             </div>
                         </div>
                         <div class="row">
@@ -38,8 +38,8 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         </div>
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
-                                <label for="lastname" class="bold black">Property Link</label><br>
-                                <input type="text" class="fill-container" id="lastname" name="lastname" placeholder="Enter Property Link" required><br>
+                                <label for="placeid" class="bold black">Property Link</label><br>
+                                <input type="text" class="fill-container" id="placeid" name="placeid" placeholder="Enter Property Link" required><br>
                             </div>
                         </div>
                         <div class="row">
@@ -50,27 +50,29 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         </div>
                     </div>
 
-                    <div class="col-12 col-large-5 shadow padding-3 width-90">
-                        <h2 class="header-2">Preview</h2>
-                        <div class="row fill-container">
-                            <div class="col-12 col-medium-4 col-large-12 fill-container">
-                                <label for="username" class="bold black">Name</label><br>
 
-                            </div>
-                            <div class="col-12 col-medium-4 col-large-12 fill-container">
-                                <label for="password" class="bold black">Date</label><br>
+                    <div class="col-12 col-large-5 ">
+                        <span class="header-2">Preview</span>
+                        <div class="shadow  padding-3 width-90">
+                            <div class="row fill-container">
+                                <div class="col-12 col-medium-4 col-large-12 fill-container">
+                                    <label for="username" class="bold black">Name</label><br>
 
-                            </div>
-                            <div class="col-12 col-medium-4 col-large-12 fill-container">
-                                <label for="password" class="bold black">Message</label><br>
+                                </div>
+                                <div class="col-12 col-medium-4 col-large-12 fill-container">
+                                    <label for="password" class="bold black">Date</label><br>
 
+                                </div>
+                                <div class="col-12 col-medium-4 col-large-12 fill-container">
+                                    <label for="password" class="bold black">Message</label><br>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-
     </div>
 </main>
 

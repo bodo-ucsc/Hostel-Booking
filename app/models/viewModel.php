@@ -7,9 +7,9 @@ class viewModel extends Model
 		parent::__construct();
 	}
 
-	public function getAllrecords()
+	public function getAllrecords($table)
 	{
-        $res=$this->get('boardingowner');
+        $res=$this->get($table);
         return $res;
 	}
 
@@ -19,6 +19,14 @@ class viewModel extends Model
         $res = $this->get('boardingowner',"Userid = '$Userid'");
 		return $res;
 	}
+
+	public function getUserId($table,$username){
+        
+        $sql = "SELECT UserId FROM $table WHERE username = $username";
+        $result = $this->runQuery($sql);
+		return $result;
+		      
+    }
 
 
     // public function verificationTeamRegister($username, $password)

@@ -39,7 +39,6 @@ class Adminhome extends Controller
         if (isset($_POST["submit"])) {
             
         }
-
         // where to go after BO has been added
         //header('location: ' . BASEURL . 'boardingOwner/BOhome');
         $this->viewboardingOwner();
@@ -48,7 +47,7 @@ class Adminhome extends Controller
     // to view list of BO s
     public function viewboardingOwner()
     {
-        $data = $this->model('viewModel')->getAllrecords();
+        $data = $this->model('viewModel')->getAllrecords('boardingonwer');
         $this->view('boardingOwner/BOhome', $data);
     }
 
@@ -93,12 +92,10 @@ class Adminhome extends Controller
     //student 
     public function managestudent()
     {
-
         $this->view('student/SThome');
     }
     public function addStudent()
     {
-
         $this->view('student/add');
     }
 
@@ -116,23 +113,19 @@ class Adminhome extends Controller
     //professional
     public function manageprofessional()
     {
-
         $this->view('professional/PFhome');
     }
     public function addProfessional()
     {
-
         $this->view('professional/add');
     }
 
     public function professionalSignup()
     {
-
         echo $_POST['username'];
         echo $_POST['password'];
         header('Location: ' . BASEURL . '/register/professionalSignup');
     }
-
 
     public function feed()
     {
@@ -140,9 +133,11 @@ class Adminhome extends Controller
     }
     public function addUpdate()
     {
-        if(isset($_POST['addUpdate'])) {
-            $this->view('propertyFeed/addUpdate');
-        }
-        
+        $this->view('propertyFeed/addUpdate');    
     }
+    public function postUpdate()
+    {
+        header('Location: ' . BASEURL . '/advertisements/postUpdate');    
+    }
+
 }
