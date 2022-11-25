@@ -99,7 +99,7 @@ class Register extends Controller
             $lastname = $_POST['lastname'];
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $usertype="BoardingOwner";
+            $usertype="Professional";
 
             $id = $this->model('registerModel')->register($firstname,$lastname,$username,$password,$usertype);
 
@@ -114,7 +114,7 @@ class Register extends Controller
             $workplace = $_POST['workplace'];
             $nicLink = $_POST['niclink'];
             
-            $this->model('registerModel')->addBoardingOwner($id,$verificationStatus,$nicLink,$mobile,$dob,$email,$gender,$address,$nic,$occupation,$workplace);
+            $this->model('registerModel')->addProfessional($id,$verificationStatus,$nicLink,$mobile,$dob,$email,$gender,$address,$nic,$occupation,$workplace);
 
             // header("Location: " . BASEURL . "/signin/verificationTeam");
         } else {

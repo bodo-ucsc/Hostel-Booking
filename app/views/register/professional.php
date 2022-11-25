@@ -18,7 +18,8 @@ $nav = new Navigation("home");
     <!-- </div> -->
         </div>
         <div class="col-7 margin-3 fill-container">
-            <form action="<?php echo BASEURL ?>/register/professionalSignUp" method="post">
+            <!-- <form action="<?php echo BASEURL ?>/register/professionalSignUp" method="post"> -->
+            <form action=" professionalSignUp" method="post">
                 <div class="row">
                     <div class="col-9">
                         <h1 class="header-1">

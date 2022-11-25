@@ -28,5 +28,9 @@ class registerModel extends Model
         
     }
     
+    public function addProfessional($id,$verificationStatus,$nicLink,$mobile,$dob,$email,$gender,$address,$nic,$occupation,$workplace){
+        $this->insert('Professional', ['ProfessionalId'=> $id, 'VerifiedStatus'=>$verificationStatus, 'NICScanLink'=>$nicLink, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender, 'Occupation'=>$occupation, 'WorkPlace'=>$workplace]);
+        
+    }
     
 }
