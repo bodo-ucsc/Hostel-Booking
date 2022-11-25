@@ -24,6 +24,16 @@ class Model extends Database
         
 
     }
+    public function getColumnValue($table,$column, $where = null)
+    {
+       
+        $sql = "SELECT $column FROM $table";
+        if ($where != null) {
+            $sql .= " WHERE $where";
+        }
+        $result = $this->runQuery($sql);
+        return $result;
+    }
 
     public function insert($table, $data)
     {

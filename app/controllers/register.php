@@ -93,7 +93,7 @@ class Register extends Controller
     }
 
     public function boardingownerSignup()
-    {
+    {          
         if (isset($_POST['submit'])) {
             if (isset($_POST['username'])) {
 

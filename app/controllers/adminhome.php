@@ -7,7 +7,7 @@ class Adminhome extends Controller
         if (isset($_SESSION['username'])) {
 
             $this->view('admin/adminhome');
-        }else {
+        } else {
 
             echo "Invalid user";
             header("Location: " . BASEURL . "/signin");
@@ -37,7 +37,6 @@ class Adminhome extends Controller
     {
         // if we have POST data to create a new Bo
         if (isset($_POST["submit"])) {
-            
         }
         // where to go after BO has been added
         //header('location: ' . BASEURL . 'boardingOwner/BOhome');
@@ -60,9 +59,9 @@ class Adminhome extends Controller
 
     public function addBoardingOwner()
     {
-    //   $this->view('boardingOwner/add');
-    $this->view('register/boardingOwner');
-       // header('Location: ' . BASEURL . '/register/boardingownerSignup');
+        //   $this->view('boardingOwner/add');
+        $this->view('register/boardingOwner');
+        // header('Location: ' . BASEURL . '/register/boardingownerSignup');
     }
 
     //add Boarding Owner
@@ -133,11 +132,20 @@ class Adminhome extends Controller
     }
     public function addUpdate()
     {
-        $this->view('propertyFeed/addUpdate');    
+        $this->view('propertyFeed/addUpdate');
     }
     public function postUpdate()
     {
-        header('Location: ' . BASEURL . '/advertisements/postUpdate');    
+            // echo $_POST['username'];
+            // echo $_POST['date'];
+            // echo $_POST['placeid'];
+            // echo $_POST['message'];
+            if (isset($_POST['username'])) {
+                //echo "hello";
+                header('Location: ' . BASEURL . '/propertyFeed/postUpdate');
+        } else {
+            echo "Invalid submit";
+        }
+        //header('Location: ' . BASEURL . '/propertyFeed/postUpdate');    
     }
-
 }

@@ -377,6 +377,7 @@ a.inverse:hover {
 
 input[type=button],
 input[type=submit],
+
 button {
   width: -moz-fit-content;
   height: -moz-fit-content;

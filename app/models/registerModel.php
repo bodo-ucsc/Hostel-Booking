@@ -2,7 +2,6 @@
 
 class insertModel extends Model
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -60,7 +59,6 @@ class insertModel extends Model
     // }
 
     public function Register($firstname,$lastname,$username,$password,$usertype)
-
     {
         //hashing the password
         $password = password_hash($password, PASSWORD_DEFAULT);
@@ -79,10 +77,9 @@ class insertModel extends Model
         
     }
 
-    public function addAdvertisement($Userid,$placeid,$date,$message){
-        $this->insert('postupdate', ['UserId'=> $Userid, 'PlaceId'=>$placeid , 'DateTime'=> $date,  'Caption'=> $message ]);
-        
-    }
+    // public function addAdvertisement($Userid,$placeid,$date,$message){
+    //     $this->insert('postupdate', ['UserId'=> $Userid, 'PlaceId'=>$placeid , 'DateTime'=> $date,  'Caption'=> $message ]);    
+    // }
 
     
     

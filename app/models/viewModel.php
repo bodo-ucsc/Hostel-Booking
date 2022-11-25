@@ -20,11 +20,10 @@ class viewModel extends Model
 		return $res;
 	}
 
-	public function getUserId($table,$username){
+	public function getID($table,$column,$value){
         
-        $sql = "SELECT UserId FROM $table WHERE username = $username";
-        $result = $this->runQuery($sql);
-		return $result;
+		$res = $this->getColumnValue($table,$column,"Username = '$value'");
+		return $res;
 		      
     }
 

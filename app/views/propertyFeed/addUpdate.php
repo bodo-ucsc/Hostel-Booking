@@ -6,7 +6,7 @@ $sidebar = new SidebarNav("user", "Advertisements");
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
         <div class="col-12 col-medium-12 width-90">
-            <form action="postUpdate" method="post">
+            <form action="<?php echo BASEURL?>/propertyFeed/postUpdate" method="POST">
                 <div class="row ">
                     <div class="col-12 col-medium-8 fill-container left">
                         <h1 class="header-1 ">
@@ -16,8 +16,9 @@ $sidebar = new SidebarNav("user", "Advertisements");
                     </div>
 
                     <div class="col-12 col-medium-4 fill-container right ">
-                        <button type="submit" class="bg-blue white border-rounded header-nb padding-3 right">
-                                <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i><span>Save Changes</span></button>
+                        <button type="submit"  value="submit" class="bg-blue white border-rounded header-nb padding-3 right" value="Save Changes" >
+                        <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i>
+                                <span>Save Changes</span></button>
                     </div>
                 </div>
 
@@ -27,7 +28,7 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="name" class="bold black">Name</label><br>
-                                <input type="text" class="fill-container" id="name" name="name" placeholder="Enter Name" required><br>
+                                <input type="text" class="fill-container" id="username" name="username" placeholder="Enter Name" required><br>
                             </div>
                         </div>
                         <div class="row">

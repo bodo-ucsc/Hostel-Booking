@@ -112,7 +112,7 @@ class SideBarNav
                 <i data-feather='grid' class='white'></i>
                 <span class=' fill-container margin-left-2 header-nb white'>Properties</span> 
             </div>   
-            </div>   
+            </div><a/>  
         ";
         } else {
             echo "  
@@ -122,7 +122,7 @@ class SideBarNav
                 <i data-feather='grid' class='grey'></i>
                 <span class=' fill-container  margin-left-2 header-nb'>Properties</span> 
             </div>   
-            </div>   
+            </div><a/>     
         ";
         }
         if ($active == "Advertisements") {
@@ -133,7 +133,7 @@ class SideBarNav
                 <i data-feather='shopping-bag' class='white'></i>
                 <span class=' fill-container margin-left-2 header-nb white'>Advertisements</span> 
             </div>   
-            </div>   
+            </div><a/>     
         ";
         } else {
             echo "  
@@ -143,7 +143,7 @@ class SideBarNav
                 <i data-feather='shopping-bag' class='grey'></i>
                 <span class=' fill-container  margin-left-2 header-nb'>Advertisements</span> 
             </div>   
-            </div>   
+            </div><a/>     
         ";
         }
 

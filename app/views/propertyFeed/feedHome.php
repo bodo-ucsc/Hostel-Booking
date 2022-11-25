@@ -13,33 +13,33 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         Latest Feed Updates
                     </span>
                 </div>
-
                 <div class="col-12 col-medium-4 fill-container right">
                     <a href="addUpdate"><button class="bg-blue white border-rounded header-nb padding-3 right">
                             <i data-feather="plus" class=" vertical-align-bottom padding-right-2"></i> <span>Add Update</span>
                         </button></a>
                 </div>
             </div>
+            <?php
+                    if ($data) {
+                       ?>
             <div class="bg-white shadow border-rounded padding-1 full-width ">
                 <table cellspacing="4" cellpadding="9">
                     <div class=" grey">
                         <tr>
                             <th>PostID</th>
                             <th>UserID</th>
-                            <!-- <th>Property</th> -->
+                            <th>Property</th>
                             <th>Date Time</th>
                             <th>Message</th>
                         </tr>
                     </div>
-                    <?php
-                    if ($data) {
-                       
+                    <?php  
                         while ($row = $data->fetch_assoc()) {
                     ?>
                             <tr>
                                 <td><?php echo $row['PostId']; ?></td>
                                 <td><?php echo $row['UserId']; ?></td>
-                                <!-- <td><?php echo $row['PlaceId']; ?></td> -->
+                                <td><?php echo $row['PlaceId']; ?></td>
                                 <td><?php echo $row['DateTime']; ?></td>
                                 <td><?php echo $row['Caption']; ?></td>
 
@@ -47,7 +47,6 @@ $sidebar = new SidebarNav("user", "Advertisements");
                                     <button><a href="<?php echo BASEURL ?>/adminhome/deleteboardingOwner/<?php echo $row['user_id']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
                                 </td>
                             </tr>
-
                     <?php
                         }
                     } else {
@@ -57,7 +56,6 @@ $sidebar = new SidebarNav("user", "Advertisements");
                     ?>
                 </table>
             </div>
-
             <div class="row margin-top-5 fill-container">
                 <div class="col-12 col-large-7 fill-container ">
                 </div>
