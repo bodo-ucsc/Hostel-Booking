@@ -1,7 +1,5 @@
 <?php
 
- 
-
 class Model extends Database
 {
     public function __construct()
@@ -23,6 +21,8 @@ class Model extends Database
         }
         $result = $this->runQuery($sql);
         return $result;
+        
+
     }
 
     public function insert($table, $data)

@@ -27,6 +27,23 @@ $nav = new Navigation("home");
             </div>
         </div>
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        <?php
+        $base = BASEURL;
+        if (isset($data['code'])) {
+            echo "Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '$data[code]',
+                footer: '<a href>Why do I have this issue?</a>'
+            })";
+            unset($data['code']);
+        }
+        ?>
+    </script>
+</body>
 
     </div>
 </main>

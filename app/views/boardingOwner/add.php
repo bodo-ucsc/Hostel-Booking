@@ -27,13 +27,11 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="firstname" class="bold black">First Name</label><br>
-                                <input type="text" class="fill-container" id="firstname" name="firstname"
-                                    placeholder="Enter First Name" required><br>
+                                <input type="text" class="fill-container" id="firstname" name="firstname" placeholder="Enter First Name" required><br>
                             </div>
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="lastname" class="bold black">Last Name</label><br>
-                                <input type="text" class="fill-container" id="lastname" name="lastname"
-                                    placeholder="Enter Last Name" required><br>
+                                <input type="text" class="fill-container" id="lastname" name="lastname" placeholder="Enter Last Name" required><br>
                             </div>
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="dob" class="bold black">Date of Birth</label><br>
@@ -43,13 +41,11 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="mobile" class="bold black">Mobile</label><br>
-                                <input type="tel" class="fill-container" id="mobile" name="mobile"
-                                    placeholder="+94 077 123 4567" required><br>
+                                <input type="tel" class="fill-container" id="mobile" name="mobile" placeholder="+94 077 123 4567" required><br>
                             </div>
                             <div class="col-12 col-medium-5 fill-container">
                                 <label for="email" class="bold black">Email</label><br>
-                                <input type="email" class="fill-container" id="email" name="email"
-                                    placeholder="Enter Email" required><br>
+                                <input type="email" class="fill-container" id="email" name="email" placeholder="Enter Email" required><br>
                             </div>
                             <div class="col-12 col-medium-3 fill-container padding-bottom-4">
                                 <!-- gender radio buttons-->
@@ -64,13 +60,11 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
                         <div class="row">
                             <div class="col-12 col-medium-8 fill-container">
                                 <label for="address" class="bold black">Address</label><br>
-                                <input type="text" class="fill-container" id="address" name="address"
-                                    placeholder="Enter Address" required><br>
+                                <input type="text" class="fill-container" id="address" name="address" placeholder="Enter Address" required><br>
                             </div>
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="nic" class="bold black">NIC Number</label><br>
-                                <input type="text" class="fill-container" id="nic" name="nic"
-                                    placeholder="Enter NIC Number" required><br>
+                                <input type="text" class="fill-container" id="nic" name="nic" placeholder="Enter NIC Number" required><br>
                             </div>
                         </div>
                     </div>
@@ -79,18 +73,15 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
                         <div class="row fill-container">
                             <div class="col-12 col-medium-4 col-large-12 fill-container">
                                 <label for="username" class="bold black">Username</label><br>
-                                <input type="text" id="username" name="username" placeholder="Enter Username"
-                                    required><br>
+                                <input type="text" id="username" name="username" placeholder="Enter Username" required><br>
                             </div>
                             <div class="col-12 col-medium-4 col-large-12 fill-container">
                                 <label for="password" class="bold black">Password</label><br>
-                                <input type="password" id="password" name="password" placeholder="Enter Password"
-                                    required>
+                                <input type="password" id="password" name="password" placeholder="Enter Password" required>
                             </div>
                             <div class="col-12 col-medium-4 col-large-12 fill-container">
                                 <label for="repassword" class="bold black">Re Type Password</label><br>
-                                <input type="password" id="repassword" name="repassword" placeholder="Re Type Password"
-                                    required>
+                                <input type="password" id="repassword" name="repassword" placeholder="Re Type Password" required>
                             </div>
                         </div>
 
@@ -105,8 +96,8 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
 
 
 <script>
-    var password = document.getElementById("password")
-        , confirm_password = document.getElementById("repassword");
+    var password = document.getElementById("password"),
+        confirm_password = document.getElementById("repassword");
 
     function validatePassword() {
         if (password.value != confirm_password.value) {
@@ -118,7 +109,6 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
 
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
-
 </script>
 
 <?php
