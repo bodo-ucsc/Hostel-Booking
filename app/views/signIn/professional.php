@@ -26,7 +26,7 @@ $header = new HTMLHeader("Login | Professional");
                         <input type="password" id="password" name="password" placeholder="Enter Password">
                         <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded "
                             type="submit" value="Sign In"><br>
-                        <p>Don't have an account? <a class="inverse" href="#">Register</a> </p>
+                        <p>Don't have an account? <a class="inverse" href="<?php echo BASEURL ?>/register/professional">Register</a> </p>
                     </form>
                 </div>
 
