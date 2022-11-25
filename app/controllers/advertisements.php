@@ -25,13 +25,14 @@ class advertisements extends Controller
                         $this->model('registerModel')->addAdvertisement($Userid,$placeid,$date,$message);
                         echo 'Data added successfully <br>'; 
                         echo ' <br><a href="../adminhome/feed">View Updates</a>  <br>';
+                        //$this->viewAdvertisements();
+                        
+                        
                     }
 
             }}
         
-        $this->view('');
     }
-
 
     public function viewAdvertisements()
     {

@@ -7,9 +7,6 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
   <div class=" row sidebar-offset navbar-offset ">
     <div class="col-12 col-medium-12 width-90">
 
-      <!-- <div class="row">
-        <span class=" header-2">Boarding Owner Listing</span>
-      </div> -->
 
       <div class="row ">
         <div class="col-12 col-medium-8 fill-container left">
@@ -23,20 +20,6 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
         </div>
        
       </div>
-
-
-      <!-- <div class='row border-rounded-more margin-top-4'>
-        <div class='col-small-1 col-1 '>
-          <i data-feather='search'></i>
-        </div>
-        <div class='col-small-5 col-7 fill-container'>
-          <input class=' header-nb border-none fill-container' type='text' placeholder='Find boarding owners'>
-        </div>
-        <div class='col-small-1 col-2 fill-container'>
-          <button class=' fill-container bg-black-hover white-hover border-rounded-more'>Search</button>
-        </div>
-      </div> -->
-
       <button class=" bg-blue border-rounded-more margin-bottom-3 margin-top-3">
         <a href="<?php echo BASEURL ?>/adminhome/addBoardingOwner" class=" white white-hover">Add Boarding Owners</a></button>
 

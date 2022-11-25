@@ -47,7 +47,7 @@ class Adminhome extends Controller
     // to view list of BO s
     public function viewboardingOwner()
     {
-        $data = $this->model('viewModel')->getAllrecords('boardingonwer');
+        $data = $this->model('viewModel')->getAllrecords('boardingowner');
         $this->view('boardingOwner/BOhome', $data);
     }
 

@@ -7,7 +7,6 @@ $sidebar = new SidebarNav("user", "Advertisements");
     <div class="row sidebar-offset navbar-offset ">
         <div class="col-12 col-medium-12 width-90">
 
-
             <div class="row ">
                 <div class="col-12 col-medium-8 fill-container left">
                     <span class="header-1 ">
@@ -21,7 +20,6 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         </button></a>
                 </div>
             </div>
-
             <div class="bg-white shadow border-rounded padding-1 full-width ">
                 <table cellspacing="4" cellpadding="9">
                     <div class=" grey">
@@ -35,6 +33,7 @@ $sidebar = new SidebarNav("user", "Advertisements");
                     </div>
                     <?php
                     if ($data) {
+                       
                         while ($row = $data->fetch_assoc()) {
                     ?>
                             <tr>

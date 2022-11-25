@@ -49,7 +49,7 @@ $sidebar = new SidebarNav("user", "Advertisements");
                             </div>
                         </div>
                     </div>
-
+                    </form>
 
                     <div class="col-12 col-large-5 ">
                         <span class="header-2">Preview</span>
@@ -71,7 +71,7 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         </div>
                     </div>
                 </div>
-            </form>
+           
         </div>
     </div>
 </main>
