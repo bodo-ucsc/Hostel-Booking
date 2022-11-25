@@ -4,7 +4,7 @@ class Home extends Controller
 {
     public function index() 
     {
-        $this->view('adminhome');
+        $this->view('home/index');
     }  
 
     public function text() 
@@ -16,16 +16,8 @@ class Home extends Controller
     {
         session_start();
         session_destroy();
-        unset($_SESSION['username']);
-        header('Location: '.BASEURL.'/signin/admin');
+        header('Location: '.BASEURL.'/home');
     }
-    // public function signout()
-    // {
-    //     session_start();
-    //     session_destroy();
-    //     unset($_SESSION['username']);
-    //     header('Location: ' . BASEURL . '/home');
-// }
     
 
 }

@@ -29,7 +29,6 @@ body {
 .header-1 {
   font-size: 34px;
   font-weight: 700;
-  
 }
 
 .header-2 {
@@ -397,7 +396,6 @@ button {
 
 /* Form and Inputs */
 input[type=text],
-input[type=textbox],
 input[type=password],
 input[type=tel],
 input[type=email],
@@ -418,9 +416,8 @@ input[type=button].fill-container,
 input[type=submit].fill-container,
 input[type=date].fill-container,
 input[type=text].fill-container,
-input[type=email].fill-container,
-input[type=date].fill-container,
 input[type=tel].fill-container,
+input[type=email].fill-container,
 input[type=password].fill-container,
 button.fill-container {
   width: 100%;
@@ -1317,24 +1314,4 @@ header .nav-signup {
 
 .padding-left-5 {
   padding-left: 3rem;
-}
-
-ul{
-
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 9%;
-  background-color: #f1f1f1;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-  
-}
-li a {
-  display: block;
-  list-style-type: none;
-  color: #000;
-  padding: 8px 16px;
-  text-decoration: none;
 }
