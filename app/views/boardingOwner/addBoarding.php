@@ -1,5 +1,5 @@
 <?php
-$header = new HTMLHeader("Register | Verification Team");
+$header = new HTMLHeader("Add Property");
 $nav = new Navigation("home");
 $sidebar = new SidebarNav($active="user");
 ?>
@@ -73,7 +73,7 @@ $sidebar = new SidebarNav($active="user");
             </div>
             <div class="col-1 flex-column">
                 <i class=" icon-green" data-feather="shuffle"></i><br>
-                <input class=" margin-top-1" type="text" name="sqfeet" id="sqfeet">
+                <input class=" margin-top-1" type="text" name="sqfeet" id="sqfeet" placeholder="Sq. ft.">
             </div>
             <div class="col-2 flex-column">
                 <i class=" icon-green" data-feather="map-pin"></i>
