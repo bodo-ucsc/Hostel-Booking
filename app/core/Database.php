@@ -14,7 +14,11 @@ class Database
         $this->dbClose();
     }
 
-    private function dbConnect()
+    // private function dbConnect()
+    //     $this->db_connect();
+    // }
+
+    private function db_connect()
     {
         $this->mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
         return $this->mysqli;

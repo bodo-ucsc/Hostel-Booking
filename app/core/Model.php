@@ -42,7 +42,6 @@ class Model extends Database
             $sql .= "$key = '$value', ";
         }
         $sql = substr($sql, 0, -2);
-        echo $sql;
         $result = $this->runQuery($sql);
         return $result;
     }

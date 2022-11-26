@@ -377,7 +377,6 @@ a.inverse:hover {
 
 input[type=button],
 input[type=submit],
-
 button {
   width: -moz-fit-content;
   height: -moz-fit-content;
@@ -393,6 +392,23 @@ button {
 }
 
 /* Form and Inputs */
+ 
+input[type=button].fill-container,
+input[type=submit].fill-container, 
+button.fill-container {
+  width: 100%;
+  height: 100%;
+}
+
+input[type=button].padded, 
+input[type=submit].padded,
+button.padded { 
+  padding: 15px;
+}
+
+
+
+/* Form */
 input[type=text],
 input[type=textbox],
 input[type=password],

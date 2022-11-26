@@ -26,6 +26,9 @@ class Home extends Controller
     //     unset($_SESSION['username']);
     //     header('Location: ' . BASEURL . '/home');
 // }
+       // $this->view('home/index');
+    }  
+
     
 
 }
