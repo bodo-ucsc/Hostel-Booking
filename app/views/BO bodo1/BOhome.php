@@ -25,7 +25,6 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
 
       <?php
 
-      //$row = $data['info'];
       if ($data) {
       ?>
 
@@ -48,18 +47,18 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
             while ($row = $data->fetch_assoc()) {
             ?>
               <tr>
-                <td><?php echo $row['FirstName']; ?></td>
-                <td><?php echo $row['LastName']; ?></td>
-                <td><?php echo $row['NIC']; ?></td>
-                <td><?php echo $row['Email']; ?></td>
-                <td><?php echo $row['Gender']; ?></td>
-                <td><?php echo $row['DateOfBirth']; ?></td>
-                <td><?php echo $row['Address']; ?></td>
-                <td><?php echo $row['ContactNumber']; ?></td>
+                <td><?php echo $row['first_name']; ?></td>
+                <td><?php echo $row['last_name']; ?></td>
+                <td><?php echo $row['nic']; ?></td>
+                <td><?php echo $row['email']; ?></td>
+                <td><?php echo $row['gender']; ?></td>
+                <td><?php echo $row['DOB']; ?></td>
+                <td><?php echo $row['address']; ?></td>
+                <td><?php echo $row['contactNo']; ?></td>
 
-                <!-- <td><button><a href="<?php echo BASEURL ?>/adminhome/editboardingOwner/<?php echo $row['user_id']; ?>" class="card-link">Edit</a></button>
+                <td><button><a href="<?php echo BASEURL ?>/adminhome/editboardingOwner/<?php echo $row['user_id']; ?>" class="card-link">Edit</a></button>
                   <button><a href="<?php echo BASEURL ?>/adminhome/deleteboardingOwner/<?php echo $row['user_id']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
-                </td> -->
+                </td>
               </tr>
 
           <?php

@@ -2,7 +2,6 @@
 
 class Database
 {
-
     public $mysqli;
 
     public function __construct()
@@ -14,9 +13,9 @@ class Database
         $this->dbClose();
     }
 
-    // private function dbConnect()
-    //     $this->db_connect();
-    // }
+    private function dbConnect(){
+        $this->db_connect();
+    }
 
     private function db_connect()
     {

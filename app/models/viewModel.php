@@ -26,6 +26,18 @@ class viewModel extends Model
 		return $res;
 		      
     }
+	public function getCols($type)
+    {
+		$res=$this->getMoreCols('user','FirstName','LastName',"UserType = '$type'");
+        return $res;
+    }
+
+	public function joinTables($tb1,$tb2,$col,$type)
+    {
+		//$res=$this->joinCols('user','boardingowner',"UserType = '$type'");
+		$res=$this->joinCols($tb1,$tb2,"$col = '$type'");
+        return $res;
+    }
 
 
     // public function verificationTeamRegister($username, $password)
@@ -34,6 +46,8 @@ class viewModel extends Model
     //     $password = password_hash($password, PASSWORD_DEFAULT);
     //     $this->insert('verificationTeamLogin', ['username' => $username, 'password' => $password]);
     // }
+
+
 	
 
 }

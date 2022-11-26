@@ -35,6 +35,29 @@ class Model extends Database
         return $result;
     }
 
+    public function getMoreCols($table,$col1,$col2,$where = null)
+    {
+       
+        $sql = "SELECT $col1,$col2 FROM $table";
+        if ($where != null) {
+            $sql .= " WHERE $where";
+        }
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+    public function joinCols($tb1,$tb2,$where = null)
+    {
+       
+        $sql = "SELECT * FROM $tb1,$tb2";
+        
+        if ($where != null) {
+            $sql .= " WHERE $where";
+        }
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+
+    //SELECT * FROM user,boardingowner WHERE user.UserType = "BoardingOwner";
     public function insert($table, $data)
     {
         $sql = "INSERT INTO $table SET ";

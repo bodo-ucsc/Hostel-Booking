@@ -1,6 +1,6 @@
 <?php
 
-class insertModel extends Model
+class registerModel extends Model
 {
     public function __construct()
     {
@@ -72,14 +72,12 @@ class insertModel extends Model
         
     }
 
-    public function addBoardingOwner($id,$mobile,$dob,$email,$gender,$address,$nic){
-        $this->insert('BoardingOwner', ['BoardingOwnerId'=> $id, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender]);
+    public function addBoardingOwner($id,$mobile,$dob,$email,$gender,$address,$nic,$occupation,$workplace){
+        $this->insert('BoardingOwner', ['BoardingOwnerId'=> $id, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender ,'Occupation'=> $occupation, 'Workplace'=> $workplace]);
         
     }
 
-    // public function addAdvertisement($Userid,$placeid,$date,$message){
-    //     $this->insert('postupdate', ['UserId'=> $Userid, 'PlaceId'=>$placeid , 'DateTime'=> $date,  'Caption'=> $message ]);    
-    // }
+
 
     
     

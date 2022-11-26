@@ -40,15 +40,40 @@ class Adminhome extends Controller
         }
         // where to go after BO has been added
         //header('location: ' . BASEURL . 'boardingOwner/BOhome');
-        $this->viewboardingOwner();
+        //$this->viewboardingOwner();
+        $this->fetchBONames();
     }
 
-    // to view list of BO s
+   
+    // public function viewboardingOwner()
+    // { 
+    //     $data = $this->model('viewModel')->getAllrecords('boardingowner');
+    //     $this->view('boardingOwner/BOhome', $data);
+    // }
+
+    public function fetchBONames()
+    {
+        $data = $this->model('viewModel')->getCols('BoardingOwner');
+        $this->view('boardingOwner/BOhome', $data);
+        // $info = $this->model('viewModel')->getCols('BoardingOwner');
+        // if ($info != null) {
+
+        //     $row = $info->fetch_row();
+        //     //$this->view('boardingOwner/BOhome', ['info' => $row]);
+    
+        // }
+        //$this->viewboardingOwner();
+        // $data = $this->model('viewModel')->getAllrecords('boardingowner');
+        // $this->view('boardingOwner/BOhome', $data);
+    }
+
+     // to view list of Boarding owners
     public function viewboardingOwner()
     {
-        $data = $this->model('viewModel')->getAllrecords('boardingowner');
+        $data = $this->model('viewModel')->joinTables('user','boardingowner','UserType','BoardingOwner');
         $this->view('boardingOwner/BOhome', $data);
     }
+    
 
     public function deleteboardingOwner($user_id)
     {
@@ -60,8 +85,8 @@ class Adminhome extends Controller
     public function addBoardingOwner()
     {
         //   $this->view('boardingOwner/add');
-        $this->view('register/boardingOwner');
-        // header('Location: ' . BASEURL . '/register/boardingownerSignup');
+        //$this->view('register/boardingOwner');
+        header('Location: ' . BASEURL . '/register/boardingowner');
     }
 
     //add Boarding Owner
@@ -71,7 +96,6 @@ class Adminhome extends Controller
         echo $_POST['password'];
         header('Location: ' . BASEURL . '/register/boardingownerSignup');
     }
-
 
     public function processAdd()
     {
@@ -100,14 +124,10 @@ class Adminhome extends Controller
 
     public function studentSignup()
     {
-
         echo $_POST['username'];
         echo $_POST['password'];
         header('Location: ' . BASEURL . '/register/studentSignup');
     }
-
-
-
 
     //professional
     public function manageprofessional()

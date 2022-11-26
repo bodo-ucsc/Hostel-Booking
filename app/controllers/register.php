@@ -94,7 +94,6 @@ class Register extends Controller
 
     public function boardingownerSignup()
     {          
-        if (isset($_POST['submit'])) {
             if (isset($_POST['username'])) {
 
                 $firstname = $_POST['firstname'];
@@ -103,16 +102,16 @@ class Register extends Controller
                 $password = $_POST['password'];
                 $usertype = "BoardingOwner";
                 
-                $mobile = $_POST['mobile'];
-                $dob = $_POST['dob'];
-                $email = $_POST['email'];
                 $gender = $_POST['gender'];
-                $address = $_POST['address'];
+                $dob = $_POST['dob'];
                 $nic = $_POST['nic'];
+                $mobile = $_POST['mobile'];
+                $occupation =$_POST['occupation'];
                 $address = $_POST['address'];
-                $contactNo = $_POST['contactNo'];
-
-                if ($_POST["password"] !== $_POST["ComPassword"]) {
+                $workplace =$_POST['workplace'];
+                $email = $_POST['email'];
+            
+                if ($_POST["password"] !== $_POST["repassword"]) {
                     die("both password must be match");
                 } else {
                     $date = date_create();
@@ -150,7 +149,7 @@ class Register extends Controller
                         //         'passwordHash' => $passwordHash,
                         //         'role' => "boardingowner"
                         //     );
-                            $this->model('registerModel')->addBoardingOwner($id, $mobile, $dob, $email, $gender, $address, $nic);
+                            $this->model('registerModel')->addBoardingOwner($id, $mobile, $dob, $email, $gender, $address, $nic,$occupation,$workplace);
                             //$this->model('registerModel')->userInsert($userData);
 
                             //$this->model('registerModel')->boardingOwnerInsert($data);
@@ -160,8 +159,8 @@ class Register extends Controller
                         }
                     }
                 }
-             }
-        else {
+    
+                 else {
             echo "Not Submitted";
             echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
         }

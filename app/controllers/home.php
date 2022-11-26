@@ -27,7 +27,7 @@ class Home extends Controller
     //     header('Location: ' . BASEURL . '/home');
 // }
        // $this->view('home/index');
-    }  
+    //}  
 
     
 
