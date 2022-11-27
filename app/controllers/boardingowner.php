@@ -1,5 +1,5 @@
 <?php
-
+if (isset($_SESSION['username'])) {
 class BoardingOwner extends Controller
 { 
     public function index()
@@ -11,11 +11,11 @@ class BoardingOwner extends Controller
     public function addboardingOwner()
     {
         
-        $this->view('boardingOwner/process-add');
+        $this->view('register/boardingOwner');
     }
+}
 
-    // public function processAdd()
-    // {
-    //     $this->view('boardingOwner/process-add');
-    // }
+
+}else{
+    echo "You have to sign in first";
 }

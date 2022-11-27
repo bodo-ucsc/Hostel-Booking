@@ -13,16 +13,18 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
           <div>
             <span class=" header-2">Boarding Owner Listing</span>
           </div>
-
           <?php
           $header =   new Search();
           ?>
         </div>
-       
       </div>
-      <button class=" bg-blue border-rounded-more margin-bottom-3 margin-top-3">
-        <a href="<?php echo BASEURL ?>/adminhome/addBoardingOwner" class=" white white-hover">Add Boarding Owners</a></button>
-
+      <div class="col-12 col-medium-4 fill-container right">
+        <a href="<?php echo BASEURL ?>/adminhome/addBoardingOwner">
+          <button class=" bg-blue white border-rounded header-nb  padding-3 right">
+            <i data-feather="plus" class=" vertical-align-bottom padding-right-2"></i>
+            <span class=" header-nb">
+              Add Boarding Owners</span></button></a>
+      </div>
       <?php
 
       //$row = $data['info'];
@@ -57,9 +59,9 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
                 <td><?php echo $row['Address']; ?></td>
                 <td><?php echo $row['ContactNumber']; ?></td>
 
-                <!-- <td><button><a href="<?php echo BASEURL ?>/adminhome/editboardingOwner/<?php echo $row['user_id']; ?>" class="card-link">Edit</a></button>
-                  <button><a href="<?php echo BASEURL ?>/adminhome/deleteboardingOwner/<?php echo $row['user_id']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
-                </td> -->
+                <td><button><a href="<?php echo BASEURL ?>/adminhome/editboardingOwner/<?php echo $row['UserId']; ?>" class="card-link">Edit</a></button>
+                  <button><a href="<?php echo BASEURL ?>/adminhome/deleteboardingOwner/<?php echo $row['UserId']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
+                </td>
               </tr>
 
           <?php

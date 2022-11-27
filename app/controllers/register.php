@@ -27,35 +27,6 @@ class Register extends Controller
         $this->view('register/boardingowner');
     }
 
-    //     public function verificationTeamSignUp()
-    //     {
-    //         if (isset($_POST['username'])) {
-    //             $firstname = $_POST['firstname'];
-    //             $lastname = $_POST['lastname'];
-    //             $username = $_POST['username'];
-    //             $password = $_POST['password'];
-    //             $usertype="VerificationTeam";
-
-    //         echo $username;
-    //         echo $password;
-
-    //         $result = $this->model('loginModel')->verificationTeamLogin($username, $password);
-
-    //         if ($result != null) {
-    //             session_start();
-    //             $row = $result->fetch_assoc();
-    //             $_SESSION['username'] = $row['username'];
-    //             $_SESSION['role'] = 'student';
-    //             echo "success";
-
-    //             header('Location: ' . BASEURL . '/welcome');
-    //         } else {
-    //             // $this->view('register/student', ['error' => 'Invalid username or password']);
-    //             echo "fail";
-    //         }
-    //     }
-    // }
-
 
     public function verificationTeamSignUp()
     {
@@ -68,7 +39,7 @@ class Register extends Controller
 
             $id = $this->model('registerModel')->register($firstname, $lastname, $username, $password, $usertype);
 
-            echo $id;
+            //echo $id;
 
             $mobile = $_POST['mobile'];
             $dob = $_POST['dob'];
@@ -77,12 +48,12 @@ class Register extends Controller
             $address = $_POST['address'];
             $nic = $_POST['nic'];
 
-            echo $mobile;
-            echo $dob;
-            echo $email;
-            echo $gender;
-            echo $address;
-            echo $nic;
+            // echo $mobile;
+            // echo $dob;
+            // echo $email;
+            // echo $gender;
+            // echo $address;
+            // echo $nic;
 
             $this->model('registerModel')->addVerificationTeam($id, $mobile, $dob, $email, $gender, $address, $nic);
 
@@ -93,24 +64,42 @@ class Register extends Controller
     }
 
     public function boardingownerSignup()
-    {          
-            if (isset($_POST['username'])) {
+    {
+        if (isset($_POST['username'])) {
+
+            $username = $_POST['username'];
+            //check user already exists
+            $res = $this->model('registerModel')->checkUser($username);
+            if ($res = null) {
+
+                // if( !empty($_POST['email']) || !filter_var($_POST["email"])) {
+                //     die("Valid email is required");
+                // }
+                // if(strlen($_POST["password"])<  5){
+                //     die("password must be at least 5 characters");
+                // }
+                // if(! preg_match("/[a-z]/i",$_POST["password"])){
+                //     die("password must contain at least one letter");
+                // }
+
+                // if(! preg_match("/[0-9]/i",$_POST["password"])){
+                //     die("password must contain at least one number");
+                // }
 
                 $firstname = $_POST['firstname'];
                 $lastname = $_POST['lastname'];
-                $username = $_POST['username'];
                 $password = $_POST['password'];
                 $usertype = "BoardingOwner";
-                
+
                 $gender = $_POST['gender'];
                 $dob = $_POST['dob'];
                 $nic = $_POST['nic'];
                 $mobile = $_POST['mobile'];
-                $occupation =$_POST['occupation'];
+                $occupation = $_POST['occupation'];
                 $address = $_POST['address'];
-                $workplace =$_POST['workplace'];
+                $workplace = $_POST['workplace'];
                 $email = $_POST['email'];
-            
+
                 if ($_POST["password"] !== $_POST["repassword"]) {
                     die("both password must be match");
                 } else {
@@ -118,52 +107,24 @@ class Register extends Controller
                     if ($date < $dob) {
                         die("Date Of Birth is a future date");
                     } else {
+
                         //password hashing done in registerModel
                         $id = $this->model('registerModel')->register($firstname, $lastname, $username, $password, $usertype);
+                        //echo $id;
+                        $this->model('registerModel')->addBoardingOwner($id, $mobile, $dob, $email, $gender, $address, $nic, $occupation, $workplace);
 
-                        echo $id;
-                        // $passwordHash = password_hash($_POST["password"], PASSWORD_DEFAULT);
-                        // //$res = $this->model('registerModel')->check_boardingOwner($username, $passwordHash);
-
-                        //in here have to check in user table in db not bo table
-                        // $count = $this->model('registerModel')->check_boardingOwner($username, $passwordHash);
-                        // //if ($res->num_rows > 0) {
-                        // if ($count->num_rows > 0) {
-                        //     echo 'This User Already Exists'; //have to look in users table in db
-                        //     echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
-                        // } else {
-                        //     $data = array(
-                        //         'username' => $username, //$_POST['username'],
-                        //         'first_name' => $_POST['first_name'],
-                        //         'last_name' => $_POST['last_name'],
-                        //         'nic' => $_POST['nic'],
-                        //         'email' => $_POST['email'],
-                        //         'password' => $passwordHash,
-                        //         'gender' => $_POST['gender'],
-                        //         'DOB' => $_POST['DOB'],
-                        //         'address' => $_POST['address'],
-                        //         'contactNo' => $_POST['contactNo']
-                        //     );
-                        //     $userData = array(
-                        //         'username' => $username,
-                        //         'passwordHash' => $passwordHash,
-                        //         'role' => "boardingowner"
-                        //     );
-                            $this->model('registerModel')->addBoardingOwner($id, $mobile, $dob, $email, $gender, $address, $nic,$occupation,$workplace);
-                            //$this->model('registerModel')->userInsert($userData);
-
-                            //$this->model('registerModel')->boardingOwnerInsert($data);
-                            echo 'Data added successfully <br>'; 
-                            echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';
-                            //echo "header('Location: ' . BASEURL . '/adminhome')";
-                        }
+                        echo 'Data added successfully <br>';
+                        echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';
+                        //echo "header('Location: ' . BASEURL . '/adminhome')";
                     }
                 }
-    
-                 else {
+            } else {
+                echo "User name is already exists";
+                echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
+            }
+        } else {
             echo "Not Submitted";
             echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
         }
     }
 }
-

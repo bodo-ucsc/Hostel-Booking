@@ -57,7 +57,7 @@ class Model extends Database
         return $result;
     }
 
-    //SELECT * FROM user,boardingowner WHERE user.UserType = "BoardingOwner";
+  
     public function insert($table, $data)
     {
         $sql = "INSERT INTO $table SET ";

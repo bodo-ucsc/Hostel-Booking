@@ -25,19 +25,8 @@ class registerModel extends Model
         return $result;
     }
 
-    public function adminInsert($username, $password)
-    {
-        $result = $this->insert('multi', "username = '$username' AND password = '$password'");
-        return $result;
-    }
-    // public function boardingOwnerInsert($username, $password,$fname,$lname,$email,$gender,$DOB,$postcode,$street,$city,$contactNo,){
-
-    //     $result = $this->insert('boardingowner', "username='$username',password='$password',fname='$fname',lname='$lname',
-    //     email='$email',gender='$gender',DOB='$DOB',postcode='$postcode',street='$street',city='$city',contactNo='$contactNo'");
-    //     return $result;
-    // }
-
-    public function check_boardingOwner($username)
+  
+    public function checkUser($username)
     {
         $result = $this->get('user', "username = '$username'");
         return $result;
@@ -74,6 +63,11 @@ class registerModel extends Model
 
     public function addBoardingOwner($id,$mobile,$dob,$email,$gender,$address,$nic,$occupation,$workplace){
         $this->insert('BoardingOwner', ['BoardingOwnerId'=> $id, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender ,'Occupation'=> $occupation, 'Workplace'=> $workplace]);
+        
+    }
+
+    public function addAdvertisement($userid,$placeid,$date,$message){
+        $this->insert('postupdate', ['UserId'=> $userid, 'PlaceId'=> $placeid, 'DateTime'=> $date, 'Caption'=> $message]);
         
     }
 

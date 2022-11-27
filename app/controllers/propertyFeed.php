@@ -1,17 +1,14 @@
 <?php
 
+if (isset($_SESSION['username'])) {
+
 class PropertyFeed extends Controller
 {
-
     public function postUpdate()
     {
+        $session_name= $_SESSION['username'];
 
-        // echo $_POST['username'];
-        // echo $_POST['date'];
-        // echo $_POST['placeid'];
-        // echo $_POST['message'];
-
-            if (isset($_POST['username'])) {
+            if (isset($_POST['placeid'])) {
 
                 $username = $_POST['username'];
                 $placeid = $_POST['placeid'];
@@ -24,30 +21,39 @@ class PropertyFeed extends Controller
                     die("Invalid date");
                 } else {
 
-                    $id= $this->model('viewModel')->getID('user','UserId', $username);
-                    if($id != null){
-                        $info = $id->Fetch_assoc();
-                        //echo "hello";
-                        echo ['id' => $info];
+                    $id= $this->model('viewModel')->getID('user','UserId', $session_name);
+                    //convert to string
+                    $Uid= $id->fetch_assoc();
+                    if($Uid != null){
+                        $userid= $Uid['UserId'];
+                        $this->model('registerModel')->addAdvertisement($userid, $placeid, $date, $message);
+                        echo 'Data added successfully <br>';
+                        echo ' <br><a href="../adminhome/feed">View Updates</a>  <br>';
+                        //$this->viewAdvertisements();
+                    }else{
+                        echo "Invalid userId";
                     }
-                //     $Userid= $id->fetch_assoc();
-                //     echo $Userid;
-                //    // $Userid = $this->model('viewModel')->getID('user','UserId', $username);
-                //     $this->model('registerModel')->addAdvertisement($Userid, $placeid, $date, $message);
-                //     echo 'Data added successfully <br>';
-                //     echo ' <br><a href="../adminhome/feed">View Updates</a>  <br>';
-                    //$this->viewAdvertisements();
                 }
             
         } else {
-            echo "Invalid submit";
+            echo "Invalid placeId";
         }
     }
 
     public function viewAdvertisements()
     {
-        $data = $this->model('viewModel')->getAllrecords('postupdate');
-       // print_r($data);
+        //SELECT FirstName,LastName,Title,DateTime,Caption FROM `user`,`postupdate`,`boardingplace` 
+        //           WHERE user.UserId = postupdate.UserId AND postupdate.PlaceId = boardingplace.PlaceId;
+        $data = $this->model('viewModel')->joinTables('user','postupdate','UserId','UserId');
         $this->view('propertyFeed/feedHome', $data);
     }
+
+    public function addUpdate()
+    {
+        $this->view('propertyFeed/addUpdate');
+    }
+}
+
+}else{
+    header("Location: ".BASEURL."/signin/admin");
 }

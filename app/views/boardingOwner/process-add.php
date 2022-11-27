@@ -38,13 +38,11 @@ if (isset($_POST["btn"])) {
             $password = $passwordHash;
             $gender = $_POST['gender'];
             $DOB = $_POST['DOB'];
-            $postcode = $_POST['postcode'];
-            $street = $_POST['street'];
-            $city = $_POST['city'];
+            $address = $_POST['address'];
             $contactNo = $_POST['contactNo'];
 
-            $sql = "INSERT into boardingowner (fname,lname,nic,email,password,gender,DOB,postcode,street,city,contactNo)
-        VALUES ('$fname','$lname','$nic','$email','$password','$gender','$DOB','$postcode','$street','$city','$contactNo')";
+            $sql = "INSERT into user (FirstName,LastName,nic,Email,passwordHash,gender,DOB,address,contactNo)
+        VALUES ('$fname','$lname','$nic','$email','$password','$gender','$DOB','$address','$contactNo')";
 
             //         $sql = "INSERT INTO boardingowner (name, email, passwordHash)
             // VALUES (?, ?, ?)";
