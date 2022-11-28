@@ -27,9 +27,10 @@ class viewModel extends Model
         return $res;	
 	}
 
-	public function getID($table,$column,$value){
+	public function getID($table,$column,$condition,$value){
         
-		$res = $this->getColumnValue($table,$column,"Username = '$value'");
+		//$res = $this->getColumnValue($table,$column,"Username = '$value'");
+		$res = $this->getColumnValue($table,$column,"$condition = '$value'");
 		return $res;	      
     }
 

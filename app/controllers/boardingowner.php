@@ -22,7 +22,6 @@ if (isset($_SESSION['username'])) {
         {
             if (isset($user_id)) {
 
-
                 $res = $this->model('viewModel')->viewBOInfo($user_id);
                 if ($res != null) {
 
@@ -34,7 +33,7 @@ if (isset($_SESSION['username'])) {
                 }
             } else {
 
-                echo "Invalid UserId";
+                echo "UserId not found";
             }
             //$this->view('boardingOwner/BOhome');
         }

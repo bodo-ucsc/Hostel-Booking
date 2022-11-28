@@ -2,6 +2,7 @@
 $header = new HTMLHeader("PropertyFeed | Advertisements");
 $nav = new Navigation();
 $sidebar = new SidebarNav("user", "Advertisements");
+$bplace = $data['place'];
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
@@ -34,17 +35,17 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="date" class="bold black">Date</label><br>
-                                <input type="date" id="date" name="date" placeholder="Enter Date" required><br>
+                                <input type="datetime-local" id="date" name="date" placeholder="Enter Date" required><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="placeid" class="bold black">Property Link</label><br>
-                                <input type="text" class="fill-container" id="placeid" name="placeid" placeholder="Enter Property Link" required><br>
+                                <input type="text" class="fill-container" id="placeid" name="placeid" value="<?php echo $bplace['PlaceId']; ?>" placeholder="Enter Property Link" required><br>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-medium-4 fill-container">
+                            <div class="col-12 col-medium-8 fill-container">
                                 <label for="message" class="bold black">Message</label><br>
                                 <input type="text" class="fill-container" id="message" name="message" placeholder="Enter Message"><br>
                             </div>
@@ -61,11 +62,11 @@ $sidebar = new SidebarNav("user", "Advertisements");
 
                                 </div>
                                 <div class="col-12 col-medium-4 col-large-12 fill-container">
-                                    <label for="password" class="bold black">Date</label><br>
+                                    <label for="" class="bold black">Date</label><br>
 
                                 </div>
                                 <div class="col-12 col-medium-4 col-large-12 fill-container">
-                                    <label for="password" class="bold black">Message</label><br>
+                                    <label for="" class="bold black">Message</label><br>
 
                                 </div>
                             </div>

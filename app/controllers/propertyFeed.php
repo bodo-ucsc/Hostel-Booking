@@ -21,7 +21,7 @@ if (isset($_SESSION['username'])) {
                     die("Invalid date");
                 } else {
 
-                    $id = $this->model('viewModel')->getID('user', 'UserId', $session_name);
+                    $id = $this->model('viewModel')->getID('user', 'UserId', 'Username', $session_name);
                     //convert to string
                     $Uid = $id->fetch_assoc();
                     if ($Uid != null) {
@@ -47,9 +47,21 @@ if (isset($_SESSION['username'])) {
             $this->view('propertyFeed/feedHome', $data);
         }
 
+        // user can post advertisements only for boarding place which he joined
         public function addUpdate()
         {
-            $this->view('propertyFeed/addUpdate');
+            $name = $_SESSION['username'];
+            //find user id for username
+            $userid = $this->model('viewModel')->getID('user', 'UserId', 'Username', $name);
+            $uid = $userid->fetch_assoc();
+            //find place id of the user currently joined
+            $place = $this->model('viewModel')->getID('boardingplacetenant', 'PlaceId', 'TenantId', $uid['UserId']);
+            if ($place != null) {
+                $row = $place->fetch_assoc();
+                $this->view('propertyFeed/addUpdate', ['place' => $row]);
+            } else {
+                echo "You are not joined to any Boarding place yet";
+            }
         }
 
         public function editUpdate($post_id = null)
@@ -62,34 +74,28 @@ if (isset($_SESSION['username'])) {
                     $row = $res->fetch_assoc();
                     $this->view('propertyFeed/updateFeed', ['res' => $row]);
                 } else {
-
-                    echo "NO advertisement";
+                    echo "No advertisement";
                 }
             } else {
-
-                echo "Invalid PostId";
+                echo "PostId not found";
             }
-            //$this->view('propertyFeed/feedHome');
         }
 
         public function updateFeed()
         {
-            // if we have POST data to create a new Bo
-            if (isset($_POST["username"])) {
+            if (isset($_POST['username'])) {
+                $username = $_POST['username'];
 
-                if (isset($_POST['PostId'])) {
+                if (isset($_POST['postid'])) {
 
-                    $pid = $_POST['PostId'];
+                    $pid = $_POST['postid'];
 
-                    if (isset($_POST['PlaceId']) && isset($_POST['DateTime']) && isset($_POST['Caption'])) {
+                    if (isset($_POST['placeid']) && isset($_POST['date']) && isset($_POST['message'])) {
 
-                        $username = $_POST['username'];
-                        $firstname = $_POST['firstname'];
-                        $lastname = $_POST['lastname'];
-                        $placeid = $_POST['PlaceId'];
+                        $placeid = $_POST['placeid'];
                         $userid = $_POST['UserId'];
-                        $dateTime = $_POST['DateTime'];
-                        $caption = $_POST['Caption'];
+                        $dateTime = $_POST['date'];
+                        $caption = $_POST['message'];
                         //$usertype = "BoardingOwner";
 
                         $res = $this->model('registerModel')->checkPlace($placeid);
