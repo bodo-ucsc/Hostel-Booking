@@ -19,6 +19,6 @@ class loginModel extends Model
             } else {
                 return null;
             }
-        }
+        } 
     }
 }
