@@ -30,16 +30,18 @@ $sidebar = new SidebarNav("user", "Advertisements");
                     <div class=" col-12 col-large-6">
                         <div class="shadow border-rounded padding-3 fill-container">
 
-                            <label>PostID :</label><?php echo $row['PostId']; ?><br>
+                            <!-- <label>PostID :</label><?php echo $row['PostId']; ?><br>
                             <label>UserID :</label><?php echo $row['UserId']; ?><br>
-                            <label>PlaceID :</label><?php echo $row['PlaceId']; ?><br>
-                            <label>Name :</label><?php echo $row['FirstName'], " ", $row['LastName']; ?><br>
-                            <!-- <label>Property :</label><?php echo $row['Title']; ?><br> -->
-                            <label>Date Time :</label><?php echo $row['DateTime']; ?><br>
-                            <label>Message :</label><?php echo $row['Caption']; ?><br>
-
+                            <label>PlaceID :</label><?php echo $row['PlaceId']; ?><br> -->
+                            <span class=" header-nb"><?php echo $row['FirstName'], " ", $row['LastName']; ?></span><br>
+                            <?php echo $row['DateTime']; ?><br>
+                            <span class=" header-nb"><?php echo $row['Caption']; ?></span><br>
+                            <label>Property :</label><?php echo $row['Title']; ?><br>
+                            <span class=" header-2"><?php echo $row['CityName']; ?></span><br>
+                            
+                            
                             <button>
-                                <a href="<?php echo BASEURL ?>/#/<?php echo $row['PostId']; ?>" class="card-link">Edit</a></button>
+                                <a href="<?php echo BASEURL ?>/propertyFeed/editUpdate/<?php echo $row['PostId']; ?>" class="card-link">Edit</a></button>
                             <button>
                                 <a href="<?php echo BASEURL ?>/#/<?php echo $row['PostId']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
 

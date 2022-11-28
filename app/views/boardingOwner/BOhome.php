@@ -35,6 +35,7 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
           <table cellspacing="4" cellpadding="9">
             <div class=" grey">
               <tr>
+                <th>User Name</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>NIC</th>
@@ -50,6 +51,7 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
             while ($row = $data->fetch_assoc()) {
             ?>
               <tr>
+                <td><?php echo $row['Username']; ?></td>
                 <td><?php echo $row['FirstName']; ?></td>
                 <td><?php echo $row['LastName']; ?></td>
                 <td><?php echo $row['NIC']; ?></td>
@@ -59,7 +61,7 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
                 <td><?php echo $row['Address']; ?></td>
                 <td><?php echo $row['ContactNumber']; ?></td>
 
-                <td><button><a href="<?php echo BASEURL ?>/adminhome/editboardingOwner/<?php echo $row['UserId']; ?>" class="card-link">Edit</a></button>
+                <td><button><a href="<?php echo BASEURL ?>/boardingOwner/editBO/<?php echo $row['UserId']; ?>" class="card-link">Edit</a></button>
                   <button><a href="<?php echo BASEURL ?>/adminhome/deleteboardingOwner/<?php echo $row['UserId']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
                 </td>
               </tr>

@@ -2,16 +2,18 @@
 $header = new HTMLHeader("PropertyFeed | Advertisements");
 $nav = new Navigation();
 $sidebar = new SidebarNav("user", "Advertisements");
+
+$result = $data['res'];
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
         <div class="col-12 col-medium-12 width-90">
-            <form action="<?php echo BASEURL?>/propertyFeed/postUpdate" method="POST">
+            <form action="<?php echo BASEURL?>/propertyFeed/updateFeed" method="POST">
                 <div class="row ">
                     <div class="col-12 col-medium-8 fill-container left">
                         <h1 class="header-1 ">
                             <i data-feather="chevron-left"></i>
-                            Add Update
+                            Edit Update
                         </h1>
                     </div>
 
@@ -28,25 +30,25 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="name" class="bold black">Name</label><br>
-                                <input type="text" class="fill-container" id="username" name="username" placeholder="Enter Name" required><br>
+                                <input type="text" class="fill-container" id="username" name="username" placeholder="Enter Name" value="<?php echo $result['Username']; ?>" required><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="date" class="bold black">Date</label><br>
-                                <input type="date" id="date" name="date" placeholder="Enter Date" required><br>
+                                <input type="date" id="date" name="date" placeholder="Enter Date" value="<?php echo $result['DateTime']; ?>" required><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="placeid" class="bold black">Property Link</label><br>
-                                <input type="text" class="fill-container" id="placeid" name="placeid" placeholder="Enter Property Link" required><br>
+                                <input type="text" class="fill-container" id="placeid" name="placeid" placeholder="Enter Property Link" value="<?php echo $result['PlaceId']; ?>" required><br>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-medium-4 fill-container">
+                            <div class="col-12 col-medium-8 fill-container">
                                 <label for="message" class="bold black">Message</label><br>
-                                <input type="text" class="fill-container" id="message" name="message" placeholder="Enter Message"><br>
+                                <input  type="text" class="fill-container" id="message" name="message" value="<?php echo $result['Caption']; ?>" placeholder="Enter Message"><br>
                             </div>
                         </div>
                     </div>
@@ -72,7 +74,7 @@ $sidebar = new SidebarNav("user", "Advertisements");
                         </div>
                     </div>
                 </div>
-           
+                <input type="hidden" id="PostId" name="PostId" value="<?php echo $result['PostId']; ?>"/>
         </div>
     </div>
 </main>

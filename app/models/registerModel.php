@@ -56,6 +56,13 @@ class registerModel extends Model
         return $this->lastInsertId();
     } 
 
+    public function EditUser($id,$firstname,$lastname,$username,$password,$usertype)
+    {
+        //hashing the password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $this->update('user', ['FirstName' => $firstname,'LastName' => $lastname,'Username' => $username, 'Password' => $password, 'UserType' => $usertype],"UserId = '$id'");
+    } 
+
     public function addVerificationTeam($id,$mobile,$dob,$email,$gender,$address,$nic){
         $this->insert('VerificationTeam', ['VerificationTeamId'=> $id, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender]);
         
@@ -66,8 +73,23 @@ class registerModel extends Model
         
     }
 
+    public function updateBoardingOwner($id, $mobile, $dob, $email, $gender, $address, $nic, $occupation, $workplace)
+    {
+        $this->update('BoardingOwner', ['DateOfBirth'=> $dob, 'NIC'=> $nic, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender ,'Occupation'=> $occupation, 'Workplace'=> $workplace],"BoardingOwnerId = '$id'");  
+    } 
+
     public function addAdvertisement($userid,$placeid,$date,$message){
         $this->insert('postupdate', ['UserId'=> $userid, 'PlaceId'=> $placeid, 'DateTime'=> $date, 'Caption'=> $message]);
+        
+    }
+    public function checkPlace($placeid)
+    {
+        $result = $this->get('BoardingPlace', "PlaceId = '$placeid'");
+        return $result;
+    }
+
+    public function editAdvertisement($pid,$userid,$placeid,$date,$message){
+        $this->update('postupdate', ['UserId'=> $userid, 'PlaceId'=> $placeid, 'DateTime'=> $date, 'Caption'=> $message],"PostId = '$pid'");
         
     }
 

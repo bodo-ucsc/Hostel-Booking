@@ -7,7 +7,7 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
 $result = $data['res'];
 ?>
 <main class=" full-width ">
-    <form action="updateboardingOwner" method="POST">
+    <form action="<?php echo BASEURL?>/boardingOwner/updateBO" method="POST">
         <div class="row sidebar-offset navbar-offset ">
             <div class="col-12 col-medium-12 width-90">
                 <div class="row ">
@@ -15,7 +15,7 @@ $result = $data['res'];
                         <h1 class="header-1 ">
 
                             <i data-feather="chevron-left"></i>
-                            Add Boarding Owner
+                            Edit Boarding Owner
                         </h1>
                     </div>
                     <div class="col-12 col-medium-4 fill-container right">
@@ -105,11 +105,8 @@ $result = $data['res'];
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" id="UserId" name="UserId" value="<?php echo $result['UserId']; ?>"/>
                 </div>
-
-<?php 
-$uid= $result['UserId'];
-?>
             </div>
         </div>
     </form>

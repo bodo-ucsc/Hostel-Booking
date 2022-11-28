@@ -57,6 +57,18 @@ class Model extends Database
         return $result;
     }
 
+    public function Threetables($tb1,$tb2,$tb3,$where = null)
+    {
+       
+        $sql = "SELECT * FROM $tb1,$tb2,$tb3";
+        
+        if ($where != null) {
+            $sql .= " WHERE $where";
+        }
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+
   
     public function insert($table, $data)
     {
