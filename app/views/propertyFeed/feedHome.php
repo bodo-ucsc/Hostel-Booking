@@ -33,13 +33,13 @@ $sidebar = new SidebarNav("user", "Advertisements");
                             <!-- <label>PostID :</label><?php echo $row['PostId']; ?><br>
                             <label>UserID :</label><?php echo $row['UserId']; ?><br>
                             <label>PlaceID :</label><?php echo $row['PlaceId']; ?><br> -->
-                            <span class=" header-nb"><?php echo $row['FirstName'], " ", $row['LastName']; ?></span><br>
+                            <span class=" header-nb"><?php echo "Hi i'm ", $row['FirstName'], " ", $row['LastName']; ?></span><br>
                             <?php echo $row['DateTime']; ?><br>
                             <span class=" header-nb"><?php echo $row['Caption']; ?></span><br>
                             <label>Property :</label><?php echo $row['Title']; ?><br>
                             <span class=" header-2"><?php echo $row['CityName']; ?></span><br>
-                            
-                            
+
+
                             <button>
                                 <a href="<?php echo BASEURL ?>/propertyFeed/editUpdate/<?php echo $row['PostId']; ?>" class="card-link">Edit</a></button>
                             <button>

@@ -29,8 +29,12 @@ $result = $data['res'];
 
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
-                                <label for="name" class="bold black">Name</label><br>
-                                <input type="text" class="fill-container" id="username" name="username" placeholder="Enter Name" value="<?php echo $result['Username']; ?>" required><br>
+                                <label for="firstname" class="bold black">First Name</label><br>
+                                <input type="text" class="fill-container" id="firstname" name="firstname" placeholder="Enter Name" value="<?php echo $result['FirstName']; ?>" readonly required><br>
+                            </div>
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="lastname" class="bold black">Last Name</label><br>
+                                <input type="text" class="fill-container" id="lastname" name="lastname" placeholder="Enter Name" value="<?php echo $result['LastName']; ?>" readonly required><br>
                             </div>
                         </div>
                         <div class="row">
@@ -51,6 +55,9 @@ $result = $data['res'];
                                 <input type="text" class="fill-container" id="message" name="message" value="<?php echo $result['Caption']; ?>" placeholder="Enter Message"><br>
                             </div>
                         </div>
+                        <input type="hidden" id="postid" name="postid" value="<?php echo $result['PostId']; ?>" />
+                        <input type="hidden" id="UserId" name="UserId" value="<?php echo $result['UserId']; ?>" />
+                        <input type="hidden" id="username" name="username" value="<?php echo $result['Username']; ?>" />
                     </div>
             </form>
 
@@ -73,7 +80,7 @@ $result = $data['res'];
                 </div>
             </div>
         </div>
-        <input type="hidden" id="postid" name="postid" value="<?php echo $result['PostId']; ?>" />
+       
     </div>
     </div>
 </main>

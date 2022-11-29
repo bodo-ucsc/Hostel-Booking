@@ -81,7 +81,7 @@ if (isset($_SESSION['username'])) {
                         } else {
                             echo "Error user does not exist";
                         }
-                    }else {
+                    } else {
                         echo "Check login credentials and try again";
                     }
                 } else {
@@ -90,9 +90,19 @@ if (isset($_SESSION['username'])) {
             } else {
                 die("Username not submitted");
             }
+        }
 
+        public function deleteBO($user_id)
+        {
+            if (isset($user_id)) {
+                $this->model('deleteModel')->deleteboardingowner($user_id);
+            }
+            $this->viewboardingOwner();
         }
     }
+
+
+    
 } else {
     echo "You have to sign in first";
 }

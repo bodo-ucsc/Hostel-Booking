@@ -62,7 +62,7 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
                 <td><?php echo $row['ContactNumber']; ?></td>
 
                 <td><button><a href="<?php echo BASEURL ?>/boardingOwner/editBO/<?php echo $row['UserId']; ?>" class="card-link">Edit</a></button>
-                  <button><a href="<?php echo BASEURL ?>/adminhome/deleteboardingOwner/<?php echo $row['UserId']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
+                  <button><a href="<?php echo BASEURL ?>/boardingOwner/deleteBO/<?php echo $row['UserId']; ?>" class="card-link" onclick="return confirm('Are you sure, Do you want to delete this user?')">Delete</a></button>
                 </td>
               </tr>
 

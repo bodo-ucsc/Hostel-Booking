@@ -81,9 +81,18 @@ if (isset($_SESSION['username'])) {
             }
         }
 
+        public function deleteUpdate($post_id)
+        {
+            if (isset($post_id)) {
+                $this->model('deleteModel')->deleteAdvertisement($post_id);
+            }
+            $this->viewAdvertisements();
+        }
+
         public function updateFeed()
         {
             if (isset($_POST['username'])) {
+                //username of publisher
                 $username = $_POST['username'];
 
                 if (isset($_POST['postid'])) {
@@ -93,20 +102,30 @@ if (isset($_SESSION['username'])) {
                     if (isset($_POST['placeid']) && isset($_POST['date']) && isset($_POST['message'])) {
 
                         $placeid = $_POST['placeid'];
+                        //userid of publisher
                         $userid = $_POST['UserId'];
                         $dateTime = $_POST['date'];
                         $caption = $_POST['message'];
-                        //$usertype = "BoardingOwner";
 
                         $res = $this->model('registerModel')->checkPlace($placeid);
                         if ($row = null) {
                             echo "This place doesn't exists";
                         } else {
+                            //check whether this publisher is currently joined for this place
+                            $res = $this->model('viewModel')->getID('boardingplacetenant', 'PlaceId', 'TenantId',  $userid);
+                            if ($res != null) {
+                                $place = $res->fetch_assoc();
 
-                            $this->model('registerModel')->editAdvertisement($pid, $userid, $placeid, $dateTime, $caption);
-                            echo 'Data updated successfully <br>';
-                            echo ' <br><a href="../propertyFeed/viewAdvertisements">View Records</a>  <br>';
-                            //$this->viewAdvertisements();
+                                if ($place['PlaceId'] == $placeid) {
+
+                                    $this->model('registerModel')->editAdvertisement($pid, $userid, $placeid, $dateTime, $caption);
+                                    echo 'Data updated successfully <br>';
+                                    echo ' <br><a href="../propertyFeed/viewAdvertisements">View Records</a>  <br>';
+                                    //$this->viewAdvertisements();
+                                }
+                            }else{
+                                echo "Publisher not joined to this place";
+                            }
                         }
                     } else {
                         echo "Place is missing or invalid";
