@@ -7,7 +7,8 @@ require_once 'core/Model.php';
 require_once '../public/components/HtmlComponents/htmlFileHeader.php'; 
 require_once '../public/components/HtmlComponents/htmlFileFooter.php'; 
 require_once '../public/components/navigation.php'; 
-require_once '../public/components/search.php'; 
+require_once '../public/components/search/property.php'; 
+require_once '../public/components/search/user.php'; 
 require_once '../public/components/sidebarNav.php'; 
 require_once '../public/components/filter.php';  
 ?>

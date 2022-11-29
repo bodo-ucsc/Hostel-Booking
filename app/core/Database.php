@@ -23,11 +23,6 @@ class Database
         return $this->mysqli;
     }
 
-    public function numRows($result)
-    {
-        return $result->num_rows;
-    }
-
     public function runQuery($sql)
     {
         $result = $this->mysqli->query($sql);

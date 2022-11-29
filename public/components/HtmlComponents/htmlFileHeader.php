@@ -2,7 +2,7 @@
 
 class HTMLHeader{
     
-        public function __construct($title="BODO"){
+        public function __construct($title=null){
             $base = BASEURL;
             echo "
 

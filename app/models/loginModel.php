@@ -19,7 +19,7 @@ class loginModel extends Model
             } else {
                 return null;
             }
-        }
+        } 
     }
     public function studentLogin($username, $password)
     {
