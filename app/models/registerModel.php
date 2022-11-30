@@ -56,11 +56,9 @@ class registerModel extends Model
         return $this->lastInsertId();
     } 
 
-    public function EditUser($id,$firstname,$lastname,$username,$password,$usertype)
+    public function EditUser($id,$firstname,$lastname,$username,$usertype)
     {
-        //hashing the password
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        $this->update('user', ['FirstName' => $firstname,'LastName' => $lastname,'Username' => $username, 'Password' => $password, 'UserType' => $usertype],"UserId = '$id'");
+        $this->update('user', ['FirstName' => $firstname,'LastName' => $lastname,'Username' => $username, 'UserType' => $usertype],"UserId = '$id'");
     } 
 
     public function addVerificationTeam($id,$mobile,$dob,$email,$gender,$address,$nic){

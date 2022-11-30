@@ -10,7 +10,7 @@ if (isset($_SESSION['username'])) {
 
             if (isset($_POST['placeid'])) {
 
-                $username = $_POST['username'];
+                //$username = $_POST['username'];
                 $placeid = $_POST['placeid'];
                 $date = $_POST['date'];
                 $message = $_POST['message'];
@@ -81,7 +81,7 @@ if (isset($_SESSION['username'])) {
             }
         }
 
-        public function deleteUpdate($post_id)
+        public function deleteUpdate($post_id =null) 
         {
             if (isset($post_id)) {
                 $this->model('deleteModel')->deleteAdvertisement($post_id);

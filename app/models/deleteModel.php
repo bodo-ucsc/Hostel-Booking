@@ -9,10 +9,10 @@ class deleteModel extends Model
         parent::__construct();
     }
 
-    //this function can be used to every user,better to rename as deleteUser
+    //this function can be used to every user
     public function deleteUser($user_id)
     {
-        $link= $this->delete('user',$user_id);
+        $link= $this->delete('user',"UserId = $user_id");
         if($link){
             echo "Successfully Deleted";
             header('Location '. BASEURL.'/#');
@@ -21,7 +21,7 @@ class deleteModel extends Model
 
     public function deleteAdvertisement($post_id)
     {
-        $link= $this->delete('postupdate',$post_id);
+        $link= $this->delete('postupdate',"PostId = $post_id");
         if($link){
             echo "Successfully Deleted";
             header('Location '. BASEURL.'/propertyFeed/feedHome');
@@ -30,10 +30,11 @@ class deleteModel extends Model
 
     public function deleteboardingowner($user_id)
     {
-        $link= $this->delete('user',$user_id);
+        //this only delete from boardingowner table not from user table
+        $link= $this->delete('boardingowner',"BoardingOwnerId = $user_id");
         if($link){
             echo "Successfully Deleted";
-            header('Location '. BASEURL.'/boardingOwner/BOhome');
+            //header('Location '. BASEURL.'/boardingOwner/BOhome');
         }
     }
 

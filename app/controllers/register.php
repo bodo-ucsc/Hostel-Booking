@@ -66,12 +66,16 @@ class Register extends Controller
     public function boardingownerSignup()
     {
         if (isset($_POST['username'])) {
-
+            
             $username = $_POST['username'];
             //check user already exists
             $res = $this->model('registerModel')->checkUser($username);
-            if ($res = null) {
-
+            $res = $res->fetch_assoc();
+            if ($res != null) {
+                 
+                    echo "User name is already exists";
+                    echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
+            }else{
                 // if( !empty($_POST['email']) || !filter_var($_POST["email"])) {
                 //     die("Valid email is required");
                 // }
@@ -118,10 +122,8 @@ class Register extends Controller
                         //echo "header('Location: ' . BASEURL . '/adminhome')";
                     }
                 }
-            } else {
-                echo "User name is already exists";
-                echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
-            }
+            } 
+            
         } else {
             echo "Not Submitted";
             echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';

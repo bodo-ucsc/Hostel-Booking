@@ -24,7 +24,7 @@ $bplace = $data['place'];
                 </div>
 
                 <div class="row margin-top-5 fill-container">
-                    <div class="col-12 col-large-7 fill-container ">
+                    <div class="col-12 col-large-6 fill-container ">
 
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
@@ -57,9 +57,9 @@ $bplace = $data['place'];
                     </div>
             </form>
 
-            <div class="col-12 col-large-5 ">
+            <div class="col-12 col-large-6 ">
                 <span class="header-2">Preview</span>
-                <div class="shadow  padding-3 width-90">
+                <div class="shadow border-rounded padding-4 width-90">
                     <div class="row fill-container">
                         <div class="col-12 col-medium-4 col-large-12 fill-container">
                             <label for="username" class="bold black">Name</label><br>

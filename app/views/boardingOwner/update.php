@@ -86,22 +86,14 @@ $result = $data['res'];
 
                         </div>
                     </div>
-
-
+                    <?php 
+?>
                     <div class="col-12 col-large-12 fill-container ">
                         <h2 class="header-2">Login Credentials</h2>
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="username" class="bold black">Username</label><br>
                                 <input type="text" id="username" name="username" placeholder="Enter Username" value="<?php echo $result['Username']; ?>" required><br>
-                            </div>
-                            <div class="col-12 col-medium-4 fill-container">
-                                <label for="password" class="bold black">Password</label><br>
-                                <input type="password" id="password" name="password" placeholder="Enter Password" required>
-                            </div>
-                            <div class="col-12 col-medium-4 fill-container">
-                                <label for="repassword" class="bold black">Re-Type Password</label><br>
-                                <input type="password" id="repassword" name="repassword" placeholder="Re-Type Password" required>
                             </div>
                         </div>
                     </div>
@@ -111,23 +103,6 @@ $result = $data['res'];
         </div>
     </form>
 </main>
-
-
-<script>
-    var password = document.getElementById("password"),
-        confirm_password = document.getElementById("repassword");
-
-    function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
-    }
-
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-</script>
 
 <?php
 if (isset($data['error'])) {

@@ -47,42 +47,36 @@ if (isset($_SESSION['username'])) {
 
                     $id = $_POST['UserId'];
 
-                    if (isset($_POST['password']) && isset($_POST['repassword'])) {
+                    $firstname = $_POST['firstname'];
+                    $username = $_POST['username'];
+                    $lastname = $_POST['lastname'];
+                    $usertype = "BoardingOwner";
 
-                        $firstname = $_POST['firstname'];
-                        $username = $_POST['username'];
-                        $lastname = $_POST['lastname'];
-                        $password = $_POST['password'];
-                        $usertype = "BoardingOwner";
-
-                        $res = $this->model('registerModel')->checkUser($username);
-                        $row = $res->fetch_assoc();
-                        if ($row != null) {
-                            if ($row['Username'] == $username && $row['UserId'] != $id) {
-                                echo "Username already exists";
-                            } else {
-
-                                $this->model('registerModel')->EditUser($id, $firstname, $lastname, $username, $password, $usertype);
-
-                                $gender = $_POST['gender'];
-                                $dob = $_POST['dob'];
-                                $nic = $_POST['nic'];
-                                $mobile = $_POST['mobile'];
-                                $occupation = $_POST['occupation'];
-                                $address = $_POST['address'];
-                                $workplace = $_POST['workplace'];
-                                $email = $_POST['email'];
-
-                                $this->model('registerModel')->updateBoardingOwner($id, $mobile, $dob, $email, $gender, $address, $nic, $occupation, $workplace);
-                                echo 'Data updated successfully <br>';
-                                echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';
-                                //$this->viewboardingOwner();
-                            }
+                    $res = $this->model('registerModel')->checkUser($username);
+                    $row = $res->fetch_assoc();
+                    if ($row != null) {
+                        if ($row['Username'] == $username && $row['UserId'] != $id) {
+                            echo "Username already exists";
                         } else {
-                            echo "Error user does not exist";
+
+                            $this->model('registerModel')->EditUser($id, $firstname, $lastname, $username, $usertype);
+
+                            $gender = $_POST['gender'];
+                            $dob = $_POST['dob'];
+                            $nic = $_POST['nic'];
+                            $mobile = $_POST['mobile'];
+                            $occupation = $_POST['occupation'];
+                            $address = $_POST['address'];
+                            $workplace = $_POST['workplace'];
+                            $email = $_POST['email'];
+
+                            $this->model('registerModel')->updateBoardingOwner($id, $mobile, $dob, $email, $gender, $address, $nic, $occupation, $workplace);
+                            echo 'Data updated successfully <br>';
+                            echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';
+                            //$this->viewboardingOwner();
                         }
                     } else {
-                        echo "Check login credentials and try again";
+                        echo "Error user does not exist";
                     }
                 } else {
                     die("Invalid UserId");
@@ -96,13 +90,10 @@ if (isset($_SESSION['username'])) {
         {
             if (isset($user_id)) {
                 $this->model('deleteModel')->deleteboardingowner($user_id);
+                $this->viewboardingOwner();
             }
-            $this->viewboardingOwner();
         }
     }
-
-
-    
 } else {
     echo "You have to sign in first";
 }
