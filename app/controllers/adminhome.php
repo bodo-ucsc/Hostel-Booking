@@ -50,7 +50,7 @@ if (isset($_SESSION['username'])) {
                         $password = $_POST['password'];
                         $usertype = "BoardingOwner";
 
-                        $res = $this->model('registerModel')->checkUser($username);
+                        $res = $this->model('registerModel')->checkUser('Username',$username);
                         $row = $res->fetch_assoc();
                         if ($row != null) {
                             if ($row['Username'] == $username && $row['UserId'] != $id) {

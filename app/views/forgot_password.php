@@ -1,6 +1,6 @@
 <?php
-$header = new HTMLHeader("Login | Admin");
-$nav = new Navigation("home");
+$header = new HTMLHeader("Forgot Password");
+//$nav = new Navigation("home");
 ?>
 <main class=" full-width overflow-hidden position-absolute">
     <div class="row">
@@ -11,16 +11,19 @@ $nav = new Navigation("home");
                         <img class=" fill-container " src="<?php echo BASEURL . '/public/images/logo.svg' ?>">
                     </div>
                 </div>
-                <div class="row">
+                <div class="row">  
                     <div class="col-12">
-                        <h2 class="header-2">Admin Sign In</h2>
-                        <form action="<?php echo BASEURL ?>/signin/adminLogin" method="post">
-                            <label for="username" class="bold black">Username</label><br>
-                            <input type="text" id="username" name="username" placeholder="Enter username"><br>
-                            <label for="password" class="bold black">Password</label><br>
-                            <input type="password" id="password" name="password" placeholder="Enter Password">
-                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Sign In"><br>
-                            <a href="<?php echo BASEURL ?>/forgotpassword" class=" center">Forgot Password</a>
+                        <h2 class="header-2">Recover Your Password</h2>
+                        <P>
+                            Please enter your email address you used to sign up on this site 
+                            and we will assist you in recovering your password.
+                        </P>
+                        <form action="<?php echo BASEURL ?>/forgotpassword/check" method="post">
+                            <label for="email" class="bold black">Email</label><br>
+                            <input type="text" id="email" name="email"><br>
+    
+                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Send Link"><br>
+                            <a href="<?php echo BASEURL ?>/signin/admin" class=" center">Back</a>
                         </form>
                     </div>
                 </div>

@@ -25,10 +25,9 @@ class registerModel extends Model
         return $result;
     }
 
-  
-    public function checkUser($username)
+    public function checkUser($cond,$value)
     {
-        $result = $this->get('user', "username = '$username'");
+        $result = $this->get('user', "$cond = '$value'");
         return $result;
     }
 
@@ -41,11 +40,6 @@ class registerModel extends Model
     {
         $this->insert('user', $data);
     }
-    // public function insert_user($username, $password)
-    // {
-    //     $result = $this->insert('tmpbdowner', "$username,$password");
-    //     return $result;
-    // }
 
     public function Register($firstname,$lastname,$username,$password,$usertype)
     {

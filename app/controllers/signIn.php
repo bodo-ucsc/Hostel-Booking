@@ -170,4 +170,10 @@ class SignIn extends Controller
             header("Location: " . BASEURL . "/signin");
         }
     }
+
+    public function forgot_password()
+    {
+        header('Location: ' . BASEURL . '/register/boardingowner');
+        $this->view('forgot_password');
+    }
 }
