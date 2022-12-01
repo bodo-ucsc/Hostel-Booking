@@ -7,10 +7,12 @@ class boardingOwner extends model{
         parent::__construct();
     }
 
-    public function addBoarding($ownerid, $title, $verifiedStatus, $ubrLink, $summaryL1, $summaryL2, $summaryL3, $description, $price, $priceType, $houseNo, $street, $cityName, $googleMaps, $propertyType, $noofMembers, $noofRooms, $noofWashRooms, $gender, $boarderType, $sqft, $parking){
-        $this->insert('boardingPlace',['OwnerId' => $ownerid, 'Title' => $title, 'VerifiedStatus' => $verifiedStatus, 'UtilityBillReceiptLink' => $ubrLink, 'SummaryLine1' => $summaryL1, 'SummaryLine2' => $summaryL2, 'SummaryLine3' => $summaryL3, 'Description' => $description, 
-        'Price' => $price, 'PriceType' => $priceType, 'HouseNo' => $houseNo, 'Street' => $street, 'CityName' => $cityName, 'GoogleMap' => $googleMaps, 'PropertyType' => $propertyType, 'NoOfMembers' => $noofMembers, 'NoOfRooms' => $noofRooms,
-         'NoOfWashRooms' => $noofWashRooms, 'Gender' => $gender, 'BoarderType' => $boarderType, 'SquareFeet' => $sqft, 'Parking' => $parking]);        
+    public function addABoarding($ownerid, $title, $verifiedStatus, $ubrLink, $summaryL1, $summaryL2, $summaryL3, $description, $price, $priceType, $houseNo, $street, $cityName, $googleMaps, $propertyType, $noofMembers, $noofRooms, $noofWashRooms, $gender, $boarderType, $sqft, $parking){
+        $this->insert('boardingPlace',['OwnerId' => $ownerid, 'Title' => $title, 'VerifiedStatus' => $verifiedStatus, 'UtilityBillReceiptLink' => $ubrLink, 
+        'SummaryLine1' => $summaryL1, 'SummaryLine2' => $summaryL2, 'SummaryLine3' => $summaryL3, 'Description' => $description, 
+        'Price' => $price, 'PriceType' => $priceType, 'HouseNo' => $houseNo, 'Street' => $street, 'CityName' => $cityName, 'GoogleMap' => $googleMaps, 
+        'PropertyType' => $propertyType, 'NoOfMembers' => $noofMembers, 'NoOfRooms' => $noofRooms, 
+        'NoOfWashRooms' => $noofWashRooms, 'Gender' => $gender, 'BoarderType' => $boarderType, 'SquareFeet' => $sqft, 'Parking' => $parking]);        
     }
 
     public function viewAllBoarding(){
@@ -21,7 +23,7 @@ class boardingOwner extends model{
         $this->get('boardingPlace', "'PlaceId' = $placeid", null, 1);
     }
 
-    public function editBoarding($placeid, $title, $verifiedStatus, $ubrLink, $summaryL1, $summaryL2, $summaryL3, $description, $price, $priceType, $houseNo, $street, $cityName, $googleMaps, $propertyType, $noofMembers, $noofRooms, $noofWashRooms, $gender, $boarderType, $sqft, $parking){
+    public function editABoarding($placeid, $title, $verifiedStatus, $ubrLink, $summaryL1, $summaryL2, $summaryL3, $description, $price, $priceType, $houseNo, $street, $cityName, $googleMaps, $propertyType, $noofMembers, $noofRooms, $noofWashRooms, $gender, $boarderType, $sqft, $parking){
 
         if(isset($placeid)){
             if(isset($title)){
@@ -90,7 +92,7 @@ class boardingOwner extends model{
         }
     }
 
-    public function deleteBoarding($placeid){
+    public function deleteABoarding($placeid){
         $this->delete('boardingplacepicture', "'PlaceId' = $placeid");
         $this->delete('boardingplacetenant', "'PlaceId' = $placeid");
         $this->delete('friendinvite', "'PlaceId' = $placeid");
