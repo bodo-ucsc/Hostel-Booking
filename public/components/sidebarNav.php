@@ -133,7 +133,7 @@ class SideBarNav
                 <i data-feather='grid' class='grey'></i>
                 <span class=' fill-container  margin-left-2 header-nb grey'>Properties</span> 
             </div>   
-            </div>   
+            </div></a>   
         ";
         }
         if ($active == "support") {
@@ -173,7 +173,7 @@ class SideBarNav
                 <i data-feather='shopping-bag' class='grey'></i>
                 <span class=' fill-container  margin-left-2 header-nb'>Advertisements</span> 
             </div>   
-            </div><a/>     
+            </div></a>     
         ";
         }
 
@@ -224,7 +224,7 @@ class SideBarNav
             </div>   
         ";
         }
- 
+
 
         if ($active == 'support') {
             echo "    
@@ -243,7 +243,7 @@ class SideBarNav
             </div>   
         ";
         }
- 
+
 
         echo "</div>  ";
 

@@ -1,7 +1,7 @@
 <?php
 $header = new HTMLHeader("Register | Boarding Owner");
 $nav = new Navigation("home");
-$sidebar = new SidebarNav("user", "Boarding Owner");
+$sidebar = new SidebarNav("user", "boardingOwner");
 ?>
 <main class=" full-width ">
     <form action="boardingownerSignup" method="POST">
@@ -9,7 +9,7 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
             <div class="col-12 col-medium-12 width-90">
                 <div class="row ">
                     <div class="col-12 col-medium-8 fill-container left">
-                        <h1 class="header-1 ">
+                        <h1 class="header-1 black">
 
                             <i data-feather="chevron-left"></i>
                             Add Boarding Owner
@@ -29,7 +29,7 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
                 </div>
                 <div class="row margin-top-3 fill-container">
                     <div class="col-12 col-large-12 fill-container ">
-                        <h2 class="header-2">Personal Details</h2>
+                        <h2 class="header-2 black">Personal Details</h2>
                         <div class="row">
                             <div class="col-12 col-medium-3 fill-container">
                                 <label for="firstname" class="bold black">First Name</label><br>

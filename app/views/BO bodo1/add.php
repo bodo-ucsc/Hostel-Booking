@@ -9,8 +9,7 @@ $sidebar = new SidebarNav("user", "Boarding Owner");
             <div class="col-12 col-medium-12 width-90">
                 <div class="row ">
                     <div class="col-12 col-medium-8 fill-container left">
-                        <h1 class="header-1 ">
-
+                        <h1 class="header-1 black">
                             <i data-feather="chevron-left"></i>
                             Add Boarding Owner
                         </h1>
