@@ -1,6 +1,6 @@
 <?php
 
- 
+
 
 class Model extends Database
 {
@@ -56,4 +56,20 @@ class Model extends Database
         return $result;
     }
 
+<<<<<<< HEAD
+=======
+
+    public function numRows($table)
+    {
+        //count of rows 
+        $sql = "SELECT COUNT(1) FROM $table";
+        $result = $this->runQuery($sql);
+        $row = $result->fetch_row();
+        return $row[0];
+    }
+
+
+
+
+>>>>>>> Develop
 } 
