@@ -12,6 +12,8 @@ class BoardingOwner extends Controller{
 
     public function addBoardingPlace(){
 
+        $userid = $_SESSION['userId'];
+
         $propertytitle = $_POST('propertytitle');
         $location=$_POST('location');
         $price = $_POST('price');
@@ -30,7 +32,7 @@ class BoardingOwner extends Controller{
         $this->model('boardingOwnerModel')->addABoarding();
     }
 
-    public function editBoardingPlace(){
+    public function editBoardingPlace($placeid){
 
         $propertytitle = $_POST('propertytitle');
         $location=$_POST('location');
@@ -53,6 +55,16 @@ class BoardingOwner extends Controller{
     public function deleteBoardingPlace($placeid){
         $this->model('boardingOwnerModel')->deleteABoarding($placeid);
 
+    }
+
+    public function editDeleteBoardingPlace($placeid = null){
+        if (isset($_POST['update_button'])) {
+            $this->addBoardingPlace();
+        } else if (isset($_POST['delete_button'])) {
+            $this->editBoardingPlace($placeid);
+        } else {
+            echo "";
+        }
     }
 
     public function viewBoardingPlaces(){
