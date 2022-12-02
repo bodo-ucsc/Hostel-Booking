@@ -56,8 +56,6 @@ class Model extends Database
         return $result;
     }
 
-<<<<<<< HEAD
-=======
 
     public function numRows($table)
     {
@@ -68,8 +66,4 @@ class Model extends Database
         return $row[0];
     }
 
-
-
-
->>>>>>> Develop
 } 
