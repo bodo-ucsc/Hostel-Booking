@@ -17,6 +17,9 @@ class Forgotpassword extends Controller
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                     $result = $this->model('registerModel')->checkUser('Email', $email);
+                    
+//$result = $this->model('viewModel')->getID('Email', $email);
+                    
                 } else {
                     die("Invalid Email Address");
                 }
