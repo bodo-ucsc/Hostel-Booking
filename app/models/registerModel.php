@@ -95,10 +95,5 @@ class registerModel extends Model
         
     }
 
-
-
-
-    
-    
     
 }
