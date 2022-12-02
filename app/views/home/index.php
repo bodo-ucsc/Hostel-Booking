@@ -4,10 +4,12 @@
     ?>
 
 <main class=" home full-width full-height overflow-hidden ">
-    <div class="row margin-left-5 full-height">
-        <div class=" col-large-7 fill-container padding-left-5  ">
-            <div class=" fill-container cover-text">Boarding?</div>
-            <div class="margin-left-3">
+    <div class="row  no-gap margin-medium-left-5 margin-horizontal-3 full-height">
+    <div class="display-block  display-small-none"></div>
+
+        <div class=" col-large-7 col-medium-9 col-12 fill-container padding-horizontal-3  ">
+            <div class="fill-container cover-text">Boarding?</div>
+            <div class="margin-medium-left-3">
                 <?php
                     $search = new Search();
                     // $filter = new Filter();
@@ -15,7 +17,8 @@
                     ?>
             </div>
         </div>
-        <div class="col-1"></div>
+        <div class="fill-container padding-5 display-block  display-small-none"></div>
+        <div class="col-small-1 "></div>
 
     </div>
 
