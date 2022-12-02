@@ -7,16 +7,14 @@ $nav = new Navigation("home");
   <div class="row">
     <div class="col-5 fill-container justify-content center">
       <img width="374px" height="510px" src="<?php echo BASEURL . '/public/images/professionalSignIn.svg' ?>">
-        <!--<div class="margin-top-5">
-          <button class="">Boarding owner</button><br>
-          <button class="">Professional</button>
-          <button class="">Student</button>
-
+        <div class="margin-top-5">
           <div class="col-3 fill-container">
+              <input class=" padding-5 bg-blue-hover white-hover" type="submit" value="Student">
               <input class=" padding-5 bg-blue-hover white-hover" type="submit" value="Boarding owner">
               <input class=" padding-5 bg-blue-hover white-hover" type="submit" value="Professional">
+
           </div>
-        </div>-->
+        </div>
     </div>
     <div class="col-7 margin-3 fill-container">
         <form action="<?php echo BASEURL ?>/register/studentSignUp" method="post">
@@ -38,7 +36,7 @@ $nav = new Navigation("home");
                         </div>
                         <div class="col-4 fill-container padding-bottom-4">
                             <div class="bold black padding-bottom-2 ">Gender</div>
-                            <!-- <label class="big padding-bottom-3" style="margin-top: -1.5em;" for="gender">Gender</label><br> -->
+                            <!-- <label class="big padding-bottom-3" style="margin-top: -1.5em;" for="gender">Gender</label><br>-->
                                 <input  type="radio" name="gender" value="m" id="male" checked>
                                 <lable for="m">Male</lable>
                                 <input  type="radio" name="gender" value="f" id="female">
@@ -109,7 +107,7 @@ $nav = new Navigation("home");
 
 
             </div>
-            
+
             <h2 class="header-2">Login Credentials</h2>
             <div class="row">
                 <div class="col-4">
@@ -142,6 +140,10 @@ $nav = new Navigation("home");
     </div>
   </div>
 </main>
+
+
+
+
 
 <?php
 if (isset($data['error'])) {
