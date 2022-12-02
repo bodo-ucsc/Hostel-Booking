@@ -116,7 +116,7 @@ class Register extends Controller
             
             $this->model('registerModel')->addProfessional($id,$verificationStatus,$nicLink,$mobile,$dob,$email,$gender,$address,$nic,$occupation,$workplace);
 
-            // header("Location: " . BASEURL . "/signin/verificationTeam");
+            header("Location: " . BASEURL . "/signin/professional");
         } else {
             header("Location: " . BASEURL);
         }
