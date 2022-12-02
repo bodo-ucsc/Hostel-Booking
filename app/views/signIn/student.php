@@ -6,14 +6,13 @@ $nav = new Navigation("home");
 
 <main class=" full-width overflow-hidden position-absolute">
         <div class="row full-height">
-
-             <div class="col-8 bg-light-grey flex  full-height">
-                            <div class=" padding-5 margin-top-5">
-                                <img class=" fill-container " src="<?php echo BASEURL . '/public/images/studentSignIn.svg' ?>">
+             <div class="display-none display-small-block col-small-6 col-12 col-medium-8 bg-light-grey  fill-container center full-height">
+                            <div class=" vertical-align-bottom fill-vertical padding-5 margin-top-5">
+                                <img class=" vertical-align-bottom fill-container fill-vertical" src="<?php echo BASEURL . '/public/images/studentSignIn.svg' ?>">
                             </div>
-                        </div>
+             </div>
 
-            <div class="col-4 bg-white flex full-height">
+            <div class="col-small-6 col-12 col-medium-4  bg-white flex full-height">
                 <div>
                     <h2 class="header-2">Student Sign In</h2>
                     <form action="<?php echo BASEURL ?>/signin/studentLogin" method="post">
