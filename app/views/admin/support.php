@@ -1,27 +1,23 @@
 <?php
-$header = new HTMLHeader("Verification Team");
+$header = new HTMLHeader("Support");
 $nav = new Navigation('management');
-$sidebar = new SidebarNav("user", "verification");
+$sidebar = new SidebarNav("support");
 $basePage = BASEURL . '/admin/verificationTeam';
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
         <div class="col-12 col-small-12 width-90">
             <div class="row no-gap">
-                <div class="col-12 left fill-container">
-                    <h1 class="header-1 ">
-                        Verification Team Management
-                    </h1>
-                </div>
 
-                <div class="col-9 col-small-10 col-large-9 fill-container left">
-                    <?php $search = new SearchUser("Verification Team") ?>
-                </div>
-                <div class="col-1 display-small-none"></div>
-                <div class="col-2 col-large-3 fill-container right">
+                <div class="col-6 fill-container left">
+                    <h1 class="header-1 ">
+                        Support
+                    </h1>
+                </div> 
+                <div class="col-6 fill-container right">
                     <button class="bg-blue white border-rounded header-nb padding-3 right">
-                        <i data-feather="user-plus" class=" vertical-align-middle "></i> 
-                        <span class="display-large-inline-block padding-left-2 display-none">Add User</span>
+                        <i data-feather="plus" class=" vertical-align-middle "></i>
+                        <span class="display-small-inline-block padding-left-2 display-none">Add Support Request</span>
                     </button>
                 </div>
             </div>
@@ -50,23 +46,22 @@ $basePage = BASEURL . '/admin/verificationTeam';
                                 $useridArray = array();
                                 while ($row = $data['result']->fetch_assoc()) {
                                     array_push($useridArray, $row['UserId']);
-                                    $gender=$row['Gender'];
-                                    if ($gender=='m'){
-                                        $gender='Male';
-                                    }
-                                    else{
-                                        $gender='Female';
+                                    $gender = $row['Gender'];
+                                    if ($gender == 'm') {
+                                        $gender = 'Male';
+                                    } else {
+                                        $gender = 'Female';
                                     }
                                     echo "<div class='hs padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
-                                    echo "<div class='col-2  text-overflow ' title='". $row['FirstName'] ."' >" . $row['FirstName'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='". $row['LastName'] ."' >" . $row['LastName'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='". $row['Username'] ."' >" . $row['Username'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='". $row['DateOfBirth'] ."' >" . $row['DateOfBirth'] . "</div>";
+                                    echo "<div class='col-2  text-overflow ' title='" . $row['FirstName'] . "' >" . $row['FirstName'] . "</div>";
+                                    echo "<div class='col-2  text-overflow ' title='" . $row['LastName'] . "' >" . $row['LastName'] . "</div>";
+                                    echo "<div class='col-2  text-overflow ' title='" . $row['Username'] . "' >" . $row['Username'] . "</div>";
+                                    echo "<div class='col-2  text-overflow ' title='" . $row['DateOfBirth'] . "' >" . $row['DateOfBirth'] . "</div>";
                                     echo "<div class='col-2  text-overflow ' title=' $gender'>$gender</div>";
-                                    echo "<div class='col-3  text-overflow ' title='". $row['NIC'] ."' >" . $row['NIC'] . "</div>";
-                                    echo "<div class='col-3  text-overflow ' title='". $row['Email'] ."' >" . $row['Email'] . "</div>";
-                                    echo "<div class='col-3  text-overflow ' title='". $row['ContactNumber'] ."' >" . $row['ContactNumber'] . "</div>";
-                                    echo "<div class='col-4  text-overflow ' title='". $row['Address'] ."' >" . $row['Address'] . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $row['NIC'] . "' >" . $row['NIC'] . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $row['Email'] . "' >" . $row['Email'] . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $row['ContactNumber'] . "' >" . $row['ContactNumber'] . "</div>";
+                                    echo "<div class='col-4  text-overflow ' title='" . $row['Address'] . "' >" . $row['Address'] . "</div>";
                                     echo "</div>";
                                 }
                             }
@@ -76,19 +71,19 @@ $basePage = BASEURL . '/admin/verificationTeam';
                         <div
                             class="col-4 col-small-3 fill-container border-rounded-more-right padding-top-4 padding-bottom-5 bg-white shadow-small ">
                             <div class="col-12 fill-container padding-3 bold ">Actions</div>
-                            
+
                             <?php
                             if (isset($useridArray)) {
                                 foreach ($useridArray as $userid) {
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3'>";
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='".$basePage."Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $basePage . "Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='".$basePage."Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $basePage . "Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
                                     echo "</div></a>";
 
@@ -103,7 +98,7 @@ $basePage = BASEURL . '/admin/verificationTeam';
                         <div class="col-small-6 display-small-block  display-none  fill-container">
                             <?php
                             if (isset($data['rowCount']) && isset($data['page']) && isset($data['perPage'])) {
-                                echo '<span class="padding-horizontal-4">'. $data["perPage"] .' entries per page (Total ' . $data["rowCount"]. ' entries)</span>';
+                                echo '<span class="padding-horizontal-4">' . $data["perPage"] . ' entries per page (Total ' . $data["rowCount"] . ' entries)</span>';
                             }
                             ?>
                         </div>

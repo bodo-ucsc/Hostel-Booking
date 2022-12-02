@@ -56,7 +56,7 @@ class Register extends Controller
             
             $this->model('registerModel')->addVerificationTeam($id,$mobile,$dob,$email,$gender,$address,$nic);
 
-            // header("Location: " . BASEURL . "/signin/verificationTeam");
+            header("Location: " . BASEURL . "/signin/verificationTeam");
         } else {
             header("Location: " . BASEURL);
         }

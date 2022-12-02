@@ -9,7 +9,7 @@ class SignIn extends Controller
         if ($error == 'error') {
             $error = "Incorrect username or password";
         }
-        $this->view('signIn/student', ['error' => $error]);
+        $this->view('signIn/verificationTeam', ['error' => $error]);
     }
 
     public function student($error = null)
@@ -141,9 +141,10 @@ class SignIn extends Controller
                 $_SESSION['username'] = $row['Username'];
                 $_SESSION['firstname'] = $row['FirstName'];
                 $_SESSION['lastname'] = $row['LastName'];
+                $_SESSION['UserId'] = $row['UserId'];
                 $_SESSION['role'] = $row['UserType'];
                 echo "success";
-                // header('Location: ../home');
+                header('Location: ../home');
             } else {
                 echo "error";
                 header("Location: ./$usertype/error");

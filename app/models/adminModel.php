@@ -20,4 +20,14 @@ class adminModel extends Model
             return null;
         } 
     }
+
+    public function getverificationTeamById($id)
+    {
+        $result = $this->get('User,VerificationTeam', 'UserId = VerificationTeamId AND UserId = ' . $id);
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
 }

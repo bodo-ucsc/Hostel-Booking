@@ -553,6 +553,17 @@ header .nav-signup {
   width: 40px;
 }
 
+/* Feed & Adverts */
+
+.advert{
+  width: 600px;
+  height: 100%;
+  background: #F8F8FF;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
 
 /* Responsive Sizing */
 .full-height {

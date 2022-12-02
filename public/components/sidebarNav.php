@@ -24,9 +24,9 @@ class SideBarNav
             echo "    
             <div class='row padding-bottom-1 padding-top-2 padding-horizontal-4'> 
                 <div class='col-12 flex left fill-container  padding-horizontal-3'>
-                    <i data-feather='settings' class='grey'></i>
+                    <i data-feather='settings' class='black'></i>
                     <span class=' fill-container  margin-left-2 header-nb'>Users Management</span>
-                    <i data-feather='chevron-down' class='grey'></i>
+                    <i data-feather='chevron-down' class='black'></i>
                 </div>   
             </div>     ";
         } else {
@@ -129,7 +129,26 @@ class SideBarNav
             <div class='row padding-top-3 padding-bottom-1  padding-horizontal-4'> 
             <div class='col-12 flex left fill-container  padding-horizontal-3'>
                 <i data-feather='grid' class='grey'></i>
-                <span class=' fill-container  margin-left-2 header-nb'>Properties</span> 
+                <span class=' fill-container  margin-left-2 header-nb grey'>Properties</span> 
+            </div>   
+            </div>   
+        ";
+        }
+        if ($active == "support") {
+            echo "  
+            <div class='row padding-top-3 padding-bottom-1 padding-horizontal-4 '> 
+            <div class='col-12 flex left fill-container padding-horizontal-3  bg-blue border-rounded padding-vertical-2'>
+                <i data-feather='headphones' class='white'></i>
+                <span class=' fill-container margin-left-2 header-nb white'>Support</span> 
+            </div>   
+            </div>   
+        ";
+        } else {
+            echo "  
+            <div class='row padding-top-3 padding-bottom-1  padding-horizontal-4'> 
+            <div class='col-12 flex left fill-container  padding-horizontal-3'>
+                <i data-feather='headphones' class='grey'></i>
+                <span class=' fill-container  margin-left-2 header-nb grey'>Support</span> 
             </div>   
             </div>   
         ";
@@ -178,6 +197,25 @@ class SideBarNav
             <div class=' padding-bottom-1 padding-top-2 '> 
                 <button class=' bg-white-hover center fill-container  padding-horizontal-3 grey-hover'>
                     <i data-feather='grid' class=''></i>
+                </button>   
+            </div>   
+        ";
+        }
+ 
+
+        if ($active == 'support') {
+            echo "    
+            <div class=' padding-bottom-1 padding-top-2 '> 
+                <button class=' bg-blue center fill-container  padding-horizontal-3'>
+                    <i data-feather='headphones' class='white'></i>
+                </button>   
+            </div>   
+        ";
+        } else {
+            echo "    
+            <div class=' padding-bottom-1 padding-top-2 '> 
+                <button class=' bg-white-hover center fill-container  padding-horizontal-3 grey-hover'>
+                    <i data-feather='headphones' class=''></i>
                 </button>   
             </div>   
         ";
