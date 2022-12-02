@@ -34,16 +34,16 @@ class Register extends Controller
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $username = $_POST['username'];
+            $email = $_POST['email'];
             $password = $_POST['password'];
             $usertype = "VerificationTeam";
 
-            $id = $this->model('registerModel')->register($firstname, $lastname, $username, $password, $usertype);
+            $id = $this->model('registerModel')->register($firstname, $lastname, $username,$email, $password, $usertype);
 
             //echo $id;
 
             $mobile = $_POST['mobile'];
             $dob = $_POST['dob'];
-            $email = $_POST['email'];
             $gender = $_POST['gender'];
             $address = $_POST['address'];
             $nic = $_POST['nic'];
@@ -55,7 +55,7 @@ class Register extends Controller
             // echo $address;
             // echo $nic;
 
-            $this->model('registerModel')->addVerificationTeam($id, $mobile, $dob, $email, $gender, $address, $nic);
+            $this->model('registerModel')->addVerificationTeam($id, $mobile, $dob, $gender, $address, $nic);
 
             // header("Location: " . BASEURL . "/signin/verificationTeam");
         } else {

@@ -47,6 +47,7 @@ if (isset($_SESSION['username'])) {
                         $firstname = $_POST['firstname'];
                         $username = $_POST['username'];
                         $lastname = $_POST['lastname'];
+                        $email = $_POST['email'];
                         $password = $_POST['password'];
                         $usertype = "BoardingOwner";
 
@@ -57,7 +58,7 @@ if (isset($_SESSION['username'])) {
                                 echo "Username already exists";
                             } else {
 
-                                $this->model('registerModel')->EditUser($id, $firstname, $lastname, $username, $password, $usertype);
+                                $this->model('registerModel')->EditUser($id, $firstname, $lastname, $username, $email, $usertype);
 
                                 $gender = $_POST['gender'];
                                 $dob = $_POST['dob'];
@@ -68,7 +69,7 @@ if (isset($_SESSION['username'])) {
                                 $workplace = $_POST['workplace'];
                                 $email = $_POST['email'];
 
-                                $this->model('registerModel')->updateBoardingOwner($id, $mobile, $dob, $email, $gender, $address, $nic, $occupation, $workplace);
+                                $this->model('registerModel')->updateBoardingOwner($id, $mobile, $dob, $gender, $address, $nic, $occupation, $workplace);
                                 echo 'Data updated successfully <br>';
                                 echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';
                                 //$this->viewboardingOwner();
