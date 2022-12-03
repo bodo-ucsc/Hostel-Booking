@@ -29,11 +29,11 @@ $bplace = $data['place'];
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="firstname" class="bold black">First Name</label><br>
-                                <input type="text" class="fill-container" id="firstname" name="firstname" placeholder="Enter Name" value="<?php echo $_SESSION['firstname']; ?>" readonly required><br>
+                                <input type="text" class="fill-container" id="firstname" name="firstname" placeholder="Enter Name" value="<?php echo $_SESSION['firstname']; ?>" required><br>
                             </div>
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="lastname" class="bold black">Last Name</label><br>
-                                <input type="text" class="fill-container" id="lastname" name="lastname" placeholder="Enter Name" value="<?php echo $_SESSION['lastname']; ?>" readonly required><br>
+                                <input type="text" class="fill-container" id="lastname" name="lastname" placeholder="Enter Name" value="<?php echo $_SESSION['lastname']; ?>" required><br>
                             </div>
                         </div>
                         <div class="row">
@@ -76,6 +76,13 @@ $bplace = $data['place'];
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
         </div>
 
     </div>

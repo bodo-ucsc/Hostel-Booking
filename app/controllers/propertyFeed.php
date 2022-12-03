@@ -4,6 +4,34 @@ if (isset($_SESSION['username'])) {
 
     class PropertyFeed extends Controller
     {
+
+        public function checkUserType()
+        {
+
+            // if (isset($_POST['type'])) {
+            //     $type = $_POST['type'];
+
+            //     if ($type == 'BoardingOwner') {
+            //         //tableValues($table, $condition,$column = null)
+            //         //SELECT UserId,PlaceId,Title,Username,FirstName,LastName FROM `user`,`boardingowner`,`boardingplace` WHERE user.UserId = boardingowner.BoardingOwnerId AND boardingowner.BoardingOwnerId = boardingplace.OwnerId;
+            //         //$data = $this->model('viewModel')->tableValues("user, boardingowner, boardingplace ", "user.UserId = boardingowner.BoardingOwnerId AND boardingowner.BoardingOwnerId = boardingplace.OwnerId");
+            //         //$this->view('propertyFeed/addupdate', $data);
+            //     } else if ($type == 'Tenant') {
+            //         //tableValues($table, $condition,$column = null)
+            //         //SELECT UserId,boardingplace.PlaceId,Title,Username,FirstName,LastName FROM `user`,`boardingplacetenant`,`boardingplace` WHERE user.UserId = boardingplacetenant.TenantId AND boardingplacetenant.PlaceId = boardingplace.PlaceId;
+            //         //$data = $this->model('viewModel')->tableValues("user, boardingplacetenant, boardingplace", "user.UserId = boardingplacetenant.TenantId AND boardingplacetenant.PlaceId = boardingplace.PlaceId ");
+            //         //$this->view('propertyFeed/addupdate', $data);
+            //     }
+            // } else {
+            //     echo "Please select a type";
+            // }
+            //SELECT FirstName,LastName,Title,DateTime,Caption FROM `user`,`postupdate`,`boardingplace` 
+            //           WHERE user.UserId = postupdate.UserId AND postupdate.PlaceId = boardingplace.PlaceId;
+            //$data = $this->model('viewModel')->moreTables('user', 'postupdate', 'boardingplace', 'UserId', 'PlaceId');
+            //$this->view('propertyFeed/feedHome', $data);
+        }
+
+
         public function postUpdate()
         {
             $session_name = $_SESSION['username'];
@@ -21,7 +49,7 @@ if (isset($_SESSION['username'])) {
                     die("Invalid date");
                 } else {
 
-                    $id = $this->model('viewModel')->getID('user', 'UserId', 'Username', $session_name);
+                    $id = $this->model('viewModel')->getID('user', 'UserId', "Username = '$session_name'");
                     //convert to string
                     $Uid = $id->fetch_assoc();
                     if ($Uid != null) {
@@ -43,19 +71,20 @@ if (isset($_SESSION['username'])) {
         {
             //SELECT FirstName,LastName,Title,DateTime,Caption FROM `user`,`postupdate`,`boardingplace` 
             //           WHERE user.UserId = postupdate.UserId AND postupdate.PlaceId = boardingplace.PlaceId;
-            $data = $this->model('viewModel')->moreTables('user', 'postupdate', 'boardingplace', 'UserId', 'PlaceId');
+            $data = $this->model('viewModel')->checkData("user, postupdate, boardingplace", "user.UserId = postupdate.UserId AND postupdate.PlaceId = boardingplace.PlaceId");
             $this->view('propertyFeed/feedHome', $data);
         }
 
-        // user can post advertisements only for boarding place which he joined
+       
         public function addUpdate()
         {
             $name = $_SESSION['username'];
             //find user id for username
-            $userid = $this->model('viewModel')->getID('user', 'UserId', 'Username', $name);
+            $userid = $this->model('viewModel')->getID('user', 'UserId', "Username = '$name'");
             $uid = $userid->fetch_assoc();
+            $id=$uid['UserId'];
             //find place id of the user currently joined
-            $place = $this->model('viewModel')->getID('boardingplacetenant', 'PlaceId', 'TenantId', $uid['UserId']);
+            $place = $this->model('viewModel')->getID('boardingplacetenant', 'PlaceId', "TenantId = '$id'");
             if ($place != null) {
                 $row = $place->fetch_assoc();
                 $this->view('propertyFeed/addUpdate', ['place' => $row]);
@@ -81,7 +110,7 @@ if (isset($_SESSION['username'])) {
             }
         }
 
-        public function deleteUpdate($post_id =null) 
+        public function deleteUpdate($post_id = null)
         {
             if (isset($post_id)) {
                 $this->model('deleteModel')->deleteAdvertisement($post_id);
@@ -104,15 +133,30 @@ if (isset($_SESSION['username'])) {
                         $placeid = $_POST['placeid'];
                         //userid of publisher
                         $userid = $_POST['UserId'];
+                        $usertype = $_POST['usertype'];
                         $dateTime = $_POST['date'];
                         $caption = $_POST['message'];
 
-                        $res = $this->model('registerModel')->checkPlace($placeid);
+                        $res = $this->model('viewModel')->checkData("BoardingPlace", "'PlaceId' = '$placeid'");
                         if ($row = null) {
                             echo "This place doesn't exists";
                         } else {
-                            //check whether this publisher is currently joined for this place
-                            $res = $this->model('viewModel')->getID('boardingplacetenant', 'PlaceId', 'TenantId',  $userid);
+
+                            
+                            //check whether the user is the owner of the place
+                            if ($usertype == 'BoardingOwner') {
+
+                                $res = $this->model('viewModel')->getID('boardingPlace', 'PlaceId', " OwnerId = '$userid'");
+                            }
+                            //check whether the user is the tenant of the place
+                            else if ($usertype == 'Student' || $usertype == 'Professional') {
+
+                                $res = $this->model('viewModel')->getID('boardingplacetenant', 'PlaceId'," TenantId = '$userid'");
+                            } else {
+                                echo "Invalid user type";
+                                echo ' <br><a href="../propertyFeed/#">Try Again</a>  <br>';
+                            }
+
                             if ($res != null) {
                                 $place = $res->fetch_assoc();
 
@@ -123,18 +167,16 @@ if (isset($_SESSION['username'])) {
                                     echo ' <br><a href="../propertyFeed/viewAdvertisements">View Records</a>  <br>';
                                     //$this->viewAdvertisements();
                                 }
-                            }else{
-                                echo "Publisher not joined to this place";
                             }
                         }
                     } else {
-                        echo "Place is missing or invalid";
+                        echo "Fiedls cannot be empty";
                     }
                 } else {
-                    die("Invalid PostId");
+                    echo "PostId not entered";
                 }
             } else {
-                die("Invalid UserName");
+                die(" Username not entered");
             }
         }
     }

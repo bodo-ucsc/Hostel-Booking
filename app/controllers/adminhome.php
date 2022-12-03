@@ -20,7 +20,7 @@ if (isset($_SESSION['username'])) {
         public function editBO($user_id = null)
         {
             if (isset($user_id)) {
-                $res = $this->model('viewModel')->viewBOInfo($user_id);
+                $res = $this->model('viewModel')->checkData("user,boardingowner","user.UserId = '$user_id' AND user.UserId = boardingowner.BoardingOwnerId");
                 if ($res != null) {
 
                     $row = $res->fetch_assoc();
@@ -90,14 +90,16 @@ if (isset($_SESSION['username'])) {
 
         public function fetchBONames()
         {
-            $data = $this->model('viewModel')->getCols('BoardingOwner');
+            $data = $this->model('viewModel')->getID('user',"FirstName,LastName","UserType = BoardingOwner");
             $this->view('boardingOwner/BOhome', $data);
         }
 
         // to view list of Boarding owners
         public function viewboardingOwner()
         {
-            $data = $this->model('viewModel')->joinTables('user', 'boardingowner', 'UserId', 'boardingOwnerId');
+            //$data = $this->model('viewModel')->joinTables('user', 'boardingowner', 'UserId', 'boardingOwnerId');
+                                                              // $tbale,$conditon                                                          
+            $data = $this->model('viewModel')->checkData("user, boardingowner", "user.UserId = boardingowner.boardingOwnerId");
             $this->view('boardingOwner/BOhome', $data);
         }
 
