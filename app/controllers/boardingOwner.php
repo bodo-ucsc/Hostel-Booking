@@ -77,13 +77,18 @@ class BoardingOwner extends Controller{
 
     public function viewBoardingPlaces(){
         $result = $this->model('boardingOwnerModel')->viewAllBoarding();
-        $boardingPlaces = $result->fetch_assoc();
-        return $boardingPlaces;
+        if (isset($result)) {
+            $boardingPlaces = $result->fetch_assoc();
+            return $boardingPlaces;
+        }
     }
 
     public function viewBoardingPlace($placeid){
-        $result = $this->model('boardingOwnerModel')->viewAlBoarding($placeid);
-        $boardingPlace = $result->fetch_assoc();
-        return $boardingPlace;
+        $result = $this->model('boardingOwnerModel')->viewAllBoarding($placeid);
+        if (isset($result)) {
+            $boardingPlace = $result->fetch_assoc();
+            return $boardingPlace;
+        }
+        
     }
 }

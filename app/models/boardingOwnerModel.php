@@ -1,6 +1,6 @@
 <?php
 
-class boardingOwner extends model{
+class boardingOwnerModel extends model{
 
     public function __construct()
     {
@@ -15,8 +15,8 @@ class boardingOwner extends model{
         'NoOfWashRooms' => $noofWashRooms, 'Gender' => $gender, 'BoarderType' => $boarderType, 'SquareFeet' => $sqft, 'Parking' => $parking]);        
     }
 
-    public function viewAllBoarding(){
-        $this->get('boardingPlace');
+    public function viewAllBoarding($userid){
+        $this->get('boardingPlace', "'OwnerId' = $userid", );
     }
 
     public function viewABoarding($placeid){

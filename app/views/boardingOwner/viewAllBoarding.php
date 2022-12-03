@@ -5,7 +5,7 @@ $sidebar = new SidebarNav($active="user");
 ?>
 
 <main class=" navbar-offset sidebar-offset">
-    <div class="row margin-left-5 bg-white">
+    <div class="row margin-left-5">
         <div class="col-8 header-1 fill-container">Hello <?php
             if(isset($_SESSION['username'])){
                 echo $_SESSION['username'];
@@ -15,7 +15,7 @@ $sidebar = new SidebarNav($active="user");
         ?>! </div>
         <div class="col-4 fill-container flex">
             <div>
-            <button class=" bg-blue-hover white-hover padding-2 border-rounded flex justify-content center margin-right-4"><i data-feather="plus"></i>Add Boarding</button>
+            <button class=" bg-blue-hover white-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4"><i data-feather="plus"></i>Add Boarding</button>
             </div>
             <div class=" header-nb">
             <?php
