@@ -87,7 +87,7 @@ html,body {
 }
 
 .black {
-  color: #000;
+  color: #111;
 }
 
 .blue {
@@ -118,13 +118,51 @@ html,body {
   color: #C83A3A;
 }
 
+/* fill colour */
+
+.fill-white {
+  fill: #fff;
+}
+
+.fill-black {
+  fill: #111;
+}
+
+.fill-blue {
+  fill: #006DFF;
+}
+
+.fill-neutral {
+  fill: #D3EAE8;
+}
+
+.fill-accent {
+  fill: #288684;
+}
+
+.fill-light {
+  fill: #F8F8FF;
+}
+
+.fill-grey {
+  fill: #788292;
+}
+
+.fill-light-grey {
+  fill: #EAEAEA;
+}
+
+.fill-red {
+  fill: #C83A3A;
+} 
+
 /* Color hover */
 .white-hover {
   color: #fff;
 }
 
 .black-hover {
-  color: #000;
+  color: #111;
 }
 
 .blue-hover {
@@ -203,7 +241,7 @@ html,body {
 }
 
 .bg-black {
-  background-color: #000;
+  background-color: #111;
 }
 
 .bg-blue {
@@ -242,7 +280,7 @@ html,body {
 }
 
 .bg-black-hover {
-  background-color: #000;
+  background-color: #111;
 }
 
 .bg-blue-hover {
@@ -318,6 +356,10 @@ html,body {
   border: 2px solid;
 }
 
+.border-3 {
+  border: 3px solid;
+}
+
 .border-none {
   border: none;
 }
@@ -349,7 +391,7 @@ html,body {
 }
 
 .border-black {
-  border-color: #000;
+  border-color: #111;
 }
 
 .border-blue {
@@ -579,12 +621,17 @@ header .nav-signup {
 /* Feed & Adverts */
 
 .advert{
-  width: 600px;
-  height: 100%;
-  background: #F8F8FF;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 20px;
+  width: 500px;  
+  margin: 20px;
+}
+
+.advert .dp{
+  width: 50px;
+  height: 50px;
+}
+
+.advert .propery-image{ 
+  object-fit: contain;
 }
 
 
@@ -639,6 +686,11 @@ header .nav-signup {
 
 .display-block {
   display: block;
+}
+
+
+.display-inline-block {
+  display: inline-block;
 }
 
 /* dropdown */
@@ -1276,7 +1328,7 @@ ul{
 li a {
   display: block;
   list-style-type: none;
-  color: #000;
+  color: #111;
   padding: 8px 16px;
   text-decoration: none;
 }

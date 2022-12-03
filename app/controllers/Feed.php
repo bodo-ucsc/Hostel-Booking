@@ -2,8 +2,12 @@
 
 if (isset($_SESSION['username'])) {
 
-    class PropertyFeed extends Controller
+    class Feed extends Controller
     {
+        public function index(){
+            $this->view('Feed/index');
+        }
+        
         public function postUpdate()
         {
             $session_name = $_SESSION['username'];
@@ -44,7 +48,7 @@ if (isset($_SESSION['username'])) {
             //SELECT FirstName,LastName,Title,DateTime,Caption FROM `user`,`postupdate`,`boardingplace` 
             //           WHERE user.UserId = postupdate.UserId AND postupdate.PlaceId = boardingplace.PlaceId;
             $data = $this->model('viewModel')->moreTables('user', 'postupdate', 'boardingplace', 'UserId', 'PlaceId');
-            $this->view('propertyFeed/feedHome', $data);
+            $this->view('Feed/feedHome', $data);
         }
 
         // user can post advertisements only for boarding place which he joined
@@ -58,7 +62,7 @@ if (isset($_SESSION['username'])) {
             $place = $this->model('viewModel')->getID('boardingplacetenant', 'PlaceId', 'TenantId', $uid['UserId']);
             if ($place != null) {
                 $row = $place->fetch_assoc();
-                $this->view('propertyFeed/addUpdate', ['place' => $row]);
+                $this->view('Feed/addUpdate', ['place' => $row]);
             } else {
                 echo "You are not joined to any Boarding place yet";
             }
@@ -72,7 +76,7 @@ if (isset($_SESSION['username'])) {
                 if ($res != null) {
 
                     $row = $res->fetch_assoc();
-                    $this->view('propertyFeed/updateFeed', ['res' => $row]);
+                    $this->view('Feed/updateFeed', ['res' => $row]);
                 } else {
                     echo "No advertisement";
                 }
@@ -120,7 +124,7 @@ if (isset($_SESSION['username'])) {
 
                                     $this->model('registerModel')->editAdvertisement($pid, $userid, $placeid, $dateTime, $caption);
                                     echo 'Data updated successfully <br>';
-                                    echo ' <br><a href="../propertyFeed/viewAdvertisements">View Records</a>  <br>';
+                                    echo ' <br><a href="../Feed/viewAdvertisements">View Records</a>  <br>';
                                     //$this->viewAdvertisements();
                                 }
                             }else{

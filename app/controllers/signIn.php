@@ -10,7 +10,7 @@ class SignIn extends Controller
         if ($error == 'error') {
             $error = "Incorrect username or password";
         }
-        $this->view('signIn/verificationTeam', ['error' => $error]);
+        $this->view('signIn/student', ['error' => $error]);
     }
 
 

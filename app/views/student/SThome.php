@@ -37,13 +37,7 @@ if (!isset($_POST['btn'])) {
 
   <div class=" margin-top-5  margin-top-4 padding-top-5 position-absolute">
     <div class="">
-      <ul>
-        <li><a href="<?php echo BASEURL ?>/adminhome">Admin Home</a></li>
-        <li><a href="<?php echo BASEURL ?>/adminhome/managestudent">Student</a></li>
-        <li><a href="<?php echo BASEURL ?>/adminhome/manageprofessional">Professional</a></li>
-        <li><a href="<?php echo BASEURL ?>/adminhome/manageboardingOwner">Boarding Owner</a></li>
-        <li><a href="#">Property</a></li>
-      </ul>
+
     </div>
   </div>
 
