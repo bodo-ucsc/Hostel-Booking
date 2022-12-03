@@ -10,6 +10,14 @@ class BoardingOwner extends Controller{
         $this->view('boardingOwner/editDeleteBoarding');
     }
 
+    public function viewAllBoardingPlaces(){
+        $this->view('boardingOwner/viewAllBoarding');
+    }
+
+    public function viewABoardingPlace(){
+        $this->view('boardingOwner/viewABoarding');
+    }
+
     public function addBoardingPlace(){
 
         $userid = $_SESSION['userId'];
@@ -32,7 +40,7 @@ class BoardingOwner extends Controller{
         $this->model('boardingOwnerModel')->addABoarding();
     }
 
-    public function editBoardingPlace($placeid){
+    public function editBoardingPlace($placeid = null){
 
         $propertytitle = $_POST('propertytitle');
         $location=$_POST('location');
