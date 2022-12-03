@@ -14,7 +14,7 @@ if (isset($_SESSION['username'])) {
         }
         public function viewboardingOwner()
         {
-            $data = $this->model('viewModel')->joinTables('user', 'boardingowner', 'UserId', 'boardingOwnerId');
+            $data = $this->model('viewModel')->checkData("user, boardingowner", "user.UserId = boardingowner.boardingOwnerId");
             $this->view('boardingOwner/BOhome', $data);
         }
 
@@ -22,7 +22,7 @@ if (isset($_SESSION['username'])) {
         {
             if (isset($user_id)) {
 
-                $res = $this->model('viewModel')->viewBOInfo($user_id);
+                $res = $this->model('viewModel')->checkData("user,boardingowner","user.UserId = '$user_id' AND user.UserId = boardingowner.BoardingOwnerId");
                 if ($res != null) {
 
                     $row = $res->fetch_assoc();

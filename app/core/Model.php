@@ -34,41 +34,6 @@ class Model extends Database
         $result = $this->runQuery($sql);
         return $result;
     }
-
-    public function getMoreCols($table,$col1,$col2,$where = null)
-    {
-       
-        $sql = "SELECT $col1,$col2 FROM $table";
-        if ($where != null) {
-            $sql .= " WHERE $where";
-        }
-        $result = $this->runQuery($sql);
-        return $result;
-    }
-    public function joinCols($tb1,$tb2,$where = null)
-    {
-       
-        $sql = "SELECT * FROM $tb1,$tb2";
-        
-        if ($where != null) {
-            $sql .= " WHERE $where";
-        }
-        $result = $this->runQuery($sql);
-        return $result;
-    }
-
-    public function Threetables($tb1,$tb2,$tb3,$where = null)
-    {
-       
-        $sql = "SELECT * FROM $tb1,$tb2,$tb3";
-        
-        if ($where != null) {
-            $sql .= " WHERE $where";
-        }
-        $result = $this->runQuery($sql);
-        return $result;
-    }
-
   
     public function insert($table, $data)
     {

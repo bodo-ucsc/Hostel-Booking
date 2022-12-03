@@ -2,18 +2,66 @@
 $header = new HTMLHeader("PropertyFeed | Advertisements");
 $nav = new Navigation();
 $sidebar = new SidebarNav("user", "Advertisements");
-
-$result = $data['res'];
+//$bplace = $data['place'];
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
         <div class="col-12 col-medium-12 width-90">
-            <form action="<?php echo BASEURL ?>/propertyFeed/updateFeed" method="POST">
+
+            <?php
+            if ($data) {
+?>
+
+
+
+
+                <?php
+
+                while ($row = $data->fetch_assoc()) {
+            ?>
+                    <form action="<?php echo BASEURL ?>/propertyFeed/postUpdate" method="POST">
+                        Username List :
+                        <select Username='NEW'>
+                            <option value="">--- Select ---</option>
+                            <?php
+                            $select = "";
+                            if (isset($select) && $select != "") {
+                                $select = $_POST['NEW'];
+                            }
+                            ?>
+
+                            <option value="<?php echo $data['Username']; ?>" <?php if ($data['Username'] == $select) {
+                                                                                    echo "selected";
+                                                                                } ?>>
+                                <?php echo $data['Username']; ?>
+                            </option>
+
+                        </select>
+                        <button type="submit" name="Submit" value="Select"></button>
+                    </form>
+
+            <?php
+                }
+            }
+            ?>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <form action="<?php echo BASEURL ?>/propertyFeed/postUpdate" method="POST">
                 <div class="row ">
                     <div class="col-12 col-medium-8 fill-container left">
                         <h1 class="header-1 ">
                             <i data-feather="chevron-left"></i>
-                            Edit Update
+                            Add Update
                         </h1>
                     </div>
 
@@ -22,49 +70,45 @@ $result = $data['res'];
                             <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i>
                             <span>Save Changes</span></button>
                     </div>
-                </div>
+                </div>  -->
 
-                <div class="row margin-top-5 fill-container">
-                    <div class="col-12 col-large-7 fill-container ">
+            <!-- <div class="row margin-top-5 fill-container">
+                    <div class="col-12 col-large-6 fill-container ">
 
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="firstname" class="bold black">First Name</label><br>
-                                <input type="text" class="fill-container" id="firstname" name="firstname" placeholder="Enter Name" value="<?php echo $result['FirstName']; ?>" readonly required><br>
+                                <input type="text" class="fill-container" id="firstname" name="firstname" placeholder="Enter Name" value="<?php echo $_SESSION['firstname']; ?>" required><br>
                             </div>
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="lastname" class="bold black">Last Name</label><br>
-                                <input type="text" class="fill-container" id="lastname" name="lastname" placeholder="Enter Name" value="<?php echo $result['LastName']; ?>" readonly required><br>
+                                <input type="text" class="fill-container" id="lastname" name="lastname" placeholder="Enter Name" value="<?php echo $_SESSION['lastname']; ?>" required><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="date" class="bold black">Date</label><br>
-                                <input type="datetime-local" id="date" name="date" placeholder="Enter Date" value="<?php echo $result['DateTime']; ?>" required><br>
+                                <input type="datetime-local" id="date" name="date" placeholder="Enter Date" required><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
                                 <label for="placeid" class="bold black">Property Link</label><br>
-                                <input type="text" class="fill-container" id="placeid" name="placeid" placeholder="Enter Property Link" value="<?php echo $result['PlaceId']; ?>" required><br>
+                                <input type="text" class="fill-container" id="placeid" name="placeid" value="<?php echo $bplace['PlaceId']; ?>" placeholder="Enter Property Link" required><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-medium-8 fill-container">
                                 <label for="message" class="bold black">Message</label><br>
-                                <input type="text" class="fill-container" id="message" name="message" value="<?php echo $result['Caption']; ?>" placeholder="Enter Message"><br>
+                                <input type="text" class="fill-container" id="message" name="message" placeholder="Enter Message"><br>
                             </div>
                         </div>
-                        <input type="hidden" id="postid" name="postid" value="<?php echo $result['PostId']; ?>" />
-                        <input type="hidden" id="UserId" name="UserId" value="<?php echo $result['UserId']; ?>" />
-                        <input type="hidden" id="usertype" name="usertype" value="<?php echo $result['UserType']; ?>" />
-                        <input type="hidden" id="username" name="username" value="<?php echo $result['Username']; ?>" />
                     </div>
             </form>
 
-            <div class="col-12 col-large-5 ">
+            <div class="col-12 col-large-6 ">
                 <span class="header-2">Preview</span>
-                <div class="shadow  padding-3 width-90">
+                <div class="shadow border-rounded padding-4 width-90">
                     <div class="row fill-container">
                         <div class="col-12 col-medium-4 col-large-12 fill-container">
                             <label for="username" class="bold black">Name</label><br>
@@ -76,12 +120,20 @@ $result = $data['res'];
                         </div>
                         <div class="col-12 col-medium-4 col-large-12 fill-container">
                             <label for="" class="bold black">Message</label><br>
+
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+
+
+
+
+
+
+
         </div>
-       
+
     </div>
     </div>
 </main>

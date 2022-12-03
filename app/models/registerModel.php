@@ -74,12 +74,7 @@ class registerModel extends Model
         $this->insert('postupdate', ['UserId'=> $userid, 'PlaceId'=> $placeid, 'DateTime'=> $date, 'Caption'=> $message]);
         
     }
-    public function checkPlace($placeid)
-    {
-        $result = $this->get('BoardingPlace', "PlaceId = '$placeid'");
-        return $result;
-    }
-
+   
     public function editAdvertisement($pid,$userid,$placeid,$date,$message){
         $this->update('postupdate', ['UserId'=> $userid, 'PlaceId'=> $placeid, 'DateTime'=> $date, 'Caption'=> $message],"PostId = '$pid'");
         
