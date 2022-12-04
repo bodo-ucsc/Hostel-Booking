@@ -20,9 +20,8 @@ $nav = new Navigation("home");
                             <input type="text" id="username" name="username" placeholder="Enter Username"><br>
                             <label for="password" class="bold black">Password</label><br>
                             <input type="password" id="password" name="password" placeholder="Enter Password">
-                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded "
-                                type="submit" value="Sign In"><br>
-                            <a class="center" href="#">Forgot Password</a>
+                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Sign In"><br>
+                            <a href="<?php echo BASEURL ?>/forgotpassword" class=" center">Forgot Password</a>
                         </form>
                     </div>
                 </div>

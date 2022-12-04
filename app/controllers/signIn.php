@@ -156,4 +156,9 @@ class SignIn extends Controller
 
     }
 
+    public function forgot_password()
+    {
+        header('Location: ' . BASEURL . '/register/boardingowner');
+        $this->view('forgot_password');
+    }
 }

@@ -1,9 +1,10 @@
 <?php
 $header = new HTMLHeader("Register | Boarding Owner");
 $nav = new Navigation("home");
+$sidebar = new SidebarNav("user", "Boarding Owner");
 ?>
 <main class=" full-width ">
-    <form action="boardingownerSignup" method="POST">
+    <form action="boardingownerSignup" method="post">
         <div class="row sidebar-offset navbar-offset ">
             <div class="col-12 col-medium-12 width-90">
                 <div class="row ">
@@ -106,60 +107,9 @@ $nav = new Navigation("home");
 
             </div>
         </div>
-        <div class="row">                  
-            <div class="col-5 fill-container"><div>
-                <label class="big" for="address">Address</label>
-                <input class="margin-top-2" type="text" name="address" id="address"></div>                   
-            </div>
-            <div class="col-6" style="margin-right: 30%;">
-                <label class="big" for="niclink">NIC Upload Link</label>
-                <input class="margin-top-2" type="text" name="niclink" id="niclink">             
-            </div>
-        </div>
-        <div class="row">                  
-            <div class="col-3">
-                <label class="big" for="email">E-mail Address</label>
-                <input class="margin-top-2" type="text" name="email" id="email">                   
-            </div>
-            <div class="col-3">
-                <label class="big" for="occupation">Occupation</label>
-                <input class="margin-top-2" type="text" name="occupation" id="occupation">                   
-            </div>
-            <div class="col-3">
-                <label class="big" for="workplace">Work Place</label>
-                <input class="margin-top-2" type="text" name="workplace" id="workplace">                   
-            </div>
-        </div>  
-        <div class="header-2">Login Credentials</div><br>
-        <div class="row">                   
-            <div class="col-3">
-                <label class="big" for="username">Username</label>
-                <input class="margin-top-2" type="text" name="username" id="username">                   
-            </div>
-            <div class="col-3">                
-                <label class="big" for="password">Password</label>
-                <input class="margin-top-2" type="password" name="password" id="password">
-            </div>                    
-            <div class="col-3">                
-                <label class="big" for="password-repaet">Re-Type Password</label>
-                <input class="margin-top-2" type="password" name="password-repaet" id="repassword">
-            </div>                                       
-        </div>  
-        <div class="row">
-            <div class="col-9">
-                <input type="checkbox" id="agreement" name="agreement" value="True">
-                I agree to all <a class="inverse">Terms</a> and <a class="inverse">Privacy Policy</a><br>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-9">
-            <input class="boarding-owner-btn" type="submit" value="Create Account"><br>
-        </div>
-        </div>           
     </form>
-</div>
 </main>
+
 
 <script>
     var password = document.getElementById("password"),

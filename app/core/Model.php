@@ -1,7 +1,5 @@
 <?php
 
-
-
 class Model extends Database
 {
     public function __construct()
@@ -24,7 +22,17 @@ class Model extends Database
         $result = $this->runQuery($sql);
         return $result;
     }
-
+    public function getColumnValue($table,$column, $where = null)
+    {
+       
+        $sql = "SELECT $column FROM $table";
+        if ($where != null) {
+            $sql .= " WHERE $where";
+        }
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+  
     public function insert($table, $data)
     {
         $sql = "INSERT INTO $table SET ";
@@ -32,7 +40,6 @@ class Model extends Database
             $sql .= "$key = '$value', ";
         }
         $sql = substr($sql, 0, -2);
-        echo $sql;
         $result = $this->runQuery($sql);
         return $result;
     }
