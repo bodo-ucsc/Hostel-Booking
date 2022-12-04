@@ -21,8 +21,6 @@ class Model extends Database
         }
         $result = $this->runQuery($sql);
         return $result;
-        
-
     }
     public function getColumnValue($table,$column, $where = null)
     {

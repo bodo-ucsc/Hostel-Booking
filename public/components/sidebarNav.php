@@ -42,14 +42,14 @@ class SideBarNav
 
         if ($active == 'user' && $type == 'admin') {
             echo "   
-            <a href='$base/adminhome' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2  fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Admin</span> 
             </div></a> 
                 ";
         } else {
             echo "    
-            <a href='$base/adminhome' class=''><div class='row padding-vertical-1'>   
+            <a href='$base' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Admin</span> 
             </div></a> 
@@ -102,22 +102,21 @@ class SideBarNav
         }
         if ($active == 'user' && $type == 'boardingOwner') {
             echo "   
-            <a href='$base/adminhome/viewboardingOwner' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base/file1' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Boarding Owner</span> 
             </div></a> 
                 ";
         } else {
             echo "    
-            <a href='$base/adminhome/viewboardingOwner' class=''><div class='row padding-vertical-1'>   
+            <a href='$base/file1' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Boarding Owner</span> 
             </div></a> 
                 ";
         }
         if ($active == "properties") {
-            echo "
-            <a href='$base/#' class=''>  
+            echo "  
             <div class='row padding-top-3 padding-bottom-1 padding-horizontal-4 '> 
             <div class='col-12 flex left fill-container padding-horizontal-3  bg-blue border-rounded padding-vertical-2'>
                 <i data-feather='grid' class='white'></i>
@@ -127,7 +126,6 @@ class SideBarNav
         ";
         } else {
             echo "  
-            <a href='$base/#' class=''>
             <div class='row padding-top-3 padding-bottom-1  padding-horizontal-4'> 
             <div class='col-12 flex left fill-container  padding-horizontal-3'>
                 <i data-feather='grid' class='grey'></i>
@@ -143,7 +141,7 @@ class SideBarNav
                 <i data-feather='headphones' class='white'></i>
                 <span class=' fill-container margin-left-2 header-nb white'>Support</span> 
             </div>   
-            </div>   
+            </div><a/>     
         ";
         } else {
             echo "  

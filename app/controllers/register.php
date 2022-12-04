@@ -24,9 +24,8 @@ class Register extends Controller
     }
     public function boardingowner()
     {
-        $this->view('register/boardingowner');
+        $this->view('register/boardingOwner');
     }
-
 
     public function verificationTeamSignUp()
     {
@@ -34,11 +33,17 @@ class Register extends Controller
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $username = $_POST['username'];
+            
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $usertype = "VerificationTeam";
+            $usertype="VerificationTeam";
 
             $id = $this->model('registerModel')->register($firstname, $lastname, $username,$email, $password, $usertype);
+
+            $password = $_POST['password'];
+            $usertype="VerificationTeam";
+
+
 
             //echo $id;
 
@@ -48,14 +53,19 @@ class Register extends Controller
             $address = $_POST['address'];
             $nic = $_POST['nic'];
 
-            // echo $mobile;
-            // echo $dob;
-            // echo $email;
-            // echo $gender;
-            // echo $address;
-            // echo $nic;
+
 
             $this->model('registerModel')->addVerificationTeam($id, $mobile, $dob, $gender, $address, $nic);
+
+            echo $mobile;
+            echo $dob;
+            echo $email;
+            echo $gender;
+            echo $address;
+            echo $nic;
+            
+            $this->model('registerModel')->addVerificationTeam($id,$mobile,$dob,$email,$gender,$address,$nic);
+
 
             header("Location: " . BASEURL . "/signin/verificationTeam");
         } else {
@@ -63,7 +73,7 @@ class Register extends Controller
         }
     }
 
-    public function boardingownerSignup()
+    public function boardingOwnerSignUp()
     {
         if (isset($_POST['username'])) {
             
@@ -76,19 +86,6 @@ class Register extends Controller
                     echo "User name is already exists";
                     echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
             }else{
-                // if( !empty($_POST['email']) || !filter_var($_POST["email"])) {
-                //     die("Valid email is required");
-                // }
-                // if(strlen($_POST["password"])<  5){
-                //     die("password must be at least 5 characters");
-                // }
-                // if(! preg_match("/[a-z]/i",$_POST["password"])){
-                //     die("password must contain at least one letter");
-                // }
-
-                // if(! preg_match("/[0-9]/i",$_POST["password"])){
-                //     die("password must contain at least one number");
-                // }
 
                 $firstname = $_POST['firstname'];
                 $lastname = $_POST['lastname'];
@@ -129,4 +126,37 @@ class Register extends Controller
             echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
         }
     }
+
+
+    public function professionalSignUp()
+    {
+        if (isset($_POST['username'])) {
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $email = $_POST['email'];
+            $usertype="Professional";
+
+            $id = $this->model('registerModel')->register($firstname,$lastname,$username,$password,$usertype,$email);
+
+            $mobile = $_POST['mobile'];
+            $dob = $_POST['dob'];
+          
+            $gender = $_POST['gender'];
+            $address = $_POST['address'];
+            $nic = $_POST['nic-number'];
+            $occupation = $_POST['occupation'];
+            $verificationStatus = "not";
+            $workplace = $_POST['workplace'];
+            $nicLink = $_POST['niclink'];
+            
+            $this->model('registerModel')->addProfessional($id,$verificationStatus,$nicLink,$mobile,$dob,$gender,$address,$nic,$occupation,$workplace);
+
+            header("Location: " . BASEURL . "/signin/professional");
+        } else {
+            header("Location: " . BASEURL);
+        }
+    }
+
 }

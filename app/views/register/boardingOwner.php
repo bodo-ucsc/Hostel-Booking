@@ -29,7 +29,7 @@ $sidebar = new SidebarNav("user", "boardingOwner");
                 </div>
                 <div class="row margin-top-3 fill-container">
                     <div class="col-12 col-large-12 fill-container ">
-                        <h2 class="header-2 black">Personal Details</h2>
+                        <h2 class="header-2">Personal Details</h2>
                         <div class="row">
                             <div class="col-12 col-medium-3 fill-container">
                                 <label for="firstname" class="bold black">First Name</label><br>
@@ -107,9 +107,60 @@ $sidebar = new SidebarNav("user", "boardingOwner");
 
             </div>
         </div>
+        <div class="row">                  
+            <div class="col-5 fill-container"><div>
+                <label class="big" for="address">Address</label>
+                <input class="margin-top-2" type="text" name="address" id="address"></div>                   
+            </div>
+            <div class="col-6" style="margin-right: 30%;">
+                <label class="big" for="niclink">NIC Upload Link</label>
+                <input class="margin-top-2" type="text" name="niclink" id="niclink">             
+            </div>
+        </div>
+        <div class="row">                  
+            <div class="col-3">
+                <label class="big" for="email">E-mail Address</label>
+                <input class="margin-top-2" type="text" name="email" id="email">                   
+            </div>
+            <div class="col-3">
+                <label class="big" for="occupation">Occupation</label>
+                <input class="margin-top-2" type="text" name="occupation" id="occupation">                   
+            </div>
+            <div class="col-3">
+                <label class="big" for="workplace">Work Place</label>
+                <input class="margin-top-2" type="text" name="workplace" id="workplace">                   
+            </div>
+        </div>  
+        <div class="header-2">Login Credentials</div><br>
+        <div class="row">                   
+            <div class="col-3">
+                <label class="big" for="username">Username</label>
+                <input class="margin-top-2" type="text" name="username" id="username">                   
+            </div>
+            <div class="col-3">                
+                <label class="big" for="password">Password</label>
+                <input class="margin-top-2" type="password" name="password" id="password">
+            </div>                    
+            <div class="col-3">                
+                <label class="big" for="password-repaet">Re-Type Password</label>
+                <input class="margin-top-2" type="password" name="password-repaet" id="repassword">
+            </div>                                       
+        </div>  
+        <div class="row">
+            <div class="col-9">
+                <input type="checkbox" id="agreement" name="agreement" value="True">
+                I agree to all <a class="inverse">Terms</a> and <a class="inverse">Privacy Policy</a><br>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-9">
+            <input class="boarding-owner-btn" type="submit" value="Create Account"><br>
+        </div>
+        </div>           
     </form>
+</div>
 </main>
-
 
 <script>
     var password = document.getElementById("password"),

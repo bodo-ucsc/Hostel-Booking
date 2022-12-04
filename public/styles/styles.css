@@ -30,8 +30,7 @@ body {
 
 .header-1 {
   font-size: 30px;
-  font-weight: 700;
-
+  font-weight: 700; 
 }
 
 .header-2 {
@@ -365,8 +364,12 @@ body {
   border: none;
 }
 
-.border-rounded {
+/* .border-rounded {
   border-radius: 10px;
+} */
+
+.border-rounded {
+  border-radius: 5px;
 }
 
 .border-rounded-more {
@@ -501,7 +504,6 @@ button.padded {
 
 /* Form */
 input[type=text],
-input[type=textbox],
 input[type=password],
 input[type=tel],
 input[type=email],
@@ -525,9 +527,8 @@ input[type=submit].fill-container,
 input[type=datetime].fill-container,
 input[type=datetime-local].fill-container,
 input[type=text].fill-container,
-input[type=email].fill-container,
-input[type=date].fill-container,
 input[type=tel].fill-container,
+input[type=email].fill-container,
 input[type=password].fill-container,
 button.fill-container {
   width: 100%;
@@ -639,9 +640,9 @@ header .nav-signup {
 .advert .dp {
   width: 50px;
   height: 50px;
-} 
+}
 
-.advert .property-image img { 
+.advert .property-image img {
   object-fit: cover;
 }
 
@@ -884,8 +885,8 @@ header .nav-signup {
   grid-auto-columns: minmax(30px, 1fr);
 }
 
-.hs.less{
-  grid-gap: 5px; 
+.hs.less {
+  grid-gap: 5px;
 }
 
 /* Grid column */
