@@ -150,7 +150,7 @@ class Register extends Controller
             $nicLink = $_POST['niclink'];
             
             $this->model('registerModel')->addProfessional($id,$verificationStatus,$nicLink,$mobile,$dob,$gender,$address,$nic,$occupation,$workplace);
-
+ 
             header("Location: " . BASEURL . "/signin/professional");
     }
 
@@ -205,7 +205,7 @@ class Register extends Controller
 
             $this->model('registerModel')->addStudent($id,$verfiedstatus, $niclink,$uniidlink,$dob,$nic,$gender,$email,$mobile,$address,$uni,$uniid);
 
-            // header("Location: " . BASEURL . "/signin/student");
+            header("Location: " . BASEURL . "/signin/student"); 
         } else {
             header("Location: " . BASEURL);
         }

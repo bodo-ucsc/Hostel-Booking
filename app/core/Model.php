@@ -73,7 +73,16 @@ class Model extends Database
         return $row[0];
     }
 
-
-
-
+    public function numRowsWhere($table, $where)
+    {
+        //count of rows 
+        $sql = "SELECT COUNT(1) FROM $table ";
+        if(isset($where)){
+            $sql .= $where;
+        }
+        $result = $this->runQuery($sql);
+        $row = $result->fetch_row();
+        return $row[0];
+    }
+ 
 } 
