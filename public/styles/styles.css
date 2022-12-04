@@ -4,7 +4,8 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-html,body {
+html,
+body {
   font-family: 'Montserrat', sans-serif;
   font-size: 11px;
   margin: 0;
@@ -30,7 +31,7 @@ html,body {
 .header-1 {
   font-size: 30px;
   font-weight: 700;
-  
+
 }
 
 .header-2 {
@@ -154,7 +155,7 @@ html,body {
 
 .fill-red {
   fill: #C83A3A;
-} 
+}
 
 /* Color hover */
 .white-hover {
@@ -455,6 +456,18 @@ a.inverse:hover {
   color: #416fb7;
 }
 
+ul {
+  list-style-position: inside;
+  padding: 0;
+}
+
+ul li::marker {
+  font-size: 1rem;
+  font-weight: lighter;
+}
+
+/* Form and Inputs */
+
 input[type=button],
 input[type=submit],
 button {
@@ -471,18 +484,16 @@ button {
   box-sizing: border-box;
 }
 
-/* Form and Inputs */
- 
 input[type=button].fill-container,
-input[type=submit].fill-container, 
+input[type=submit].fill-container,
 button.fill-container {
   width: 100%;
   height: 100%;
 }
 
-input[type=button].padded, 
+input[type=button].padded,
 input[type=submit].padded,
-button.padded { 
+button.padded {
   padding: 15px;
 }
 
@@ -495,7 +506,7 @@ input[type=password],
 input[type=tel],
 input[type=email],
 input[type=datetime],
-input[type=datetime-local], 
+input[type=datetime-local],
 input[type=date] {
   width: 100%;
   height: 40px;
@@ -620,18 +631,18 @@ header .nav-signup {
 
 /* Feed & Adverts */
 
-.advert{
-  width: 500px;  
+.advert {
+  width: 500px;
   margin: 20px;
 }
 
-.advert .dp{
+.advert .dp {
   width: 50px;
   height: 50px;
-}
+} 
 
-.advert .propery-image{ 
-  object-fit: contain;
+.advert .property-image img { 
+  object-fit: cover;
 }
 
 
@@ -858,6 +869,10 @@ header .nav-signup {
 
 .table {
   display: grid;
+  overflow: hidden;
+}
+
+.table:hover {
   overflow-x: auto;
 }
 
@@ -867,7 +882,10 @@ header .nav-signup {
   grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
   grid-auto-flow: column;
   grid-auto-columns: minmax(30px, 1fr);
+}
 
+.hs.less{
+  grid-gap: 5px; 
 }
 
 /* Grid column */
@@ -1313,40 +1331,20 @@ header .nav-signup {
   padding-left: 3rem;
 }
 
-ul{
-
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 9%;
-  background-color: #f1f1f1;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-  
-}
-li a {
-  display: block;
-  list-style-type: none;
-  color: #111;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
 @media (max-width: 768px) {
 
   .header-1 {
     font-size: 25px;
   }
-  
+
   .header-2 {
     font-size: 14px;
   }
-  
+
   .header-nb {
     font-size: 14px;
   }
-  
+
 }
 
 @media (min-width: 768px) {

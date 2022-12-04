@@ -41,12 +41,12 @@ $nav = new Navigation("home");
             <div class="row padding-4 ">
                 <div class="col-12 shadow fill-container padding-2 padding-right-4 border-rounded-more">
                     <div class="row">
-                        <div class="col-5 fill-container fill-vertical ">
-                            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be"
-                                class="fill-container fill-vertical property-image border-rounded-more" alt="">
+                        <div class="col-5 fill-container property-image fill-vertical ">
+                            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/brewster-mcleod-architects-1486154143.jpg"
+                                class="fill-container fill-vertical  border-rounded-more" alt="">
                         </div>
 
-                        <div class="col-7 fill-container ">
+                        <div class="col-7 fill-container padding-3 ">
                             <div class="row">
                                 <div class="col-8 header-2 fill-container left">
                                     Nugegoda
@@ -61,13 +61,61 @@ $nav = new Navigation("home");
                                     Raymond Road, Nugegoda
                                 </div>
                             </div>
+                            <div class="table padding-vertical-2 margin-top-2">
+                                <div class="hs less">
+                                    <div title="No. of Members" class="col-2 center fill-container left small grey">
+                                        <span class="display-block center">
+                                            <i data-feather="users" class="accent"></i></span>
+                                        <span class=" display-block center">4 Members</span>
+                                    </div>
+                                    <div title="No. of Rooms" class="col-2 center fill-container left small grey">
+                                        <span class="display-block center">
+                                            <i data-feather="archive" class="accent"></i></span>
+                                        <span class=" display-block center">2 Rooms</span>
+                                    </div>
+                                    <div title="No. of Washrooms" class="col-2 center fill-container left small grey">
+                                        <span class="display-block center">
+                                            <i data-feather="grid" class="accent"></i></span>
+                                        <span class=" display-block center">1 Washroom</span>
+                                    </div>
+                                    <div title="Gender" class="col-2 center fill-container left small grey">
+                                        <span class="display-block center">
+                                            <i data-feather="user" class="accent"></i></span>
+                                        <span class=" display-block center">Ladies</span>
+                                    </div>
+                                    <div title="Type of Tenant" class="col-2 center fill-container left small grey">
+                                        <span class="display-block center">
+                                            <i data-feather="briefcase" class="accent"></i></span>
+                                        <span class=" display-block center">Professional</span>
+                                    </div>
+                                    <div title="Square Feet" class="col-2 center fill-container left small grey">
+                                        <span class="display-block center">
+                                            <i data-feather="shuffle" class="accent"></i></span>
+                                        <span class=" display-block center">200 Sq.Ft</span>
+                                    </div>
+                                    <div title="Parking availability"
+                                        class="col-2 center fill-container left small grey">
+                                        <span class="display-block center">
+                                            <i data-feather="navigation" class="accent"></i></span>
+                                        <span class=" display-block center">Available</span>
+                                    </div>
+
+
+
+
+
+
+
+
+                                </div>
+                            </div>
                             <div class="row">
-                                <div class="col-12 fill-container left small grey">
+                                <div class="col-12 fill-container left  grey">
                                     <ul>
-                                        <li>2 Rooms</li>
-                                        <li>2 Bathrooms</li>
-                                        <li>1 Kitchen</li>
-                                        <li>1 Living Room</li>
+                                        <li>5KM from University of Colombo</li>
+                                        <li>Suitable for Female Students</li>
+                                        <li>House for rent</li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -79,7 +127,7 @@ $nav = new Navigation("home");
                                     <div class="display-inline-block small vertical-align-middle">
                                         (per month)
                                     </div>
-                                    
+
                                 </div>
                             </div>
 

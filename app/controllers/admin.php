@@ -13,7 +13,7 @@ class Admin extends Controller
         $rowCount = $this->model('AdminModel')->numRows('VerificationTeam');
         $result = $this->model('AdminModel')->getVerificationTeam($page, $perPage);
 
-        $this->view('admin/verificationTeam', ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage]);
+        $this->view('userManagement/verificationTeam', ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage]);
     }
 
     public function support($page = 1)
@@ -22,7 +22,7 @@ class Admin extends Controller
         $rowCount = $this->model('AdminModel')->numRows('VerificationTeam');
         $result = $this->model('AdminModel')->getVerificationTeam($page, $perPage);
 
-        $this->view('admin/support', ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage]);
+        $this->view('support/support', ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage]);
     }
 
     public function verificationTeamEdit($id = null)

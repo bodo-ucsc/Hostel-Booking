@@ -4,7 +4,7 @@ if (isset($_SESSION['username'])) {
     {
         public function index()
         {
-            $this->view('boardingOwner/BOhome');
+            $this->viewboardingOwner();
         }
 
         public function addboardingOwner()
