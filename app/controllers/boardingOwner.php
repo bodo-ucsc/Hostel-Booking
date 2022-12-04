@@ -15,7 +15,7 @@ class BoardingOwner extends Controller{
     }
 
     public function viewABoardingPlace(){
-        $this->view('boardingOwner/viewABoarding');
+        $this->view('boardingOwner/boardingManagement');
     }
 
     public function addBoardingPlace(){
@@ -75,8 +75,8 @@ class BoardingOwner extends Controller{
         }
     }
 
-    public function viewBoardingPlaces(){
-        $result = $this->model('boardingOwnerModel')->viewAllBoarding();
+    public function viewBoardingPlaces($userid){
+        $result = $this->model('boardingOwnerModel')->viewAllBoarding($userid);
         if (isset($result)) {
             $boardingPlaces = $result->fetch_assoc();
             return $boardingPlaces;
@@ -86,9 +86,14 @@ class BoardingOwner extends Controller{
     public function viewBoardingPlace($placeid){
         $result = $this->model('boardingOwnerModel')->viewAllBoarding($placeid);
         if (isset($result)) {
-            $boardingPlace = $result->fetch_assoc();
-            return $boardingPlace;
+            return $result;
         }
         
+    }
+
+    public function howManyBoardings($userid, $where = null)
+    {
+        $result = $this->model('boardingOwnerModel')->howMany($userid, $where);
+        return $result;
     }
 }

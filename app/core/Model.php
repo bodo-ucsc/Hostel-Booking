@@ -66,7 +66,7 @@ class Model extends Database
         return $row[0];
     }
 
-    public function numRowsWhere($table, $where)
+    public function numRowsWhere($table, $where = null)
     {
         //count of rows 
         $sql = "SELECT COUNT(1) FROM $table ";

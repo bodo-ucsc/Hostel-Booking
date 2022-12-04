@@ -35,11 +35,4 @@ class Database
     {
         $this->mysqli->close();
     }
-
-/*   public function getUserID($username){
-
-        $query = 
-        $result = $this->runQuery($query);
-    }*/
-
 }

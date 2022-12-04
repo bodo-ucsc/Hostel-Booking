@@ -142,7 +142,7 @@ class SignIn extends Controller
                 $_SESSION['firstname'] = $row['FirstName'];
                 $_SESSION['lastname'] = $row['LastName'];
                 $_SESSION['role'] = $row['UserType'];
-//                $_SESSION['userid'] = $row['UserId'];
+                $_SESSION['userid'] = $row['UserId'];
                 echo "success";
                 // header('Location: ../home');
             } else {

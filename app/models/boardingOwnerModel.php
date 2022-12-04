@@ -16,7 +16,7 @@ class boardingOwnerModel extends model{
     }
 
     public function viewAllBoarding($userid){
-        $this->get('boardingPlace', "'OwnerId' = $userid", );
+        $this->get('boardingPlace', "'OwnerId' = $userid", null, null );
     }
 
     public function viewABoarding($placeid){
@@ -100,6 +100,11 @@ class boardingOwnerModel extends model{
         $this->delete('reviewrating', "'Place' = $placeid");
         $this->delete('postupdate', "'PlaceId' = $placeid");
         $this->delete('boardingplace', "'PlaceId' = $placeid");
+    }
+
+    public function howMany($userid, $where = null)
+    {
+        $this->numRowsWhere($userid, $where);
     }
 
 }
