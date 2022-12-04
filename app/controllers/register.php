@@ -164,7 +164,7 @@ class Register extends Controller
             echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
         }
     }
-}
+
 
     public function professionalSignUp()
     {
