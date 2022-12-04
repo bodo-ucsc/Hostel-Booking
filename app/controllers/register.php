@@ -128,10 +128,8 @@ class Register extends Controller
     }
 
 
-    public function professionalSignUp()
-    {
-        if (isset($_POST['username'])) {
-            $firstname = $_POST['firstname'];
+    public function professionalSignUp(){
+        $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -154,9 +152,63 @@ class Register extends Controller
             $this->model('registerModel')->addProfessional($id,$verificationStatus,$nicLink,$mobile,$dob,$gender,$address,$nic,$occupation,$workplace);
 
             header("Location: " . BASEURL . "/signin/professional");
+    }
+
+
+ public function studentSignUp()
+    {
+        if (isset($_POST['username'])) {
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $email = $_POST['email'];
+            $usertype="Student";
+
+            $id = $this->model('registerModel')->register($firstname,$lastname,$username,$password,$usertype);
+
+            echo $id;
+
+            $verfiedstatus = "not";
+            $niclink = $_POST['niclink'];
+            $uniidlink = $_POST['uniidlink'];
+            //$uniadmissionlink = $_POST['uniadmissionlink'];
+            //$verifiedby = $_POST['verifiedby'];
+            $dob = $_POST['dob'];
+            $nic = $_POST['nic'];
+            $gender = $_POST['gender'];
+            $email = $_POST['email'];
+            $mobile = $_POST['mobile'];
+            $address = $_POST['address'];
+            $uni = $_POST['uni'];
+            $uniid = $_POST['uniid'];
+
+
+
+
+            echo $verfiedstatus;
+            echo $niclink;
+            echo $uniidlink;
+            //echo $uniadmissionlink;
+            //echo $verifiedby;
+            echo $dob;
+            echo $nic;
+            echo $gender;
+            echo $email;
+            echo $mobile;
+            echo $address;
+            echo $uni;
+            echo $uniid;
+
+            $this->model('registerModel')->addUniversity($uni);
+
+
+            $this->model('registerModel')->addStudent($id,$verfiedstatus, $niclink,$uniidlink,$dob,$nic,$gender,$email,$mobile,$address,$uni,$uniid);
+
+            // header("Location: " . BASEURL . "/signin/student");
         } else {
             header("Location: " . BASEURL);
         }
     }
-
 }
+

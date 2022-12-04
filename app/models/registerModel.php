@@ -48,7 +48,7 @@ class registerModel extends Model
         $this->insert('user', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'Email' => $email, 'Password' => $password, 'UserType' => $usertype]);
         //return last id
         return $this->lastInsertId();
-    }
+    } 
     public function EditUser($id, $firstname, $lastname, $username, $email, $usertype)
     {
         $this->update('user', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'UserType' => $usertype, 'Email' => $email], "UserId = '$id'");
@@ -82,6 +82,15 @@ class registerModel extends Model
         $this->update('postupdate', ['UserId' => $userid, 'PlaceId' => $placeid, 'DateTime' => $date, 'Caption' => $message], "PostId = '$pid'");
 
     }
+ 
 
+    public function addStudent($id,$verifiedstatus,$niclink,$uniidlink,$dob,$nic,$gender,$email,$mobile,$address,$uni,$uniid){
+            $this->insert('student', ['StudentId'=> $id, 'VerifiedStatus'=>$verifiedstatus, 'NICScanLink'=>$niclink, 'UniversityIDCopyLink'=> $uniidlink,'DateOfBirth'=> $dob, 'NIC'=> $nic,'Gender'=> $gender, 'Email'=> $email, 'ContactNumber'=> $mobile, 'Address'=> $address, 'StudentUniversity'=>$uni,'UniversityIDNo'=>$uniid]);
 
+        }
+
+      public function addUniversity($uni){
+        $this->insert('university',['UniversityName'=>$uni]);
+      }
+     
 }
