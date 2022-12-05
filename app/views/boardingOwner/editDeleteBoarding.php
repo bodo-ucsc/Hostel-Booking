@@ -2,17 +2,24 @@
 $header = new HTMLHeader("Edit Property");
 $nav = new Navigation("home");
 $sidebar = new SidebarNav($active="user");
+
+$_boardingOwner = new BoardingOwner;
+
+$userid = $_SESSION['userid'];
 ?>
 
 <main class=" navbar-offset sidebar-offset margin-top-5">
     
    
     <form class=" padding-3 margin-horizontal-5 " action="" method="post">
+    <input type="hidden" id="placeid" name="placeid" value="<?php
+    $userid;
+    ?>
     <div class="row margin-right-5">
         <div class="col-4 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i data-feather="arrow-left"></i></div>
         <div class="col-8 flex fill-container right-flex">
-            <button class=" bg-white-hover red-hover red border-1 border-red padding-2 border-rounded flex justify-content center margin-right-4" type="submit" action="addBoardingPlace"><i data-feather="trash-2"></i>&nbsp;&nbsp;Delete Listing</button>   
-            <button class=" bg-blue-hover white-hover padding-2 border-rounded flex justify-content center margin-right-4" type="submit" action="addBoardingPlace"><i data-feather="save"></i>&nbsp;&nbsp;Save Changes</button>                             
+            <button class=" bg-white-hover red-hover red border-1 border-red padding-2 border-rounded flex justify-content center margin-right-4" type="submit" action="addBoardingPlace" value="delete-button"><i data-feather="trash-2"></i>&nbsp;&nbsp;Delete Listing</button>   
+            <button class=" bg-blue-hover white-hover padding-2 border-rounded flex justify-content center margin-right-4" type="submit" action="addBoardingPlace"><i data-feather="save" value="update-button"></i>&nbsp;&nbsp;Save Changes</button>                             
         </div>
     </div><br>
         <div class="header-2 margin-bottom-2">Edit Listing</div>
