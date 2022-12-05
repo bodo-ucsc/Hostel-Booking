@@ -20,7 +20,7 @@ class BoardingOwner extends Controller{
 
     public function addBoardingPlace(){
 
-        $userid = $_SESSION['userId'];
+        $ownerid = $_SESSION['userid'];
 
         $propertytitle = $_POST('propertytitle');
         $location=$_POST('location');
@@ -78,8 +78,7 @@ class BoardingOwner extends Controller{
     public function viewBoardingPlaces($userid){
         $result = $this->model('boardingOwnerModel')->viewAllBoarding($userid);
         if (isset($result)) {
-            $boardingPlaces = $result->fetch_assoc();
-            return $boardingPlaces;
+            return $result;
         }
     }
 

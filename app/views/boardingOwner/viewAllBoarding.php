@@ -53,5 +53,3 @@ $_boardingOwner = new boardingOwner;
 <?php
 $footer = new HTMLFooter();
 ?>
-
-// $viewcard = new ViewCard('Wellawatta', '7/6, Wellawatta', 2, null, 5);
