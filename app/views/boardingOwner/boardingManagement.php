@@ -10,7 +10,7 @@ $_boardingOwner = new boardingOwner;
 <main class=" navbar-offset sidebar-offset">
 
 <?php
-$placeid = $_GET['placeid'];
+$placeid = $data['placeid'];
 
 $boardingPlace = $_boardingOwner->viewBoardingPlace($placeid);
 

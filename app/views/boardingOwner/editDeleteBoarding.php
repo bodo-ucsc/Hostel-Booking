@@ -14,7 +14,7 @@ $userid = $_SESSION['userid'];
     <form class=" padding-3 margin-horizontal-5 " action="" method="post">
     <input type="hidden" id="placeid" name="placeid" value="<?php
     $userid;
-    ?>
+    ?>>
     <div class="row margin-right-5">
         <div class="col-4 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i data-feather="arrow-left"></i></div>
         <div class="col-8 flex fill-container right-flex">

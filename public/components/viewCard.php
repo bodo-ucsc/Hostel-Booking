@@ -8,16 +8,18 @@ class ViewCard
         $base = BASEURL;
 
         echo "
-            <div class=' viewcard'>
+            <div class=' padding-2 col-large-4 col-medium-6 col-12'>
+            <div class='border-rounded padding-2 padding-bottom-4 shadow center'>
+            
         ";
 
         if (isset($imgLink)) {
             echo "
-                <img width = '300px' class='margin-3 border-rounded' src = $imgLink >
+                <img  class='fill-container border-rounded' src = $imgLink >
             ";
         } else {
             echo "
-                <img width = '300px' class='margin-3 border-rounded' src = $base/public/images/randomboardinghouse.png >
+                <img class='fill-container border-rounded' src = $base/public/images/randomboardinghouse.png >
             ";
         }
 
@@ -40,7 +42,8 @@ class ViewCard
         }
 
         echo "
-            <button class=' bg-white border-1 border-black white-hover margin-top-3 border-rounded-more'><a href= $base/boardingOwner/viewABoardingPlace?placeid=$placeid>View Property</a></button>
+            <button class=' bg-white border-1 border-black white-hover margin-top-3 border-rounded-more'><a href= $base/boardingOwner/viewABoardingPlace/$placeid>View Property</a></button>
+            </div>
             </div>
         ";
     }

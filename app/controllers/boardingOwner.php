@@ -6,17 +6,27 @@ class BoardingOwner extends Controller{
         $this->view('boardingOwner/addBoarding');
     }
 
-    public function editDeleteBoarding(){
-        $this->view('boardingOwner/editDeleteBoarding');
+    public function editDeleteBoarding($placeid = null){
+        if (isset($placeid)) {
+            $this->view('boardingOwner/editDeleteBoarding', ['placeid' => $placeid]);
+        }
+        
     }
 
-    public function viewAllBoardingPlaces(){
+    public function viewAllBoarding(){
         $this->view('boardingOwner/viewAllBoarding');
     }
 
-    public function viewABoardingPlace(){
-        $this->view('boardingOwner/boardingManagement');
+    public function viewABoardingPlace($placeid = null){
+        if (isset($placeid)) {
+            $this->view('boardingOwner/boardingManagement',  ['placeid' => $placeid]);
+
+        }
     }
+
+    // public function viewABoardingPlace(){
+    //         $this->view('boardingOwner/boardingManagement');
+    // }
 
     public function addBoardingPlace(){
 

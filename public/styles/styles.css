@@ -1583,17 +1583,4 @@ header .nav-signup {
     grid-column: span 1
   }
 }
-
-
-.viewcard {
-  width: 350px; 
-  height: 400px; 
-  margin: 5em; 
-  background-color: #ffffff; 
-  border-radius: 1em;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
+ 
