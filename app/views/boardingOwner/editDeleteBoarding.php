@@ -3,6 +3,7 @@ $header = new HTMLHeader("Edit Property");
 $nav = new Navigation("home");
 $sidebar = new SidebarNav($active="user");
 
+$placeid = $data['placeid'];
 $_boardingOwner = new BoardingOwner;
 
 $userid = $_SESSION['userid'];
@@ -11,10 +12,10 @@ $userid = $_SESSION['userid'];
 <main class=" navbar-offset sidebar-offset margin-top-5">
     
    
-    <form class=" padding-3 margin-horizontal-5 " action="" method="post">
-    <input type="hidden" id="placeid" name="placeid" value="<?php
-    $userid;
-    ?>>
+    <form class=" padding-3 margin-horizontal-5 " action="<?php echo BASEURL ?>/boardingOwner/editDeleteBoardingPlace" method="post">
+    <?php echo "<input type='hidden' id='placeid' name='placeid' value=
+     $placeid;
+    >"?>
     <div class="row margin-right-5">
         <div class="col-4 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i data-feather="arrow-left"></i></div>
         <div class="col-8 flex fill-container right-flex">

@@ -2,7 +2,7 @@
 $header = new HTMLHeader("Property");
 $nav = new Navigation("home");
 $sidebar = new SidebarNav($active="user");
-
+$base = BASEURL;
 $_boardingOwner = new boardingOwner;
 
 ?>
@@ -26,13 +26,13 @@ if (isset($boardingPlace)) {
             if (isset($boardingPlaceName)) {
                 echo $boardingPlaceName;
             } else {
-                echo "Random Boarding";
+                echo "Boarding No: $placeid";
             }
             ?>
         </div>
         <div class="col-4 fill-container flex">
             <div>
-                <button class=" bg-white-hover black-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4 border-1 border-black"><i data-feather="edit"></i>&nbsp;Edit Listing</button>
+                <button class=" bg-white-hover black-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4 border-1 border-black"><i data-feather="edit"></i><?php echo "<a href =$base/boardingOwner/editDeleteBoarding/$placeid>&nbsp;Edit Listing</a>"?></button>
             </div>
             <div>
                 <button class=" bg-accent-hover white-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4"><i data-feather="eye"></i> &nbsp;View Listing</button>

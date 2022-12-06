@@ -24,10 +24,6 @@ class BoardingOwner extends Controller{
         }
     }
 
-    // public function viewABoardingPlace(){
-    //         $this->view('boardingOwner/boardingManagement');
-    // }
-
     public function addBoardingPlace(){
 
         $ownerid = $_SESSION['userid'];

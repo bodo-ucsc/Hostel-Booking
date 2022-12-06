@@ -42,8 +42,12 @@ $_boardingOwner = new boardingOwner;
                 <div class="row margin-vertical-5 ">
 
                     <?php
-                    for ($x = 0; $x <= 10; $x++) {
-                        $viewcard = new ViewCard(225, 'Wellawatta', '7/6, Wellawatta', 5, null, 2);
+                    if (isset($_SESSION['userid'])) {
+                         $ownersBoardings = $_boardingOwner->viewBoardingPlaces($_SESSION['userid']);
+
+                        while ($boarding = $ownersBoardings->fetch_assoc()) {
+                            $viewcard = new ViewCard($boarding['PlaceId'], $boarding['CityName'], $boarding['NoOfMembers'], null, $boarding['CurrentBoarderCount']);
+                        }
                     }
                     ?>
 

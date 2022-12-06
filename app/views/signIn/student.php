@@ -10,8 +10,8 @@ $nav = new Navigation("home");
             <img class="login-img" src="student-login.png">
         </div>
         <div class="col-6 bg-white flex">
-            <p style="">Student Sign In</p>
-            <form style="">
+            <p>Student Sign In</p>
+            <form>
                 <label for="username">Username:</label><br>
                 <input type="text" id="username" name="username" placeholder="Enter Username"><br>
                 <label for="pwd">Password:</label><br>
