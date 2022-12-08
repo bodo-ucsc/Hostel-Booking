@@ -42,7 +42,7 @@ class ViewCard
         }
 
         echo "
-            <button class=' bg-white border-1 border-black white-hover margin-top-3 border-rounded-more'><a href= $base/boardingOwner/viewABoardingPlace/$placeid>View Property</a></button>
+            <button class=' bg-white border-1 border-black white-hover margin-top-3 border-rounded-more'><a class=' black' href= $base/boardingOwner/viewABoardingPlace/$placeid>View Property</a></button>
             </div>
             </div>
         ";

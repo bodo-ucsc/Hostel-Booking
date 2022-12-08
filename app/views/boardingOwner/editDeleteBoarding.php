@@ -12,7 +12,7 @@ $userid = $_SESSION['userid'];
 <main class=" navbar-offset sidebar-offset margin-top-5">
     
    
-    <form class=" padding-3 margin-horizontal-5 " action="<?php echo BASEURL ?>/boardingOwner/editDeleteBoardingPlace" method="post">
+    <form class=" padding-3 margin-horizontal-5 " action="<?php echo BASEURL ?>/boardingOwner/editBoardingPlace" method="post">
     <?php echo "<input type='hidden' id='placeid' name='placeid' value=
      $placeid;
     >"?>
@@ -76,8 +76,8 @@ $userid = $_SESSION['userid'];
             </div>
             <div class="col-2 flex-column">
                 <i class=" icon-green" data-feather="smile"></i><br>
-                <select class=" margin-top-1" id="bordertype" name="bordertype">
-                    <option value="" disabled selected>Border Type</option>
+                <select class=" margin-top-1" id="boardertype" name="boardertype">
+                    <option value="" disabled selected>Boarder Type</option>
                     <option value="Student">Student</option>
                     <option value="Professional">Professional</option>
                     <option value="Other">Other</option>
@@ -120,13 +120,6 @@ $userid = $_SESSION['userid'];
 
 
 </main>
-
-<script>
-    var placeholderText = 'ft';
-    var suptext = document.getElementById(sqfeet);
-    suptext.setAttribute("placeholder", placeholderText);
-//    $("#sqfeet").attr('placeholder', placeholderText);
-</script> 
 
 <?php
 if (isset($data['error'])) {

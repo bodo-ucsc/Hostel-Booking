@@ -15,7 +15,8 @@ $placeid = $data['placeid'];
 $boardingPlace = $_boardingOwner->viewBoardingPlace($placeid);
 
 if (isset($boardingPlace)) {
-    $boardingPlaceName = $boardingPlace['CityName'];
+    $result = $boardingPlace->fetch_assoc();
+    $boardingPlaceName = $result['CityName'];
 }
 
 ?>
@@ -25,17 +26,15 @@ if (isset($boardingPlace)) {
             <?php
             if (isset($boardingPlaceName)) {
                 echo $boardingPlaceName;
-            } else {
-                echo "Boarding No: $placeid";
             }
             ?>
         </div>
         <div class="col-4 fill-container flex">
             <div>
-                <button class=" bg-white-hover black-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4 border-1 border-black"><i data-feather="edit"></i><?php echo "<a href =$base/boardingOwner/editDeleteBoarding/$placeid>&nbsp;Edit Listing</a>"?></button>
+                <button class=" bg-white-hover black-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4 border-1 border-black"><i data-feather="edit"></i><?php echo "<a class=' black' href =$base/boardingOwner/editDeleteBoarding/$placeid>&nbsp;Edit Listing</a>";?></button>
             </div>
             <div>
-                <button class=" bg-accent-hover white-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4"><i data-feather="eye"></i> &nbsp;View Listing</button>
+                <button class=" bg-accent-hover white-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4"><i data-feather="eye"></i><?php echo "<a class=' white white-hover' href =$base/boardingOwner/boardingView/$placeid>&nbsp;View Listing</a>";?></button>
             </div>
         </div>     
     </div>

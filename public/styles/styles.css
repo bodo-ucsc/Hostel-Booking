@@ -438,6 +438,7 @@ button {
 
 /* Form and Inputs */
 input[type=text],
+input[type=number],
 input[type=password],
 input[type=tel],
 input[type=email],
@@ -476,6 +477,7 @@ input[type=date].fill-container,
 input[type=text].fill-container,
 input[type=tel].fill-container,
 input[type=email].fill-container,
+input[type=number].fill-container,
 input[type=password].fill-container,
 button.fill-container {
   width: 100%;

@@ -5,9 +5,9 @@ $sidebar = new SidebarNav($active="user");
 ?>
 
 <main class=" navbar-offset sidebar-offset">
-    <form class=" padding-5 margin-left-2 " action="" method="post">
+    <form class=" padding-5 margin-left-2 " action="<?php echo BASEURL ?>/boardingOwner/addBoardingPlace" method="post">
         <div class="row">
-            <div class="col-8 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i data-feather="arrow-left"></i></div>
+            <div class="col-8 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i onclick="history.back()" data-feather="arrow-left"></i></div>
             <div class="col-4 flex fill-container right-flex">
                 <button class=" bg-blue-hover white-hover padding-2 border-rounded flex justify-content center margin-right-4" type="submit" action="addBoardingPlace"><i data-feather="save"></i>&nbsp;&nbsp;Save Changes</button>                
             </div>
@@ -20,12 +20,12 @@ $sidebar = new SidebarNav($active="user");
                         <input class=" margin-top-1" type="text" id="propertytitle" name="propertytitle">
                     </div>
                     <div class="col-3 fill-container">
-                        <label for="location">Property Listing Title</label><br>
+                        <label for="location">Location</label><br>
                         <input class=" margin-top-1" type="text" id="location" name="location">
                     </div>
                     <div class="col-2 fill-container">
                         <label for="price">Price</label><br>
-                        <input class=" margin-top-1" type="text" id="price" name="price">
+                        <input class=" margin-top-1" type="number" id="price" name="price">
                     </div>
                 </div>
                 <div class="row">
@@ -34,7 +34,7 @@ $sidebar = new SidebarNav($active="user");
                         <input class=" margin-top-1" type="text" id="address" name="address">
                     </div>
                     <div class="col-4 fill-container">
-                        <label for="propertytype">Property Listing Title</label><br>
+                        <label for="propertytype">Property Name</label><br>
                         <input class=" margin-top-1" type="text" id="propertytype" name="propertytype">
                     </div>
                 </div>
@@ -48,15 +48,15 @@ $sidebar = new SidebarNav($active="user");
          <div class="row margin-top-3">
             <div class="col-2 flex-column">
                 <i class=" icon-green" data-feather="users"></i>
-                <input class=" margin-top-1" type="text" name="noofmembers" id="noofmembers" placeholder="No of Members">
+                <input class=" margin-top-1" type="number" name="noofmembers" id="noofmembers" placeholder="No of Members">
             </div>
             <div class="col-2 flex-column">                
                 <i class=" icon-green" data-feather="archive"></i><br>
-                <input class=" margin-top-1" type="text" name="noofrooms" id="noofrooms" placeholder="No of Rooms">
+                <input class=" margin-top-1" type="number" name="noofrooms" id="noofrooms" placeholder="No of Rooms">
             </div>
             <div class="col-2 flex-column">
                 <i class=" icon-green" data-feather="grid"></i><br>
-                <input class=" margin-top-1" type="text" name="noofwashrooms" id="noofwashrooms" placeholder="No of Washrooms">
+                <input class=" margin-top-1" type="number" name="noofwashrooms" id="noofwashrooms" placeholder="No of Washrooms">
             </div>
             <div class="col-1 flex-column">
                 <i class=" icon-green" data-feather="user"></i><br>
@@ -64,7 +64,7 @@ $sidebar = new SidebarNav($active="user");
             </div>
             <div class="col-2 flex-column">
                 <i class=" icon-green" data-feather="smile"></i><br>
-                <select class=" margin-top-1" id="bordertype" name="bordertype">
+                <select class=" margin-top-1" id="boardertype" name="boardertype">
                     <option value="" disabled selected>Border Type</option>
                     <option value="Student">Student</option>
                     <option value="Professional">Professional</option>
@@ -92,9 +92,11 @@ $sidebar = new SidebarNav($active="user");
                 <input class=" margin-top-1" type="text" id="summary1" name="summary1">
             </div>
             <div class="col-4 fill-container">
+            <label>&nbsp;</label><br>
                 <input class=" margin-top-1" type="text" id="summary2" name="summary2">
             </div>
             <div class="col-4 fill-container">
+            <label>&nbsp;</label><br>
                 <input class=" margin-top-1" type="text" id="summary3" name="summary3">
             </div>
          </div>
@@ -109,12 +111,6 @@ $sidebar = new SidebarNav($active="user");
 
 </main>
 
-<script>
-    var placeholderText = 'ft';
-    var suptext = document.getElementById(sqfeet);
-    suptext.setAttribute("placeholder", placeholderText);
-//    $("#sqfeet").attr('placeholder', placeholderText);
-</script> 
 
 <?php
 if (isset($data['error'])) {

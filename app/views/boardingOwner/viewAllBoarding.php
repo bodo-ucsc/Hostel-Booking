@@ -5,6 +5,8 @@ $sidebar = new SidebarNav($active = "user");
 
 $_boardingOwner = new boardingOwner;
 
+$base = BASEURL;
+
 ?>
 <main class="full-width">
     <div class="navbar-offset sidebar-offset">
@@ -15,8 +17,6 @@ $_boardingOwner = new boardingOwner;
                     <?php
                     if (isset($_SESSION['username'])) {
                         echo $_SESSION['username'];
-                    } else {
-                        echo "Random User";
                     }
                     ?>!
                 </div>
@@ -24,15 +24,17 @@ $_boardingOwner = new boardingOwner;
                     <div>
                         <button
                             class=" bg-blue-hover white-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4"><i
-                                data-feather="plus"></i>Add Property</button>
+                                data-feather="plus"></i><?php echo "<a class=' white white-hover' href =$base/boardingOwner/addBoarding>&nbsp;Add Property</a>"?></button>
                     </div>
                     <div class=" header-nb">
                         <?php
+                        $num;
                         if (isset($_SESSION['userid'])) {
                             $uid = $_SESSION['userid'];
-                            $num = $_boardingOwner->howManyBoardings('boardingplace', "'UserId' = $uid");
-                        } else {
-                            $num = 69;
+                            $num = $_boardingOwner->howManyBoardings('boardingplace', "OwnerId = $uid");
+                            if ($num == null) {
+                                $num = 0;
+                            }
                         }
                         echo $num;
                         ?> Properties
@@ -44,10 +46,16 @@ $_boardingOwner = new boardingOwner;
                     <?php
                     if (isset($_SESSION['userid'])) {
                          $ownersBoardings = $_boardingOwner->viewBoardingPlaces($_SESSION['userid']);
-
-                        while ($boarding = $ownersBoardings->fetch_assoc()) {
-                            $viewcard = new ViewCard($boarding['PlaceId'], $boarding['CityName'], $boarding['NoOfMembers'], null, $boarding['CurrentBoarderCount']);
+                        if($ownersBoardings != null){
+                            while ($boarding = $ownersBoardings->fetch_assoc()) {
+                                $viewcard = new ViewCard($boarding['PlaceId'], $boarding['CityName'], $boarding['Address'], $boarding['CurrentBoarderCount'], null, $boarding['NoOfMembers']);
+                            }
+                        } else {
+                            echo "
+                                <div class='col-12 fill-container header-nb'>You currently don't have any properties to list</div>
+                            ";
                         }
+                        
                     }
                     ?>
 

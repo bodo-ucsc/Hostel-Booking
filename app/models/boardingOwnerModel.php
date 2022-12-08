@@ -7,8 +7,8 @@ class boardingOwnerModel extends model{
         parent::__construct();
     }
 
-    public function addABoarding($ownerid, $title, $verifiedStatus, $ubrLink, $summaryL1, $summaryL2, $summaryL3, $description, $price, $priceType, $address, $cityName, $googleMaps, $propertyType, $noofMembers, $currentBoarderCount, $noofRooms, $noofWashRooms, $gender, $boarderType, $sqft, $parking){
-        $this->insert('boardingPlace',['OwnerId' => $ownerid, 'Title' => $title, 'VerifiedStatus' => $verifiedStatus, 'UtilityBillReceiptLink' => $ubrLink, 
+    public function addABoarding($ownerid, $title, $verifiedStatus, $summaryL1, $summaryL2, $summaryL3, $description, $price, $priceType, $address, $cityName, $googleMaps, $propertyType, $noofMembers, $currentBoarderCount, $noofRooms, $noofWashRooms, $gender, $boarderType, $sqft, $parking){
+        $this->insert('boardingPlace',['OwnerId' => $ownerid, 'Title' => $title, 'VerifiedStatus' => $verifiedStatus, 
         'SummaryLine1' => $summaryL1, 'SummaryLine2' => $summaryL2, 'SummaryLine3' => $summaryL3, 'Description' => $description, 
         'Price' => $price, 'PriceType' => $priceType, 'Address' => $address, 'CityName' => $cityName, 'GoogleMap' => $googleMaps, 
         'PropertyType' => $propertyType, 'NoOfMembers' => $noofMembers, 'NoOfRooms' => $noofRooms, 'CurrentBoarderCount' => $currentBoarderCount,
@@ -16,21 +16,24 @@ class boardingOwnerModel extends model{
     }
 
     public function viewAllBoarding($userid){
-        $this->get('boardingPlace', "'OwnerId' = $userid", null, null );
+        // $this->get('boardingPlace', "OwnerId = $userid", null, null);
+        $sql = "SELECT * FROM boardingPlace WHERE OwnerId = $userid";
+        $result = $this->runQuery($sql);
+        return $result;
     }
 
     public function viewABoarding($placeid){
-        $this->get('boardingPlace', "'PlaceId' = $placeid", null, 1);
+       // $this->get('boardingPlace', "'PlaceId' = $placeid", null, 1);
+       $sql = "SELECT * FROM boardingPlace WHERE PlaceId = $placeid LIMIT 1";
+       $result = $this->runQuery($sql);
+       return $result;
     }
 
-    public function editABoarding($placeid, $title = null, $verifiedStatus = null, $ubrLink = null, $summaryL1 = null, $summaryL2 = null, $summaryL3 = null, $description = null, $price = null, $priceType = null, $address = null, $cityName = null, $googleMaps = null, $propertyType = null, $noofMembers = null, $noofRooms = null, $noofWashRooms = null, $gender = null, $boarderType = null, $sqft = null, $parking = null){
+    public function editABoarding($placeid, $title = null, $ubrLink = null, $summaryL1 = null, $summaryL2 = null, $summaryL3 = null, $description = null, $price = null, $priceType = null, $address = null, $cityName = null, $googleMaps = null, $propertyType = null, $noofMembers = null, $noofRooms = null, $noofWashRooms = null, $gender = null, $boarderType = null, $sqft = null, $parking = null){
 
         if(isset($placeid)){
             if(isset($title)){
                 $this->update('boardingplace', ['Title' => $title], "'PlaceId' = $placeid");
-            }
-            if(isset($verifiedStatus)){
-                $this->update('boardingplace', ['VerifiedStatus' => $verifiedStatus], "'PlaceId' = $placeid");
             }
             if(isset($ubrLink)){
                 $this->update('boardingplace', ['UtilityBillReceiptLink' => $ubrLink], "'PlaceId' = $placeid");
@@ -99,9 +102,13 @@ class boardingOwnerModel extends model{
         $this->delete('boardingplace', "'PlaceId' = $placeid");
     }
 
-    public function howMany($userid, $where = null)
+    public function howMany($table, $where = null)
     {
-        $this->numRowsWhere($userid, $where);
+//        $this->numRowsWhere($table, $where);
+        $sql = "SELECT COUNT(1) FROM $table WHERE $where";
+        $result = $this->runQuery($sql);
+        $row = $result->fetch_row();
+        return $row[0];
     }
 
 }
