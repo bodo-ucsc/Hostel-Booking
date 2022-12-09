@@ -1,6 +1,6 @@
 <?php
 $header = new HTMLHeader("Password Mesaage");
-//$nav = new Navigation("home");
+
 ?>
 <main class=" full-width overflow-hidden position-absolute">
     <div class="row">
@@ -11,21 +11,31 @@ $header = new HTMLHeader("Password Mesaage");
                         <img class=" fill-container " src="<?php echo BASEURL . '/public/images/logo.svg' ?>">
                     </div>
                 </div>
-                <div class="row">  
+                <?php
+                $row = $data['info'];
+
+                ?>
+                <div class="row">
                     <div class="col-12">
-                        <h2 class="header-2">Recover Your Password</h2>
+                        <h2 class="header-2 flex">OTP Verification</h2>
                         <P>
-                            An email has been sent to your email address to with a link to reset your password.
+                            An OTP has been sent to your email address to reset your password.
                         </P>
-                        <form action="<?php echo BASEURL ?>/forgotpassword/check" method="post">
-                            <label for="email" class="bold black">Email</label><br>
-                            <input type="text" id="email" name="email"><br>
-    
-                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Send Link"><br>
-                            <a href="<?php echo BASEURL ?>/signin/admin" class=" center">Back</a>
+                        <form action="<?php echo BASEURL ?>/forgotpassword/otpCheck" method="post">
+                            <label for="otp" class="bold black">OTP</label><br>
+                            <input type="text" id="otp" name="otp" placeholder="Enter OTP here"><br>
+
+                            <input type="hidden" id="email" name="email" value="<?php echo $row['Email']; ?>"><br>
+                            <input type="hidden" id="userId" name="userId" value="<?php echo $row['UserId']; ?>"><br>
+
+                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" name="submit" value="Submit"><br><br>
+                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" name="resend" value="Resend"><br><br>
+                            <a href="<?php echo BASEURL ?>/signin/admin" class=" flex">Back</a>
                         </form>
                     </div>
                 </div>
+                <?php
+                ?>
             </div>
         </div>
     </div>
@@ -35,9 +45,7 @@ $header = new HTMLHeader("Password Mesaage");
 </main>
 
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
-} else {
-    $footer = new HTMLFooter();
-}
+
+$footer = new HTMLFooter();
+
 ?>

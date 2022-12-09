@@ -1,7 +1,7 @@
     <?php
-    $header= new HTMLHeader("Admin | Home");
+    $header = new HTMLHeader("Admin | Home");
     $nav =   new Navigation();
-   
+
 
     if (isset($_SESSION["username"])) {
         $sidebar = new SideBarNav("user", "admin");
@@ -24,9 +24,6 @@
                 <div class=" col-5 bg-white flex shadow border-rounded  position-absolute padding-5 ">
                     <div>
 
-                        <?php
-
-                        ?>
                         <div class="header-1">Admin Home</div>
 
                         <h2>Hello <?= htmlspecialchars($_SESSION["username"]) ?> </h2>
@@ -37,6 +34,7 @@
                         <button><a href="<?php echo BASEURL ?>/adminhome/viewprofessional">Professional Manage</a></button>
                         <button><a href="<?php echo BASEURL ?>/adminhome/feed">Feed</a></button>
                         <button><a href="#">Verification Team Manage</a></button>
+                        <!-- <button><a href="<?php echo BASEURL ?>/adminhome/sendMail">Send Mail</a></button> -->
 
                         <!-- <br><br><br>
                         <button><a href="home/signout">Sign out</a><button> -->
@@ -60,7 +58,7 @@
             </div>
 
         </main>
-        
+
         <?php
-            $footer = new HTMLFooter();
+        $footer = new HTMLFooter();
         ?>

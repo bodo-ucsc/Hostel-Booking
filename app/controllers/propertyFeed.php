@@ -97,7 +97,8 @@ if (isset($_SESSION['username'])) {
         {
             if (isset($post_id)) {
 
-                $res = $this->model('viewModel')->viewFeedInfo($post_id);
+                //$res = $this->model('viewModel')->viewFeedInfo($post_id);
+                $res = $this->model('viewModel')->checkData("postupdate, boardingplace, user","postupdate.PostId = '$post_id' AND postupdate.UserId = user.UserId AND postupdate.PlaceId = boardingplace.PlaceId");
                 if ($res != null) {
 
                     $row = $res->fetch_assoc();
@@ -113,7 +114,7 @@ if (isset($_SESSION['username'])) {
         public function deleteUpdate($post_id = null)
         {
             if (isset($post_id)) {
-                $this->model('deleteModel')->deleteAdvertisement($post_id);
+                $this->model('deleteModel')->deleteRecord("postupdate","PostId = $post_id");
             }
             $this->viewAdvertisements();
         }

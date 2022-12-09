@@ -4,7 +4,8 @@ class File1 extends Controller
 { 
     public function index()
     {
-        $this->view('file1');
+        echo "Hiiiii";
+        //$this->view('file1');
     }
 
 }

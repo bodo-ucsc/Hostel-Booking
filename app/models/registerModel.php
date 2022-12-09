@@ -31,14 +31,14 @@ class registerModel extends Model
         return $result;
     }
 
-    public function boardingOwnerInsert($data)
+    public function insertData($table,$data)
     {
-        $this->insert('boardingowner', $data);
+        $this->insert($table, $data);
     }
-
-    public function userInsert($data)
+  
+    public function modifyData($table,$data,$condition)
     {
-        $this->insert('user', $data);
+        $this->update($table,$data,$condition);
     }
 
     public function Register($firstname, $lastname, $username,$email, $password, $usertype)

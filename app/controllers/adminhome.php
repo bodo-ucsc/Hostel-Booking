@@ -72,7 +72,6 @@ if (isset($_SESSION['username'])) {
                                 $this->model('registerModel')->updateBoardingOwner($id, $mobile, $dob, $gender, $address, $nic, $occupation, $workplace);
                                 echo 'Data updated successfully <br>';
                                 echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';
-                                //$this->viewboardingOwner();
                             }
                         } else {
                             echo "Error user does not exist";
@@ -106,7 +105,7 @@ if (isset($_SESSION['username'])) {
 
         public function deleteboardingOwner($user_id)
         {
-            $this->model('deleteModel')->deleteboardingOwner($user_id);
+            $this->model('deleteModel')->deleteRecord("boardingowner","BoardingOwnerId = $user_id");
             $this->view('boardingOwner/BOhome');
         }
 
@@ -114,8 +113,8 @@ if (isset($_SESSION['username'])) {
         public function addBoardingOwner()
         {
             //$this->view('boardingOwner/add');
-            //$this->view('register/boardingOwner');
-            header('Location: ' . BASEURL . '/register/boardingowner');
+            $this->view('register/boardingOwner');
+            //header('Location: ' . BASEURL . '/register/boardingowner');
         }
 
         //add Boarding Owner
@@ -192,6 +191,19 @@ if (isset($_SESSION['username'])) {
         public function viewUpdate()
         {
             header('Location: ' . BASEURL . '/propertyFeed/viewAdvertisements');
+        }
+
+
+        public function sendMail()
+        {
+            //$email, $body, $subject
+            $username = "Admin";
+            $otp= mt_rand(100000, 999999);
+            $subject = "OTP for your account";
+            $body = "Hello".$username." Your OTP is ".$otp;
+            $email = "Shamalma24@gmail.com";
+            
+            sendEmail($email,$subject,$body);
         }
     }
 } else {

@@ -1,7 +1,7 @@
 <?php
 $header = new HTMLHeader("Register | Boarding Owner");
 $nav = new Navigation("home");
-$sidebar = new SidebarNav("user", "Boarding Owner");
+$sidebar = new SidebarNav("user", "boardingOwner");
 $basePage = BASEURL . '/boardingOwner';
 ?>
 <main class="  full-width">

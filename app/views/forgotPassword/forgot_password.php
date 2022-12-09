@@ -13,17 +13,15 @@ $header = new HTMLHeader("Forgot Password");
                 </div>
                 <div class="row">  
                     <div class="col-12">
-                        <h2 class="header-2">Recover Your Password</h2>
-                        <P>
-                            Please enter your email address you used to sign up on this site 
-                            and we will assist you in recovering your password.
-                        </P>
-                        <form action="<?php echo BASEURL ?>/forgotpassword/check" method="post">
+                        <h2 class="header-2 flex">Recover Your Password</h2>
+                        <P>Please enter your email address you used to sign up on this site.</P>
+                        <P>OTP will send to your email address.</P>
+                        <form action="<?php echo BASEURL ?>/forgotpassword/Check" method="post">
                             <label for="email" class="bold black">Email</label><br>
-                            <input type="text" id="email" name="email"><br>
+                            <input type="text" id="email" name="email" placeholder="Enter Email"><br>
     
-                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" value="Send Link"><br>
-                            <a href="<?php echo BASEURL ?>/signin/admin" class=" center">Back</a>
+                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" name="submit" value="Send Link"><br><br>
+                            <a href="<?php echo BASEURL ?>/signin/admin" class=" flex">Back</a>
                         </form>
                     </div>
                 </div>

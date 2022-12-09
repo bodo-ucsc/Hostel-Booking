@@ -113,9 +113,9 @@ class Register extends Controller
                     } else {
 
                         //password hashing done in registerModel
-                        $id = $this->model('registerModel')->register($firstname, $lastname, $username, $password, $usertype);
+                        $id = $this->model('registerModel')->register($firstname, $lastname, $username,$email, $password, $usertype);
                         //echo $id;
-                        $this->model('registerModel')->addBoardingOwner($id, $mobile, $dob, $email, $gender, $address, $nic, $occupation, $workplace);
+                        $this->model('registerModel')->addBoardingOwner($id, $mobile, $dob, $gender, $address, $nic, $occupation, $workplace);
 
                         echo 'Data added successfully <br>';
                         echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';

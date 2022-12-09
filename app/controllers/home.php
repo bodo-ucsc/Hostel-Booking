@@ -4,7 +4,7 @@ class Home extends Controller
 {
     public function index() 
     {
-        $this->view('adminhome');
+        $this->view('admin/adminhome');
     }  
 
     public function text() 

@@ -90,7 +90,7 @@ if (isset($_SESSION['username'])) {
         public function deleteBO($user_id)
         {
             if (isset($user_id)) {
-                $this->model('deleteModel')->deleteboardingowner($user_id);
+                $this->model('deleteModel')->deleteRecord("boardingowner","BoardingOwnerId = $user_id");
                 $this->viewboardingOwner();
             }
         }
