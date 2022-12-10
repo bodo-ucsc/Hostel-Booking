@@ -97,10 +97,10 @@ class Forgotpassword extends Controller
                 if ($nowtime - $dbtime > 300) {
 
                     $this->model('deleteModel')->deleteRecord("password_reset", "UserId = $userId");
-                    echo "OTP Expired, Try again";
+                    echo 'alert("OTP Expired, Try again")';
                 } else {
                     if ($dbOTP == $otp) {
-                        
+
                         $this->view('forgotPassword/new_password', ['info' => $res]);
                     } else {
                         echo "Invalid OTP";
