@@ -24,7 +24,7 @@ class deleteModel extends Model
         
         $link= $this->delete($table,$condition);
         if($link){
-            echo "Successfully Deleted";
+            //echo "Successfully Deleted";
         }
     }
 

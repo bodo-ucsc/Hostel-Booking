@@ -2,8 +2,10 @@
 <?php
 class Forgotpassword extends Controller
 {
+
     public function index()
     {
+
         $this->view('forgotPassword/forgot_password');
     }
 
@@ -23,23 +25,29 @@ class Forgotpassword extends Controller
                     if ($result != null) {
 
                         $otp = mt_rand(100000, 999999);
+                        $timestamp = $_SERVER['REQUEST_TIME'];
+                        $tt = date('Y-m-d H:i:s', $timestamp);
 
                         if (isset($_POST['resend'])) {
-                            
-                            $this->model('registerModel')->modifyData("password_reset", ['OTP' => $otp], "Email = '$email'");
-                         
+
+                            $this->model('registerModel')->modifyData("password_reset", ['OTP' => $otp, 'ExpTime' => $tt], "Email = '$email'");
                         } else {
 
-                            $this->model('registerModel')->insertData("password_reset", ['UserId' => $userid, 'Email' => $email, 'OTP' => $otp]);
+                            $check = $this->model('viewModel')->checkData("password_reset", "Email = '$email'");
+                            $res = $check->fetch_assoc();
+                            //delete exising record if any not proceeded
+                            if ($res != null) {
+                                $this->model('deleteModel')->deleteRecord("password_reset", "UserId = $userid");
+                            }
+                            $this->model('registerModel')->insertData("password_reset", ['UserId' => $userid, 'Email' => $email, 'OTP' => $otp, 'ExpTime' => $tt]);
                         }
-                            $username = $result['Username'];
-                            $to = $email;
-                            $subject = "Forgot Password - OTP Verification";
-                            $body = "Your username is " . $username . " and your OTP is " . $otp;
+                        $username = $result['Username'];
+                        $to = $email;
+                        $subject = "Forgot Password - OTP Verification";
+                        $body = "Your username is " . $username . " and your OTP is " . $otp . ". This OTP will expire in 5 minutes. Time begins from at " . $tt;
 
-                            sendEmail($to, $subject, $body);
-                            $this->view('forgotPassword/password_message', ['info' => $result]);
-                        
+                        sendEmail($to, $subject, $body);
+                        $this->view('forgotPassword/password_message', ['info' => $result]);
                     } else {
                         echo "No user registered with this Email";
                     }
@@ -68,17 +76,35 @@ class Forgotpassword extends Controller
                 $result = $this->model('viewModel')->checkData("password_reset", "Email = '$email'");
                 $result = $result->fetch_assoc();
                 if ($result != null) {
+
+                    $otpTime = $result['ExpTime'];
                     $dbOTP = $result['OTP'];
+                    $currTime = $_SERVER['REQUEST_TIME'];
+                    $ctime = date('Y-m-d H:i:s', $currTime);
+                    $dbtime = strtotime("$otpTime");
+                    $nowtime = strtotime("$ctime");
+                    // echo "emailed time ".$dbtime." <br>";
+                    // echo "/OTP time ",$otpTime."<br><br>";
+                    // echo "now time ".$nowtime." <br>";
+                    // echo "/now time ",$ctime."<br>";
                 } else {
                     echo "results null";
                 }
                 $info = $this->model('viewModel')->checkData("user", "Email = '$email'");
                 $res = $info->fetch_assoc();
-                if ($dbOTP == $otp) {
 
-                    $this->view('forgotPassword/new_password', ['info' => $res]);
+                //OTP expire
+                if ($nowtime - $dbtime > 300) {
+
+                    $this->model('deleteModel')->deleteRecord("password_reset", "UserId = $userId");
+                    echo "OTP Expired, Try again";
                 } else {
-                    echo "Invalid OTP";
+                    if ($dbOTP == $otp) {
+                        
+                        $this->view('forgotPassword/new_password', ['info' => $res]);
+                    } else {
+                        echo "Invalid OTP";
+                    }
                 }
             } else {
                 die("OTP not set");
