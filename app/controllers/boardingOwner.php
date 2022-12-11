@@ -132,4 +132,18 @@ class BoardingOwner extends Controller{
         $result = $this->model('boardingOwnerModel')->howMany($table, $where);
         return $result;
     }
+
+    public function getOwnerDetails($ownerid)
+    {
+        $result = $this->model('boardingOwnerModel')->userDetails($ownerid);
+        return $result;
+    }
+
+    public function getBoardingImages($placeid)
+    {
+
+        $result = $this->model('boardingOwnerModel')->boardingImages($placeid);
+        return $result;
+        
+    }
 }

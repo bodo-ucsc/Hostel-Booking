@@ -111,4 +111,21 @@ class boardingOwnerModel extends model{
         return $row[0];
     }
 
+    public function userDetails($userid)
+    {
+//        $this->get('user', "UserId = $ownerid");
+        $sql = "SELECT * FROM user WHERE UserId = $userid";
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+
+    public function boardingImages($placeid)
+    {
+        // $this->get('boardingplacepicture', "BoardingPlace = $placeid");
+        $sql = "SELECT * FROM boardingplacepicture WHERE BoardingPlace = $placeid";
+        $result = $this->runQuery($sql);
+        return $result;
+        
+    }
+
 }
