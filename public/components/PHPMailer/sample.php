@@ -10,7 +10,7 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
-function sendEmail($email, $body, $subject)
+function sendEmail($email, $subject, $body)
 {
     $mail = new PHPMailer(true);
     //Create an instance; passing `true` enables exceptions
