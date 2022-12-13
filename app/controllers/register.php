@@ -122,7 +122,7 @@ class Register extends Controller
     }
 
 
-}
+
 
 
     public function boardingownerSignup()

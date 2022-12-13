@@ -38,6 +38,15 @@ class deleteModel extends Model
         }
     }
 
+    public function deleteComment($post_id, $commentor, $datetime)
+    {
+        $link = $this->delete('comment', "Post = $post_id AND Commentor = $commentor AND DateTime = $datetime ");
+        if($link){
+            echo "Successfully Deleted";
+            header('Location '. BASEURL.'/comment/comment');
+        }
+    }
+
 
 
 }
