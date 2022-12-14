@@ -94,19 +94,55 @@ class BoardingOwner extends Controller{
         $this->model('boardingOwnerModel')->editABoarding( $placeid, $propertytitle, null, $summary1, $summary2, 
         $summary3,  $description, $price, null, $address, null, null, $propertytype,
         $noofmembers, $noofrooms, $noofwashrooms, $gender, null, $sqfeet, null);
+
+        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
+
     }
 
     public function deleteBoardingPlace(){
         $placeid = $_POST['placeid'];
         $this->model('boardingOwnerModel')->deleteABoarding($placeid);
+        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
 
     }
 
     public function editDeleteBoardingPlace(){
-        if (isset($_POST['update_button'])) {
-            $this->addBoardingPlace();
-        } else if (isset($_POST['delete_button'])) {
-            $this->editBoardingPlace();
+        if (($_POST['update_button'])) {
+            // $this->addBoardingPlace();
+
+            $placeid = $_POST['placeid'];
+
+            $propertytitle = $_POST['propertytitle'];
+            $location=$_POST['location'];
+            $price = $_POST['price'];
+            $address = $_POST['address'];
+            $propertytype = $_POST['propertytitle'];
+            $noofmembers = $_POST['noofmembers'];
+            $noofrooms = $_POST['noofrooms'];
+            $noofwashrooms = $_POST['noofwashrooms'];
+            $gender = $_POST['gender'];        
+            //$boardertype = $_POST['boardertype'];
+            $sqfeet = $_POST['sqfeet'];
+            //$parking = $_POST['parking'];
+            $summary1 = $_POST['summary1'];
+            $summary2 = $_POST['summary2'];
+            $summary3 = $_POST['summary3'];
+            $description = $_POST['description'];
+            
+            $this->model('boardingOwnerModel')->editABoarding( $placeid, $propertytitle, null, $summary1, $summary2, 
+            $summary3,  $description, $price, null, $address, null, null, $propertytype,
+            $noofmembers, $noofrooms, $noofwashrooms, $gender, null, $sqfeet, null);
+    
+            header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
+
+        } else if (($_POST['delete_button'])) {
+            // $this->editBoardingPlace();
+
+            $placeid = $_POST['placeid'];
+            $this->model('boardingOwnerModel')->deleteABoarding($placeid);
+
+            header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
+
         } else {
             echo "";
         }

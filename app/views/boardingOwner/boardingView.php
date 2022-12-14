@@ -26,9 +26,20 @@ if (isset($boardingPlace)) {
     $squarefeet = $result['SquareFeet'];
     $parking = $result['Parking'];
 
-    if (isset($_SESSION['username'])) {
-        $fname = $_SESSION['firstname'];
-        $lname = $_SESSION['lastname'];
+    $ownerid = $result['OwnerId'];
+
+    // if (isset($_SESSION['username'])) {
+    //     $fname = $_SESSION['firstname'];
+    //     $lname = $_SESSION['lastname'];
+    // }
+
+    $owner = $_boardingOwner->getOwnerDetails($ownerid);
+
+    if(isset($owner)){
+        $ownerResult = $owner->fetch_assoc();
+
+        $fname = $ownerResult['FirstName'];
+        $lname = $ownerResult['LastName'];
     }
    
 }
@@ -44,9 +55,10 @@ if (isset($boardingPlace)) {
                     <div class="col-12 fill-container">
                         <?php
                         $boardingPlaceImages = $_boardingOwner->getBoardingImages($placeid);
-                        $imageResult = $boardingPlaceImages->fetch_assoc();
-                        if (!empty($imageResult)) {
-                            $imageOne = $imageResult[1];
+
+                        if (!is_null($boardingPlaceImages)) {
+                            $imageResult = $boardingPlaceImages->fetch_assoc();
+                            $imageOne = $imageResult[0];
                             $image = $imageOne['PictureLink'];
                             echo "
                             <img class=' border-rounded' src=$image id='preview'>
@@ -146,8 +158,8 @@ if (isset($boardingPlace)) {
                         ";
                         ?>
                     </div>
-                    <div class="col-4 padding-left-5">
-                        <button class=" border-1 border-black bg-white padding-3 black-hover border-rounded-more flex">
+                    <div class="col-4 padding-left-5 fill-container left">
+                        <button class=" border-1 border-black bg-white padding-3 black-hover border-rounded-more flex float-right margin-right-5">
                             <i data-feather="phone-call"></i>
                             &nbsp;Contact
                         </button>
@@ -210,8 +222,9 @@ if (isset($boardingPlace)) {
                 <div class="row">
                     <?php
                     $boardingPlaceImages = $_boardingOwner->getBoardingImages($placeid);
-                    $irr = $boardingPlaceImages->fetch_assoc();
-                    if (!empty($irr)) {
+                    
+                    if (!empty($boardingPlaceImages)) {
+                        $irr = $boardingPlaceImages->fetch_assoc();
                         while ($imageResult = $boardingPlaceImages->fetch_assoc()) {
                             $piclink = $imageResult['PictureLink'];
                             echo "

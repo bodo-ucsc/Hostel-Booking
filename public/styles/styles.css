@@ -719,6 +719,14 @@ header .nav-signup {
   justify-content: flex-end;
 }
 
+.float-right {
+  float:right;
+}
+
+.float-left {
+  float:left;
+}
+
 /* dropdown */
 .dropdown {
   position: relative;
