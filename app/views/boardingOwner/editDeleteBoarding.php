@@ -16,7 +16,7 @@ $userid = $_SESSION['userid'];
         <div class="col-4 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i data-feather="arrow-left"></i></div>
         <div class="col-8 flex fill-container right-flex">
             <button class=" bg-white-hover red-hover red border-1 border-red padding-2 border-rounded flex justify-content center margin-right-4"  id="deleteButton" name="delete_button" ><i data-feather="trash-2"></i>&nbsp;&nbsp;Delete Listing</button>   
-            <button class=" bg-blue-hover white-hover padding-2 border-rounded flex justify-content center margin-right-4" ><i data-feather="save" id="editButton" name="update_button" ></i>&nbsp;&nbsp;Save Changes</button>                             
+            <button class=" bg-blue-hover white-hover padding-2 border-rounded flex justify-content center margin-right-4" id="editButton"  ><i data-feather="save" name="update_button" ></i>&nbsp;&nbsp;Save Changes</button>                             
         </div>
     </div><br>
     <form id="editdeleteform" class=" padding-3 margin-horizontal-5 " method="post">
@@ -138,16 +138,18 @@ if (isset($data['error'])) {
         console.log(action);
     }
 
+    document.getElementById('editButton').addEventListener("click",function(){
+        submitForm('<?php echo BASEURL ?>/boardingOwner/editBoardingPlace');
+        console.log("excuteddelete");
+    });
+
     // const deleteButton = document.getElementById('deleteButton');
     document.getElementById('deleteButton').addEventListener("click",function(){
         submitForm('<?php echo BASEURL ?>/boardingOwner/deleteBoardingPlace');
         console.log("excuteddelete");
     });
     // const updateButton = document.getElementById('updateButton');
-    document.getElementById('editButton').addEventListener("click",function(){
-        submitForm('<?php echo BASEURL ?>/boardingOwner/editBoardingPlace');
-        console.log("excutededit");
-    });
+    
 
 </script>
 

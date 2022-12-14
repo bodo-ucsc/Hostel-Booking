@@ -68,6 +68,8 @@ class BoardingOwner extends Controller{
         $summary1, $summary2, $summary3, $description, $price, $pricetype, $address, $city, $googlemapsLink, $propertytype, 
         $noofmembers, $currentBoarderCount, $noofrooms, $noofwashrooms, $gender,
         $boardertype, $sqfeet, $parking);
+
+        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
     }
 
     public function editBoardingPlace(){
