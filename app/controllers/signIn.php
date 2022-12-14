@@ -28,20 +28,6 @@ class SignIn extends Controller
             $error = "Incorrect username or password";
         }
         $this->view('signIn/verificationTeam', ['error' => $error]);
-
-
-        // $result = $this->model('loginModel')->verificationTeamLogin($username, $password);
-        // if ($result->num_rows > 0) {
-        //     session_destroy();
-        //     session_start();
-        //     $row = $result->fetch_assoc();
-        //     $_SESSION['username'] = $row['username'];
-        //     $_SESSION['role'] = 'student';
-        //     echo "success";
-        //     header('Location: ../home');
-        // } else {
-        //     header('Location: ./verificationteam/error');
-        // }
     }
 
     public function professional($error = null)
@@ -142,23 +128,27 @@ class SignIn extends Controller
     {
         if ($username != null) {
 
-            echo $username;
-
+            //echo $username;
             $result = $this->model('loginModel')->login($username, $password, $usertype);
 
             if ($result != null) {
                 session_destroy();
                 session_start();
                 $row = $result->fetch_assoc();
+                $_SESSION['userid'] = $row['UserId'];
                 $_SESSION['username'] = $row['Username'];
                 $_SESSION['firstname'] = $row['FirstName'];
                 $_SESSION['lastname'] = $row['LastName'];
                 $_SESSION['role'] = $row['UserType'];
-                echo "success";
+                //echo "success";
                 // header('Location: ../home');
                 if ($row['UserType'] == 'Admin') {
                     
                     header('Location: ' . BASEURL . '/adminhome');
+                }
+                if ($row['UserType'] == 'Professional') {
+                    
+                    header('Location: ' . BASEURL . '/myboarding');
                 }
             } else {
                 echo "error";
@@ -166,7 +156,7 @@ class SignIn extends Controller
             }
         } else {
             
-            echo "Invalid user";
+            echo "Username not submited";
             header("Location: " . BASEURL . "/signin");
         }
     }

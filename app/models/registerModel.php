@@ -33,12 +33,14 @@ class registerModel extends Model
 
     public function insertData($table,$data)
     {
-        $this->insert($table, $data);
+        $result = $this->insert($table, $data);
+        return $result;
     }
   
     public function modifyData($table,$data,$condition)
     {
-        $this->update($table,$data,$condition);
+        $result = $this->update($table,$data,$condition);
+        return $result;
     }
 
     public function Register($firstname, $lastname, $username,$email, $password, $usertype)
@@ -80,9 +82,9 @@ class registerModel extends Model
         
     }
 
-
-
-    
-    
+    public function addProfessional($id,$verificationStatus,$nicLink,$mobile,$dob,$gender,$address,$nic,$occupation,$workplace){
+        $this->insert('Professional', ['ProfessionalId'=> $id, 'VerifiedStatus'=>$verificationStatus, 'NICScanLink'=>$nicLink, 'DateOfBirth'=> $dob, 'NIC'=> $nic, 'ContactNumber'=> $mobile, 'Address'=> $address, 'Gender'=> $gender, 'Occupation'=>$occupation, 'WorkPlace'=>$workplace]);
+        
+    }
     
 }

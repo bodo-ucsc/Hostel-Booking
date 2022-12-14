@@ -2,6 +2,21 @@
 if (isset($_SESSION['username'])) {
     class BoardingOwner extends Controller
     {
+        public function message($error = null)
+        {
+            if ($error == 'error') {
+                $error = "Error Occured"; 
+            }
+            if ($error == 'success') {
+                $error = "Data added Successfully";
+            }
+            if ($error == 'deleted') {
+                $error = "Data deleted Successfully";
+            }
+            $this->view('boardingOwner/BOhome', ['error' => $error]);
+        }
+        
+         
         public function index()
         {
             $this->view('boardingOwner/BOhome');
@@ -91,7 +106,8 @@ if (isset($_SESSION['username'])) {
         {
             if (isset($user_id)) {
                 $this->model('deleteModel')->deleteRecord("boardingowner","BoardingOwnerId = $user_id");
-                $this->viewboardingOwner();
+                $this->message('deleted');
+                //$this->viewboardingOwner();
             }
         }
     }

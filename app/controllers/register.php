@@ -27,6 +27,16 @@ class Register extends Controller
         $this->view('register/boardingowner');
     }
 
+    public function message($usertype,$error = null)
+    {
+        if ($error == 'error') {
+            $error = "User Registration Unsuccessfull"; 
+        }
+        if ($error == 'success') {
+            $error = "User Registration Successfull";
+        }
+        $this->view('signIn/'.$usertype, ['error' => $error]);
+    }
 
     public function verificationTeamSignUp()
     {
@@ -47,13 +57,6 @@ class Register extends Controller
             $gender = $_POST['gender'];
             $address = $_POST['address'];
             $nic = $_POST['nic'];
-
-            // echo $mobile;
-            // echo $dob;
-            // echo $email;
-            // echo $gender;
-            // echo $address;
-            // echo $nic;
 
             $this->model('registerModel')->addVerificationTeam($id, $mobile, $dob, $gender, $address, $nic);
 
@@ -127,6 +130,44 @@ class Register extends Controller
         } else {
             echo "Not Submitted";
             echo ' <br><a href="../adminhome/addBoardingOwner">Try Again</a>  <br>';
+        }
+    }
+
+
+    public function professionalSignUp()
+    {
+        if (isset($_POST['username'])) {
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $email = $_POST['email'];
+            $usertype="Professional";
+
+            $id = $this->model('registerModel')->register($firstname, $lastname, $username,$email, $password, $usertype);
+
+            $mobile = $_POST['mobile'];
+            $dob = $_POST['dob'];
+          
+            $gender = $_POST['gender'];
+            $address = $_POST['address'];
+            $nic = $_POST['nic-number'];
+            $occupation = $_POST['occupation'];
+            $verificationStatus = "not";
+            $workplace = $_POST['workplace'];
+            $nicLink = $_POST['niclink'];
+            
+            $result = $this->model('registerModel')->addProfessional($id,$verificationStatus,$nicLink,$mobile,$dob,$gender,$address,$nic,$occupation,$workplace);
+            if($result){
+
+                $this->message("professional","success");
+               // header("Location: " . BASEURL . "/signin/professional");
+              //$this->view('signin/professional');
+            }
+            
+        } else {
+            //header("Location: " . BASEURL);
+            echo "error";
         }
     }
 }

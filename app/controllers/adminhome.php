@@ -193,7 +193,7 @@ if (isset($_SESSION['username'])) {
             header('Location: ' . BASEURL . '/propertyFeed/viewAdvertisements');
         }
 
-
+//just to learn
         public function sendMail()
         {
             //$email, $body, $subject

@@ -39,8 +39,6 @@ $header = new HTMLHeader("Password Mesaage");
             </div>
         </div>
     </div>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     </div>
 </main>
 

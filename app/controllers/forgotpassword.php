@@ -9,6 +9,17 @@ class Forgotpassword extends Controller
         $this->view('forgotPassword/forgot_password');
     }
 
+    public function message($error = null)
+    {
+        if ($error == 'error') {
+            $error = "Password Update Failed"; 
+        }
+        if ($error == 'success') {
+            $error = "Password Update Successfully";
+        }
+        $this->view('signIn/admin', ['error' => $error]);
+    }
+
     public function Check()
     {
         if (isset($_POST['submit']) || isset($_POST['resend'])) {
@@ -140,10 +151,8 @@ class Forgotpassword extends Controller
                         $password = password_hash($password, PASSWORD_DEFAULT);
 
                         $this->model('registerModel')->modifyData("user", ['Password' => $password], "UserId = '$userId'");
-
-                        $this->model('deleteModel')->deleteRecord("password_reset", "UserId = $userId");
-                        echo '<script>alert("Password Changed Successfully")</script>';
-                        header("Location: " . BASEURL . "/signin/admin");
+                        $this->message('success');
+                        //header("Location: " . BASEURL . "/signin/admin");
                     } else {
                         echo "Password not matched";
                     }

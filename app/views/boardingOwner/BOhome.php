@@ -117,34 +117,6 @@ $basePage = BASEURL . '/boardingOwner';
 
 
 
-
-<div>
-
-  <!-- <button><a href="../adminhome">Back</a></button></br>
-            <button><a href="../home/signout">Sign out</a></button> -->
-</div>
-
-<?php //else { 
-?>
-
-<!-- <div class=" full-width overflow-hidden ">
-
-        <div class=" row full-height ">
-          <div class=" col-5 bg-white flex shadow border-rounded  position-absolute padding-5 ">
-            <div>
-              <P>Please Sign In first</P>
-              <P><button><a href="../signIn/admin">Sign In </a></button></P>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-<?php
-// }  
-?>
-
-
-
 <?php
 $footer = new HTMLFooter();
 
