@@ -143,13 +143,10 @@ if (isset($data['error'])) {
         console.log("excuteddelete");
     });
 
-    // const deleteButton = document.getElementById('deleteButton');
     document.getElementById('deleteButton').addEventListener("click",function(){
         submitForm('<?php echo BASEURL ?>/boardingOwner/deleteBoardingPlace');
         console.log("excuteddelete");
-    });
-    // const updateButton = document.getElementById('updateButton');
-    
+    });  
 
 </script>
 
