@@ -12,17 +12,17 @@ $userid = $_SESSION['userid'];
 <main class=" navbar-offset sidebar-offset margin-top-5">
     
 <!-- action="<?php //echo BASEURL ?>/boardingOwner/editDeleteBoardingPlace" -->
-    <form id="editdeleteform" class=" padding-3 margin-horizontal-5 " method="post">
-    <?php echo "<input type='hidden' id='placeid' name='placeid' value=
-     $placeid;
-    >"?>
     <div class="row margin-right-5">
         <div class="col-4 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i data-feather="arrow-left"></i></div>
         <div class="col-8 flex fill-container right-flex">
-            <button class=" bg-white-hover red-hover red border-1 border-red padding-2 border-rounded flex justify-content center margin-right-4"  name="delete_button" onclick="submitForm('deleteBoardingPlace')"><i data-feather="trash-2"></i>&nbsp;&nbsp;Delete Listing</button>   
-            <button class=" bg-blue-hover white-hover padding-2 border-rounded flex justify-content center margin-right-4" ><i data-feather="save" name="update_button" onclick="submitForm('editBoardingPlace')"></i>&nbsp;&nbsp;Save Changes</button>                             
+            <button class=" bg-white-hover red-hover red border-1 border-red padding-2 border-rounded flex justify-content center margin-right-4"  id="deleteButton" name="delete_button" ><i data-feather="trash-2"></i>&nbsp;&nbsp;Delete Listing</button>   
+            <button class=" bg-blue-hover white-hover padding-2 border-rounded flex justify-content center margin-right-4" ><i data-feather="save" id="editButton" name="update_button" ></i>&nbsp;&nbsp;Save Changes</button>                             
         </div>
     </div><br>
+    <form id="editdeleteform" class=" padding-3 margin-horizontal-5 " method="post">
+    <?php echo "<input type='hidden' id='placeid' name='placeid' value=
+     $placeid
+    >"?>
         <div class="header-2 margin-bottom-2">Edit Listing</div>
         <div class="row">
             <div class="col-9">
@@ -118,15 +118,6 @@ $userid = $_SESSION['userid'];
          </div>
     </form>
 
-    <script type="text/javascript">
-    function submitForm(action) {
-        var form = document.getElementById('editdeleteform');
-        form.action = action;
-        form.submit();
-        console.log("excuted");
-    }
-    </script>
-
 </main>
 
 
@@ -137,5 +128,28 @@ if (isset($data['error'])) {
     $footer = new HTMLFooter();
 }
 ?>
+
+<script type="text/javascript">
+
+    function submitForm(action) {
+        var form = document.getElementById('editdeleteform');
+        form.action = action;
+        form.submit();
+        console.log(action);
+    }
+
+    // const deleteButton = document.getElementById('deleteButton');
+    document.getElementById('deleteButton').addEventListener("click",function(){
+        submitForm('<?php echo BASEURL ?>/boardingOwner/deleteBoardingPlace');
+        console.log("excuteddelete");
+    });
+    // const updateButton = document.getElementById('updateButton');
+    document.getElementById('editButton').addEventListener("click",function(){
+        submitForm('<?php echo BASEURL ?>/boardingOwner/editBoardingPlace');
+        console.log("excutededit");
+    });
+
+</script>
+
 
 
