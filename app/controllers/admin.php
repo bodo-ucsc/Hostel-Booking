@@ -98,6 +98,10 @@ class Admin extends Controller
         $this->view('support/support', ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage]);
     }
 
+    public function addUpdate(){
+        $this->view('feed/addUpdate');
+    }
+
     public function userEdit($user="student",$id = null)
     {
         if ($id == null) {
@@ -109,12 +113,14 @@ class Admin extends Controller
         $this->view("edit/$user", ['result' => $result]);
     }
 
+
     public function signout()
     {
         session_start();
         session_destroy();
         header('Location: ' . BASEURL . '/admin');
     }
+
 
 
 }

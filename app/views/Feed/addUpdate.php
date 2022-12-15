@@ -2,12 +2,12 @@
 $header = new HTMLHeader("PropertyFeed | Advertisements");
 $nav = new Navigation();
 $sidebar = new SidebarNav("user", "Advertisements");
-$bplace = $data['place'];
+$base = BASEURL;
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
         <div class="col-12 col-medium-12 width-90">
-            <form action="<?php echo BASEURL ?>/propertyFeed/postUpdate" method="POST">
+            <form action="<?php echo BASEURL ?>/feed/postUpdate" method="POST">
                 <div class="row ">
                     <div class="col-12 col-medium-8 fill-container left">
                         <h1 class="header-1 ">
@@ -17,7 +17,8 @@ $bplace = $data['place'];
                     </div>
 
                     <div class="col-12 col-medium-4 fill-container right ">
-                        <button type="submit" value="submit" class="bg-blue white border-rounded header-nb padding-3 right" value="Save Changes">
+                        <button type="submit" value="submit"
+                            class="bg-blue white border-rounded header-nb padding-3 right" value="Save Changes">
                             <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i>
                             <span>Save Changes</span></button>
                     </div>
@@ -27,31 +28,50 @@ $bplace = $data['place'];
                     <div class="col-12 col-large-6 fill-container ">
 
                         <div class="row">
-                            <div class="col-12 col-medium-4 fill-container">
-                                <label for="firstname" class="bold black">First Name</label><br>
-                                <input type="text" class="fill-container" id="firstname" name="firstname" placeholder="Enter Name" value="<?php echo $_SESSION['firstname']; ?>" required><br>
-                            </div>
-                            <div class="col-12 col-medium-4 fill-container">
-                                <label for="lastname" class="bold black">Last Name</label><br>
-                                <input type="text" class="fill-container" id="lastname" name="lastname" placeholder="Enter Name" value="<?php echo $_SESSION['lastname']; ?>" required><br>
+                            <div class="col-12 fill-container">
+                                <label for="userType" class="bold black">User Type</label><br>
+                                <select name="userType" id="userType" onchange="selectName()">
+                                    <option value="0">Select User Type</option>
+                                    <?php
+                                    $url = "$base/userManagement/userRest";
+                                    $client = curl_init($url);
+                                    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+                                    $response = curl_exec($client);
+                                    $result = json_decode($response);
+                                    $userTypeArray = array();
+                                    foreach ($result as $key => $value) {
+                                        array_push($userTypeArray, $value->UserType);
+                                    }
+                                    $userTypeArray = array_unique($userTypeArray);
+
+                                    foreach ($userTypeArray as $key => $value) {
+                                        echo "<option value='$value'>$value</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-medium-4 fill-container">
-                                <label for="date" class="bold black">Date</label><br>
-                                <input type="datetime-local" id="date" name="date" placeholder="Enter Date" required><br>
+                            <div class="col-12 fill-container">
+                                <label for="userId" class="bold black">Name</label><br>
+                                <select name="userId" id="userId" onchange="selectPlace()">
+                                    <option value="0" selected>Select Name</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-medium-4 fill-container">
-                                <label for="placeid" class="bold black">Property Link</label><br>
-                                <input type="text" class="fill-container" id="placeid" name="placeid" value="<?php echo $bplace['PlaceId']; ?>" placeholder="Enter Property Link" required><br>
+                            <div class="col-12 fill-container">
+                                <label for="place" class="bold black">Name</label><br>
+                                <select name="place" id="place" onchange="previewPost()">
+                                    <option value="0" selected>Select Property</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-medium-8 fill-container">
-                                <label for="message" class="bold black">Message</label><br>
-                                <input type="text" class="fill-container" id="message" name="message" placeholder="Enter Message"><br>
+                            <div class="col-12 fill-container">
+                                <label for="caption" class="bold black">Caption</label><br>
+                                <input type="text" class="fill-container" id="caption" name="caption"
+                                    placeholder="Enter Caption"><br>
                             </div>
                         </div>
                     </div>
@@ -89,6 +109,65 @@ $bplace = $data['place'];
     </div>
 </main>
 
+<script>
+    function selectName() {
+        var userType = document.getElementById("userType").value;
+        var url = "<?php echo BASEURL ?>/userManagement/userRest/" + userType;
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                var select = document.getElementById("userId");
+                select.innerHTML = "<option value=\"0\" selected>Select Name</option>";
+                var nameArray = new Set();
+                for (var i = 0; i < json.length; i++) {
+                    nameArray.add([json[i].FirstName + " " + json[i].LastName, json[i].Id].toString());
+                }
+                nameArray.forEach((value) => {
+                    var name = value.split(",");
+                    select.innerHTML += "<option value=\"" + name[1] + "\">" + name[0] + "</option>";
+                });
+            });
+
+    }
+
+    function selectPlace() {
+        var userType = document.getElementById("userType").value;
+        var url = "<?php echo BASEURL ?>/userManagement/userRest/" + userType;
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                var select = document.getElementById("place"); 
+                select.innerHTML = "<option value=\"0\" selected>Select Place</option>";
+                for (var i = 0; i < json.length; i++) {
+                    select.innerHTML += "<option value=\"" + json[i].Place + "\">" + json[i].Title + "</option>";
+
+                }
+
+            });
+    }
+
+    // function previewPost() {
+    //     var userType = document.getElementById("userType").value;
+
+    //     var url = "<?php echo BASEURL ?>/feed/postPreview/" + userType;
+    //     fetch(url)
+    //         .then((response) => response.json())
+    //         .then((json) => {
+    //             var select = document.getElementById("place"); 
+    //             select.innerHTML = "<option value=\"0\" selected>Select Place</option>";
+    //             for (var i = 0; i < json.length; i++) {
+    //                 select.innerHTML += "<option value=\"" + json[i].Place + "\">" + json[i].Title + "</option>";
+
+    //             }
+
+    //         });
+    // }
+
+    function alertUser() {
+        var userId = document.getElementById("userId").value;
+        alert(userId);
+    }
+</script>
 <?php
 
 $footer = new HTMLFooter();

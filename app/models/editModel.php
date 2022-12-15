@@ -25,5 +25,10 @@ class editModel extends Model
 
     }
  
+    public function modifyData($table,$data,$condition)
+    {
+        $result = $this->update($table,$data,$condition);
+        return $result;
+    }
 
 }
