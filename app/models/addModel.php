@@ -102,8 +102,18 @@ class addModel extends Model
         $this->insert('university', ['UniversityName' => $uni]);
     }
 
-    public function addAComment($commenttext,$postid,$commentorid){
+    public function addAComment($commenttext, $postid, $commentorid)
+    {
         $this->insert('comment', ['Post' => $postid, 'Commentor' => $commentorid, 'comment' => $commenttext]);
+    }
+    public function postUpdate($userid, $placeid, $caption)
+    {
+        $this->insert('PostUpdate', ['UserId' => $userid, 'PlaceId' => $placeid, 'Caption' => $caption]);
+        if ($this->mysqli->affected_rows == 1) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
     }
 
 }
