@@ -22,38 +22,39 @@ class HTMLFooter
               } 
               ";
 
-        // if (isset($alert) && isset($message)) {
-        //     $title = ucfirst($alert); 
-        //     echo "
-        //         Swal.fire({
-        //             icon: '$alert',
-        //             title: '$title',
-        //             text: '$message'
-        //         })";
-        if (isset($error)) {
-
-            if ($error == "Incorrect username or password") {
-
-                echo "
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: '$error'
-                })";
-                //   unset($error);
-
-            } else if ($error == "Password Update Successfully") {
-                echo "
-            Swal.fire({
-                icon: 'success',
-                title: 'Done...',
-                text: '$error'
-            })";
-                //unset($error);
-            }
-            unset($error);
-
+        if (isset($alert) && isset($message)) {
+            $title = ucfirst($alert);
             echo "
+                Swal.fire({
+                    icon: '$alert',
+                    title: '$title',
+                    text: '$message'
+                })";
+        }
+        // if (isset($error)) {
+
+        //     if ($error == "Incorrect username or password") {
+
+        //         echo "
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Oops...',
+        //             text: '$error'
+        //         })";
+        //         //   unset($error);
+
+        //     } else if ($error == "Password Update Successfully") {
+        //         echo "
+        //     Swal.fire({
+        //         icon: 'success',
+        //         title: 'Done...',
+        //         text: '$error'
+        //     })";
+        //         //unset($error);
+        //     }
+        //     unset($error);
+
+        echo "
                 feather.replace();
             </script>
         </body>
@@ -61,6 +62,5 @@ class HTMLFooter
         </html>
             
             ";
-        }
     }
 }

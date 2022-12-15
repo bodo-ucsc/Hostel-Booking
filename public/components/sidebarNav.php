@@ -165,7 +165,7 @@ class SideBarNav
         ";
         } else {
             echo "  
-            <a href='$base/adminhome/feed' class=''>
+            <a href='$base/feed' class=''>
             <div class='row padding-top-3 padding-bottom-1  padding-horizontal-4'> 
             <div class='col-12 flex left fill-container  padding-horizontal-3'>
                 <i data-feather='shopping-bag' class='grey'></i>
