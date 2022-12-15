@@ -1,12 +1,13 @@
 <?php
-$header = new HTMLHeader("Login | Professional");
-$nav = new Navigation("home");
+$header = new HTMLHeader("Sign In | Professional");
+$nav = new Navigation();
 ?>
 
 <main class=" full-width overflow-hidden  position-absolute ">
     <div class="row full-height ">
-        <div class="col-3 "></div>
-        <div class="col-6 full-height padding-vertical-3 padding-horizontal-5 shadow  ">
+        <div class=" display-none display-medium-block col-medium-3 col-large-4 "></div>
+        <div class="col-12 col-medium-6 col-large-4 fill-container full-height navbar-offset padding-horizontal-5 shadow  ">
+
             <div class=" row">
                 <div class=" col-12">
                     <img class=" fill-container " src="<?php echo BASEURL . '/public/images/logo.svg' ?>">
@@ -20,14 +21,14 @@ $nav = new Navigation("home");
             <div class="row">
                 <div class="col-12">
                     <h2 class="header-2">Professional Sign In</h2>
-                    <form >
+                    <form action="<?php echo BASEURL ?>/signin/professionalLogin" method="post">
                         <label for="username" class="bold black">Username</label><br>
                         <input type="text" id="username" name="username" placeholder="Enter Username"><br>
                         <label for="password" class="bold black">Password</label><br>
                         <input type="password" id="password" name="password" placeholder="Enter Password">
                         <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded "
-                            type="button" value="Sign In"><br>
-                        <p>Don't have an account? <a class="inverse" href="#">Register</a> </p>
+                            type="submit" value="Sign In"><br>
+                        <p>Don't have an account? <a class="inverse" href="<?php echo BASEURL ?>/register/professional">Register</a> </p>
                     </form>
                 </div>
 
@@ -38,9 +39,10 @@ $nav = new Navigation("home");
     </div>
 </main>
 
+
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
+if (isset($data['alert'])) { 
+    $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();
 }

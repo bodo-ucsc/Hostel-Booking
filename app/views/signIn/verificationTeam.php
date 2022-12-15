@@ -1,6 +1,6 @@
 <?php
-$header = new HTMLHeader("Login | Verification Team");
-$nav = new Navigation("home");
+$header = new HTMLHeader("Sign In | Verification Team");
+$nav = new Navigation();
 ?>
 
 
@@ -27,31 +27,15 @@ $nav = new Navigation("home");
             </div>
         </div>
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        <?php
-        $base = BASEURL;
-        if (isset($data['code'])) {
-            echo "Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '$data[code]',
-                footer: '<a href>Why do I have this issue?</a>'
-            })";
-            unset($data['code']);
-        }
-        ?>
-    </script>
-</body>
 
     </div>
 </main>
 
+
 <?php
- if (isset($data['error'])) {
-     $footer = new HTMLFooter($data['error']);
- } else {
-     $footer = new HTMLFooter();
- }
- ?>
+if (isset($data['alert'])) { 
+    $footer = new HTMLFooter($data['alert'], $data['message']);
+} else {
+    $footer = new HTMLFooter();
+}
+?>

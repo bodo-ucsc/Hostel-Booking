@@ -2,18 +2,111 @@
 
 class Admin extends Controller
 {
-    public function index()
+    public function index($page = 1, $message = null)
     {
-        $this->view('admin/index');
+        if (isset($message)) {
+
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Insertion Failed";
+            } else if ($message == 'success') {
+                $message = "Inserted Successfully";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
+
+        $perPage = 2;
+        $rowCount = $this->model('viewModel')->numRows('admin');
+        $result = $this->model('viewModel')->getUser("admin", $page, $perPage);
+
+        $this->view('userManagement/admin', ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
     }
 
-    public function verificationTeam($page = 1)
+    public function create($user = null, $message = null)
+    {
+        if (isset($message)) {
+
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Insertion Failed";
+            } else if ($message == 'success') {
+                $message = "Inserted Successfully";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
+
+        if ($user == 'student') {
+            $this->view('create/student', ['message' => $message, 'alert' => $alert]);
+        } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
+            $this->view('create/boardingOwner', ['message' => $message, 'alert' => $alert]);
+        } else if ($user == 'professional') {
+            $this->view('create/professional', ['message' => $message, 'alert' => $alert]);
+        } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
+            $this->view('create/verificationTeam', ['message' => $message, 'alert' => $alert]);
+        } else {
+            $this->view('userManagement/student', ['message' => $message, 'alert' => $alert]);
+        }
+    }
+
+    public function userManagement($user = "admin", $page = 1, $perPage = 2, $message = null)
+    {
+        if (isset($message)) {
+
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Insertion Failed";
+            } else if ($message == 'success') {
+                $message = "Inserted Successfully";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        } 
+
+        if ($user == 'admin') {
+            header("Location: " . BASEURL . "/admin");
+        } else if ($user == 'student') {
+            $rowCount = $this->model('viewModel')->numRows('student');
+            $result = $this->model('viewModel')->getUser("student",$page, $perPage);
+        } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
+            $rowCount = $this->model('viewModel')->numRows('boardingowner');
+            $result = $this->model('viewModel')->getUser("boardingowner",$page, $perPage);
+        } else if ($user == 'professional') {
+            $rowCount = $this->model('viewModel')->numRows('professional');
+            $result = $this->model('viewModel')->getUser("professional",$page, $perPage);
+        } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
+            $rowCount = $this->model('viewModel')->numRows('verificationteam');
+            $result = $this->model('viewModel')->getUser("verificationTeam",$page, $perPage);
+        }
+        $this->view("userManagement/$user", ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
+
+    }
+
+    public function support($page = 1)
     {
         $perPage = 2;
         $rowCount = $this->model('AdminModel')->numRows('VerificationTeam');
         $result = $this->model('AdminModel')->getVerificationTeam($page, $perPage);
 
-        $this->view('admin/verificationTeam', ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage]);
+        $this->view('support/support', ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage]);
+    }
+
+    public function userEdit($user="student",$id = null)
+    {
+        if ($id == null) {
+            header('Location: ' . BASEURL . "/admin/userManagement/$user");
+        }
+
+        $result = $this->model('viewModel')->getUserById($user,$id);
+
+        $this->view("edit/$user", ['result' => $result]);
     }
 
     public function signout()

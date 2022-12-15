@@ -1,50 +1,171 @@
 <?php
 $header = new HTMLHeader("Register | Professional");
-$nav = new Navigation("home");
+$nav = new Navigation();
 ?>
 
-
-<body>
-
-    <main class=" full-width overflow-hidden  position-absolute ">
-        <div class="row full-height ">
-            <div class="col-3 "></div>
-            <div class="col-6 full-height padding-vertical-3 padding-horizontal-5 shadow  ">
-                <div class=" row">
-                    <div class=" col-12">
-                        <img class=" fill-container " src="<?php echo BASEURL . '/public/images/logo.svg' ?>">
-                    </div>
+<main class="full-height ">
+    <div class="row navbar-offset  ">
+        <div class="col-12 col-medium-4 width-90 justify-content center">
+            <div class="row">
+                <div class="display-none display-medium-block col-medium-12 padding-bottom-3">
+                    <img class="fill-container" src="<?php echo BASEURL . '/public/images/professionalSignIn.svg' ?>">
+                    <button
+                        class=" padding-4 border-rounded fill-container bg-blue cursor-default  border-1 white">Professional</button>
                 </div>
-                <div class=" row">
-                    <div class=" col-12">
-                        <img class=" fill-container "
-                            src="<?php echo BASEURL . '/public/images/professionalSignIn.svg' ?>">
+            </div>
+            <div class="row">
+                <div class="col-6 fill-container">
+                    <a href="<?php echo BASEURL; ?>/register/boardingOwner">
+                        <button
+                            class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
+                            Boarding Owner</button>
+                    </a>
+                </div>
+                <div class="col-6 fill-container">
+                    <a href="<?php echo BASEURL; ?>/register/student">
+                        <button
+                            class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
+                            Student</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-medium-8 width-90">
+            <form action="<?php echo BASEURL ?>/register/professionalSignUp" method="post">
+                <div class="row">
+                    <div class="col-10 fill-container">
+                        <h1 class="header-1 margin-0">
+                            Create Professional Account
+                        </h1>
+
+                        <h2 class="header-2 margin-top-2 margin-bottom-1">Personal details</h2>
+                        <div class="row fill-container">
+                            <div class="col-12 col-medium-5 fill-container">
+                                <label class="big" for="firstname">First Name</label>
+                                <input class="margin-top-2" type="text" name="firstname" id="firstname" required>
+                            </div>
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label class="big" for="lastname">Last Name</label>
+                                <input class="margin-top-2" type="text" name="lastname" id="lastname" required>
+                            </div>
+                            <div class="col-12 col-medium-3 fill-container padding-bottom-4">
+                                <div class="big black padding-bottom-3 ">Gender</div>
+                                <div class="display-inline-block padding-bottom-3">
+                                    <input type="radio" name="gender" value="m" id="male" checked>
+                                    <lable for="m">Male</lable>
+                                </div>
+                                <div class="display-inline-block padding-bottom-3">
+                                    <input type="radio" name="gender" value="f" id="female">
+                                    <lable for="f">Female</lable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2  ">
+                        <div class="col-12 col-medium-3 bg-grey-hover border-circle padding-5">
+                            <i data-feather="image" class="white "></i>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
-                        <h2 class="header-2">Professional Sign In</h2>
-                        <form style="">
-                            <label for="username" class="bold black">Username</label><br>
-                            <input type="text" id="username" name="username" placeholder="Enter Username"><br>
-                            <label for="password" class="bold black">Password</label><br>
-                            <input type="password" id="password" name="password" placeholder="Enter Password">
-                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded "
-                                type="button" value="Sign In"><br>
-                            <p>Don't have an account? <a class="inverse" href="#">Register</a> </p>
-                        </form>
+                    <div class="col-12 col-medium-4 fill-container">
+                        <label class="big" for="nic-number">NIC Number</label>
+                        <input class="margin-top-2" type="text" name="nic-number" id="nic-number" required>
                     </div>
-
+                    <div class="col-12 col-medium-4 fill-container">
+                        <label class="big" for="mobile">Mobile Number</label>
+                        <input class="margin-top-2" type="text" name="mobile" id="mobile" required>
+                    </div>
+                    <div class="col-12 col-medium-4 fill-container">
+                        <label class="big" for="dob">Date of Birth</label>
+                        <input class="margin-top-2" type="date" name="dob" id="dob" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-medium-7 fill-container">
+                        <div>
+                            <label class="big" for="address">Address</label>
+                            <input class="margin-top-2" type="text" name="address" id="address" required>
+                        </div>
+                    </div>
+                    <div class="col-12 col-medium-5 fill-container">
+                        <label class="big" for="niclink">NIC Upload Link</label>
+                        <input class="margin-top-2" type="text" name="niclink" id="niclink">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-medium-4 fill-container">
+                        <label class="big" for="email">E-mail Address</label>
+                        <input class="margin-top-2" type="text" name="email" id="email" required>
+                    </div>
+                    <div class="col-12 col-medium-4 fill-container">
+                        <label class="big" for="occupation">Occupation</label>
+                        <input class="margin-top-2" type="text" name="occupation" id="occupation" required>
+                    </div>
+                    <div class="col-12 col-medium-4 fill-container">
+                        <label class="big" for="workplace">Work Place</label>
+                        <input class="margin-top-2" type="text" name="workplace" id="workplace" required>
+                    </div>
+                </div>
+                <div class="header-2">Login Credentials</div><br>
+                <div class="row">
+                    <div class="col-12 col-medium-4 fill-container">
+                        <label class="big" for="username">Username</label>
+                        <input class="margin-top-2" type="text" name="username" id="username" required>
+                    </div>
+                    <div class="col-12 col-medium-4 fill-container">
+                        <label class="big" for="password">Password</label>
+                        <input class="margin-top-2" type="password" name="password" id="password" required>
+                    </div>
+                    <div class="col-12 col-medium-4 fill-container">
+                        <label class="big" for="password-repaet">Re-Type Password</label>
+                        <input class="margin-top-2" type="password" name="password-repaet" id="repassword" required>
+                    </div>
+                </div>
+                <div class="row fill-container">
+                    <div class="col-12  fill-container center">
+                        <input class="vertical-align-middle" type="checkbox" id="agreement" name="agreement" required>
+                        <span class="vertical-align-middle">I agree to all the <a class="inverse">Terms</a> and the <a
+                                class="inverse">Privacy Policy</a></span>
+                    </div>
+                </div>
+                <div class="row fill-container padding-vertical-2">
+                    <div class="col-medium-4 display-none display-medium-block fill-container"></div>
+                    <div class="col-12 col-medium-4 fill-container">
+                        <input class=" fill-container padding-5 bg-blue-hover white-hover border-rounded" type="submit"
+                            value="Create Account">
+                    </div>
                 </div>
 
-            </div>
-
+                <div class="col-12 center fill-container padding-bottom-3">
+                    <span class="center">Already have an account? <a class="inverse"
+                            href="<?php echo BASEURL ?>/signIn/professional">Sign In</a></span>
+                </div>
+            </form>
         </div>
-    </main>
+</main>
+
+<script>
+    var password = document.getElementById("password")
+        , confirm_password = document.getElementById("repassword");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+</script>
+
 
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();
 }

@@ -21,54 +21,21 @@ class Model extends Database
         }
         $result = $this->runQuery($sql);
         return $result;
-        
-
     }
-    public function getColumnValue($table,$column, $where = null)
+    public function getColumn($table,$column, $where = null, $order = null)
     {
        
         $sql = "SELECT $column FROM $table";
         if ($where != null) {
             $sql .= " WHERE $where";
         }
-        $result = $this->runQuery($sql);
-        return $result;
-    }
-
-    public function getMoreCols($table,$col1,$col2,$where = null)
-    {
-       
-        $sql = "SELECT $col1,$col2 FROM $table";
-        if ($where != null) {
-            $sql .= " WHERE $where";
-        }
-        $result = $this->runQuery($sql);
-        return $result;
-    }
-    public function joinCols($tb1,$tb2,$where = null)
-    {
-       
-        $sql = "SELECT * FROM $tb1,$tb2";
         
-        if ($where != null) {
-            $sql .= " WHERE $where";
+        if ($order != null) {
+            $sql .= " ORDER BY $order";
         }
         $result = $this->runQuery($sql);
         return $result;
     }
-
-    public function Threetables($tb1,$tb2,$tb3,$where = null)
-    {
-       
-        $sql = "SELECT * FROM $tb1,$tb2,$tb3";
-        
-        if ($where != null) {
-            $sql .= " WHERE $where";
-        }
-        $result = $this->runQuery($sql);
-        return $result;
-    }
-
   
     public function insert($table, $data)
     {
@@ -110,7 +77,16 @@ class Model extends Database
         return $row[0];
     }
 
-
-
-
+    public function numRowsWhere($table, $where)
+    {
+        //count of rows 
+        $sql = "SELECT COUNT(1) FROM $table ";
+        if(isset($where)){
+            $sql .= $where;
+        }
+        $result = $this->runQuery($sql);
+        $row = $result->fetch_row();
+        return $row[0];
+    }
+ 
 } 
