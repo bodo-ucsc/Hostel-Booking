@@ -1,8 +1,9 @@
 <?php
-$header = new HTMLHeader("Register | Verification Team");
+$header = new HTMLHeader("Verification Team");
 $nav = new Navigation('management');
 $sidebar = new SidebarNav("user", "verification");
-$basePage = BASEURL . '/admin/verificationTeam';
+$basePage = BASEURL . '/admin/userManagement/verificationTeam';
+$base = BASEURL . '/admin';
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
@@ -19,7 +20,7 @@ $basePage = BASEURL . '/admin/verificationTeam';
                 </div>
                 <div class="col-1 display-small-none"></div>
                 <div class="col-2 col-large-3 fill-container right">
-                    <button class="bg-blue white border-rounded header-nb padding-3 right">
+                    <button class="bg-blue white border-rounded header-nb padding-3 right" onclick=" location.href='<?= $base ?>/create/verificationTeam'">
                         <i data-feather="user-plus" class=" vertical-align-middle "></i>
                         <span class="display-large-inline-block padding-left-2 display-none">Add User</span>
                     </button>
@@ -79,13 +80,13 @@ $basePage = BASEURL . '/admin/verificationTeam';
                                 foreach ($useridArray as $userid) {
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3'>";
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='$basePage.Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='".$basePage."Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='$basePage.Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='".$basePage."Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
                                     echo "</div></a>";
 
@@ -165,6 +166,11 @@ $basePage = BASEURL . '/admin/verificationTeam';
     </div>
 </main>
 
+
 <?php
-$footer = new HTMLFooter();
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
+} else {
+    $footer = new HTMLFooter();
+}
 ?>

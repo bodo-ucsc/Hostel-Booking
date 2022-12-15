@@ -1,6 +1,6 @@
 <?php
 $header = new HTMLHeader("Register | Professional");
-$nav = new Navigation("home");
+$nav = new Navigation();
 ?>
 <main class="navbar-offset">
     <div class="row">
@@ -11,121 +11,138 @@ $nav = new Navigation("home");
         <button class="">Professional</button>
         <button class="">Student</button> -->
 
-            <!-- <div class="col-3 fill-container"> -->
-            <!-- <input class=" padding-5 bg-blue-hover white-hover" type="submit" value="Boarding owner">
-                        <input class=" padding-5 bg-blue-hover white-hover" type="submit" value="Professional"> -->
-            <!-- </div> -->
-            <!-- </div> -->
+<main class="full-height ">
+    <div class="row navbar-offset  ">
+        <div class="col-12 col-medium-4 width-90 justify-content center">
+            <div class="row">
+                <div class="display-none display-medium-block col-medium-12 padding-bottom-3">
+                    <img class="fill-container" src="<?php echo BASEURL . '/public/images/professionalSignIn.svg' ?>">
+                    <button
+                        class=" padding-4 border-rounded fill-container bg-blue cursor-default  border-1 white">Professional</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 fill-container">
+                    <a href="<?php echo BASEURL; ?>/register/boardingOwner">
+                        <button
+                            class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
+                            Boarding Owner</button>
+                    </a>
+                </div>
+                <div class="col-6 fill-container">
+                    <a href="<?php echo BASEURL; ?>/register/student">
+                        <button
+                            class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
+                            Student</button>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="col-7 margin-3 fill-container">
-            <!-- <form action="<?php echo BASEURL ?>/register/professionalSignUp" method="post">  -->
-            <form action="professionalSignUp" method="post">
+        <div class="col-12 col-medium-8 width-90">
+            <form action="<?php echo BASEURL ?>/register/professionalSignUp" method="post">
                 <div class="row">
-                    <div class="col-9">
-                        <h1 class="header-1">
+                    <div class="col-10 fill-container">
+                        <h1 class="header-1 margin-0">
                             Create Professional Account
                         </h1>
-                        <h2 class="header-2">Personal details</h2>
 
-                        <div class="row">
-                            <div class="col-4">
+                        <h2 class="header-2 margin-top-2 margin-bottom-1">Personal details</h2>
+                        <div class="row fill-container">
+                            <div class="col-12 col-medium-5 fill-container">
                                 <label class="big" for="firstname">First Name</label>
-                                <input class="margin-top-2" type="text" name="firstname" id="firstname">
+                                <input class="margin-top-2" type="text" name="firstname" id="firstname" required>
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-medium-4 fill-container">
                                 <label class="big" for="lastname">Last Name</label>
-                                <input class="margin-top-2" type="text" name="lastname" id="lastname">
+                                <input class="margin-top-2" type="text" name="lastname" id="lastname" required>
                             </div>
-                            <div class="col-4 fill-container padding-bottom-4">
-                                <!-- gender radio buttons-->
-                                <div class="bold black padding-bottom-2 ">Gender</div>
-                                <input type="radio" name="gender" value="m" id="male" id="" checked>
-                                <label for="male" class="">Male</label>
-
-                                <input type="radio" name="gender" value="f" id="female" id="">
-                                <label for="female" class="">Female</label>
+                            <div class="col-12 col-medium-3 fill-container padding-bottom-4">
+                                <div class="big black padding-bottom-3 ">Gender</div>
+                                <div class="display-inline-block padding-bottom-3">
+                                    <input type="radio" name="gender" value="m" id="male" checked>
+                                    <lable for="m">Male</lable>
+                                </div>
+                                <div class="display-inline-block padding-bottom-3">
+                                    <input type="radio" name="gender" value="f" id="female">
+                                    <lable for="f">Female</lable>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3">
-                        <div class="col-3 bg-grey-hover border-circle padding-5">
-                            <i data-feather="image" class="white"></i>
+                    <div class="col-2  ">
+                        <div class="col-12 col-medium-3 bg-grey-hover border-circle padding-5">
+                            <i data-feather="image" class="white "></i>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="nic-number">NIC Number</label>
-                        <input class="margin-top-2" type="text" name="nic-number" id="nic-number">
+                        <input class="margin-top-2" type="text" name="nic-number" id="nic-number" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="mobile">Mobile Number</label>
-                        <input class="margin-top-2" type="text" name="mobile" id="mobile">
+                        <input class="margin-top-2" type="text" name="mobile" id="mobile" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="dob">Date of Birth</label>
-                        <input class="margin-top-2" type="date" name="dob" id="dob">
+                        <input class="margin-top-2" type="date" name="dob" id="dob" required>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-5 fill-container">
+                    <div class="col-12 col-medium-7 fill-container">
                         <div>
                             <label class="big" for="address">Address</label>
-                            <input class="margin-top-2" type="text" name="address" id="address">
+                            <input class="margin-top-2" type="text" name="address" id="address" required>
                         </div>
                     </div>
-                    <div class="col-6" style="margin-right: 30%;">
+                    <div class="col-12 col-medium-5 fill-container">
                         <label class="big" for="niclink">NIC Upload Link</label>
                         <input class="margin-top-2" type="text" name="niclink" id="niclink">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="email">E-mail Address</label>
-                        <input class="margin-top-2" type="text" name="email" id="email">
+                        <input class="margin-top-2" type="text" name="email" id="email" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="occupation">Occupation</label>
-                        <input class="margin-top-2" type="text" name="occupation" id="occupation">
+                        <input class="margin-top-2" type="text" name="occupation" id="occupation" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="workplace">Work Place</label>
-                        <input class="margin-top-2" type="text" name="workplace" id="workplace">
+                        <input class="margin-top-2" type="text" name="workplace" id="workplace" required>
                     </div>
                 </div>
                 <div class="header-2">Login Credentials</div><br>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="username">Username</label>
-                        <input class="margin-top-2" type="text" name="username" id="username">
+                        <input class="margin-top-2" type="text" name="username" id="username" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="password">Password</label>
-                        <input class="margin-top-2" type="password" name="password" id="password">
+                        <input class="margin-top-2" type="password" name="password" id="password" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="password-repaet">Re-Type Password</label>
-                        <input class="margin-top-2" type="password" name="password-repaet" id="repassword">
+                        <input class="margin-top-2" type="password" name="password-repaet" id="repassword" required>
                     </div>
                 </div>
-                <!-- <div class="row">
-                    <div class="col-9">
-                        <input type="checkbox" id="agreement" name="agreement" value="True">
-                        I agree to all <a class="inverse">Terms</a> and <a class="inverse">Privacy Policy</a><br>
+                <div class="row fill-container">
+                    <div class="col-12  fill-container center">
+                        <input class="vertical-align-middle" type="checkbox" id="agreement" name="agreement" required>
+                        <span class="vertical-align-middle">I agree to all the <a class="inverse">Terms</a> and the <a
+                                class="inverse">Privacy Policy</a></span>
                     </div>
-                </div> -->
-                <br>
-                <div class="row ">
-                    <div class="col-4"></div>
-                    <div class="col-4 fill-container">
-                        <input type="checkbox" id="agreement" name="agreement" value="True">
-                        I agree to all <a class="inverse">Terms</a> and <a class="inverse">Privacy Policy</a><br><br>
+                </div>
+                <div class="row fill-container padding-vertical-2">
+                    <div class="col-medium-4 display-none display-medium-block fill-container"></div>
+                    <div class="col-12 col-medium-4 fill-container">
                         <input class=" fill-container padding-5 bg-blue-hover white-hover border-rounded" type="submit"
-                            value="Create Account"><br><br>
-                        Already have an account? <a class="inverse"
-                            href="<?php echo BASEURL ?>/signIn/professional">Sign In</a>
+                            value="Create Account">
                     </div>
-
                 </div>
 
             </form>
@@ -150,8 +167,8 @@ $nav = new Navigation("home");
 </script>
 
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();
 }
