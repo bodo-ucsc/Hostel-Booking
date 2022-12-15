@@ -42,10 +42,11 @@ if (isset($boardingPlace)) {
 ?>
 
 <main class=" navbar-offset sidebar-offset margin-top-5">
+
     
 <!-- action="<?php //echo BASEURL ?>/boardingOwner/editDeleteBoardingPlace" -->
     <div class="row margin-right-5">
-        <div class=" margin-left-4 col-4 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i data-feather="arrow-left" onclick="history.back()"></i></div>
+        <div class=" margin-left-4 col-4 header-2 fill-container vertical-align-middle left-flex">&nbsp;Edit Property<i data-feather="arrow-left" onclick="history.back()"></i></div>
         <div class="col-8 flex fill-container right-flex">
             <button class=" bg-white-hover red-hover red border-1 border-red padding-2 border-rounded flex justify-content center margin-right-4"  id="deleteButton" name="delete_button" ><i data-feather="trash-2"></i>&nbsp;&nbsp;Delete Listing</button>   
             <button class=" bg-blue-hover white-hover padding-2 border-rounded flex justify-content center margin-right-4" id="editButton"  ><i data-feather="save" name="update_button" ></i>&nbsp;&nbsp;Save Changes</button>                             
@@ -55,7 +56,6 @@ if (isset($boardingPlace)) {
     <?php echo "<input type='hidden' id='placeid' name='placeid' value=
      $placeid
     >"?>
-        <div class="header-2 margin-bottom-2">Edit Listing</div>
         <div class="row">
             <div class="col-9">
                 <div class="row">
@@ -178,8 +178,8 @@ if (isset($boardingPlace)) {
 
 
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
+if (isset($data['alert'])) { 
+    $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();
 }

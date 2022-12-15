@@ -17,8 +17,19 @@ class boardingOwner extends Controller{
         
     }
 
-    public function viewAllBoardings(){
-        $this->view('property/viewAllBoarding');
+    public function viewAllBoardings($message = null){
+        if ($message == 'editsuccess') {
+            $message = "Property has been edited";
+            $alert = 'Edited';
+        } else if ($message == 'deletesuccess') {
+            $message = "Property has been deleted";
+            $alert = 'Deleted';
+        } else {
+            $message = null;
+            $alert = null;
+        }
+
+        $this->view('property/viewAllBoarding',['message' => $message, 'alert' => $alert]);
     }
 
     public function viewABoardingPlace($placeid = null){
@@ -103,14 +114,14 @@ class boardingOwner extends Controller{
         $summary3,  $description, $price, null, $houseNo, $street,  $city, $googlemapsLink, $propertytype,
         $noofmembers, $noofrooms, $noofwashrooms, $gender, $boardertype, $sqfeet, $parking);
 
-        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
+        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings/editsuccess");
 
     }
 
     public function deleteBoardingPlace(){
         $placeid = $_POST['placeid'];
         $this->model('deleteModel')->deleteABoarding($placeid);
-        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
+        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings/deletesuccess");
 
     }
 
