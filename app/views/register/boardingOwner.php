@@ -1,153 +1,119 @@
 <?php
 $header = new HTMLHeader("Register | Boarding Owner");
-$nav = new Navigation();
+$nav = new Navigation("home");
+$sidebar = new SidebarNav("user", "Boarding Owner");
 ?>
+<main class=" full-width ">
+    <form action="boardingownerSignup" method="POST">
+        <div class="row sidebar-offset navbar-offset ">
+            <div class="col-12 col-medium-12 width-90">
+                <div class="row ">
+                    <div class="col-12 col-medium-8 fill-container left">
+                        <h1 class="header-1 ">
 
-<main class="full-height ">
-    <div class="row navbar-offset  ">
-        <div class="col-12 col-medium-4 width-90 justify-content center">
-            <div class="row">
-                <div class="display-none display-medium-block col-medium-12 padding-bottom-3">
-                    <img class="fill-container" src="<?php echo BASEURL . '/public/images/boardingOwnerSignIn.svg' ?>">
-                    <button
-                        class=" padding-4 border-rounded fill-container bg-blue cursor-default  border-1 white">Boarding Owner</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 fill-container">
-                    <a href="<?php echo BASEURL; ?>/register/professional">
-                        <button
-                            class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
-                            Professional</button>
-                    </a>
-                </div>
-                <div class="col-6 fill-container">
-                    <a href="<?php echo BASEURL; ?>/register/student">
-                        <button
-                            class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
-                            Student</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-medium-8 width-90">
-            <form action="<?php echo BASEURL ?>/register/boardingOwnerSignUp" method="post">
-                <div class="row">
-                    <div class="col-10 fill-container">
-                        <h1 class="header-1 margin-0">
-                            Create Boarding Owner Account
+                            <i data-feather="chevron-left"></i>
+                            Add Boarding Owner
                         </h1>
+                    </div>
+                    <div class="col-12 col-medium-4 fill-container right">
+                        <!-- <button type="submit" class="bg-blue white border-rounded header-nb padding-3 right">
+                            <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i> <span>Save</span>
+                        </button> -->
+                        <!-- <div class="row "> -->
 
-                        <h2 class="header-2 margin-top-2 margin-bottom-1">Personal details</h2>
-                        <div class="row fill-container">
-                            <div class="col-12 col-medium-5 fill-container">
-                                <label class="big" for="firstname">First Name</label>
-                                <input class="margin-top-2" type="text" name="firstname" id="firstname" required>
+                        <div class="col-4 fill-container">
+                            <input class=" padding-5 bg-blue-hover white-hover border-rounded header-nb right" type="submit" value="Save">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-3 fill-container">
+                    <div class="col-12 col-large-12 fill-container ">
+                        <h2 class="header-2">Personal Details</h2>
+                        <div class="row">
+                            <div class="col-12 col-medium-3 fill-container">
+                                <label for="firstname" class="bold black">First Name</label><br>
+                                <input type="text" class="fill-container" id="firstname" name="firstname" placeholder="Enter First Name" required><br>
                             </div>
                             <div class="col-12 col-medium-4 fill-container">
-                                <label class="big" for="lastname">Last Name</label>
-                                <input class="margin-top-2" type="text" name="lastname" id="lastname" required>
+                                <label for="lastname" class="bold black">Last Name</label><br>
+                                <input type="text" class="fill-container" id="lastname" name="lastname" placeholder="Enter Last Name" required><br>
                             </div>
-                            <div class="col-12 col-medium-3 fill-container padding-bottom-4">
-                                <div class="big black padding-bottom-3 ">Gender</div>
-                                <div class="display-inline-block padding-bottom-3">
-                                    <input type="radio" name="gender" value="m" id="male" checked>
-                                    <lable for="m">Male</lable>
-                                </div>
-                                <div class="display-inline-block padding-bottom-3">
-                                    <input type="radio" name="gender" value="f" id="female">
-                                    <lable for="f">Female</lable>
-                                </div>
+                            <div class="col-12 col-medium-2 fill-container padding-bottom-4">
+                                <!-- gender radio buttons-->
+                                <div class="bold black padding-bottom-2 ">Gender</div>
+                                <input type="radio" name="gender" value="m" id="male" id="" checked>
+                                <label for="male" class="">Male</label>
+
+                                <input type="radio" name="gender" value="f" id="female" id="">
+                                <label for="female" class="">Female</label>
+                            </div>
+                            <div class="col-12 col-medium-3 fill-container">
+                                <label for="dob" class="bold black">Date of Birth</label><br>
+                                <input type="date" id="dob" name="dob" required><br>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-2  ">
-                        <div class="col-12 col-medium-3 bg-grey-hover border-circle padding-5">
-                            <i data-feather="image" class="white "></i>
+                        <div class="row">
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="nic" class="bold black">NIC Number</label><br>
+                                <input type="text" class="fill-container" id="nic" name="nic" placeholder="Enter NIC Number" required><br>
+                            </div>
+                            <div class="col-12 col-medium-3 fill-container">
+                                <label for="mobile" class="bold black">Mobile</label><br>
+                                <input type="tel" class="fill-container" id="mobile" name="mobile" placeholder="+94 077 123 4567" required><br>
+                            </div>
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="occupation" class="bold black">Occupation</label><br>
+                                <input type="text" class="fill-container" id="occupation" name="occupation" placeholder="Enter Occupation" required><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-medium-5 fill-container">
+                                <label for="address" class="bold black">Address</label><br>
+                                <input type="text" class="fill-container" id="address" name="address" placeholder="Enter Address" required><br>
+                            </div>
+                            <div class="col-12 col-medium-3 fill-container">
+                                <label for="workplace" class="bold black">Work Place</label><br>
+                                <input type="text" class="fill-container" id="workplace" name="workplace" placeholder="Enter Work Place" required><br>
+                            </div>
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="email" class="bold black">Email</label><br>
+                                <input type="email" class="fill-container" id="email" name="email" placeholder="Enter Email" required><br>
+                            </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="nic-number">NIC Number</label>
-                        <input class="margin-top-2" type="text" name="nic-number" id="nic-number" required>
-                    </div>
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="mobile">Mobile Number</label>
-                        <input class="margin-top-2" type="text" name="mobile" id="mobile" required>
-                    </div>
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="dob">Date of Birth</label>
-                        <input class="margin-top-2" type="date" name="dob" id="dob" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-medium-7 fill-container">
-                        <div>
-                            <label class="big" for="address">Address</label>
-                            <input class="margin-top-2" type="text" name="address" id="address" required>
+
+
+                    <div class="col-12 col-large-12 fill-container ">
+                        <h2 class="header-2">Login Credentials</h2>
+                        <div class="row">
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="username" class="bold black">Username</label><br>
+                                <input type="text" id="username" name="username" placeholder="Enter Username" required><br>
+                            </div>
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="password" class="bold black">Password</label><br>
+                                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                            </div>
+                            <div class="col-12 col-medium-4 fill-container">
+                                <label for="repassword" class="bold black">Re-Type Password</label><br>
+                                <input type="password" id="repassword" name="repassword" placeholder="Re-Type Password" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-medium-5 fill-container">
-                        <label class="big" for="niclink">NIC Upload Link</label>
-                        <input class="margin-top-2" type="text" name="niclink" id="niclink">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="email">E-mail Address</label>
-                        <input class="margin-top-2" type="text" name="email" id="email" required>
-                    </div>
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="occupation">Occupation</label>
-                        <input class="margin-top-2" type="text" name="occupation" id="occupation" required>
-                    </div>
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="workplace">Work Place</label>
-                        <input class="margin-top-2" type="text" name="workplace" id="workplace" required>
-                    </div>
-                </div>
-                <div class="header-2">Login Credentials</div><br>
-                <div class="row">
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="username">Username</label>
-                        <input class="margin-top-2" type="text" name="username" id="username" required>
-                    </div>
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="password">Password</label>
-                        <input class="margin-top-2" type="password" name="password" id="password" required>
-                    </div>
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="password-repaet">Re-Type Password</label>
-                        <input class="margin-top-2" type="password" name="password-repaet" id="repassword" required>
-                    </div>
-                </div>
-                <div class="row fill-container">
-                    <div class="col-12  fill-container center">
-                        <input class="vertical-align-middle" type="checkbox" id="agreement" name="agreement" required>
-                        <span class="vertical-align-middle">I agree to all the <a class="inverse">Terms</a> and the <a
-                                class="inverse">Privacy Policy</a></span>
-                    </div>
-                </div>
-                <div class="row fill-container padding-vertical-2">
-                    <div class="col-medium-4 display-none display-medium-block fill-container"></div>
-                    <div class="col-12 col-medium-4 fill-container">
-                        <input class=" fill-container padding-5 bg-blue-hover white-hover border-rounded" type="submit"
-                            value="Create Account">
                     </div>
                 </div>
 
-                <div class="col-12 center fill-container padding-bottom-3">
-                    <span class="center">Already have an account? <a class="inverse"
-                            href="<?php echo BASEURL ?>/signIn/boardingOwner">Sign In</a></span>
-                </div>
-            </form>
+
+            </div>
         </div>
+    </form>
 </main>
 
+
 <script>
-    var password = document.getElementById("password")
-        , confirm_password = document.getElementById("repassword");
+    var password = document.getElementById("password"),
+        confirm_password = document.getElementById("repassword");
 
     function validatePassword() {
         if (password.value != confirm_password.value) {
@@ -159,13 +125,11 @@ $nav = new Navigation();
 
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
-
 </script>
 
-
 <?php
-if (isset($data['alert'])) {
-    $footer = new HTMLFooter($data['alert'], $data['message']);
+if (isset($data['error'])) {
+    $footer = new HTMLFooter($data['error']);
 } else {
     $footer = new HTMLFooter();
 }

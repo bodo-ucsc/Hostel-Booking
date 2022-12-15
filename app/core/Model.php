@@ -21,8 +21,10 @@ class Model extends Database
         }
         $result = $this->runQuery($sql);
         return $result;
+        
+
     }
-    public function getColumn($table,$column, $where = null)
+    public function getColumnValue($table,$column, $where = null)
     {
        
         $sql = "SELECT $column FROM $table";
@@ -73,16 +75,7 @@ class Model extends Database
         return $row[0];
     }
 
-    public function numRowsWhere($table, $where)
-    {
-        //count of rows 
-        $sql = "SELECT COUNT(1) FROM $table ";
-        if(isset($where)){
-            $sql .= $where;
-        }
-        $result = $this->runQuery($sql);
-        $row = $result->fetch_row();
-        return $row[0];
-    }
- 
+
+
+
 } 

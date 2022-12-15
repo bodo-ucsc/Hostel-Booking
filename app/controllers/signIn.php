@@ -1,97 +1,57 @@
 <?php
 if (isset($_SESSION['username'])) {
-    header('Location: ' . BASEURL . '/home');
+    header('Location: ' . BASEURL . '/adminhome');
 }
+
 class SignIn extends Controller
 {
-    public function index($message = null)
+    public function index($error = null)
     {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
+        if ($error == 'error') {
+            $error = "Incorrect username or password";
         }
-        $this->view('signIn/student', ['message' => $message, 'alert' => $alert]);
+        $this->view('signIn/student', ['error' => $error]);
     }
 
-    public function student($message = null)
+
+    public function student($error = null)
     {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
+        if ($error == 'error') {
+            $error = "Incorrect username or password";
         }
-        $this->view('signIn/student', ['message' => $message, 'alert' => $alert]);
+        $this->view('signIn/student', ['error' => $error]);
     }
 
-    public function verificationteam($message = null)
+    public function verificationteam($error = null)
     {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
+        if ($error == 'error') {
+            $error = "Incorrect username or password";
         }
-        $this->view('signIn/verificationTeam', ['message' => $message, 'alert' => $alert]);
+        $this->view('signIn/verificationTeam', ['error' => $error]);
     }
 
-    public function professional($message = null)
+    public function professional($error = null)
     {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
+        if ($error == 'error') {
+            $error = "Incorrect username or password";
         }
-        $this->view('signIn/professional', ['message' => $message, 'alert' => $alert]);
+        $this->view('signIn/professional', ['error' => $error]);
     }
 
-    public function admin($message = null)
+    public function admin($error = null)
     {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
+        if ($error == 'error') {
+            $error = "Incorrect username or password";
         }
-        $this->view('signIn/admin', ['message' => $message, 'alert' => $alert]);
+        $this->view('signIn/admin', ['error' => $error]);
     }
 
-    public function boardingowner($message = null)
+    public function boardingowner($error = null)
     {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
+        if ($error == 'error') {
+            $error = "Incorrect username or password";
         }
-        $this->view('signIn/boardingowner', ['message' => $message, 'alert' => $alert]);
+        $this->view('signIn/boardingowner', ['error' => $error]);
     }
 
 
@@ -179,11 +139,11 @@ class SignIn extends Controller
                 $_SESSION['username'] = $row['Username'];
                 $_SESSION['firstname'] = $row['FirstName'];
                 $_SESSION['lastname'] = $row['LastName'];
-                $_SESSION['UserId'] = $row['UserId'];
                 $_SESSION['role'] = $row['UserType'];
                 //echo "success";
                 // header('Location: ../home');
                 if ($row['UserType'] == 'Admin') {
+                    
                     header('Location: ' . BASEURL . '/adminhome');
                 }
                 if ($row['UserType'] == 'Professional') {
@@ -191,17 +151,14 @@ class SignIn extends Controller
                     header('Location: ' . BASEURL . '/myboarding');
                 }
             } else {
-                echo "message";
-                header("Location: ./$usertype/message");
-
+                echo "error";
+                header("Location: ./$usertype/error");
             }
-
         } else {
             
             echo "Username not submited";
             header("Location: " . BASEURL . "/signin");
         }
-
     }
 
     public function forgot_password()
