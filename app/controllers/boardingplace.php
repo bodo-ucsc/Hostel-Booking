@@ -35,7 +35,7 @@ if (isset($_SESSION['username'])) {
                 echo "leave success";
             } else if (isset($_POST['cancel'])) {
 
-                $this->view('professional/myboarding');
+                header("Location: " . BASEURL . "/myboarding");
             } else {
                 echo "Not submitted";
             }

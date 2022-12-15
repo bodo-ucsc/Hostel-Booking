@@ -1,6 +1,7 @@
 <?php
 $header = new HTMLHeader("MyBoarding | Professional");
 $nav = new Navigation("home");
+$result = $data['res'];
 ?>
 
 <body>
@@ -39,7 +40,7 @@ $nav = new Navigation("home");
                         <h1 class="header-1">Thank you for Boarding with BODO!</h1>
                         <!-- <hnb class="header-nb">We hope you enjoyed your stay at Kirulapone!!</hnb> -->
                         <div class="header-nb">
-                            <p>We hope you enjoyed your stay at Kirulapane!!</p>
+                            <p>We hope you enjoyed your stay at <?php echo $result['Title'] ?>!!</p>
                         </div>
                         <h2 class="header-2">Please consider rating and providing a review about your boarding
                             experience!</h2>
