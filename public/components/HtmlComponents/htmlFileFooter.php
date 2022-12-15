@@ -22,7 +22,7 @@ class HTMLFooter
               } 
               ";
         if (isset($error)) {
-            
+
             if ($error == "Incorrect username or password") {
                 echo "
                 Swal.fire({
@@ -40,17 +40,11 @@ class HTMLFooter
                     text: '$error'
                 })";
                 //unset($error);
-            } 
-           
-            // echo "
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Oops...',
-            //         text: '$error'
-            //     })";
-                unset($error);
+            }
+
+            unset($error);
         }
-                echo "
+        echo "
                 feather.replace();
             </script>
         </body>
@@ -58,7 +52,5 @@ class HTMLFooter
         </html>
             
             ";
-            
-        }
-            
     }
+}
