@@ -47,7 +47,7 @@ $result = $data['res'];
 
                         <form action="<?php echo BASEURL . '/boardingplace/addReview' ?>" method="post">
                             <label for="review" class="bold black">How was your experience?</label><br>
-                            <input type="text" id="review" name="review" placeholder="Describe your experience at Kirulapone"><br>
+                            <input type="text" id="review" name="review"><br>
                             <label for="review" class="bold black">Give Rate</label><br>
                             <select name="rating">
                                 <option value="1">1</option>
@@ -66,6 +66,8 @@ $result = $data['res'];
                             <input class=" bg-blue-hover  white-hover bold padded border-rounded" type="submit" name="withReview" value="Submit review & leave">
                         </form>
                     </div>
+                    <?php
+                    ?>
                 </div>
             </div>
         </div>

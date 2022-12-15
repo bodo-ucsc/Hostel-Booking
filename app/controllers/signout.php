@@ -7,7 +7,7 @@ class Signout extends Controller
         session_start();
         unset($_SESSION['username']);
         session_destroy();
-        $this->view('signin/admin'); 
+        $this->view('home/index'); 
     }
 }
 ?>

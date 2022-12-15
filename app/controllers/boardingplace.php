@@ -2,6 +2,7 @@
 if (isset($_SESSION['username'])) {
     class Boardingplace extends Controller
     {
+
         public function addReview()
         {
             $userid = $_SESSION['userid'];
@@ -23,19 +24,19 @@ if (isset($_SESSION['username'])) {
                     if ($result) {
 
                         $this->model('deleteModel')->deleteRecord("boardingplacetenant", "TenantId = '$userid'");
-
                         //$this->view('boardingplace/leaveReview', ['error' => 'success']);
                         echo "leave success";
+                        echo "<a href='../professional/dashboard'>Go to Dashboard</a>";
                     }
                 }
             } else if (isset($_POST['withoutReview'])) {
                 $this->model('deleteModel')->deleteRecord("boardingplacetenant", "TenantId = '$userid'");
-
                 //$this->view('boardingplace/leaveReview', ['error' => 'success']);
                 echo "leave success";
+                echo "<a href='../professional/dashboard'>Go to Dashboard</a>";
             } else if (isset($_POST['cancel'])) {
 
-                header("Location: " . BASEURL . "/myboarding");
+                header("Location: " . BASEURL . "/professional");
             } else {
                 echo "Not submitted";
             }

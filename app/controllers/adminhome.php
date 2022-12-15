@@ -135,7 +135,8 @@ if (isset($_SESSION['username'])) {
             session_start();
             session_destroy();
             unset($_SESSION['username']);
-            header('Location: ' . BASEURL . '/signin/admin');
+           // header('Location: ' . BASEURL . '/home/index');
+            $this->view('home/index'); 
         }
 
         //student 
@@ -207,5 +208,5 @@ if (isset($_SESSION['username'])) {
         }
     }
 } else {
-    header("Location: " . BASEURL . "/signin/admin");
+    header("Location: " . BASEURL . "/home/index");
 }

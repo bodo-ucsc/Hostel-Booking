@@ -1,6 +1,6 @@
 <?php
 if (isset($_SESSION['username'])) {
-    class Myboarding extends Controller
+    class Professional extends Controller
     {
         public function index()
         {

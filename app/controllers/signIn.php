@@ -148,7 +148,7 @@ class SignIn extends Controller
                 }
                 if ($row['UserType'] == 'Professional') {
                     
-                    header('Location: ' . BASEURL . '/myboarding');
+                    header('Location: ' . BASEURL . '/professional');
                 }
             } else {
                 echo "error";

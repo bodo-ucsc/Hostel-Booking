@@ -18,7 +18,7 @@ if (isset($_SESSION["username"])) {
 
                     <h2>Hello <?php echo $_SESSION["username"] ?> </h2>
 
-                    <button><a href="<?php echo BASEURL ?>/myboarding/leave/<?php echo $userid?>">Leave Boarding</a></button>
+                    <button><a href="<?php echo BASEURL ?>/professional/leave/<?php echo $userid?>">Leave Boarding</a></button>
 
                 <?php } else { ?>
 
