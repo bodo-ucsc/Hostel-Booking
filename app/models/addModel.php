@@ -102,4 +102,31 @@ class addModel extends Model
         $this->insert('university', ['UniversityName' => $uni]);
     }
 
+    public function addABoarding($ownerid, $title, $verifiedStatus, $summaryL1, $summaryL2, $summaryL3, $description, $price, $priceType, $houseNo, $street, $cityName, $googleMaps, $propertyType, $noofMembers, $noofRooms, $noofWashRooms, $gender, $boarderType, $sqft, $parking)
+    {
+        $this->insert('boardingPlace', [
+            'OwnerId' => $ownerid,
+            'Title' => $title,
+            'VerifiedStatus' => $verifiedStatus,
+            'SummaryLine1' => $summaryL1,
+            'SummaryLine2' => $summaryL2,
+            'SummaryLine3' => $summaryL3,
+            'Description' => $description,
+            'Price' => $price,
+            'PriceType' => $priceType,
+            'HouseNo' => $houseNo,
+            'Street' => $street,
+            'CityName' => $cityName,
+            'GoogleMap' => $googleMaps,
+            'PropertyType' => $propertyType,
+            'NoOfMembers' => $noofMembers,
+            'NoOfRooms' => $noofRooms,
+            'NoOfWashRooms' => $noofWashRooms,
+            'Gender' => $gender,
+            'BoarderType' => $boarderType,
+            'SquareFeet' => $sqft,
+            'Parking' => $parking
+        ]);
+    }
+
 }

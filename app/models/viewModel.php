@@ -68,4 +68,45 @@ class viewModel extends Model
             return null;
         }
     }
+
+    public function getCities()
+    {
+        $result = $this->get('city', null, 'CityName ASC', null);
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        } 
+    }
+
+    public function howMany($table, $where = null)
+    {
+        //        $result = $this->numRowsWhere($table, $where);
+        $sql = "SELECT COUNT(1) FROM $table WHERE $where";
+        $result = $this->runQuery($sql);
+        $row = $result->fetch_row();
+        return $row[0];
+    }
+
+    public function boardingImages($placeid)
+    {
+        $result = $this->get('boardingplacepicture', "BoardingPlace = $placeid");
+        // $sql = "SELECT * FROM boardingplacepicture WHERE BoardingPlace = $placeid";
+        // $result = $this->runQuery($sql);
+        return $result;
+    }
+
+    public function viewAllBoarding($userid)
+    {
+        $result = $this->get('boardingPlace', "OwnerId = $userid");
+        return $result;
+    }
+
+    public function viewABoarding($placeid)
+    {
+        $result = $this->get('boardingPlace', "PlaceId = $placeid");
+        // $sql = "SELECT * FROM boardingPlace WHERE PlaceId = $placeid LIMIT 1";
+        // $result = $this->runQuery($sql);
+        return $result;
+    }
 }
