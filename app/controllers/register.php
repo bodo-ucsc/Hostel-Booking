@@ -124,14 +124,14 @@ class Register extends Controller
                     $NICScanLink = $_POST['niclink'];
                 } else {
                     $date = date_create();
-                    if ($date < $DateOfBirth) {
+                    if ($date < $dob) {
                         die("Date Of Birth is a future date");
                     } else {
 
                         //password hashing done in registerModel
                         $id = $this->model('registerModel')->register($firstname, $lastname, $username,$email, $password, $usertype);
                         //echo $id;
-                        $this->model('registerModel')->addBoardingOwner($id, $ContactNumber, $DateOfBirth, $Gender, $Address, $NIC, $Occupation, $WorkPlace);
+                        $this->model('registerModel')->addBoardingOwner($id, $mobile, $dob, $gender, $address, $nic, $occupation, $workplace);
 
                         echo 'Data added successfully <br>';
                         echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';
