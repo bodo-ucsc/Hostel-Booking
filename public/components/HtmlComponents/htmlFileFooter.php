@@ -49,7 +49,7 @@ class HTMLFooter
             //         text: '$error'
             //     })";
                 unset($error);
-            
+        }
                 echo "
                 feather.replace();
             </script>
@@ -62,7 +62,3 @@ class HTMLFooter
         }
             
     }
-}
-
-
-?>
