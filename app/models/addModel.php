@@ -102,4 +102,8 @@ class addModel extends Model
         $this->insert('university', ['UniversityName' => $uni]);
     }
 
+    public function addAComment($commenttext,$postid,$commentorid){
+        $this->insert('comment', ['Post' => $postid, 'Commentor' => $commentorid, 'comment' => $commenttext]);
+    }
+
 }

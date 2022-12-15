@@ -169,4 +169,3 @@ if (isset($data['alert'])) {
 } else {
     $footer = new HTMLFooter();
 }
-?>

@@ -32,7 +32,7 @@ class viewModel extends Model
         else{
             $append="";
         }
-        $result = $this->getColumn("User,Comment", "FirstName,LastName,DateTime,comment", "Commentor = UserId $append");
+        $result = $this->getColumn("User,Comment", "FirstName,LastName,DateTime,comment", "Commentor = UserId $append","DateTime ASC");
         return $result;
     }
     public function getAllrecords($table)

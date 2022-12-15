@@ -4,6 +4,7 @@ class ViewCard
 {
     public function __construct($FirstName, $LastName, $UserType, $ProfilePicture, $PostId, $DateTime, $Caption, $SummaryLine1, $SummaryLine2, $SummaryLine3, $Price, $PriceType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking, $showComment = null)
     {
+        $base = BASEURL;
         if ($UserType == "BoardingOwner") {
             $UserType = "Owner";
         } else {
@@ -192,6 +193,20 @@ class ViewCard
             }
 
             echo "</div>";
+            echo "<form action= '$base/Feed/addComment' method='post'>
+            <div class='row '>
+                <div class='col-10 fill-container'>
+                    <input type='text' class='vertical-align-middle fill-container margin-top-4' id='comment' name='comment'
+                    placeholder='Your Message' required>
+                </div>
+                <div class='col-2 fill-container'>
+                    <button role='submit' class='border-rounded vertical-align-middle fill-container bg-blue-hover white-hover'>
+                      <i data-feather='send' class='feather-body'></i>
+                    </button>
+                </div>
+            </div>
+            <input type='hidden' id='postid' name='postid' value=$PostId>
+            </form>";
         }
         echo "</div>";
     }

@@ -98,4 +98,27 @@ class Feed extends Controller
         new HTMLFooter();
     }
 
+    public function addComment()
+    {
+
+        if (isset($_POST['postid'])) {
+            $commenttext = $_POST['comment'];
+            $PostId = $_POST['postid'];
+            $commentorid = $_SESSION['UserId'];
+            $this->model('addModel')->addAComment($commenttext,$PostId,$commentorid);
+           
+            header("Location: " . BASEURL . "/feed/viewPost/$PostId");
+        }
+
+    }
+
+    public function deleteComment($post_id)
+    {
+         if (isset($post_id)) {
+            $this->model('deleteModel')->deleteComment($post_id);
+        }
+    }
+
+
+
 }
