@@ -1,11 +1,13 @@
 <?php
-$header = new HTMLHeader("Login | Professional");
+$header = new HTMLHeader("Sign In | Professional");
+$nav = new Navigation();
 ?>
 
 <main class=" full-width overflow-hidden  position-absolute ">
     <div class="row full-height ">
-        <div class="col-3 "></div>
-        <div class="col-6 full-height padding-vertical-3 padding-horizontal-5 shadow  ">
+        <div class=" display-none display-medium-block col-medium-3 col-large-4 "></div>
+        <div class="col-12 col-medium-6 col-large-4 fill-container full-height navbar-offset padding-horizontal-5 shadow  ">
+
             <div class=" row">
                 <div class=" col-12">
                     <img class=" fill-container " src="<?php echo BASEURL . '/public/images/logo.svg' ?>">
@@ -37,9 +39,10 @@ $header = new HTMLHeader("Login | Professional");
     </div>
 </main>
 
+
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
+if (isset($data['alert'])) { 
+    $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();
 }

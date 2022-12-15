@@ -2,17 +2,19 @@
 $header = new HTMLHeader("Register | Verification Team");
 $nav = new Navigation("home");
 $sidebar = new SidebarNav("user", "verification");
+$base = BASEURL . '/admin';
 ?>
 <main class=" full-width ">
-    <form action="verificationTeamSignUp" method="post">
+    <form action="<?php echo BASEURL ?>/userManagement/createVerificationTeam" method="post">
         <div class="row sidebar-offset navbar-offset ">
             <div class="col-12 col-medium-12 width-90">
                 <div class="row ">
-                    <div class="col-12 col-medium-8 fill-container left">
-                        <h1 class="header-1 ">
+                    <div class="col-12 col-medium-8 fill-container left"
+                        onclick=" location.href='<?= $base ?>/userManagement/verificationTeam'">
+                        <h1 class="header-1 black-hover cursor-pointer">
 
-                            <i data-feather="chevron-left"></i>
-                            Add Verification Team
+                            <i data-feather="chevron-left" class="feather-large vertical-align-middle"></i>
+                            <span class="vertical-align-middle">Add Verification Team</span>
                         </h1>
                     </div>
                     <div class="col-12 col-medium-4 fill-container right">
@@ -122,8 +124,8 @@ $sidebar = new SidebarNav("user", "verification");
 </script>
 
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();
 }

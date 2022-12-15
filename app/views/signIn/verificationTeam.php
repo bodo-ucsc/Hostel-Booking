@@ -1,6 +1,6 @@
 <?php
-$header = new HTMLHeader("Login | Verification Team");
-$nav = new Navigation("home");
+$header = new HTMLHeader("Sign In | Verification Team");
+$nav = new Navigation();
 ?>
 
 
@@ -31,10 +31,11 @@ $nav = new Navigation("home");
     </div>
 </main>
 
+
 <?php
- if (isset($data['error'])) {
-     $footer = new HTMLFooter($data['error']);
- } else {
-     $footer = new HTMLFooter();
- }
- ?>
+if (isset($data['alert'])) { 
+    $footer = new HTMLFooter($data['alert'], $data['message']);
+} else {
+    $footer = new HTMLFooter();
+}
+?>

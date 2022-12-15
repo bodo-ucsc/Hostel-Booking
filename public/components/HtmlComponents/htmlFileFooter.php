@@ -3,7 +3,7 @@
 class HTMLFooter
 {
 
-    public function __construct($error = null)
+    public function __construct($alert = null, $message = null)
     {
         $base = BASEURL;
         echo "
@@ -21,16 +21,16 @@ class HTMLFooter
                 document.getElementById(closeElement).classList.remove('display-block'); 
               } 
               ";
-        if(isset( $error )){
+        if (isset($alert) && isset($message)) {
+            $title = ucfirst($alert); 
             echo "
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: '$error'
+                    icon: '$alert',
+                    title: '$title',
+                    text: '$message'
                 })";
-            unset($error);
         }
-        echo"
+        echo "
                 feather.replace();
             </script>
         </body>
@@ -39,7 +39,7 @@ class HTMLFooter
             
             ";
 
-            
+
     }
 }
 

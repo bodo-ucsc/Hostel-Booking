@@ -1,100 +1,98 @@
 <?php
-if (isset($_SESSION['username'])) {
-    class BoardingOwner extends Controller
+
+class BoardingOwner extends Controller{
+
+    public function index()
     {
-        public function index()
-        {
-            $this->viewboardingOwner();
-        }
+        $this->view('boardingowner/bohome');
+    }
+    public function addBoarding(){
+        $this->view('boardingOwner/addBoarding');
+    }
 
-        public function addboardingOwner()
-        {
+    public function editDeleteBoarding(){
+        $this->view('boardingOwner/editDeleteBoarding');
+    }
 
-            $this->view('register/boardingOwner');
-        }
-        public function viewboardingOwner()
-        {
-            $data = $this->model('viewModel')->checkData("user, boardingowner", "user.UserId = boardingowner.boardingOwnerId");
-            $this->view('boardingOwner/BOhome', $data);
-        }
+    public function viewAllBoardingPlaces(){
+        $this->view('boardingOwner/viewAllBoarding');
+    }
 
-        public function editBO($user_id = null)
-        {
-            if (isset($user_id)) {
+    public function viewABoardingPlace(){
+        $this->view('boardingOwner/viewABoarding');
+    }
 
-                $res = $this->model('viewModel')->checkData("user,boardingowner","user.UserId = '$user_id' AND user.UserId = boardingowner.BoardingOwnerId");
-                if ($res != null) {
+    public function addBoardingPlace(){
 
-                    $row = $res->fetch_assoc();
-                    $this->view('boardingOwner/update', ['res' => $row]);
-                } else {
+        $userid = $_SESSION['userId'];
 
-                    echo "NO user";
-                }
-            } else {
+        $propertytitle = $_POST('propertytitle');
+        $location=$_POST('location');
+        $price = $_POST('price');
+        $address = $_POST('address');
+        $propertytype = $_POST('propertytitle');
+        $noofusers = $_POST('noofusers');
+        $gender = $_POST('gender');
+        $bordertype = $_POST('boardertype');
+        $sqfeet = $_POST('sqfeet');
+        $parking = $_POST('parking');
+        $summary1 = $_POST('summary1');
+        $summary2 = $_POST('summary2');
+        $summary3 = $_POST('summary3');
+        $description = $_POST('description');
+        
+        $this->model('boardingOwnerModel')->addABoarding();
+    }
 
-                echo "UserId not found";
-            }
-            //$this->view('boardingOwner/BOhome');
-        }
+    public function editBoardingPlace($placeid = null){
 
-        public function updateBO()
-        {
-            // if we have POST data to create a new Bo
-            if (isset($_POST["username"])) {
+        $propertytitle = $_POST('propertytitle');
+        $location=$_POST('location');
+        $price = $_POST('price');
+        $address = $_POST('address');
+        $propertytype = $_POST('propertytitle');
+        $noofusers = $_POST('noofusers');
+        $gender = $_POST('gender');
+        $bordertype = $_POST('boardertype');
+        $sqfeet = $_POST('sqfeet');
+        $parking = $_POST('parking');
+        $summary1 = $_POST('summary1');
+        $summary2 = $_POST('summary2');
+        $summary3 = $_POST('summary3');
+        $description = $_POST('description');
+        
+        $this->model('boardingOwnerModel')->editABoarding();
+    }
 
-                if (isset($_POST['UserId'])) {
+    public function deleteBoardingPlace($placeid){
+        $this->model('boardingOwnerModel')->deleteABoarding($placeid);
 
-                    $id = $_POST['UserId'];
+    }
 
-                    $firstname = $_POST['firstname'];
-                    $username = $_POST['username'];
-                    $lastname = $_POST['lastname'];
-                    $email = $_POST['email'];
-                    $usertype = "BoardingOwner";
-
-                    $res = $this->model('registerModel')->checkUser('Username',$username);
-                    $row = $res->fetch_assoc();
-                    if ($row != null) {
-                        if ($row['Username'] == $username && $row['UserId'] != $id) {
-                            echo "Username already exists";
-                        } else {
-
-                            $this->model('registerModel')->EditUser($id, $firstname, $lastname, $username, $email, $usertype);
-
-                            $gender = $_POST['gender'];
-                            $dob = $_POST['dob'];
-                            $nic = $_POST['nic'];
-                            $mobile = $_POST['mobile'];
-                            $occupation = $_POST['occupation'];
-                            $address = $_POST['address'];
-                            $workplace = $_POST['workplace'];
-                            $email = $_POST['email'];
-
-                            $this->model('registerModel')->updateBoardingOwner($id, $mobile, $dob, $gender, $address, $nic, $occupation, $workplace);
-                            echo 'Data updated successfully <br>';
-                            echo ' <br><a href="../adminhome/viewboardingOwner">View Records</a>  <br>';
-                            //$this->viewboardingOwner();
-                        }
-                    } else {
-                        echo "Error user does not exist";
-                    }
-                } else {
-                    die("Invalid UserId");
-                }
-            } else {
-                die("Username not submitted");
-            }
-        }
-
-        public function deleteBO($user_id)
-        {
-            if (isset($user_id)) {
-                $this->model('deleteModel')->deleteboardingowner($user_id);
-                $this->viewboardingOwner();
-            }
+    public function editDeleteBoardingPlace($placeid = null){
+        if (isset($_POST['update_button'])) {
+            $this->addBoardingPlace();
+        } else if (isset($_POST['delete_button'])) {
+            $this->editBoardingPlace($placeid);
+        } else {
+            echo "";
         }
     }
-} else {
-    echo "You have to sign in first";
+
+    public function viewBoardingPlaces(){
+        $result = $this->model('boardingOwnerModel')->viewAllBoarding();
+        if (isset($result)) {
+            $boardingPlaces = $result->fetch_assoc();
+            return $boardingPlaces;
+        }
+    }
+
+    public function viewBoardingPlace($placeid){
+        $result = $this->model('boardingOwnerModel')->viewAllBoarding($placeid);
+        if (isset($result)) {
+            $boardingPlace = $result->fetch_assoc();
+            return $boardingPlace;
+        }
+        
+    }
 }

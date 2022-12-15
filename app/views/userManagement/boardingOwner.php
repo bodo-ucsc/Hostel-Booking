@@ -1,9 +1,10 @@
 <?php
-$header = new HTMLHeader("Verification Team");
+$header = new HTMLHeader("Boarding Owner Management");
 $nav = new Navigation('management');
-$sidebar = new SidebarNav("user", "verification");
-$basePage = BASEURL . '/admin/userManagement/verificationTeam';
+$sidebar = new SidebarNav("user", "boardingOwner");
+$basePage = BASEURL . '/admin/userManagement/boardingOwner';
 $base = BASEURL . '/admin';
+
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
@@ -11,16 +12,17 @@ $base = BASEURL . '/admin';
             <div class="row no-gap">
                 <div class="col-12 left fill-container">
                     <h1 class="header-1 ">
-                        Verification Team Management
+                        Boarding Owner Management
                     </h1>
                 </div>
 
                 <div class="col-9 col-small-10 col-large-9 fill-container left">
-                    <?php $search = new SearchUser("Verification Team") ?>
+                    <?php $search = new SearchUser("Boarding Owner") ?>
                 </div>
                 <div class="col-1 display-small-none"></div>
                 <div class="col-2 col-large-3 fill-container right">
-                    <button class="bg-blue white border-rounded header-nb padding-3 right" onclick=" location.href='<?= $base ?>/create/verificationTeam'">
+                    <button class="bg-blue-hover white border-rounded header-nb padding-3 right"
+                        onclick="location.href='<?php echo $base ?>/create/boardingOwner'">
                         <i data-feather="user-plus" class=" vertical-align-middle "></i>
                         <span class="display-large-inline-block padding-left-2 display-none">Add User</span>
                     </button>
@@ -33,15 +35,19 @@ $base = BASEURL . '/admin';
             <div class="row margin-top-5 fill-container">
                 <div class=" shadow-small border-rounded-more   fill-container col-12 ">
                     <div class="row no-gap fill-container">
-                        <div class="col-8 col-small-9 table fill-container border-rounded-more-left padding-top-4 padding-bottom-5 shadow-small bg-white ">
+                        <div
+                            class="col-8 col-small-9 table fill-container border-rounded-more-left padding-top-4 padding-bottom-5 shadow-small bg-white ">
                             <div class="hs padding-horizontal-5 padding-vertical-3">
                                 <div class="col-2  text-overflow bold">First Name</div>
                                 <div class="col-2  text-overflow bold">Last Name</div>
                                 <div class="col-2  text-overflow bold">User Name</div>
+                                <div class="col-4  text-overflow bold">Email</div>
+                                <div class="col-3  text-overflow bold">WorkPlace</div>
+                                <div class="col-3  text-overflow bold">Occupation</div>
+                                <div class="col-2  text-overflow bold">Verified</div>
                                 <div class="col-2  text-overflow bold">DOB</div>
                                 <div class="col-2  text-overflow bold">Gender</div>
                                 <div class="col-3  text-overflow bold">NIC</div>
-                                <div class="col-3  text-overflow bold">Email</div>
                                 <div class="col-3  text-overflow bold">Contact</div>
                                 <div class="col-4  text-overflow bold">Address</div>
                             </div>
@@ -56,14 +62,24 @@ $base = BASEURL . '/admin';
                                     } else {
                                         $gender = 'Female';
                                     }
+                                    $verifiedStatus = $row['VerifiedStatus'];
+                                    if ($verifiedStatus == "verified") {
+                                        $verifiedstyle = " border-accent accent";
+                                    } else {
+                                        $verifiedstyle = " border-grey grey";
+                                        $verifiedStatus = "not verified";
+                                    }
                                     echo "<div class='hs padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
                                     echo "<div class='col-2  text-overflow ' title='" . $row['FirstName'] . "' >" . $row['FirstName'] . "</div>";
                                     echo "<div class='col-2  text-overflow ' title='" . $row['LastName'] . "' >" . $row['LastName'] . "</div>";
                                     echo "<div class='col-2  text-overflow ' title='" . $row['Username'] . "' >" . $row['Username'] . "</div>";
+                                    echo "<div class='col-4  text-overflow ' title='" . $row['Email'] . "' >" . $row['Email'] . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $row['WorkPlace'] . "' >" . $row['WorkPlace'] . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $row['Occupation'] . "' >" . $row['Occupation'] . "</div>";
+                                    echo "<div class='col-2 text-overflow ' title=' $verifiedStatus ' > <span class=' border-1 border-rounded-more small padding-horizontal-2 $verifiedstyle'> $verifiedStatus  </span></div>";
                                     echo "<div class='col-2  text-overflow ' title='" . $row['DateOfBirth'] . "' >" . $row['DateOfBirth'] . "</div>";
                                     echo "<div class='col-2  text-overflow ' title=' $gender'>$gender</div>";
                                     echo "<div class='col-3  text-overflow ' title='" . $row['NIC'] . "' >" . $row['NIC'] . "</div>";
-                                    echo "<div class='col-3  text-overflow ' title='" . $row['Email'] . "' >" . $row['Email'] . "</div>";
                                     echo "<div class='col-3  text-overflow ' title='" . $row['ContactNumber'] . "' >" . $row['ContactNumber'] . "</div>";
                                     echo "<div class='col-4  text-overflow ' title='" . $row['Address'] . "' >" . $row['Address'] . "</div>";
                                     echo "</div>";
@@ -72,7 +88,8 @@ $base = BASEURL . '/admin';
                             ?>
 
                         </div>
-                        <div class="col-4 col-small-3 fill-container border-rounded-more-right padding-top-4 padding-bottom-5 bg-white shadow-small ">
+                        <div
+                            class="col-4 col-small-3 fill-container border-rounded-more-right padding-top-4 padding-bottom-5 bg-white shadow-small ">
                             <div class="col-12 fill-container padding-3 bold ">Actions</div>
 
                             <?php
@@ -80,13 +97,13 @@ $base = BASEURL . '/admin';
                                 foreach ($useridArray as $userid) {
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3'>";
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='".$basePage."Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $basePage . "Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='".$basePage."Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $basePage . "Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
                                     echo "</div></a>";
 

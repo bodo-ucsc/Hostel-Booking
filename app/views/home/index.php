@@ -8,9 +8,9 @@
     <div class="display-block  display-small-none"></div>
 
         <div class=" col-large-7 col-medium-9 col-12 fill-container padding-horizontal-3  ">
-            <div class="fill-container cover-text">Boarding?</div>
+            <div class="fill-container cover-text">Boarding?</div> 
             <div class="margin-medium-left-3">
-                <?php
+                <?php 
                     $search = new Search();
                     // $filter = new Filter();
                     // $sidebar = new SideBarNav("user","admin"); //pass the parameter to set active

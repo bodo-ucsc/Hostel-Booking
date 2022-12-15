@@ -12,4 +12,5 @@ require_once '../public/components/search/user.php';
 require_once '../public/components/sidebarNav.php'; 
 require_once '../public/components/filter.php'; 
 require_once '../public/components/viewCard.php';
+require_once '../public/components/comment.php';
 ?>

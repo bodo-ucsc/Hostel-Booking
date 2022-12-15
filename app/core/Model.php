@@ -22,7 +22,7 @@ class Model extends Database
         $result = $this->runQuery($sql);
         return $result;
     }
-    public function getColumnValue($table,$column, $where = null)
+    public function getColumn($table,$column, $where = null)
     {
        
         $sql = "SELECT $column FROM $table";

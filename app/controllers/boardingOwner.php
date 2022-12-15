@@ -2,6 +2,10 @@
 
 class BoardingOwner extends Controller{
 
+    public function index()
+    {
+        $this->view('boardingowner/bohome');
+    }
     public function addBoarding(){
         $this->view('boardingOwner/addBoarding');
     }
