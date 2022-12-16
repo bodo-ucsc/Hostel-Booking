@@ -42,12 +42,16 @@ class Navigation
         if (isset($uname)) {
             if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'BoardingOwner') {
                 if ($active == 'management') {
-                echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href=''>Management</a>";
+                echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/admin'>Management</a>";
                 } else {
-                echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/management'>Management</a>";
+                echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/admin'>Management</a>";
                 }
             } elseif ($role == 'Student') {
-                echo "          <a class='padding-3 active' href='$base/friends'>Friends</a>";
+                if ($active == 'friends') {
+                    echo "          <a class='padding-3 active' href='$base/friends'>Friends</a>";
+                } else {
+                    echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
+                }
             }
         }
 
@@ -154,10 +158,10 @@ class Navigation
         if (isset($uname)) {
             if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'BoardingOwner') {
                 if ($active == 'management') {
-                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/management'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
+                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/admin'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
 
                 } else {
-                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/management'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/admin'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
 
                 }
             } elseif ($role == 'Student') {

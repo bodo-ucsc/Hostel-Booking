@@ -3,11 +3,25 @@
 
 class Feed extends Controller
 {
-    public function index()
+    public function index($message = null)
     {
+        if (isset($message)) {
+
+            $alert = 'error'; 
+            if ($message == 'fail') {
+                $message = "Insertion Failed";
+            } else if ($message == 'success') {
+                $message = "Inserted Successfully";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
+
         $row = $this->model('viewModel')->getId("PostUpdate", "PostId");
 
-        $this->view('Feed/index', ['row' => $row]);
+        $this->view('Feed/index', ['row' => $row, 'message' => $message, 'alert' => $alert]);
     }
 
     public function postRest($PostId)
@@ -40,16 +54,17 @@ class Feed extends Controller
         echo $json_response;
     }
 
-    public function commentRest($PostId){
+    public function commentRest($PostId)
+    {
         $data = $this->model('viewModel')->getComment($PostId);
         $json = array();
         while ($row = $data->fetch_assoc()) {
             $array['FirstName'] = $row['FirstName'];
-            $array['LastName'] = $row['LastName']; 
+            $array['LastName'] = $row['LastName'];
             $array['PostId'] = $PostId;
             $array['DateTime'] = $row['DateTime'];
             $array['Comment'] = $row['comment'];
-            array_push($json,$array);
+            array_push($json, $array);
         }
         $json_response = json_encode($json);
         echo $json_response;
@@ -90,12 +105,49 @@ class Feed extends Controller
                 $result->BoarderType,
                 $result->SquareFeet,
                 $result->Parking,
-                "yes"
+            "yes"
         );
 
 
         echo "</div>";
         new HTMLFooter();
     }
+    public function postUpdate()
+    {
+        $base = BASEURL;
+        if (isset($_POST['userId'])) {
+            $userId = $_POST['userId'];
+            $caption = $_POST['caption'];
+            $place = $_POST['place'];
+
+            $result = $this->model('addModel')->postUpdate($userId, $place, $caption);
+
+            header("Location: $base/feed/$result");
+
+        }
+    }
+
+    public function addComment()
+    {
+
+        if (isset($_POST['postid'])) {
+            $commenttext = $_POST['comment'];
+            $PostId = $_POST['postid'];
+            $commentorid = $_SESSION['UserId'];
+            $this->model('addModel')->addAComment($commenttext,$PostId,$commentorid);
+           
+            header("Location: " . BASEURL . "/feed/viewPost/$PostId");
+        }
+
+    }
+
+    public function deleteComment($post_id)
+    {
+         if (isset($post_id)) {
+            $this->model('deleteModel')->deleteComment($post_id);
+        }
+    }
+
+
 
 }

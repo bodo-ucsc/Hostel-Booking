@@ -18,11 +18,7 @@ $base = BASEURL . '/admin';
                             <span class="vertical-align-middle">Add Boarding Owner</span>
                         </h1>
                     </div>
-                    <div class="col-12 col-medium-4 fill-container right">
-                        <!-- <button type="submit" class="bg-blue white border-rounded header-nb padding-3 right">
-                            <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i> <span>Save</span>
-                        </button> -->
-                        <!-- <div class="row "> -->
+                    <div class="col-12 col-medium-4 fill-container right"> 
 
                         <div class="col-4 fill-container">
                             <input class=" padding-5 bg-blue-hover white-hover border-rounded header-nb right"
