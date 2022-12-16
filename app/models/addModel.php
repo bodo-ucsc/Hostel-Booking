@@ -115,5 +115,14 @@ class addModel extends Model
             return 'fail';
         }
     }
+    public function addSupport($type, $userId, $support, $description, $requestTo = 7)
+    { 
+        $this->insert('Support', ['SupportType' => $type, 'RequestBy' => $userId, 'SupportTitle' => $support, 'SupportMessage' => $description,'RequestTo' => $requestTo ]);
+        if ($this->mysqli->affected_rows == 1) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
+    }
 
 }

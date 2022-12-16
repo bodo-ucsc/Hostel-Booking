@@ -50,7 +50,7 @@ class viewModel extends Model
         return $res;
     }
 
-    public function retrieveUser($user)
+    public function retrieveUser($user=null)
     {
         if (isset($user)) {
             $append = "UserType = '$user'";
@@ -99,6 +99,14 @@ class viewModel extends Model
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    public function getCities()
+    {
+        $result = $this->get('City', null, 'CityName ASC', null);
+        return $result;
+    }
+>>>>>>> Stashed changes
     public function getSupport($type,$userid = null)
     {
         if (isset($userid)) {

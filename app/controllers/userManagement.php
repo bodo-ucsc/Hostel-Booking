@@ -8,6 +8,20 @@ class userManagement extends Controller
     }
 
     public function userRest($usertype=null){
+        $data = $this->model('viewModel')->retrieveUser($usertype);
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['Id'] = $row['UserId']; 
+            $array['FirstName'] = $row['FirstName'];
+            $array['LastName'] = $row['LastName']; 
+            $array['UserType'] = $row['UserType']; 
+            array_push($json,$array);
+        } 
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function boardingUserRest($usertype=null){
         $data = $this->model('viewModel')->retrieveBoardingUsers($usertype);
         $json = array();
         while ($row = $data->fetch_assoc()) {
