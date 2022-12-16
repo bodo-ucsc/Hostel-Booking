@@ -7,7 +7,22 @@ class Admin extends Controller
         $this->view('admin/index');
     }
 
-    public function verificationTeam($page = 1)
+
+    public function create($user = null, $message = null)
+    {
+        if (isset($message)) {
+
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Insertion Failed";
+            } else if ($message == 'success') {
+                $message = "Inserted Successfully";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
 
         if ($user == 'student') {
             $this->view('create/student', ['message' => $message, 'alert' => $alert]);
