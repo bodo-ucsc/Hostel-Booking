@@ -24,7 +24,7 @@ $header = new HTMLHeader("Forgot Password");
                             <input type="text" id="email" name="email" placeholder="Enter Email"><br>
 
                             <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" name="submit" value="Send Link"><br><br>
-                            <a href="<?php echo BASEURL ?>/signin/admin" class=" flex">Back</a>
+                            <a  onclick="window.history.back()" class=" cursor-pointer flex">Back</a>
                         </form>
                     </div>
                 </div>

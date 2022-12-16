@@ -16,8 +16,12 @@ $nav = new Navigation("home");
                     <input type="password" id="password" name="password" placeholder="Enter Password">
                     <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit"
                         value="Sign In"><br>
-                    <p>Don't have an account? <a class="inverse"
-                            href="<?php echo BASEURL ?>/register/verificationTeam">Register</a> </p>
+                    <p class="center  ">
+                        Forgot Password?
+                        <a class="inverse" href="<?php echo BASEURL ?>/forgotPassword">Reset
+                            Password</a>
+                        <br>
+                    </p>
                 </form>
             </div>
         </div>
@@ -49,9 +53,9 @@ $nav = new Navigation("home");
 </main>
 
 <?php
- if (isset($data['error'])) {
-     $footer = new HTMLFooter($data['error']);
- } else {
-     $footer = new HTMLFooter();
- }
- ?>
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
+} else {
+    $footer = new HTMLFooter();
+}
+?>

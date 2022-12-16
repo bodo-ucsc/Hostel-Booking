@@ -21,12 +21,12 @@ class Model extends Database
         }
         $result = $this->runQuery($sql);
         return $result;
-        
 
-    }
-    public function getColumn($table,$column, $where = null, $order = null)
+    } 
+    public function getColumn($table,$column, $where = null, $order = null) 
+
     {
-       
+
         $sql = "SELECT $column FROM $table";
         if ($where != null) {
             $sql .= " WHERE $where";
@@ -38,7 +38,22 @@ class Model extends Database
         $result = $this->runQuery($sql);
         return $result;
     }
-  
+
+    public function union($table1, $table2, $column, $where1 = null, $where2 = null)
+    {
+        $sql = "SELECT $column FROM $table1";
+        if ($where1 != null) {
+            $sql .= " WHERE $where1";
+        }
+        $sql .= " UNION ";
+        $sql .= "SELECT $column FROM $table2";
+        if ($where2 != null) {
+            $sql .= " WHERE $where2";
+        }
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+
     public function insert($table, $data)
     {
         $sql = "INSERT INTO $table SET ";
@@ -79,7 +94,16 @@ class Model extends Database
         return $row[0];
     }
 
-
-
+    public function numRowsWhere($table, $where)
+    {
+        //count of rows 
+        $sql = "SELECT COUNT(1) FROM $table ";
+        if (isset($where)) {
+            $sql .= " WHERE $where";
+        }
+        $result = $this->runQuery($sql); 
+        $row = $result->fetch_row();
+        return $row[0];
+    }
 
 } 

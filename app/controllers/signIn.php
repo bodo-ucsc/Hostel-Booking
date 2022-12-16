@@ -143,8 +143,7 @@ class SignIn extends Controller
                 //echo "success";
                 // header('Location: ../home');
                 if ($row['UserType'] == 'Admin') {
-                    
-                    header('Location: ' . BASEURL . '/adminhome');
+                    header('Location: ' . BASEURL . '/admin');
                 }
                 if ($row['UserType'] == 'Professional') {
                     

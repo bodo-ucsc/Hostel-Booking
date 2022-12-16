@@ -1,4 +1,10 @@
 <?php
+
+$header = new HTMLHeader("Register | Verification Team");
+$nav = new Navigation('management');
+$sidebar = new SidebarNav("user", "verification");
+$basePage = BASEURL . '/admin/verificationTeam';
+
 $type = ucfirst($data['type']);
 $header = new HTMLHeader("Support | $type");
 $nav = new Navigation('management');
@@ -87,13 +93,13 @@ $basePage = BASEURL . '/admin/support';
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3'>";
 
                                     echo "<div class='col-6 fill-container '>";
-<<<<<<<< HEAD:app/views/admin/verificationTeam.php
+
                                     echo "<a href='$basePage.Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
-========
+
                                     echo "<a href='" . $basePage . "View/".$support[0]."'><div class=' fill-container border-accent bg-white accent-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='eye' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>View</span>";
->>>>>>>> Develop:app/views/admin/index.php
+
                                     echo "</div></a>";
                                     echo "</div>";
 
@@ -103,13 +109,10 @@ $basePage = BASEURL . '/admin/support';
                                         $style = "border-blue blue-hover";
                                     }
                                     echo "<div class='col-6 fill-container '>";
-<<<<<<<< HEAD:app/views/admin/verificationTeam.php
                                     echo "<a href='$basePage.Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
-========
                                     echo "<a href='" . $basePage . "Resolve/".$support[0]."'><div class=' fill-container bg-white $style border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='check' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Resolve</span>";
->>>>>>>> Develop:app/views/admin/index.php
                                     echo "</div></a>";
 
                                     echo "</div>";

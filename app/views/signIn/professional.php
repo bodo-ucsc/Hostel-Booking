@@ -2,10 +2,12 @@
 $header = new HTMLHeader("Login | Professional");
 ?>
 
-<main class=" full-width overflow-hidden  position-absolute ">
+<main class=" full-width  ">
     <div class="row full-height ">
-        <div class="col-3 "></div>
-        <div class="col-6 full-height padding-vertical-3 padding-horizontal-5 shadow  ">
+        <div class=" display-none display-medium-block col-medium-3 col-large-4 "></div>
+        <div
+            class="col-12 col-medium-6 col-large-4 fill-container full-height navbar-offset padding-horizontal-5 shadow  ">
+
             <div class=" row">
                 <div class=" col-12">
                     <img class=" fill-container " src="<?php echo BASEURL . '/public/images/logo.svg' ?>">
@@ -26,7 +28,14 @@ $header = new HTMLHeader("Login | Professional");
                         <input type="password" id="password" name="password" placeholder="Enter Password">
                         <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded "
                             type="submit" value="Sign In"><br>
-                        <p>Don't have an account? <a class="inverse" href="<?php echo BASEURL ?>/register/professional">Register</a> </p>
+                        <p class="center  ">
+                            Forgot Password?
+                            <a class="inverse" href="<?php echo BASEURL ?>/forgotPassword">Reset
+                                Password</a>
+                            <br>
+                            Don't have an account?
+                            <a class="inverse" href="<?php echo BASEURL ?>/register/professional">Register</a>
+                        </p>
                     </form>
                 </div>
 
@@ -38,8 +47,8 @@ $header = new HTMLHeader("Login | Professional");
 </main>
 
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();
 }
