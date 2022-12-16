@@ -50,7 +50,7 @@ class viewModel extends Model
         return $res;
     }
 
-    public function retrieveUser($user=null)
+    public function retrieveUser($user = null)
     {
         if (isset($user)) {
             $append = "UserType = '$user'";
@@ -97,13 +97,30 @@ class viewModel extends Model
         } else {
             return null;
         }
-    } 
+    }
     public function getCities()
     {
         $result = $this->get('City', null, 'CityName ASC', null);
         return $result;
-    } 
-    public function getSupport($type,$userid = null)
+    }
+
+    public function getPlace($PlaceId = NULL)
+    {
+        if (isset($PlaceId)) {
+            $append = "AND PlaceId = $PlaceId";
+        } else {
+            $append = "";
+        }
+        $result = $this->getColumn("BoardingPlace", "PlaceId,SummaryLine1, SummaryLine2,SummaryLine3,Price,PriceType,HouseNo,Street,CityName,PropertyType,NoOfMembers,NoOfRooms,NoOfWashRooms,Gender,BoarderType,SquareFeet,Parking");
+        return $result;
+    }
+
+    public function getCities()
+    {
+        $result = $this->get('city', null, 'CityName ASC', null);
+        return $result;
+    }
+    public function getSupport($type, $userid = null)
     {
         if (isset($userid)) {
             $append = "AND UserId = $userid";
@@ -117,8 +134,40 @@ class viewModel extends Model
         } else {
             return null;
         }
-    } 
-    public function getAllSupport($type,$page = 1, $perPage = 1)
+    }
+
+    public function howMany($table, $where = null)
+    {
+        //        $result = $this->numRowsWhere($table, $where);
+        $sql = "SELECT COUNT(1) FROM $table WHERE $where";
+        $result = $this->runQuery($sql);
+        $row = $result->fetch_row();
+        return $row[0];
+    }
+
+    public function boardingImages($placeid)
+    {
+        $result = $this->get('boardingplacepicture', "BoardingPlace = $placeid");
+        // $sql = "SELECT * FROM boardingplacepicture WHERE BoardingPlace = $placeid";
+        // $result = $this->runQuery($sql);
+        return $result;
+    }
+
+    public function viewAllBoarding($userid)
+    {
+        $result = $this->get('boardingPlace', "OwnerId = $userid");
+        return $result;
+    }
+
+    public function viewABoarding($placeid)
+    {
+        $result = $this->get('boardingPlace', "PlaceId = $placeid");
+        // $sql = "SELECT * FROM boardingPlace WHERE PlaceId = $placeid LIMIT 1";
+        // $result = $this->runQuery($sql);
+        return $result;
+    }
+
+    public function getAllSupport($type, $page = 1, $perPage = 1)
     {
         $start = ($page - 1) * $perPage;
         $result = $this->get("User,Support", "UserId = RequestBy AND SupportType = '$type'", null, "$start,$perPage");
@@ -127,5 +176,7 @@ class viewModel extends Model
         } else {
             return null;
         }
-    } 
+    }
+
+
 }
