@@ -102,6 +102,7 @@ class viewModel extends Model
     public function getCities()
     {
         $result = $this->get('city', null, 'CityName ASC', null);
+        return $result;
     }
     public function getSupport($type,$userid = null)
     {

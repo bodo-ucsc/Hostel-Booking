@@ -45,6 +45,7 @@ $_boardingOwner = new boardingOwner;
                         <option value="" disabled selected>-Select City-</option>
                         <?php
                         $cities = $_boardingOwner->getAllCities();
+                        print_r($cities);
                             while($city = $cities->fetch_assoc()){
                                 $cityname = $city['CityName'];
                                 echo "
