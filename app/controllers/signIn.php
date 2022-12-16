@@ -157,6 +157,7 @@ class SignIn extends Controller
             $password = $_POST['password'];
 
             $this->login($username, $password, 'BoardingOwner');
+            header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
         } else {
             header("Location: " . BASEURL . "/signin/boardingOwner");
         }
