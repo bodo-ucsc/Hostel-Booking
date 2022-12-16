@@ -97,16 +97,12 @@ class viewModel extends Model
         } else {
             return null;
         }
-    }
-
-<<<<<<< Updated upstream
-=======
+    } 
     public function getCities()
     {
         $result = $this->get('City', null, 'CityName ASC', null);
         return $result;
-    }
->>>>>>> Stashed changes
+    } 
     public function getSupport($type,$userid = null)
     {
         if (isset($userid)) {
