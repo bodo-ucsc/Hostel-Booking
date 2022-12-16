@@ -123,7 +123,7 @@ $nav = new Navigation();
                         <label class="big" for="uniidlink">University ID Scanned Copy</label>
                         <input class="margin-top-2" type="text" name="uniidlink" id="uniidlink">
                     </div>
-                    <div class="col-12 col-medium-6 display-none fill-container">
+                    <div class="col-12 col-medium-6 fill-container">
                         <label class="big" for="uniadmission">University Admission Letter</label>
                         <input class="margin-top-2" type="text" name="uniadmission" id="uniadmission" value="NULL">
                     </div>

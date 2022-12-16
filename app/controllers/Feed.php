@@ -10,7 +10,7 @@ class Feed extends Controller
         $this->view('Feed/index', ['row' => $row]);
     }
 
-    public function postRest($PostId)
+    public function postRest($PostId=null)
     {
         $data = $this->model('viewModel')->getPost($PostId);
         while ($row = $data->fetch_assoc()) {
