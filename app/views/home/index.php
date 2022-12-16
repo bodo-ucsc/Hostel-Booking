@@ -25,11 +25,10 @@
 
 </main>
 
-
 <?php
-    if (isset($data['error'])) {
-        $footer = new HTMLFooter($data['error']);
-    } else {
-        $footer = new HTMLFooter();
-    }
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
+} else {
+    $footer = new HTMLFooter();
+}
 ?>
