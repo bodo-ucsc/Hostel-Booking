@@ -18,11 +18,21 @@ class viewModel extends Model
 		$res = $this->get($table, $condition);
 		return $res;
 	}
+    public function getComment($PostId=NULL)
+    {
+        if(isset($PostId)){
+            $append = "AND Post = $PostId";
+        }
+        else{
+            $append="";
+        }
+        $result = $this->getColumn("User,Comment", "FirstName,LastName,DateTime,comment", "Commentor = UserId $append","DateTime ASC");
+        return $result;
+    }
 
-	public function getID($table, $column, $condition)
+	public function getID($table, $column, $condition=null)
 	{
-
-		$res = $this->getColumnValue($table, $column, $condition);
+		$res = $this->getColumn($table, $column, $condition);
 		return $res;
 	}
 

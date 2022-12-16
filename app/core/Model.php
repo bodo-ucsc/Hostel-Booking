@@ -24,12 +24,16 @@ class Model extends Database
         
 
     }
-    public function getColumnValue($table,$column, $where = null)
+    public function getColumn($table,$column, $where = null, $order = null)
     {
        
         $sql = "SELECT $column FROM $table";
         if ($where != null) {
             $sql .= " WHERE $where";
+        }
+        
+        if ($order != null) {
+            $sql .= " ORDER BY $order";
         }
         $result = $this->runQuery($sql);
         return $result;
