@@ -30,7 +30,7 @@ class viewModel extends Model
         } else {
             $append = "";
         }
-        $result = $this->getColumn("User,Comment", "FirstName,LastName,DateTime,comment", "Commentor = UserId $append","DateTime ASC");
+        $result = $this->getColumn("User,Comment", "FirstName,LastName,DateTime,comment", "Commentor = UserId $append", "DateTime ASC");
         return $result;
     }
     public function getAllrecords($table)
@@ -98,4 +98,30 @@ class viewModel extends Model
             return null;
         }
     }
+
+    public function getSupport($type,$userid = null)
+    {
+        if (isset($userid)) {
+            $append = "AND UserId = $userid";
+        } else {
+            $append = null;
+        }
+
+        $result = $this->get("User,Support", "UserId = RequestBy AND SupportType = '$type' $append");
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    } 
+    public function getAllSupport($type,$page = 1, $perPage = 1)
+    {
+        $start = ($page - 1) * $perPage;
+        $result = $this->get("User,Support", "UserId = RequestBy AND SupportType = '$type'", null, "$start,$perPage");
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    } 
 }

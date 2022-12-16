@@ -97,9 +97,9 @@ class Model extends Database
         //count of rows 
         $sql = "SELECT COUNT(1) FROM $table ";
         if (isset($where)) {
-            $sql .= $where;
+            $sql .= " WHERE $where";
         }
-        $result = $this->runQuery($sql);
+        $result = $this->runQuery($sql); 
         $row = $result->fetch_row();
         return $row[0];
     }

@@ -1,8 +1,9 @@
 <?php
-$header = new HTMLHeader("Support");
+$type = ucfirst($data['type']);
+$header = new HTMLHeader("Support | $type");
 $nav = new Navigation('management');
-$sidebar = new SidebarNav("support");
-$basePage = BASEURL . '/admin/verificationTeam';
+$sidebar = new SidebarNav("support","$type");
+$basePage = BASEURL . '/admin/support';
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
@@ -11,13 +12,13 @@ $basePage = BASEURL . '/admin/verificationTeam';
 
                 <div class="col-6 fill-container left">
                     <h1 class="header-1 ">
-                        Support
+                        Support | <?php echo $type ?>
                     </h1>
-                </div> 
+                </div>
                 <div class="col-6 fill-container right">
                     <button class="bg-blue white border-rounded header-nb padding-3 right">
                         <i data-feather="plus" class=" vertical-align-middle "></i>
-                        <span class="display-small-inline-block padding-left-2 display-none">Add Support Request</span>
+                        <span class="display-small-inline-block padding-left-2 display-none">Add <?php echo $type ?></span>
                     </button>
                 </div>
             </div>
@@ -31,37 +32,32 @@ $basePage = BASEURL . '/admin/verificationTeam';
                         <div
                             class="col-8 col-small-9 table fill-container border-rounded-more-left padding-top-4 padding-bottom-5 shadow-small bg-white ">
                             <div class="hs padding-horizontal-5 padding-vertical-3">
-                                <div class="col-2  text-overflow bold">First Name</div>
-                                <div class="col-2  text-overflow bold">Last Name</div>
-                                <div class="col-2  text-overflow bold">User Name</div>
-                                <div class="col-2  text-overflow bold">DOB</div>
-                                <div class="col-2  text-overflow bold">Gender</div>
-                                <div class="col-3  text-overflow bold">NIC</div>
+                                <div class="col-3  text-overflow bold">Name</div>
+                                <div class="col-3  text-overflow bold">User Type</div>
                                 <div class="col-3  text-overflow bold">Email</div>
-                                <div class="col-3  text-overflow bold">Contact</div>
-                                <div class="col-4  text-overflow bold">Address</div>
+                                <div class="col-2  text-overflow bold">Status</div>
+                                <div class="col-3  text-overflow bold">Topic</div>
+                                <div class="col-4  text-overflow bold">Message</div>
                             </div>
                             <?php
                             if (isset($data['result'])) {
-                                $useridArray = array();
+                                $SupportidArray = array();
                                 while ($row = $data['result']->fetch_assoc()) {
-                                    array_push($useridArray, $row['UserId']);
-                                    $gender = $row['Gender'];
-                                    if ($gender == 'm') {
-                                        $gender = 'Male';
+                                    array_push($SupportidArray, [$row['SupportId'], $row['SupportStatus']]);
+                                    $supportStatus = $row['SupportStatus'];
+                                    if ($supportStatus == "resolved") {
+                                        $style = " border-accent accent";
                                     } else {
-                                        $gender = 'Female';
+                                        $style = " border-grey grey";
+                                        $supportStatus = "not resolved";
                                     }
                                     echo "<div class='hs padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $row['FirstName'] . "' >" . $row['FirstName'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $row['LastName'] . "' >" . $row['LastName'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $row['Username'] . "' >" . $row['Username'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $row['DateOfBirth'] . "' >" . $row['DateOfBirth'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title=' $gender'>$gender</div>";
-                                    echo "<div class='col-3  text-overflow ' title='" . $row['NIC'] . "' >" . $row['NIC'] . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $row['FirstName'] . " " . $row['LastName'] . "' >" . $row['FirstName'] . " " . $row['LastName'] . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $row['UserType'] . "' >" . $row['UserType'] . "</div>";
                                     echo "<div class='col-3  text-overflow ' title='" . $row['Email'] . "' >" . $row['Email'] . "</div>";
-                                    echo "<div class='col-3  text-overflow ' title='" . $row['ContactNumber'] . "' >" . $row['ContactNumber'] . "</div>";
-                                    echo "<div class='col-4  text-overflow ' title='" . $row['Address'] . "' >" . $row['Address'] . "</div>";
+                                    echo "<div class='col-2 text-overflow ' title=' $supportStatus ' > <span class=' border-1 border-rounded-more small padding-horizontal-2 $style'> $supportStatus  </span></div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $row['SupportTitle'] . "' >" . $row['SupportTitle'] . "</div>";
+                                    echo "<div class='col-4  text-overflow ' title='" . $row['SupportMessage'] . "' >" . $row['SupportMessage'] . "</div>";
                                     echo "</div>";
                                 }
                             }
@@ -73,18 +69,24 @@ $basePage = BASEURL . '/admin/verificationTeam';
                             <div class="col-12 fill-container padding-3 bold ">Actions</div>
 
                             <?php
-                            if (isset($useridArray)) {
-                                foreach ($useridArray as $userid) {
+                            if (isset($SupportidArray)) {
+                                foreach ($SupportidArray as $support) {
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3'>";
+
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='" . $basePage . "Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
-                                    echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
+                                    echo "<a href='" . $basePage . "View/".$support[0]."'><div class=' fill-container border-accent bg-white accent-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<i data-feather='eye' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>View</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
+                                    if ($support[1] == "resolved") {
+                                        $style = " border-grey grey cursor-default"; 
+                                    } else {
+                                        $style = "border-blue blue-hover";
+                                    }
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='" . $basePage . "Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
-                                    echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
+                                    echo "<a href='" . $basePage . "Resolve/".$support[0]."'><div class=' fill-container bg-white $style border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<i data-feather='check' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Resolve</span>";
                                     echo "</div></a>";
 
                                     echo "</div>";
@@ -164,6 +166,11 @@ $basePage = BASEURL . '/admin/verificationTeam';
     </div>
 </main>
 
+
 <?php
-$footer = new HTMLFooter();
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
+} else {
+    $footer = new HTMLFooter();
+}
 ?>
