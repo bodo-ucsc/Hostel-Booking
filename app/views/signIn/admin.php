@@ -1,5 +1,5 @@
 <?php
-$header = new HTMLHeader("Login | Admin");
+$header = new HTMLHeader("Sign In | Admin");
 $nav = new Navigation("home");
 ?>
 <main class=" full-width overflow-hidden position-absolute">
