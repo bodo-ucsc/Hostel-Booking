@@ -21,10 +21,8 @@ class Model extends Database
         }
         $result = $this->runQuery($sql);
         return $result;
-
     } 
     public function getColumn($table,$column, $where = null, $order = null) 
-
     {
 
         $sql = "SELECT $column FROM $table";

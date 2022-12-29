@@ -1,4 +1,3 @@
-
 <?php
 class Forgotpassword extends Controller
 {
@@ -9,16 +8,6 @@ class Forgotpassword extends Controller
         $this->view('forgotPassword/forgot_password');
     }
 
-    public function message($error = null)
-    {
-        if ($error == 'error') {
-            $error = "Password Update Failed"; 
-        }
-        if ($error == 'success') {
-            $error = "Password Update Successfully";
-        }
-        $this->view('signIn/admin', ['error' => $error]);
-    }
 
     public function Check()
     {
@@ -31,7 +20,7 @@ class Forgotpassword extends Controller
 
                     $info = $this->model('viewModel')->checkData("user", "Email = '$email'");
                     $result = $info->fetch_assoc();
-                    $userid = $result['UserId'];
+                    $_SESSION['userType'] = $result['UserType'];
 
                     if ($result != null) {
 
@@ -47,7 +36,7 @@ class Forgotpassword extends Controller
                             $otp = mt_rand(100000, 999999);
                             $_SESSION['otp'] = $otp;
                             $starttime = $_SERVER['REQUEST_TIME'];
-                        } 
+                        }
 
                         $_SESSION['reqTime'] = date('Y-m-d H:i:s', $starttime);
                         $tt = $_SESSION['reqTime'];
@@ -83,7 +72,6 @@ class Forgotpassword extends Controller
 
                 $email = $_POST['email'];
                 $inputedOTP = $_POST['otp'];
-                $userId = $_POST['userId'];
 
                 $info = $this->model('viewModel')->checkData("user", "Email = '$email'");
                 $res = $info->fetch_assoc();
@@ -97,7 +85,7 @@ class Forgotpassword extends Controller
                     $currentTime = $_SERVER['REQUEST_TIME'];
                     $ctime = date('Y-m-d H:i:s', $currentTime);
                     $nowtime = strtotime("$ctime");
-                    
+
                     //OTP expire check 
                     //set to within 3 minutes 60*5 = 300
                     if ($nowtime - $timeREQ > 300) {
@@ -105,9 +93,9 @@ class Forgotpassword extends Controller
                         echo 'alert("OTP Expired, Try again")';
                         //$this->view('forgotPassword/password_message', ['info' => $res]);
                     } else {
-                       
+
                         if ($_SESSION['otp'] == $inputedOTP) {
-                        
+
                             unset($_SESSION['otp']);
                             unset($inputedOTP);
                             unset($_SESSION['reqTime']);
@@ -150,9 +138,10 @@ class Forgotpassword extends Controller
 
                         $password = password_hash($password, PASSWORD_DEFAULT);
 
-                        $this->model('registerModel')->modifyData("user", ['Password' => $password], "UserId = '$userId'");
-                        $this->message('success');
-                        //header("Location: " . BASEURL . "/signin/admin");
+                        $this->model('editModel')->modifyData("user", ['Password' => $password], "UserId = '$userId'");
+                        session_start();
+                        $userType = $_SESSION['userType'];
+                        header("Location: " . BASEURL . "/signin/$userType");
                     } else {
                         echo "Password not matched";
                     }

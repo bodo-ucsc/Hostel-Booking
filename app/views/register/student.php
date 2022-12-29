@@ -1,13 +1,34 @@
 <?php
 $header = new HTMLHeader("Register | Student");
-$nav = new Navigation("home");
+$nav = new Navigation();
 ?>
 
-
-<main class=" full-width position-absolute">
-    <div class="row full-height">
-        <div class="col-6 bg-light-grey flex">
-            <img class="login-img" src="student-login.png">
+<main class="full-height ">
+    <div class="row navbar-offset  ">
+        <div class="col-12 col-medium-4 width-90   justify-content center">
+            <div class="row">
+                <div class="display-none display-medium-block col-medium-12 padding-bottom-3">
+                    <img class="fill-container" src="<?php echo BASEURL . '/public/images/studentSignIn.svg' ?>">
+                    <button
+                        class=" padding-4 border-rounded fill-container bg-blue cursor-default  border-1 white">Student</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 fill-container">
+                    <a href="<?php echo BASEURL; ?>/register/boardingOwner">
+                        <button
+                            class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
+                            Boarding Owner</button>
+                    </a>
+                </div>
+                <div class="col-6 fill-container">
+                    <a href="<?php echo BASEURL; ?>/register/professional">
+                        <button
+                            class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
+                            Professional</button>
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="col-12 col-medium-8 width-90">
             <form action="<?php echo BASEURL ?>/register/studentSignUp" method="post">
@@ -145,16 +166,34 @@ $nav = new Navigation("home");
                             href="<?php echo BASEURL ?>/signIn/student">Sign In</a></span>
                 </div>
             </form>
-
-
         </div>
-
     </div>
 </main>
 
+
+
+
+
+<script>
+    var password = document.getElementById("password")
+        , confirm_password = document.getElementById("repassword");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+</script>
+
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();
 }

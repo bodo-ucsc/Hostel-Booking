@@ -3,7 +3,7 @@
 class HTMLFooter
 {
 
-    public function __construct($error = null)
+    public function __construct($alert = null, $message = null)
     {
         $base = BASEURL;
         echo "
@@ -21,28 +21,14 @@ class HTMLFooter
                 document.getElementById(closeElement).classList.remove('display-block'); 
               } 
               ";
-        if (isset($error)) {
-
-            if ($error == "Incorrect username or password") {
-                echo "
+        if (isset($alert) && isset($message)) {
+            $title = ucfirst($alert); 
+            echo "
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: '$error'
+                    icon: '$alert',
+                    title: '$title',
+                    text: '$message'
                 })";
-                //unset($error);
-
-            } else if ($error == "Password Update Successfully") {
-                echo "
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Done...',
-                    text: '$error'
-                })";
-                //unset($error);
-            }
-
-            unset($error);
         }
         echo "
                 feather.replace();
@@ -52,5 +38,10 @@ class HTMLFooter
         </html>
             
             ";
+
+
     }
 }
+
+
+?>

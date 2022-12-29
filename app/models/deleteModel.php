@@ -19,12 +19,22 @@ class deleteModel extends Model
         }
     }
 
-    public function deleteRecord($table,$condition)
+    public function deleteAdvertisement($post_id)
     {
-        
-        $link= $this->delete($table,$condition);
+        $link= $this->delete('postupdate',"PostId = $post_id");
         if($link){
-            //echo "Successfully Deleted";
+            echo "Successfully Deleted";
+            header('Location '. BASEURL.'/propertyFeed/feedHome');
+        }
+    }
+
+    public function deleteboardingowner($user_id)
+    {
+        //this only delete from boardingowner table not from user table
+        $link= $this->delete('boardingowner',"BoardingOwnerId = $user_id");
+        if($link){
+            echo "Successfully Deleted";
+            //header('Location '. BASEURL.'/boardingOwner/BOhome');
         }
     }
 

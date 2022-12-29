@@ -2,23 +2,15 @@
 
 class viewModel extends Model
 {
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-
-	public function getAllrecords($table)
-	{
-		$res = $this->get($table);
-		return $res;
-	}
-
-	// public function checkData($table, $condition)
-	// {
-	// 	$res = $this->get($table, $condition);
-	// 	return $res;
-	// }
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    public function checkUser($cond, $value)
+    {
+        $result = $this->get('user', "$cond = '$value'");
+        return $result;
+    }
 
     public function getPost($PostId = NULL)
     {
@@ -41,12 +33,11 @@ class viewModel extends Model
         $result = $this->getColumn("User,Comment", "FirstName,LastName,DateTime,comment", "Commentor = UserId $append", "DateTime ASC");
         return $result;
     }
-
-	public function columnValues($table, $condition, $column = null)
-	{
-		$res = $this->get($table, $condition);
-		return $res;
-	}
+    public function getAllrecords($table)
+    {
+        $res = $this->get($table);
+        return $res;
+    }
 
     public function getID($table, $column, $condition = NULL)
     {
@@ -184,5 +175,5 @@ class viewModel extends Model
         }
     } 
 
-}
 
+}

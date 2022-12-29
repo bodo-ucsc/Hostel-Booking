@@ -15,20 +15,10 @@ class Home extends Controller
     public function signout()
     {
         session_start();
+        session_unset();
         session_destroy();
-        unset($_SESSION['username']);
-        header('Location: '.BASEURL.'/signin/admin');
+        header('Location: '.BASEURL.'/home');
     }
-    // public function signout()
-    // {
-    //     session_start();
-    //     session_destroy();
-    //     unset($_SESSION['username']);
-    //     header('Location: ' . BASEURL . '/home');
-// }
-       // $this->view('home/index');
-    //}  
-
     
 
 }

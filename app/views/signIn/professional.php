@@ -1,5 +1,6 @@
 <?php
-$header = new HTMLHeader("Login | Professional");
+$header = new HTMLHeader("Sign In | Professional");
+$nav = new Navigation();
 ?>
 
 <main class=" full-width  ">
@@ -45,6 +46,7 @@ $header = new HTMLHeader("Login | Professional");
 
     </div>
 </main>
+
 
 <?php
 if (isset($data['alert'])) {

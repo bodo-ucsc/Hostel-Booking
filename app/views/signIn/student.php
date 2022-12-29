@@ -4,7 +4,7 @@ $nav = new Navigation("home");
 ?>
 
 
-<main class=" full-width position-absolute">
+<main class=" full-width overflow-hidden position-absolute">
     <div class="row full-height">
         <div
             class="display-none display-small-block col-small-6 col-12 col-medium-8 bg-light-grey  fill-container center full-height">
@@ -56,6 +56,7 @@ $nav = new Navigation("home");
 
     </div>
 </main>
+
 
 <?php
 if (isset($data['alert'])) {

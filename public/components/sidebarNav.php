@@ -24,9 +24,9 @@ class SideBarNav
             echo "    
             <div class='row padding-bottom-1 padding-top-2 padding-horizontal-4 cursor-pointer' onclick='location.href=\"$base/admin\"'> 
                 <div class='col-12 flex left fill-container  padding-horizontal-3'>
-                    <i data-feather='settings' class='grey'></i>
+                    <i data-feather='settings' class='black'></i>
                     <span class=' fill-container  margin-left-2 header-nb'>Users Management</span>
-                    <i data-feather='chevron-down' class='grey'></i>
+                    <i data-feather='chevron-down' class='black'></i>
                 </div>   
             </div>     ";
         } else {
@@ -42,14 +42,14 @@ class SideBarNav
 
         if ($active == 'user' && $type == 'admin') {
             echo "   
-            <a href='$base/adminhome' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base/admin' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2  fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Admin</span> 
             </div></a> 
                 ";
         } else {
             echo "    
-            <a href='$base/adminhome' class=''><div class='row padding-vertical-1'>   
+            <a href='$base/admin' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Admin</span> 
             </div></a> 
@@ -102,14 +102,14 @@ class SideBarNav
         }
         if ($active == 'user' && $type == 'boardingOwner') {
             echo "   
-            <a href='$base/adminhome/viewboardingOwner' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base/admin/userManagement/boardingOwner' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Boarding Owner</span> 
             </div></a> 
                 ";
         } else {
             echo "    
-            <a href='$base/adminhome/viewboardingOwner' class=''><div class='row padding-vertical-1'>   
+            <a href='$base/admin/userManagement/boardingOwner' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Boarding Owner</span> 
             </div></a> 
@@ -154,7 +154,7 @@ class SideBarNav
                 <i data-feather='shopping-bag' class='grey'></i>
                 <span class=' fill-container  margin-left-2 header-nb'>Advertisements</span> 
             </div>   
-            </div><a/>     
+            </div></a>     
         ";
         }
         if ($active == "support") {
