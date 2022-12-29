@@ -108,6 +108,19 @@ class viewModel extends Model
         }
     }
 
+
+    public function getPlace($PlaceId=NULL)
+    {
+        if(isset($PlaceId)){
+            $append = "AND PlaceId = $PlaceId";
+        }
+        else{
+            $append="";
+        }
+        $result = $this->getColumn("BoardingPlace","PlaceId,SummaryLine1, SummaryLine2,SummaryLine3,Price,PriceType,HouseNo,Street,CityName,PropertyType,NoOfMembers,NoOfRooms,NoOfWashRooms,Gender,BoarderType,SquareFeet,Parking");
+        return $result;
+    }
+
     public function getCities()
     {
         $result = $this->get('city', null, 'CityName ASC', null);
