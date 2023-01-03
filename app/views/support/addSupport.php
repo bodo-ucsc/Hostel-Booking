@@ -34,12 +34,8 @@ $base = BASEURL;
                                 <label for="userType" class="bold black">User Type</label><br>
                                 <select name="userType" id="userType" onchange="selectName()" required>
                                     <option value="0">Select User Type</option>
-                                    <?php
-                                    $url = "$base/userManagement/userRest";
-                                    $client = curl_init($url);
-                                    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-                                    $response = curl_exec($client);
-                                    $result = json_decode($response);
+                                    <?php 
+                                    $result = restAPI("userManagement/userRest");
                                     $userTypeArray = array();
                                     foreach ($result as $key => $value) {
                                         array_push($userTypeArray, $value->UserType);

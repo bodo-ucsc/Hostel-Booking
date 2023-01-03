@@ -9,7 +9,22 @@ class viewModel extends Model
     public function checkUser($cond, $value)
     {
         $result = $this->get('user', "$cond = '$value'");
-        return $result;
+        if ($result != null) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
+    public function checkData($table, $condition = NULL)
+    {
+        $result = $this->get($table, $condition);
+        
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
     }
 
     public function getPost($PostId = NULL)
@@ -19,7 +34,7 @@ class viewModel extends Model
         } else {
             $append = "";
         }
-        $result = $this->getColumn("User, PostUpdate, BoardingPlace", "FirstName,LastName,UserType ,ProfilePicture,PostId ,PostUpdate.PlaceId,DateTime,Caption ,Title,SummaryLine1,SummaryLine2,SummaryLine3,Price,PriceType,HouseNo,Street,CityName,PropertyType,NoOfMembers,NoOfRooms,NoOfWashRooms,Gender,BoarderType,SquareFeet,Parking", "User.UserId= PostUpdate.UserId AND PostUpdate.PlaceId=BoardingPlace.PlaceId $append");
+        $result = $this->getColumn("User, PostUpdate", "FirstName,LastName,UserType ,ProfilePicture,PostId ,PlaceId,DateTime,Caption", "User.UserId= PostUpdate.UserId $append");
         return $result;
     }
 
@@ -33,6 +48,26 @@ class viewModel extends Model
         $result = $this->getColumn("User,Comment", "FirstName,LastName,DateTime,comment", "Commentor = UserId $append", "DateTime ASC");
         return $result;
     }
+
+    public function getLike($PostId = NULL, $userId = NULL)
+    {
+        if (isset($PostId)) {
+            $append = "AND Post = $PostId";
+        } else {
+            $append = "";
+        }if (isset($userId)) {
+            $append = "AND Liker = $userId";
+        } else {
+            $append = "";
+        }
+        $result = $this->getColumn("User,React", "FirstName,LastName,Post,DateTime,Reaction", "UserId = Liker $append", "DateTime ASC");
+        if ($result != null) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
     public function getAllrecords($table)
     {
         $res = $this->get($table);
@@ -44,12 +79,6 @@ class viewModel extends Model
         $res = $this->getColumn($table, $column, $condition);
         return $res;
     }
-    public function checkData($table, $condition = NULL)
-    {
-        $res = $this->getColumn($table, "*", $condition);
-        return $res;
-    }
-
     public function retrieveUser($user = null)
     {
         if (isset($user)) {
@@ -104,22 +133,12 @@ class viewModel extends Model
         return $result;
     }
 
-    public function getPlace($PlaceId = NULL)
+    public function getPlace($PlaceId)
     {
-        if (isset($PlaceId)) {
-            $append = "AND PlaceId = $PlaceId";
-        } else {
-            $append = "";
-        }
-        $result = $this->getColumn("BoardingPlace", "PlaceId,SummaryLine1, SummaryLine2,SummaryLine3,Price,PriceType,HouseNo,Street,CityName,PropertyType,NoOfMembers,NoOfRooms,NoOfWashRooms,Gender,BoarderType,SquareFeet,Parking");
+        $result = $this->getColumn("BoardingPlace", "PlaceId,SummaryLine1, SummaryLine2,SummaryLine3,Price,PriceType,HouseNo,Street,CityName,PropertyType,NoOfMembers,NoOfRooms,NoOfWashRooms,Gender,BoarderType,SquareFeet,Parking", "PlaceId = '$PlaceId'");
         return $result;
     }
 
-    public function getCities()
-    {
-        $result = $this->get('city', null, 'CityName ASC', null);
-        return $result;
-    }
     public function getSupport($type, $userid = null)
     {
         if (isset($userid)) {

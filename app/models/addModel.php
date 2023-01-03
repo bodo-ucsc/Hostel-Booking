@@ -130,7 +130,11 @@ class addModel extends Model
     }
     public function addAComment($commenttext, $postid, $commentorid)
     {
-        $this->insert('comment', ['Post' => $postid, 'Commentor' => $commentorid, 'comment' => $commenttext]);
+        $this->insert('Comment', ['Post' => $postid, 'Commentor' => $commentorid, 'comment' => $commenttext]);
+    }
+    public function likePost($postid, $userid)
+    {
+        $this->insert('React', ['Post' => $postid, 'Liker' => $userid, 'Reaction' => 'y']);
     }
     public function postUpdate($userid, $placeid, $caption)
     {

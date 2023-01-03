@@ -2,27 +2,24 @@
 
 class ViewCard
 {
-    public function __construct($FirstName, $LastName, $UserType, $ProfilePicture, $PostId, $DateTime, $Caption, $SummaryLine1, $SummaryLine2, $SummaryLine3, $Price, $PriceType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking, $showComment = null)
+    public function __construct($postId, $showComment = null)
     {
-        $base = BASEURL;
+        $result = restAPI("feed/postRest/$postId");
+
+        $FirstName = $result->FirstName;
+        $LastName = $result->LastName;
+        $UserType = $result->UserType;
+        $ProfilePicture = $result->ProfilePicture;
+        $PostId = $result->PostId;
+        $PlaceId = $result->PlaceId;
+        $DateTime = $result->DateTime;
+        $Caption = $result->Caption;
+
         if ($UserType == "BoardingOwner") {
             $UserType = "Owner";
         } else {
             $UserType = ucfirst($UserType);
         }
-        if ($Parking == 'y') {
-            $Parking = "Available";
-        } else {
-            $Parking = "Not Available";
-        }
-        if ($Gender == "m") {
-            $Gender = "Male";
-        } else if ($Gender == "f") {
-            $Gender = "Female";
-        } else {
-            $Gender = "Any";
-        }
-        $Price = number_format($Price);
         $base = BASEURL;
         echo "
     <div class='advert shadow bg-white border-rounded-more padding-3 display-inline-block'>
@@ -59,131 +56,105 @@ class ViewCard
         <div class='col-12 fill-container left'>
             $Caption
         </div>
-    </div>
+    </div>";
 
-    <div class='row padding-4 '>
-        <div class='col-12 shadow fill-container padding-3 border-rounded-more'>
-            <div class='row'>
-                <div class='col-12 col-large-5 fill-container property-image fill-vertical '>
-                    <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/brewster-mcleod-architects-1486154143.jpg'
-                        class='fill-container fill-vertical  border-rounded-more' alt=''>
+        new PropertyCard($PlaceId, "yes");
+
+
+        $likeresult = restAPI("feed/likeRest/$PostId");
+        $commentCount = count($this->getComment($PostId));
+        $likedArray = array(); 
+        if (!empty($likeresult)) {
+            foreach ($result as $key => $value) {
+                if ($value->Reaction == "y") {
+                    array_push($likedArray, "$value->FirstName $value->LastName");
+                }  
+            }
+        }
+        $likeCount = count($likedArray); 
+        $ltext = "Likes"; 
+        if ($likeCount == 1) {
+            $ltext = "Like";
+        } 
+
+        $ctext = "Comments";
+        if ($commentCount == 1) {
+            $ctext = "Comment";
+        } 
+        echo "
+            <div class='row no-gap padding-2 margin-bottom-2  '>
+                <div class='col-12 fill-container '> 
+                    <div class='row no-gap padding-horizontal-4 padding-vertical-2 bg-white shadow-small border-rounded-more cursor-pointer'>
+
+                            <div class='col-6 dropdown padding-horizontal-4 padding-vertical-2 fill-container '>
+                                <a class='  bg-white left fill-container '><div class='fill-container'> $likeCount $ltext </div></a>
+
+                                <div class='dropdown-content '>";
+        foreach ($likedArray as $key => $value) {
+            echo "<div class=' left padding-left-4 padding-2  '>$value</div>";
+        }
+        echo "
+                                </div> 
+                            </div>  
+                            <div class='col-6 fill-container padding-horizontal-4 padding-vertical-2'>
+                                <a class=' bg-white right fill-container ' onclick='location.href=\"$base/feed/viewPost/$PostId\"'><div class='fill-container'> $commentCount $ctext </div></a>
+                            </div> 
+                        </div>
+                    </div>
                 </div>
+        ";
 
-                <div class='col-12 col-large-7 fill-container padding-3 '>
-                    <div class='row'>
-                        <div class='col-8 header-2 fill-container left'>
-                            $CityName
-                        </div>
-                        <div class='col-4 big bold fill-container right'>
-                            <i data-feather='star' class='fill-black vertical-align-middle'></i>
-                            <span class=' vertical-align-middle'>4.5</span>
-                        </div>
-                    </div>
-                    <div class='row'>
-                        <div class='col-12 fill-container left small grey'>
-                            $Street, $CityName
-                        </div>
-                    </div>
-                    <div class='table padding-vertical-2 margin-top-2'>
-                        <div class='hs less'>
-                            <div title='No. of Members' class='col-2 center fill-container left small grey'>
-                                <span class='display-block center'>
-                                    <i data-feather='users' class='accent'></i></span>
-                                <span class=' display-block center'>$NoOfMembers Members</span>
-                            </div>
-                            <div title='No. of Rooms' class='col-2 center fill-container left small grey'>
-                                <span class='display-block center'>
-                                    <i data-feather='archive' class='accent'></i></span>
-                                <span class=' display-block center'>$NoOfRooms Rooms</span>
-                            </div>
-                            <div title='No. of Washrooms' class='col-2 center fill-container left small grey'>
-                                <span class='display-block center'>
-                                    <i data-feather='grid' class='accent'></i></span>
-                                <span class=' display-block center'>$NoOfWashRooms Washroom</span>
-                            </div>
-                            <div title='Gender' class='col-2 center fill-container left small grey'>
-                                <span class='display-block center'>
-                                    <i data-feather='user' class='accent'></i></span>
-                                <span class=' display-block center'>$Gender</span>
-                            </div>
-                            <div title='Type of Tenant' class='col-2 center fill-container left small grey'>
-                                <span class='display-block center'>
-                                    <i data-feather='briefcase' class='accent'></i></span>
-                                <span class=' display-block center'>$BoarderType</span>
-                            </div>
-                            <div title='Square Feet' class='col-2 center fill-container left small grey'>
-                                <span class='display-block center'>
-                                    <i data-feather='shuffle' class='accent'></i></span>
-                                <span class=' display-block center'>$SquareFeet Sq.Ft</span>
-                            </div>
-                            <div title='Parking availability'
-                                class='col-2 center fill-container left small grey'>
-                                <span class='display-block center'>
-                                    <i data-feather='navigation' class='accent'></i></span>
-                                <span class=' display-block center'>$Parking</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class='row'>
-                        <div class='col-12 fill-container left  grey'>
-                            <ul>
-                                <li>$SummaryLine1</li>
-                                <li>$SummaryLine2</li>
-                                <li>$SummaryLine3</li>
+        $userLike = restAPI("feed/likeRest/$PostId/" . $_SESSION['UserId']);
+        foreach ($userLike as $key => $value) {
+            if ($value->Reaction == "y") {
+                $likeButton = "bg-accent white";
+            } else {
+                $likeButton = "bg-white-hover black-hover";
+            }
+        }
 
-                            </ul>
-                        </div>
-                    </div>
-                    <div class='row no-gap'>
-                        <div class='col-12 fill-container left  '>
-                            <div class='display-inline-block big vertical-align-middle'>
-                                Rs. $Price
-                            </div>
-                            <div class='display-inline-block small vertical-align-middle'>
-                                ($PriceType)
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        </div>
-   
-    <div class='row padding-2'>
-        <!-- like, comment, share buttons -->
+        echo " <div class='row padding-2'> 
         <div class='col-4 fill-container'>
-            <button class='button bold fill-container bg-white-hover black-hover border-rounded-more shadow '>
+            <button onclick='likePost(this,\"$postId\")' class='$likeButton bold fill-container   border-rounded-more shadow '>
                 <i data-feather='thumbs-up' class='vertical-align-middle'></i>
                 <span class='display-none display-large-inline-block vertical-align-middle'>Like</span>
-            </button>
-        </div>
+            </button> 
+        </div>";
+
+        echo "
         <div class='col-4 fill-container'>
             <button class='button bold fill-container bg-white-hover black-hover border-rounded-more shadow ' onclick='location.href=\"$base/feed/viewPost/$PostId\"'>
-                <i data-feather='message-circle' class='vertical-align-middle'></i>
+                <i data-feather='message-square' class='vertical-align-middle'></i>
                 <span class='display-none display-large-inline-block vertical-align-middle'>Comment</span>
             </button>
         </div>
-        <div class='col-4 fill-container'>
-            <button class='button bold fill-container bg-white-hover black-hover border-rounded-more shadow '>
+        <div class='col-4 dropdown fill-container'>
+            <button class=' button bold fill-container bg-white-hover black-hover border-rounded-more shadow '>
                 <i data-feather='share-2' class='vertical-align-middle'></i>
                 <span class='display-none display-large-inline-block vertical-align-middle'>Share</span>
             </button>
-        </div>
+
+            <div class='dropdown-content'>
+                <a onclick=\"window.open('https://www.facebook.com/sharer/sharer.php?u=$base/feed/$PostId')\">
+                    <button class='fill-container border-rounded bg-white-hover left'><i class='vertical-align-middle padding-horizontal-2' data-feather='facebook'></i><span class=' vertical-align-middle'>Facebook</span></button>
+                </a>
+                <a onclick=\"window.open('whatsapp://send?text=$base/feed/$PostId')\">
+                    <button class='fill-container border-rounded bg-white-hover left'><i class='vertical-align-middle padding-horizontal-2' data-feather='message-circle'></i><span class=' vertical-align-middle'>WhatsApp</span></button>
+                </a>
+                <a onclick=\"window.open('https://telegram.me/share/url?url=$base/feed/$PostId')\">
+                    <button class='fill-container border-rounded bg-white-hover left'><i class='vertical-align-middle padding-horizontal-2' data-feather='send'></i><span class=' vertical-align-middle'>Telegram</span></button>
+                </a>
+            </div>
+        </div> 
     </div>";
+
         if (isset($showComment)) {
             echo "<div class='margin-top-3 row bg-light-grey border-rounded padding-vertical-4 padding-horizontal-3'>";
 
-            $url = "$base/feed/commentRest/$PostId";
-            $client = curl_init($url);
-            curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-            $response = curl_exec($client);
-            $result = json_decode($response);
+            $result = $this->getComment($PostId);
 
             foreach ($result as $key => $value) {
-                $comment = new comment($value->FirstName, $value->LastName, $value->DateTime, $value->Comment);
+                new comment($value->FirstName, $value->LastName, $value->DateTime, $value->Comment);
             }
 
             echo "</div>";
@@ -203,5 +174,10 @@ class ViewCard
             </form>";
         }
         echo "</div>";
+    }
+
+    protected function getComment($PostId)
+    {
+        return restAPI("feed/commentRest/$PostId");
     }
 }

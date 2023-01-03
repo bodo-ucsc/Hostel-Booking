@@ -9,16 +9,44 @@ class loginModel extends Model
         parent::__construct();
     }
 
-    public function login($username, $password, $usertype)
+    public function login($username, $password)
     {
-        $result = $this->get('user', "Username = '$username' AND UserType = '$usertype'");
+        $result = $this->union('User', 'User', '*', "Username = '$username' ", "Email = '$username'");
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row['Password'])) {
-                return $this->get('user', "Username = '$username' ");
+                return $this->union('User', 'User', '*', "Username = '$username' ", "Email = '$username'");
             } else {
                 return null;
             }
-        } 
+        }
     }
-}
+
+    public function retrieveUserName()
+    {
+        $result = $this->getColumn('User', 'Username');
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+    public function retrieveUserEmail()
+    {
+        $result = $this->getColumn('User', 'Email');
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+    public function retrieveUserNumber()
+    {
+        $result = $this->getColumn('User', 'ContactNumber');
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+} 

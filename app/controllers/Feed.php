@@ -3,29 +3,21 @@
 
 class Feed extends Controller
 {
-    public function index($message = null)
+    public function index($PostId = null)
     {
-        if (isset($message)) {
 
-            $alert = 'error'; 
-            if ($message == 'fail') {
-                $message = "Insertion Failed";
-            } else if ($message == 'success') {
-                $message = "Inserted Successfully";
-                $alert = 'success';
-            }
+        if (!isset($PostId)) {
+            $row = $this->model('viewModel')->getId("PostUpdate", "PostId");
+            $this->view('Feed/index', ['row' => $row]);
         } else {
-            $message = null;
-            $alert = null;
+            header("Location: " . BASEURL . "/feed/viewPost/$PostId");
         }
-
-        $row = $this->model('viewModel')->getId("PostUpdate", "PostId");
-
-        $this->view('Feed/index', ['row' => $row, 'message' => $message, 'alert' => $alert]);
     }
 
-    public function postRest($PostId=null)
+    public function postRest($PostId = null)
     {
+
+        "FirstName,LastName,UserType ,ProfilePicture,PostId ,PlaceId,DateTime,Caption";
         $data = $this->model('viewModel')->getPost($PostId);
         while ($row = $data->fetch_assoc()) {
             $json['FirstName'] = $row['FirstName'];
@@ -33,22 +25,25 @@ class Feed extends Controller
             $json['UserType'] = $row['UserType'];
             $json['ProfilePicture'] = $row['ProfilePicture'];
             $json['PostId'] = $row['PostId'];
+            $json['PlaceId'] = $row['PlaceId'];
             $json['DateTime'] = $row['DateTime'];
             $json['Caption'] = $row['Caption'];
-            $json['SummaryLine1'] = $row['SummaryLine1'];
-            $json['SummaryLine2'] = $row['SummaryLine2'];
-            $json['SummaryLine3'] = $row['SummaryLine3'];
-            $json['Price'] = $row['Price'];
-            $json['PriceType'] = $row['PriceType'];
-            $json['Street'] = $row['Street'];
-            $json['CityName'] = $row['CityName'];
-            $json['NoOfMembers'] = $row['NoOfMembers'];
-            $json['NoOfRooms'] = $row['NoOfRooms'];
-            $json['NoOfWashRooms'] = $row['NoOfWashRooms'];
-            $json['Gender'] = $row['Gender'];
-            $json['BoarderType'] = $row['BoarderType'];
-            $json['SquareFeet'] = $row['SquareFeet'];
-            $json['Parking'] = $row['Parking'];
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function likeRest($PostId = null, $userId = null)
+    {
+        $data = $this->model('viewModel')->getLike($PostId, $userId);
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['FirstName'] = $row['FirstName'];
+            $array['LastName'] = $row['LastName'];
+            $array['Post'] = $row['Post'];
+            $array['Reaction'] = $row['Reaction'];
+            $array['DateTime'] = $row['DateTime'];
+            array_push($json, $array);
         }
         $json_response = json_encode($json);
         echo $json_response;
@@ -76,40 +71,37 @@ class Feed extends Controller
         new HTMLHeader("Feed | Post");
         new Navigation("feed");
 
-        $url = "$base/feed/postRest/$PostId";
-        $client = curl_init($url);
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($client);
-        $result = json_decode($response);
 
         echo "<div class='navbar-offset full-width center'>";
-        new ViewCard(
-                $result->FirstName,
-                $result->LastName,
-                $result->UserType,
-                $result->ProfilePicture,
-                $result->PostId,
-                $result->DateTime,
-                $result->Caption,
-                $result->SummaryLine1,
-                $result->SummaryLine2,
-                $result->SummaryLine3,
-                $result->Price,
-                $result->PriceType,
-                $result->Street,
-                $result->CityName,
-                $result->NoOfMembers,
-                $result->NoOfRooms,
-                $result->NoOfWashRooms,
-                $result->Gender,
-                $result->BoarderType,
-                $result->SquareFeet,
-                $result->Parking,
-            "yes"
-        );
+        new ViewCard($PostId, "yes");
 
 
         echo "</div>";
+        echo "
+        <script>
+         function likePost(elem,post) {
+            var url = \"$base/feed/likeToggle/\" + post;
+            var stat;
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => {
+                    if (json == 'liked') {
+                        console.log('liked');
+                        elem.classList.add('bg-accent');
+                        elem.classList.add('white');
+                        elem.classList.remove('black-hover');
+                        elem.classList.remove('bg-white-hover');
+                    } else {
+                        console.log('removed');
+                        elem.classList.add('black-hover');
+                        elem.classList.add('bg-white-hover');
+                        elem.classList.remove('bg-accent');
+                        elem.classList.remove('white');
+                    }
+                });
+        };
+        </script>
+        ";
         new HTMLFooter();
     }
     public function postUpdate()
@@ -127,6 +119,34 @@ class Feed extends Controller
         }
     }
 
+    public function likeToggle($PostId = null)
+    {
+        if (isset($PostId)) {
+            $UserId = $_SESSION['UserId'];
+
+
+            $test = $this->model('viewModel')->checkData("React", "Post = '$PostId' AND Liker = '$UserId'");
+            if ($test != NULL) { 
+                while ($row = $test->fetch_assoc()) {
+                    $Reaction = $row['Reaction'];
+                }
+                if ($Reaction == "y") {
+                    $this->model('editModel')->toggleLike($PostId, $UserId, "n");
+                    $result = "removed";
+                } else {
+                    $this->model('editModel')->toggleLike($PostId, $UserId, "y");
+                    $result = "liked";
+                }
+
+            } else {
+                $this->model('addModel')->likePost($PostId, $UserId);
+                $result = "liked";
+            }
+            echo json_encode($result);
+
+        }
+    }
+
     public function addComment()
     {
 
@@ -134,8 +154,8 @@ class Feed extends Controller
             $commenttext = $_POST['comment'];
             $PostId = $_POST['postid'];
             $commentorid = $_SESSION['UserId'];
-            $this->model('addModel')->addAComment($commenttext,$PostId,$commentorid);
-           
+            $this->model('addModel')->addAComment($commenttext, $PostId, $commentorid);
+
             header("Location: " . BASEURL . "/feed/viewPost/$PostId");
         }
 
@@ -143,7 +163,7 @@ class Feed extends Controller
 
     public function deleteComment($post_id)
     {
-         if (isset($post_id)) {
+        if (isset($post_id)) {
             $this->model('deleteModel')->deleteComment($post_id);
         }
     }
