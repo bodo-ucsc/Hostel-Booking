@@ -38,6 +38,16 @@ class viewModel extends Model
         return $result;
     }
 
+    public function getCommentCount($PostId = NULL)
+    {
+        if (isset($PostId)) {
+            $append = " Post = $PostId";
+        } else {
+            $append = "";
+        }
+        $result = $this->getGroup("Comment", "Post, COUNT(Post) AS Comments", "$append", "Post");
+        return $result;
+    }
     public function getComment($PostId = NULL)
     {
         if (isset($PostId)) {
@@ -49,18 +59,29 @@ class viewModel extends Model
         return $result;
     }
 
-    public function getLike($PostId = NULL, $userId = NULL)
+    public function getLikeCount($PostId = NULL)
     {
         if (isset($PostId)) {
             $append = "AND Post = $PostId";
         } else {
             $append = "";
-        }if (isset($userId)) {
-            $append = "AND Liker = $userId";
+        }
+        $result = $this->getGroup("React", "Post, COUNT(Post) AS Likes", "Reaction = 'y' $append", "Post");
+        return $result;
+    }
+    public function getLike($PostId = NULL,$userId = NULL)
+    {
+        if (isset($PostId) && $PostId != 0) {
+            $append = "AND Post = '$PostId'";
         } else {
             $append = "";
         }
-        $result = $this->getColumn("User,React", "FirstName,LastName,Post,DateTime,Reaction", "UserId = Liker $append", "DateTime ASC");
+        if (isset($userId)) {
+            $append .= "AND UserId = '$userId'";
+        } else {
+            $append .= "";
+        }
+        $result = $this->getColumn("User,React", "FirstName,LastName,Liker,Post,DateTime,Reaction", "UserId = Liker $append", "Post ASC");
         if ($result != null) {
             return $result;
         } else {

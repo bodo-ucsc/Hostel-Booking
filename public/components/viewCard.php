@@ -2,18 +2,16 @@
 
 class ViewCard
 {
-    public function __construct($postId, $showComment = null)
+    public function __construct($value, $comments = null)
     {
-        $result = restAPI("feed/postRest/$postId");
-
-        $FirstName = $result->FirstName;
-        $LastName = $result->LastName;
-        $UserType = $result->UserType;
-        $ProfilePicture = $result->ProfilePicture;
-        $PostId = $result->PostId;
-        $PlaceId = $result->PlaceId;
-        $DateTime = $result->DateTime;
-        $Caption = $result->Caption;
+        $FirstName = $value->FirstName;
+        $LastName = $value->LastName;
+        $UserType = $value->UserType;
+        $ProfilePicture = $value->ProfilePicture;
+        $PostId = $value->PostId; 
+        $PlaceId = $value->PlaceId;
+        $DateTime = $value->DateTime;
+        $Caption = $value->Caption;
 
         if ($UserType == "BoardingOwner") {
             $UserType = "Owner";
@@ -60,62 +58,31 @@ class ViewCard
 
         new PropertyCard($PlaceId, "yes");
 
+ 
 
-        $likeresult = restAPI("feed/likeRest/$PostId");
-        $commentCount = count($this->getComment($PostId));
-        $likedArray = array(); 
-        if (!empty($likeresult)) {
-            foreach ($result as $key => $value) {
-                if ($value->Reaction == "y") {
-                    array_push($likedArray, "$value->FirstName $value->LastName");
-                }  
-            }
-        }
-        $likeCount = count($likedArray); 
-        $ltext = "Likes"; 
-        if ($likeCount == 1) {
-            $ltext = "Like";
-        } 
-
-        $ctext = "Comments";
-        if ($commentCount == 1) {
-            $ctext = "Comment";
-        } 
         echo "
             <div class='row no-gap padding-2 margin-bottom-2  '>
                 <div class='col-12 fill-container '> 
                     <div class='row no-gap padding-horizontal-4 padding-vertical-2 bg-white shadow-small border-rounded-more cursor-pointer'>
 
                             <div class='col-6 dropdown padding-horizontal-4 padding-vertical-2 fill-container '>
-                                <a class='  bg-white left fill-container '><div class='fill-container'> $likeCount $ltext </div></a>
+                                <a class='  bg-white left fill-container '><div class='fill-container' id='like-count-$PostId'>0 Likes</div></a>
 
-                                <div class='dropdown-content '>";
-        foreach ($likedArray as $key => $value) {
-            echo "<div class=' left padding-left-4 padding-2  '>$value</div>";
-        }
-        echo "
+                                <div id='like-list-$PostId' class='dropdown-content '>
                                 </div> 
                             </div>  
                             <div class='col-6 fill-container padding-horizontal-4 padding-vertical-2'>
-                                <a class=' bg-white right fill-container ' onclick='location.href=\"$base/feed/viewPost/$PostId\"'><div class='fill-container'> $commentCount $ctext </div></a>
+                                <a  class=' bg-white right fill-container ' onclick='location.href=\"$base/feed/viewPost/$PostId\"'><div class='fill-container' id='comment-count-$PostId'> 0 Comments  </div></a>
                             </div> 
                         </div>
                     </div>
                 </div>
         ";
 
-        $userLike = restAPI("feed/likeRest/$PostId/" . $_SESSION['UserId']);
-        foreach ($userLike as $key => $value) {
-            if ($value->Reaction == "y") {
-                $likeButton = "bg-accent white";
-            } else {
-                $likeButton = "bg-white-hover black-hover";
-            }
-        }
 
         echo " <div class='row padding-2'> 
         <div class='col-4 fill-container'>
-            <button onclick='likePost(this,\"$postId\")' class='$likeButton bold fill-container   border-rounded-more shadow '>
+            <button onclick='likePost(this,\"$PostId\")' id='like-button-$PostId' class='bold fill-container   border-rounded-more shadow '>
                 <i data-feather='thumbs-up' class='vertical-align-middle'></i>
                 <span class='display-none display-large-inline-block vertical-align-middle'>Like</span>
             </button> 
@@ -148,36 +115,37 @@ class ViewCard
         </div> 
     </div>";
 
-        if (isset($showComment)) {
-            echo "<div class='margin-top-3 row bg-light-grey border-rounded padding-vertical-4 padding-horizontal-3'>";
+        if (isset($comments)) {
+            echo "<div id='comment-list-$PostId' class='margin-top-3 row bg-light-grey border-rounded padding-vertical-4 padding-horizontal-3'></div>";
+            if (isset($_SESSION['UserId'])) {
+                echo "
+                    <form action= '$base/Feed/addComment' method='post'>
+                    <div class='row '>
+                        <div class='col-10 fill-container'>
+                            <input type='text' class='vertical-align-middle fill-container margin-top-4' id='comment' name='comment'
+                            placeholder='Your Message' required>
+                        </div>
+                        <div class='col-2 fill-container'>
+                            <button role='submit' class='border-rounded vertical-align-middle fill-container bg-blue-hover white-hover'>
+                            <i data-feather='send' class='feather-body'></i>
+                            </button>
+                        </div>
+                    </div>
+                    <input type='hidden' id='postid' name='postid' value=$PostId>
+                    </form>";
+            } else {
+                echo "<div class='row padding-2'>
+                        <div class='col-12 fill-container'>
+                            <button class='button bold fill-container bg-white-hover black-hover border-rounded-more shadow ' onclick='location.href=\"$base/signin\"'>
+                                <i data-feather='message-square' class='vertical-align-middle'></i>
+                                <span class='display-none display-large-inline-block vertical-align-middle'>Login to Comment</span>
+                            </button>
+                        </div> 
+                    </div>";
 
-            $result = $this->getComment($PostId);
-
-            foreach ($result as $key => $value) {
-                new comment($value->FirstName, $value->LastName, $value->DateTime, $value->Comment);
             }
-
-            echo "</div>";
-            echo "<form action= '$base/Feed/addComment' method='post'>
-            <div class='row '>
-                <div class='col-10 fill-container'>
-                    <input type='text' class='vertical-align-middle fill-container margin-top-4' id='comment' name='comment'
-                    placeholder='Your Message' required>
-                </div>
-                <div class='col-2 fill-container'>
-                    <button role='submit' class='border-rounded vertical-align-middle fill-container bg-blue-hover white-hover'>
-                      <i data-feather='send' class='feather-body'></i>
-                    </button>
-                </div>
-            </div>
-            <input type='hidden' id='postid' name='postid' value=$PostId>
-            </form>";
         }
-        echo "</div>";
-    }
 
-    protected function getComment($PostId)
-    {
-        return restAPI("feed/commentRest/$PostId");
+        echo "</div>";
     }
 }
