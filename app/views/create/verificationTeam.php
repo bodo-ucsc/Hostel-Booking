@@ -44,14 +44,15 @@ $base = BASEURL . '/admin';
                         </div>
                         <div class="row">
                             <div class="col-12 col-medium-4 fill-container">
-                                <label for="mobile" class="bold black">Mobile</label><br>
+                                <label for="mobile" id="mobileLabel" class="bold black">Mobile</label><br>
                                 <input type="tel" class="fill-container" id="mobile" name="mobile"
-                                    placeholder="+94 077 123 4567" required><br>
+                                    onkeyup="checkUserNumber()" placeholder="+94 077 123 4567" required><br>
                             </div>
                             <div class="col-12 col-medium-5 fill-container">
-                                <label for="email" class="bold black">Email</label><br>
+                                <label id="emailLabel" for="email" class="bold black">Email</label><br>
                                 <input type="email" class="fill-container" id="email" name="email"
-                                    placeholder="Enter Email" required><br>
+                                    onkeyup="checkUserEmail()" placeholder="Enter Email" required><br>
+
                             </div>
                             <div class="col-12 col-medium-3 fill-container padding-bottom-4">
                                 <!-- gender radio buttons-->
@@ -80,9 +81,9 @@ $base = BASEURL . '/admin';
                         <h2 class="header-2">Login Credentials</h2>
                         <div class="row fill-container">
                             <div class="col-12 col-medium-4 col-large-12 fill-container">
-                                <label for="username" class="bold black">Username</label><br>
+                                <label id="usernameLabel" for="username" class="bold black">Username</label><br>
                                 <input type="text" id="username" name="username" placeholder="Enter Username"
-                                    required><br>
+                                    onkeyup="checkUserName()" required><br>
                             </div>
                             <div class="col-12 col-medium-4 col-large-12 fill-container">
                                 <label for="password" class="bold black">Password</label><br>
@@ -107,6 +108,117 @@ $base = BASEURL . '/admin';
 
 
 <script>
+
+
+
+    let emailArray = [];
+    // fetch post
+    fetch("<?php echo BASEURL ?>/userManagement/getUserEmail", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+            api_key: "bodocode"
+        })
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            for (var i = 0; i < json.length; i++) {
+                emailArray.push(json[i].Email);
+            }
+        });
+
+
+
+    let numberArray = [];
+    // fetch post
+    fetch("<?php echo BASEURL ?>/userManagement/getUserNumber", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+            api_key: "bodocode"
+        })
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            for (var i = 0; i < json.length; i++) {
+                numberArray.push(json[i].ContactNumber);
+            }
+        });
+
+
+    let usernameArray = [];
+    fetch("<?php echo BASEURL ?>/userManagement/getUserName", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+            api_key: "bodocode"
+        })
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            for (var i = 0; i < json.length; i++) {
+                usernameArray.push(json[i].Username);
+            }
+        });
+
+    async function checkUserName() {
+        var username = document.getElementById("username");
+        if (usernameArray.includes(username.value)) {
+            username.classList.add("bg-red");
+            document.getElementById("usernameLabel").classList.add("red");
+            document.getElementById("usernameLabel").classList.remove("black");
+            username.setCustomValidity("Username exists");
+            username.title = "Username exists";
+
+        } else {
+            username.setCustomValidity("");
+            document.getElementById("usernameLabel").classList.add("black");
+            document.getElementById("usernameLabel").classList.remove("red");
+            username.classList.remove("bg-red");
+            username.title = "";
+
+        }
+
+    }
+    async function checkUserEmail() {
+        var email = document.getElementById("email");
+        if (emailArray.includes(email.value)) {
+            email.classList.add("bg-red"); document.getElementById("emailLabel").classList.add("red");
+            document.getElementById("emailLabel").classList.remove("black");
+            email.setCustomValidity("Email already in use");
+            email.title = "Email already in use";
+
+        } else {
+            email.setCustomValidity(""); document.getElementById("emailLabel").classList.add("black");
+            document.getElementById("emailLabel").classList.remove("red");
+            email.classList.remove("bg-red");
+            email.title = "";
+        }
+
+    }
+    async function checkUserNumber() {
+        var mobile = document.getElementById("mobile");
+        if (numberArray.includes(mobile.value)) {
+            mobile.classList.add("bg-red"); document.getElementById("mobileLabel").classList.add("red");
+            document.getElementById("mobileLabel").classList.remove("black");
+            mobile.setCustomValidity("Number already in use");
+            mobile.title = "Number already in use";
+
+        } else {
+            mobile.setCustomValidity(""); document.getElementById("mobileLabel").classList.add("black");
+            document.getElementById("mobileLabel").classList.remove("red");
+            mobile.classList.remove("bg-red");
+            mobile.title = "";
+        }
+
+    }
+
     var password = document.getElementById("password")
         , confirm_password = document.getElementById("repassword");
 

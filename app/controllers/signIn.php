@@ -16,161 +16,19 @@ class SignIn extends Controller
             $message = null;
             $alert = null;
         }
-        $this->view('signIn/student', ['message' => $message, 'alert' => $alert]);
+        $this->view('signIn/index', ['message' => $message, 'alert' => $alert]);
     }
-
-    public function student($message = null)
-    {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
-        }
-        $this->view('signIn/student', ['message' => $message, 'alert' => $alert]);
-    }
-
-    public function verificationteam($message = null)
-    {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
-        }
-        $this->view('signIn/verificationTeam', ['message' => $message, 'alert' => $alert]);
-    }
-
-    public function professional($message = null)
-    {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
-        }
-        $this->view('signIn/professional', ['message' => $message, 'alert' => $alert]);
-    }
-
-    public function admin($message = null)
-    {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
-        }
-        $this->view('signIn/admin', ['message' => $message, 'alert' => $alert]);
-    }
-
-    public function boardingowner($message = null)
-    {
-        if ($message == 'error') {
-            $message = "Incorrect username or password";
-            $alert = 'error';
-        } else if ($message == 'success') {
-            $message = "Successfully registered";
-            $alert = 'success';
-        } else {
-            $message = null;
-            $alert = null;
-        }
-        $this->view('signIn/boardingowner', ['message' => $message, 'alert' => $alert]);
-    }
-
 
     // Login Implementation
 
-    public function adminLogin()
+    public function login()
     {
         if (isset($_POST['username'])) {
 
             $username = $_POST['username'];
             $password = $_POST['password'];
 
-            $this->login($username, $password, 'Admin');
-        } else {
-            header("Location: " . BASEURL . "/signin/admin");
-        }
-    }
-
-    public function verificationTeamLogin()
-    {
-        if (isset($_POST['username'])) {
-
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-
-            $this->login($username, $password, 'VerificationTeam');
-        } else {
-            header("Location: " . BASEURL . "/signin/verificationTeam");
-        }
-    }
-
-    public function studentLogin()
-    {
-        if (isset($_POST['username'])) {
-
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-
-            $this->login($username, $password, 'Student');
-        } else {
-            header("Location: " . BASEURL . "/signin/student");
-        }
-    }
-
-    public function professionalLogin()
-    {
-        if (isset($_POST['username'])) {
-
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-
-            $this->login($username, $password, 'Professional');
-        } else {
-            header("Location: " . BASEURL . "/signin/professional");
-        }
-    }
-
-    public function boardingOwnerLogin()
-    {
-        if (isset($_POST['username'])) {
-
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-
-            $this->login($username, $password, 'BoardingOwner');
-        } else {
-            header("Location: " . BASEURL . "/signin/boardingOwner");
-        }
-    }
-
-    // SignIn Functionality
-
-    public function login($username = null, $password = null, $usertype = null)
-    {
-        if ($username != null) {
-
-            echo $username;
-
-            $result = $this->model('loginModel')->login($username, $password, $usertype);
+            $result = $this->model('loginModel')->login($username, $password);
 
             if ($result != null) {
                 session_destroy();
@@ -183,21 +41,28 @@ class SignIn extends Controller
                 $_SESSION['role'] = $row['UserType'];
 
                 echo "success";
-                header('Location: ../home');
                 if ($row['UserType'] == 'Admin') {
                     header('Location: ' . BASEURL . '/admin');
                 }
+
+                if ($row['UserType'] == 'BoardingOwner') {
+                    header('Location: ' . BASEURL . '/BoardingOwner');
+                }
+
+                header('Location: '. BASEURL );
             } else {
                 echo "message";
-                header("Location: ./$usertype/message");
+                header("Location: " . BASEURL . "/signin/error");
 
             }
 
         } else {
             header("Location: " . BASEURL . "/signin");
         }
-
     }
+
+    // SignIn Functionality
+
 
     public function forgot_password()
     {

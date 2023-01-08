@@ -130,11 +130,24 @@ class addModel extends Model
     }
     public function addAComment($commenttext, $postid, $commentorid)
     {
-        $this->insert('comment', ['Post' => $postid, 'Commentor' => $commentorid, 'comment' => $commenttext]);
+        $this->insert('Comment', ['Post' => $postid, 'Commentor' => $commentorid, 'comment' => $commenttext]);
+    }
+    public function likePost($postid, $userid)
+    {
+        $this->insert('React', ['Post' => $postid, 'Liker' => $userid, 'Reaction' => 'y']);
     }
     public function postUpdate($userid, $placeid, $caption)
     {
         $this->insert('PostUpdate', ['UserId' => $userid, 'PlaceId' => $placeid, 'Caption' => $caption]);
+        if ($this->mysqli->affected_rows == 1) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
+    }
+    public function addSupport($type, $userId, $support, $description, $requestTo = 7)
+    { 
+        $this->insert('Support', ['SupportType' => $type, 'RequestBy' => $userId, 'SupportTitle' => $support, 'SupportMessage' => $description,'RequestTo' => $requestTo ]);
         if ($this->mysqli->affected_rows == 1) {
             return 'success';
         } else {

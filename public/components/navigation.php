@@ -19,7 +19,7 @@ class Navigation
         echo "
                 <header class='bg-white display-medium-block display-none'>
                         <div class='row'>
-                            <div class=' col-3 nav-logo'>
+                            <div class='cursor-pointer col-3 nav-logo' onclick='location.href=\"$base\"'> 
                                 <img src='$base/public/images/logo.svg' alt='logo'>
                             </div>
                             <nav class='col-6  nav-link  fill-container header-nb'>";

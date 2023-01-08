@@ -3,58 +3,102 @@
 
 class Feed extends Controller
 {
-    public function index($message = null)
+    public function index($PostId = null)
     {
-        if (isset($message)) {
-
-            $alert = 'error'; 
-            if ($message == 'fail') {
-                $message = "Insertion Failed";
-            } else if ($message == 'success') {
-                $message = "Inserted Successfully";
-                $alert = 'success';
-            }
+        if (!isset($PostId)) {
+            $this->view('Feed/index');
         } else {
-            $message = null;
-            $alert = null;
+            header("Location: " . BASEURL . "/feed/viewPost/$PostId");
         }
-
-        $row = $this->model('viewModel')->getId("PostUpdate", "PostId");
-
-        $this->view('Feed/index', ['row' => $row, 'message' => $message, 'alert' => $alert]);
     }
 
-    public function postRest($PostId=null)
+    public function postRest($PostId = null)
     {
         $data = $this->model('viewModel')->getPost($PostId);
+        $json = array();
         while ($row = $data->fetch_assoc()) {
-            $json['FirstName'] = $row['FirstName'];
-            $json['LastName'] = $row['LastName'];
-            $json['UserType'] = $row['UserType'];
-            $json['ProfilePicture'] = $row['ProfilePicture'];
-            $json['PostId'] = $row['PostId'];
-            $json['DateTime'] = $row['DateTime'];
-            $json['Caption'] = $row['Caption'];
-            $json['SummaryLine1'] = $row['SummaryLine1'];
-            $json['SummaryLine2'] = $row['SummaryLine2'];
-            $json['SummaryLine3'] = $row['SummaryLine3'];
-            $json['Price'] = $row['Price'];
-            $json['PriceType'] = $row['PriceType'];
-            $json['Street'] = $row['Street'];
-            $json['CityName'] = $row['CityName'];
-            $json['NoOfMembers'] = $row['NoOfMembers'];
-            $json['NoOfRooms'] = $row['NoOfRooms'];
-            $json['NoOfWashRooms'] = $row['NoOfWashRooms'];
-            $json['Gender'] = $row['Gender'];
-            $json['BoarderType'] = $row['BoarderType'];
-            $json['SquareFeet'] = $row['SquareFeet'];
-            $json['Parking'] = $row['Parking'];
+            $array['FirstName'] = $row['FirstName'];
+            $array['LastName'] = $row['LastName'];
+            $array['UserType'] = $row['UserType'];
+            $array['ProfilePicture'] = $row['ProfilePicture'];
+            $array['PostId'] = $row['PostId'];
+            $array['PlaceId'] = $row['PlaceId'];
+            $array['DateTime'] = $row['DateTime'];
+            $array['Caption'] = $row['Caption'];
+            array_push($json, $array);
         }
         $json_response = json_encode($json);
         echo $json_response;
     }
 
-    public function commentRest($PostId)
+    public function likeRest($PostId = null, $userId = null)
+    {
+        $data = $this->model('viewModel')->getLike($PostId, $userId);
+        $json = array();
+        $array = array();
+
+        if ($data != null) {
+            $post = $data->fetch_assoc();
+            $count = 0;
+            $postArray['Post'] = $post['Post'];
+            $data->data_seek(0);
+            while ($row = $data->fetch_assoc()) {
+                if ($row['Post'] == $postArray['Post']) {
+                    $postArray['FirstName'] = $row['FirstName'];
+                    $postArray['LastName'] = $row['LastName'];
+                    $postArray['Liker'] = $row['Liker'];
+                    $postArray['Post'] = $row['Post'];
+                    $postArray['Reaction'] = $row['Reaction'];
+                    $postArray['DateTime'] = $row['DateTime'];
+                    array_push($array, $postArray);
+                } else {
+                    array_push($json, $array);
+                    $array = array();
+                    $postArray['FirstName'] = $row['FirstName'];
+                    $postArray['LastName'] = $row['LastName'];
+                    $postArray['Liker'] = $row['Liker'];
+                    $postArray['Post'] = $row['Post'];
+                    $postArray['Reaction'] = $row['Reaction'];
+                    $postArray['DateTime'] = $row['DateTime'];
+                    array_push($array, $postArray);
+                }
+            }
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function likeCountRest($postId = null)
+    {
+        $data = $this->model('viewModel')->getLikeCount($postId);
+        $json = array();
+        if ($data != null) {
+            while ($row = $data->fetch_assoc()) {
+                $array['Post'] = $row['Post'];
+                $array['Likes'] = $row['Likes'];
+                array_push($json, $array);
+            }
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+    public function commentCountRest($postId = null)
+    {
+        $data = $this->model('viewModel')->getCommentCount($postId);
+        $json = array();
+        if ($data != null) {
+            while ($row = $data->fetch_assoc()) {
+                $array['Post'] = $row['Post'];
+                $array['Comments'] = $row['Comments'];
+                array_push($json, $array);
+            }
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function commentRest($PostId = null)
     {
         $data = $this->model('viewModel')->getComment($PostId);
         $json = array();
@@ -62,7 +106,8 @@ class Feed extends Controller
             $array['FirstName'] = $row['FirstName'];
             $array['LastName'] = $row['LastName'];
             $array['PostId'] = $PostId;
-            $array['DateTime'] = $row['DateTime'];
+            $timestamp = strtotime($row['DateTime']);
+            $array['DateTime'] = date("M d, Y h.i A", $timestamp);
             $array['Comment'] = $row['comment'];
             array_push($json, $array);
         }
@@ -76,40 +121,125 @@ class Feed extends Controller
         new HTMLHeader("Feed | Post");
         new Navigation("feed");
 
-        $url = "$base/feed/postRest/$PostId";
-        $client = curl_init($url);
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($client);
-        $result = json_decode($response);
+
 
         echo "<div class='navbar-offset full-width center'>";
-        new ViewCard(
-                $result->FirstName,
-                $result->LastName,
-                $result->UserType,
-                $result->ProfilePicture,
-                $result->PostId,
-                $result->DateTime,
-                $result->Caption,
-                $result->SummaryLine1,
-                $result->SummaryLine2,
-                $result->SummaryLine3,
-                $result->Price,
-                $result->PriceType,
-                $result->Street,
-                $result->CityName,
-                $result->NoOfMembers,
-                $result->NoOfRooms,
-                $result->NoOfWashRooms,
-                $result->Gender,
-                $result->BoarderType,
-                $result->SquareFeet,
-                $result->Parking,
-            "yes"
-        );
 
-
+        $result = restAPI("feed/postRest/$PostId");
+        new ViewCard($result[0], "y");
         echo "</div>";
+        echo "
+        <script>
+
+        window.onload = function(){
+            isLiked();
+            fetchLikes();
+            fetchComments();
+        };
+
+
+        setInterval(function(){
+            fetchLikes();
+            fetchComments();
+        }, 1000);
+
+        function isLiked(){
+            var url = \"$base/feed/likeRest/$PostId/" . $_SESSION['UserId'] . "\"; 
+            var elem = document.getElementById('like-button-$PostId');
+            elem.classList.add('black-hover');
+            elem.classList.add('bg-white-hover');
+            elem.classList.remove('bg-accent');
+            elem.classList.remove('white');
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => { 
+                    if(json[0][0].Reaction === 'y'){
+                    
+                        elem.classList.add('bg-accent');
+                        elem.classList.add('white');
+                        elem.classList.remove('black-hover');
+                        elem.classList.remove('bg-white-hover');
+                    } 
+                });
+        };
+
+        function fetchComments(){
+            var url = \"$base/feed/commentRest/$PostId\";
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => {
+                    if(json.length == 1){
+                        document.getElementById('comment-count-$PostId').innerHTML = '1 Comment';
+                    }else{
+                        document.getElementById('comment-count-$PostId').innerHTML = json.length + ' Comments';
+                    }
+                    var elem = document.getElementById('comment-list-$PostId');
+                    elem.innerHTML = '';
+                    for (var i = 0; i < json.length; i++) {
+                        var comment = json[i];
+                        console.log(comment);
+                        var commentElem = document.createElement('div');
+                        commentElem.classList.add('col-11');
+                        commentElem.classList.add('fill-container');
+                        commentElem.innerHTML = \"<div class='row no-gap padding-3 bg-white shadow-small border-rounded'><div class='col-12 fill-container left small bold'>\" + comment.FirstName + \" \" + comment.LastName + \"</div><div class='col-12 fill-container left padding-bottom-2 '>\" + comment.Comment + \"</div><div class='col-12 fill-container right small grey '>\" +comment.DateTime + \"</div></div>\";
+                        elem.appendChild(commentElem);
+                    }
+                });
+        };
+        function fetchLikes(){
+            var url = \"$base/feed/likeRest/$PostId\";
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => {
+                    var elem = document.getElementById('like-list-$PostId');
+                    var count = 0;
+                    elem.innerHTML = '';
+                    for (var i = 0; i < json.length; i++) { 
+                        for (var j = 0; j < json[i].length; j++) {
+                            if(json[i][j].Reaction === 'y'){
+                                count++;
+                                var likes = json[i][j];
+                                var likeElem = document.createElement('div');
+                                likeElem.classList.add('padding-left-4'); 
+                                likeElem.classList.add('left'); 
+                                likeElem.classList.add('padding-2'); 
+                                likeElem.innerHTML =  likes.FirstName + \" \" + likes.LastName;
+                                elem.appendChild(likeElem);
+                            }
+                        }
+                         
+                    } 
+                    if(count === 1){
+                        document.getElementById('like-count-$PostId').innerHTML = '1 Like';
+                    }else{
+                        document.getElementById('like-count-$PostId').innerHTML = count + ' Likes';
+                    }
+                });
+        };
+         function likePost(elem,post) {
+            var url = \"$base/feed/likeToggle/\" + post;
+            var stat;
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => {
+                    if (json == 'liked') {
+                        console.log('liked');
+                        elem.classList.add('bg-accent');
+                        elem.classList.add('white');
+                        elem.classList.remove('black-hover');
+                        elem.classList.remove('bg-white-hover');
+                    } else {
+                        console.log('removed');
+                        elem.classList.add('black-hover');
+                        elem.classList.add('bg-white-hover');
+                        elem.classList.remove('bg-accent');
+                        elem.classList.remove('white');
+                    }
+                });
+            fetchLikes();
+        };
+        </script>
+        ";
         new HTMLFooter();
     }
     public function postUpdate()
@@ -127,6 +257,34 @@ class Feed extends Controller
         }
     }
 
+    public function likeToggle($PostId = null)
+    {
+        if (isset($PostId)) {
+            $UserId = $_SESSION['UserId'];
+
+
+            $test = $this->model('viewModel')->checkData("React", "Post = '$PostId' AND Liker = '$UserId'");
+            if ($test != NULL) {
+                while ($row = $test->fetch_assoc()) {
+                    $Reaction = $row['Reaction'];
+                }
+                if ($Reaction == "y") {
+                    $this->model('editModel')->toggleLike($PostId, $UserId, "n");
+                    $result = "removed";
+                } else {
+                    $this->model('editModel')->toggleLike($PostId, $UserId, "y");
+                    $result = "liked";
+                }
+
+            } else {
+                $this->model('addModel')->likePost($PostId, $UserId);
+                $result = "liked";
+            }
+            echo json_encode($result);
+
+        }
+    }
+
     public function addComment()
     {
 
@@ -134,8 +292,8 @@ class Feed extends Controller
             $commenttext = $_POST['comment'];
             $PostId = $_POST['postid'];
             $commentorid = $_SESSION['UserId'];
-            $this->model('addModel')->addAComment($commenttext,$PostId,$commentorid);
-           
+            $this->model('addModel')->addAComment($commenttext, $PostId, $commentorid);
+
             header("Location: " . BASEURL . "/feed/viewPost/$PostId");
         }
 
@@ -143,7 +301,7 @@ class Feed extends Controller
 
     public function deleteComment($post_id)
     {
-         if (isset($post_id)) {
+        if (isset($post_id)) {
             $this->model('deleteModel')->deleteComment($post_id);
         }
     }

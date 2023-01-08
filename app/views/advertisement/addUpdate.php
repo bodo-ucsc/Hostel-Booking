@@ -35,11 +35,7 @@ $base = BASEURL;
                                 <select name="userType" id="userType" onchange="selectName()" required>
                                     <option value="0">Select User Type</option>
                                     <?php
-                                    $url = "$base/userManagement/userRest";
-                                    $client = curl_init($url);
-                                    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-                                    $response = curl_exec($client);
-                                    $result = json_decode($response);
+                                    $result = restAPI("userManagement/boardingUserRest");
                                     $userTypeArray = array();
                                     foreach ($result as $key => $value) {
                                         array_push($userTypeArray, $value->UserType);
@@ -114,7 +110,7 @@ $base = BASEURL;
 <script>
     function selectName() {
         var userType = document.getElementById("userType").value;
-        var url = "<?php echo BASEURL ?>/userManagement/userRest/" + userType;
+        var url = "<?php echo BASEURL ?>/userManagement/boardingUserRest/" + userType;
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
@@ -134,7 +130,7 @@ $base = BASEURL;
 
     function selectPlace() {
         var userType = document.getElementById("userType").value;
-        var url = "<?php echo BASEURL ?>/userManagement/userRest/" + userType;
+        var url = "<?php echo BASEURL ?>/userManagement/boardingUserRest/" + userType;
         fetch(url)
             .then((response) => response.json())
             .then((json) => {

@@ -2,7 +2,7 @@
 
 class App
 {
- 
+
     protected $controller = 'home';
     protected $method = 'index';
     protected $params = [];
@@ -12,8 +12,8 @@ class App
 
         if (empty($url)) {
             $this->_loadDefaultController($url);
-        }
-        else $this->_loadController($url);
+        } else
+            $this->_loadController($url);
     }
     private function _loadDefaultController($url)
     {
@@ -28,6 +28,8 @@ class App
         if (file_exists('../app/controllers/' . $url[0] . '.php')) {
             $this->controller = $url[0];
             unset($url[0]);
+        } else {
+            $this->controller = 'weberror';
         }
 
         require_once '../app/controllers/' . $this->controller . '.php';
@@ -55,5 +57,5 @@ class App
             return $url;
         }
     }
-}
 
+}

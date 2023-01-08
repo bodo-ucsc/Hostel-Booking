@@ -22,6 +22,20 @@ class Model extends Database
         $result = $this->runQuery($sql);
         return $result;
     } 
+
+    public function getGroup($table, $column = '*', $where = null, $group = null)
+    {
+        $sql = "SELECT $column FROM $table";
+        if ($where != null) {
+            $sql .= " WHERE $where";
+        }
+        if ($group != null) {
+            $sql .= " GROUP BY $group";
+        }
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+     
     public function getColumn($table,$column, $where = null, $order = null) 
     {
 

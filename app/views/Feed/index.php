@@ -9,40 +9,13 @@ $base = BASEURL;
     <div class=" fill-container center ">
 
         <?php
-        if (isset($data['row'])) {
-            while ($row = $data['row']->fetch_assoc()) {
-
-                $PostId = $row['PostId'];
-                $url = "$base/feed/postRest/$PostId";
-                $client = curl_init($url);
-                curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-                $response = curl_exec($client);
-                $result = json_decode($response);
-
-                new ViewCard(
-                        $result->FirstName,
-                        $result->LastName,
-                        $result->UserType,
-                        $result->ProfilePicture,
-                        $result->PostId,
-                        $result->DateTime,
-                        $result->Caption,
-                        $result->SummaryLine1,
-                        $result->SummaryLine2,
-                        $result->SummaryLine3,
-                        $result->Price,
-                        $result->PriceType,
-                        $result->Street,
-                        $result->CityName,
-                        $result->NoOfMembers,
-                        $result->NoOfRooms,
-                        $result->NoOfWashRooms,
-                        $result->Gender,
-                        $result->BoarderType,
-                        $result->SquareFeet,
-                        $result->Parking
-                );
+        $result = restAPI("feed/postRest/");
+        if ($result != null) {
+            foreach ($result as $key => $value) {
+                new ViewCard($value);
             }
+        } else {
+            echo "<h1 class='text-center'>No Post Found</h1>";
         }
         ?>
     </div>
@@ -51,6 +24,113 @@ $base = BASEURL;
 
 
 <?php
+
+echo "
+        <script>
+
+        window.onload = function(){
+            isLiked(); 
+            fetchComments();
+            fetchLikes();
+        };
+
+
+        setInterval(function(){
+            fetchLikes();
+            fetchComments();
+        }, 1000);
+
+ 
+        function isLiked(){
+            var url = \"$base/feed/likeRest/0/" . $_SESSION['UserId'] . "\"; 
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => { 
+                        for(var i = 0; i < json.length; i++){ 
+                            var elem = document.getElementById('like-button-' + json[i][0].Post);  
+                            elem.classList.add('black-hover');
+                            elem.classList.add('bg-white-hover');
+                            elem.classList.remove('bg-accent');
+                            elem.classList.remove('white');
+                            if(json[i][0].Reaction === 'y'){
+                                elem.classList.add('bg-accent');
+                                elem.classList.add('white');
+                                elem.classList.remove('black-hover');
+                                elem.classList.remove('bg-white-hover');
+                            }
+                            
+                        } 
+                });
+        };
+        function fetchComments(){
+            var url = \"$base/feed/commentCountRest/\";
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => { 
+                    for (var i = 0; i < json.length; i++) { 
+                        if(json[i].Comments == 1){
+                            document.getElementById('comment-count-' + json[i].Post).innerHTML = '1 Comment';
+                        }else{
+                            document.getElementById('comment-count-' + json[i].Post).innerHTML = json[i].Comments + ' Comments';
+                        } 
+                    }
+                });
+        };
+        function fetchLikes(){
+            var url = \"$base/feed/likeRest/\";
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => {
+                    var count = 0; 
+                    for (var i = 0; i < json.length; i++) { 
+                        var elem = document.getElementById('like-list-' + json[i][0].Post);
+                        elem.innerHTML = '';
+                        for (var j = 0; j < json[i].length; j++) {
+                            if(json[i][j].Reaction === 'y'){
+                                count++;
+                                var likes = json[i][j];
+                                var likeElem = document.createElement('div');
+                                likeElem.classList.add('padding-left-4'); 
+                                likeElem.classList.add('left'); 
+                                likeElem.classList.add('padding-2'); 
+                                likeElem.innerHTML =  likes.FirstName + \" \" + likes.LastName;
+                                elem.appendChild(likeElem);
+                            }
+                        }
+                        if(count === 1){
+                            document.getElementById('like-count-' + json[i][0].Post).innerHTML = '1 Like';
+                        }else{
+                            document.getElementById('like-count-' + json[i][0].Post).innerHTML = count + ' Likes';
+                        } 
+                        count = 0;
+                    } 
+                    
+                });
+        };
+         function likePost(elem,post) {
+            var url = \"$base/feed/likeToggle/\" + post;
+            var stat;
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => {
+                    if (json == 'liked') {
+                        elem.classList.add('bg-accent');
+                        elem.classList.add('white');
+                        elem.classList.remove('black-hover');
+                        elem.classList.remove('bg-white-hover');
+                    } else {
+                        elem.classList.add('black-hover');
+                        elem.classList.add('bg-white-hover');
+                        elem.classList.remove('bg-accent');
+                        elem.classList.remove('white');
+                    }
+                });
+            fetchLikes();
+        };
+  
+        </script>
+        ";
+
 if (isset($data['alert'])) {
     $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {

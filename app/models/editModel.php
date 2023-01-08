@@ -57,6 +57,10 @@ class editModel extends Model
             // $result = $this->runQuery($sql);
         }
     }
+
+    public function toggleLike($PostId,$UserId,$Reaction){
+        $result = $this->update('React',['Reaction'=>$Reaction],"Post = $PostId AND Liker = $UserId");
+    }
  
     public function modifyData($table,$data,$condition)
     {

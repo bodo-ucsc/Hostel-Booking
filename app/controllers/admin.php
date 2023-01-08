@@ -110,7 +110,7 @@ class Admin extends Controller
 
     }
 
-    public function support($type, $page = 1, $perPage = 2, $message = null)
+    public function support($type='issue', $page = 1, $perPage = 2, $message = null)
     {
         if (isset($message)) {
 
@@ -133,6 +133,10 @@ class Admin extends Controller
 
     }
 
+    public function addSupport($type='issue')
+    {
+        $this->view('support/addSupport',['type' => $type]);
+    }
     public function addUpdate()
     {
         $this->view('advertisement/addUpdate');
