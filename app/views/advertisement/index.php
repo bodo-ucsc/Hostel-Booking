@@ -6,7 +6,6 @@ $base = BASEURL;
 new SideBarNav("Advertisement");
 ?>
 
-
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
         <div class="col-12 col-small-12 fill-container">
