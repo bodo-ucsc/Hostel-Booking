@@ -128,10 +128,10 @@ switch ($providerName) {
         ];
         break;
     case 'Yahoo':
-        $provider = new Yahoo($params);
+       // $provider = new Yahoo($params);
         break;
     case 'Microsoft':
-        $provider = new Microsoft($params);
+       // $provider = new Microsoft($params);
         $options = [
             'scope' => [
                 'wl.imap',
@@ -142,7 +142,7 @@ switch ($providerName) {
     case 'Azure':
         $params['tenantId'] = $tenantId;
 
-        $provider = new Azure($params);
+       // $provider = new Azure($params);
         $options = [
             'scope' => [
                 'https://outlook.office.com/SMTP.Send',
