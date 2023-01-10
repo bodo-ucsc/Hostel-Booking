@@ -16,6 +16,7 @@ class ViewCard
         if ($UserType == "BoardingOwner") {
             $UserType = "Owner";
         } else {
+            //uppercase first character
             $UserType = ucfirst($UserType);
         }
         $base = BASEURL;
