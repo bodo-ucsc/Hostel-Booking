@@ -2,59 +2,22 @@
 
 class ViewMap
 {
-    public function __construct($placeid,  $city = null, $houseNo = null, $street = null, $imgLink = null, $noofmembers = null)
+    public function __construct($placeid, $city = null, $houseNo = null, $street = null)
     {
         $address = "$houseNo, $street, $city";
-        ?>
-
-        <body onload="AddressCords($address)">
-        
-        <?php
         $base = BASEURL;
-
-        echo "
-            <div class=' padding-2 col-large-4 col-medium-6 col-12'>
-            <div class='border-rounded padding-2 padding-bottom-4 shadow center'>
-            
-        ";
-
-        if (isset($imgLink)) {
-            echo "
-                <img  class='fill-container border-rounded padding-5' src = $imgLink >
-            ";
-        } else {
-            echo "
-                <img class='fill-container border-rounded padding-5' src = $base/public/images/randomboardinghouse.png >
-            ";
-        }
-
-        if (isset($city)) {
-            echo "
-                <div class=' header-1 margin-top-2'>$city</div>
-            ";
-        }
-
-        if (isset($address)) {
-            echo "
-                <div class=' grey margin-top-2'>$address</div>
-            ";
-        }
-
-        if (isset($noofmembers)) {
-            echo "
-                <div class=' grey small margin-top-2'> $noofmembers Boarders</div>
-            ";
-        }
-
-        echo "
-            <button class=' bg-white border-1 border-black white-hover margin-top-3 border-rounded-more'><a class=' black' href= $base/boardingOwner/viewABoardingPlace/$placeid>View Property</a></button>
-            </div>
-            </div>
-        ";
+        ?>
+        <body onload="AddressCords($address)">
+        <?php
     }
 }
+
 ?>
 <script type="text/javascript">
+    window.onload = function() {
+        AddressCords($address)
+    };
+
     function AddressCords($address) {
 
         //var address = document.getElementById('address').value;
@@ -84,7 +47,6 @@ class ViewMap
                 alert('Geocode was not successful for the following reason: ' + status);
             }
         });
-
     }
 
     function getData(lats, lngs) {
@@ -113,17 +75,14 @@ class ViewMap
                     // let photoUrl = "";
                     // if (photos) {
                     //     let photoReference = photos[i].photo_reference;
-                    //     photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8`;
+                    //     photoUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8";
                     // }
-                    results += `${name} (${address}) (${rating})<img src="${photos}"> <br>`;
+                    results += "${name} (${address}) (${rating}) <img src='${photos}'> <br>";
                 }
-
                 // Select the element where you want to display the results
                 document.getElementById('nearby').innerHTML = results;
                 //document.getElementById("rating-value").innerHTML=rating;
-
             }
-
         });
     }
 
@@ -137,5 +96,4 @@ class ViewMap
     // University of Sri Jayewardenepura,Kotte, sri lanka
 </script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initialize_map"></script> -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8"></script>
