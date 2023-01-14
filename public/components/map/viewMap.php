@@ -1,8 +1,6 @@
 <?php
 
-class ViewMap
-{
-    public function __construct($placeid, $city = null, $houseNo = null, $street = null)
+    function viewMap($placeid, $city = null, $houseNo = null, $street = null)
     {
         $address = "$houseNo, $street, $city";
         $base = BASEURL;
@@ -10,7 +8,6 @@ class ViewMap
         <body onload="AddressCords($address)">
         <?php
     }
-}
 
 ?>
 <script type="text/javascript">
