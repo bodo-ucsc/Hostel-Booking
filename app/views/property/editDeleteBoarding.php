@@ -1,7 +1,7 @@
 <?php
 $header = new HTMLHeader("Edit Property");
 $nav = new Navigation("home");
-$sidebar = new SidebarNav($active="properties");
+$sidebar = new SidebarNavBO($active="properties");
 
 $placeid = $data['placeid'];
 $_boardingOwner = new BoardingOwner;

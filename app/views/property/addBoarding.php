@@ -1,12 +1,31 @@
 <?php
 $header = new HTMLHeader("Add Property");
 $nav = new Navigation("home");
-$sidebar = new SidebarNav($active="properties");
+$sidebar = new SidebarNavBO($active="properties");
+// $_location = new location;
 $_boardingOwner = new boardingOwner;
+
 ?>
 
 <main class=" navbar-offset sidebar-offset">
+    <?php
+    //  $provinces = $_boardingOwner->provinceRest();
+    //  $result = json_decode($provinces);
+    //  var_dump($result);
+
+    //  foreach ($result as $res) {
+    //     // $comment = new comment($value->FirstName, $value->LastName, $value->DateTime, $value->Comment);
+    //     // $provinceName = $value;
+    //     print_r($res);
+    //     echo "<br>";
+    //     foreach ($res as $key => $val) {
+    //         echo $val;
+    //     }
+    //     echo "<br>";
+    // }
+    ?>
     <form class=" padding-5 margin-left-2 " action="<?php echo BASEURL ?>/boardingOwner/addBoardingPlace" method="post">
+    
         <div class="row">
             <div class="col-8 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i onclick="history.back()" data-feather="arrow-left"></i></div>
             <div class="col-4 flex fill-container right-flex">
@@ -31,32 +50,78 @@ $_boardingOwner = new boardingOwner;
                 </div>
                 <div class="header-nb">Address</div>
                 <div class="row">
-                    <div class="col-2 fill-container">
+                    <div class="col-4 fill-container">
                         <label for="houseNo">House No</label><br>
                         <input class=" margin-top-1" type="text" id="houseNo" name="houseNo">
                     </div>
-                    <div class="col-5 fill-container">
+                    <div class="col-8 fill-container">
                         <label for="Street">Street</label><br>
                         <input class=" margin-top-1" type="text" id="street" name="street">
                     </div>
-                    <div class="col-5 fill-container">
+                    <!-- <div class="col-5 fill-container">
                         <label for="City">City</label><br>
                         <select class=" margin-top-1" id="city" name="city">
                         <option value="" disabled selected>-Select City-</option>
                         <?php
-                        $cities = $_boardingOwner->getAllCities();
-                        print_r($cities);
-                            while($city = $cities->fetch_assoc()){
-                                $cityname = $city['CityName'];
-                                echo "
-                                <option value=$cityname>$cityname</option>
-                                ";
-                        }
+                        // $cities = $_boardingOwner->getAllCities();
+                        // print_r($cities);
+                        //     while($city = $cities->fetch_assoc()){
+                        //         $cityname = $city['CityName'];
+                        //         echo "
+                        //         <option value=$cityname>$cityname</option>
+                        //         ";
+                        // }
                         ?>   
                         </select>
-                        <!-- <input class=" margin-top-1" type="text" id="city" name="city"> -->
-                    </div>
+                    </div> -->
                     
+                </div>
+                <div class="row">
+                    <div class="col-4 fill-container">
+                        <label for="City">Province</label><br>
+                            <select class=" margin-top-1" id="province" name="province">
+                                <option value="" disabled selected>-Select Province-</option>
+                                <?php
+
+                                // // $url = "$base/location/provinceRest";
+                                // // $client = curl_init($url);
+                                // // curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+                                // // $response = curl_exec($client);
+                                // // $result = json_decode($response);
+                                
+                                // $provinces = $_boardingOwner->provinceRest();
+                                // $result = json_decode($provinces);
+                                // var_dump($result);
+
+                                // foreach ($result as $res) {
+                                //     foreach ($res as $key => $val) {
+                                //         echo"
+                                //         <option value=$val>$val</option>
+                                //         ";
+                                //     }
+                                // }
+                    
+                                ?>
+                            </select>
+
+
+                    </div>
+                    <div class="col-4 fill-container">
+                        <label for="City">Distric</label><br>
+                            <select class=" margin-top-1" id="distric" name="distric">
+                                <option value="" disabled selected>-Select Distric-</option>
+                                <?php
+                                ?>
+                            </select>
+                    </div>
+                    <div class="col-4 fill-container">
+                    <label for="City">City</label><br>
+                        <select class=" margin-top-1" id="city" name="city">
+                            <option value="" disabled selected>-Select City-</option>
+                            <?php
+                            ?>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class=" flex-column margin-left-5 border-dashed-1 border-black col-3 padding-vertical-2 padding-horizontal-4 border-black border-rounded">

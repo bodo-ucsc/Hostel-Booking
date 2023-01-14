@@ -1,7 +1,7 @@
 <?php
 $header = new HTMLHeader("Property");
 $nav = new Navigation("management");
-$sidebar = new SidebarNav($active="properties");
+$sidebar = new SidebarNavBO($active="properties");
 $base = BASEURL;
 $_boardingOwner = new boardingOwner;
 

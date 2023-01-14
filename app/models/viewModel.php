@@ -112,9 +112,27 @@ class viewModel extends Model
         return $result;
     }
 
-    public function getCities()
+    public function getCitiesAsc()
     {
         $result = $this->get('city', null, 'CityName ASC', null);
+        return $result;
+    }
+
+    public function getCities($districName)
+    {
+        $result = $this->get('city', "DistricName = $districName");
+        return $result;
+    }
+
+    public function getDistrics($provinceName)
+    {
+        $result = $this->get('distric', "ProviceName = $provinceName");
+        return $result;
+    }
+
+    public function getProvinces()
+    {
+        $result = $this->get('province');
         return $result;
     }
     public function getSupport($type,$userid = null)
