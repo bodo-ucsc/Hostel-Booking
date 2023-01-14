@@ -273,7 +273,6 @@ body {
 }
 
 
-
 /* Background Color hover */
 .bg-white-hover {
   background-color: #fff;
@@ -581,7 +580,7 @@ input[type=date] {
   margin-bottom: 15px;
   display: inline-block;
   border: 2px solid #EAEAEA;
-  background: #F2F2F2;
+  background-color: #F2F2F2;
   box-sizing: border-box;
 }
 
@@ -593,7 +592,7 @@ select {
   margin-bottom: 15px;
   display: inline-block;
   border: 2px solid #EAEAEA;
-  background: #F2F2F2;
+  background-color: #F2F2F2;
   box-sizing: border-box;
 }
 
@@ -638,8 +637,20 @@ textarea {
   background: #F2F2F2;
   box-sizing: border-box;
   overflow: hidden;
-}
+} 
 
+input[type=text].bg-red,
+input[type=password].bg-red,
+input[type=tel].bg-red,
+input[type=number].bg-red,
+input[type=email].bg-red,
+input[type=datetime].bg-red,
+input[type=datetime-local].bg-red,
+input[type=date].bg-red
+{
+    background: #C83A3A;
+    color: #fff;
+}
 
 /* components */
 
@@ -721,7 +732,7 @@ header .nav-signup {
   width: 40px;
 }
 
-/* Feed & Adverts */
+/* Feed, Listing & Adverts */
 
 .advert {
   width: 300px;
@@ -738,6 +749,10 @@ header .nav-signup {
   object-fit: cover;
 }
 
+.listing,.listing.def{
+  width: 100%;
+  max-width: 300px;
+}
 
 /* Responsive Sizing */
 .full-height {
@@ -1772,19 +1787,13 @@ header .nav-signup {
     width: 500px;
     margin: 20px;
   }
+  .listing {
+    max-width: 530px; 
+  }
+  .listing.def {
+    max-width: 350px; 
+  }
 
 }
 
-
-.viewcard {
-  width: 350px;
-  height: 400px;
-  margin: 5em;
-  background-color: #ffffff;
-  border-radius: 1em;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
+ 

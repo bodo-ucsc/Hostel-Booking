@@ -3,7 +3,7 @@ $type = ucfirst($data['type']);
 $header = new HTMLHeader("Support | $type");
 $nav = new Navigation('management');
 $sidebar = new SidebarNav("support","$type");
-$basePage = BASEURL . '/admin/support';
+$basePage = BASEURL . "/admin/support/$type";
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
@@ -16,7 +16,7 @@ $basePage = BASEURL . '/admin/support';
                     </h1>
                 </div>
                 <div class="col-6 fill-container right">
-                    <button class="bg-blue white border-rounded header-nb padding-3 right">
+                    <button class="bg-blue white border-rounded header-nb padding-3 right" onclick="location.href='<?php echo BASEURL ?>/admin/addSupport/<?php echo $type ?>' ">
                         <i data-feather="plus" class=" vertical-align-middle "></i>
                         <span class="display-small-inline-block padding-left-2 display-none">Add <?php echo $type ?></span>
                     </button>

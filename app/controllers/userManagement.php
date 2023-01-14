@@ -7,7 +7,78 @@ class userManagement extends Controller
         header("Location: " . BASEURL . "/admin");
     }
 
-    public function userRest($usertype=null){
+    public function getUserName()
+    {
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        if (isset($_POST['api_key']) && $_POST['api_key'] == "bodocode") {
+            $data = $this->model('loginModel')->retrieveUserName();
+            $json = array();
+            if (isset($data)) {
+                while ($row = $data->fetch_assoc()) {
+                    $array['Username'] = $row['Username'];
+                    array_push($json, $array);
+                }
+                $json_response = json_encode($json);
+                echo $json_response;
+            }
+        } else {
+            echo "You do not have access to this page";
+        }
+    }
+    public function getUserNumber()
+    {
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        if (isset($_POST['api_key']) && $_POST['api_key'] == "bodocode") {
+            $data = $this->model('loginModel')->retrieveUserNumber();
+            $json = array();
+            if (isset($data)) {
+                while ($row = $data->fetch_assoc()) {
+                    $array['ContactNumber'] = $row['ContactNumber'];
+                    array_push($json, $array);
+                }
+                $json_response = json_encode($json);
+                echo $json_response;
+            }
+        } else {
+            echo "You do not have access to this page";
+        }
+    }
+    public function getUserEmail()
+    {
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        if (isset($_POST['api_key']) && $_POST['api_key'] == "bodocode") {
+            $data = $this->model('loginModel')->retrieveUserEmail();
+            $json = array();
+            if (isset($data)) {
+                while ($row = $data->fetch_assoc()) {
+                    $array['Email'] = $row['Email'];
+                    array_push($json, $array);
+                }
+                $json_response = json_encode($json);
+                echo $json_response;
+            }
+        } else {
+            echo "You do not have access to this page";
+        }
+    }
+
+    public function userRest($usertype = null)
+    {
+        $data = $this->model('viewModel')->retrieveUser($usertype);
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['Id'] = $row['UserId'];
+            $array['FirstName'] = $row['FirstName'];
+            $array['LastName'] = $row['LastName'];
+            $array['UserType'] = $row['UserType'];
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function boardingUserRest($usertype = null)
+    {
         $data = $this->model('viewModel')->retrieveBoardingUsers($usertype);
         $json = array();
         while ($row = $data->fetch_assoc()) {
@@ -15,10 +86,10 @@ class userManagement extends Controller
             $array['Place'] = $row['Place'];
             $array['Title'] = $row['Title'];
             $array['FirstName'] = $row['FirstName'];
-            $array['LastName'] = $row['LastName']; 
-            $array['UserType'] = $row['UserType']; 
-            array_push($json,$array);
-        } 
+            $array['LastName'] = $row['LastName'];
+            $array['UserType'] = $row['UserType'];
+            array_push($json, $array);
+        }
         $json_response = json_encode($json);
         echo $json_response;
     }

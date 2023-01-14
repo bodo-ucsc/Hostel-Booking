@@ -3,16 +3,10 @@
 class PropertyCard
 {
 
-    public function __construct($PlaceId)
+    public function __construct($PlaceId,$feed=null)
     {
-        $base = BASEURL;
-
-        $url = "$base/listing/placeRest/$PlaceId";
-        $client = curl_init($url);
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($client);
-        $result = json_decode($response);
-
+        $result = restAPI("listing/placeRest/$PlaceId");
+ 
         $SummaryLine1=$result->SummaryLine1;
         $SummaryLine2=$result->SummaryLine2;
         $SummaryLine3=$result->SummaryLine3;
@@ -27,6 +21,16 @@ class PropertyCard
         $BoarderType=$result->BoarderType;
         $SquareFeet=$result->SquareFeet;
         $Parking=$result->Parking;
+ 
+        if(isset($feed)){
+            $feed5 = "col-large-5";
+            $feed7 = "col-large-7";
+            $def = "";
+        }else{
+            $feed5 = "";
+            $feed7 = "";
+            $def = "def";
+        }
 
         if ($Parking == 'y') {
             $Parking = "Available";
@@ -42,15 +46,16 @@ class PropertyCard
         }
         $Price = number_format($Price);
         echo "   
+        <div class='listing display-inline-block $def '>
         <div class='row padding-4 '>
         <div class='col-12 shadow fill-container padding-3 border-rounded-more'>
             <div class='row'>
-                <div class='col-12 col-large-5 fill-container property-image fill-vertical '>
+                <div class='col-12 $feed5 fill-container property-image fill-vertical padding-5 '>
                     <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/brewster-mcleod-architects-1486154143.jpg'
-                        class='fill-container fill-vertical  border-rounded-more' alt=''>
+                        class='fill-container fill-vertical border-rounded-more' alt=''>
                 </div>
 
-                <div class='col-12 col-large-7 fill-container padding-3 '>
+                <div class='col-12 $feed7 fill-container padding-3 '>
                     <div class='row'>
                         <div class='col-8 header-2 fill-container left'>
                             $CityName
@@ -129,6 +134,7 @@ class PropertyCard
 
                 </div>
             </div>
+        </div>
         </div>
 
         </div>
