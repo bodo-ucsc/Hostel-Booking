@@ -34,12 +34,6 @@ echo "
             fetchLikes();
         };
 
-
-        setInterval(function(){
-            fetchLikes();
-            fetchComments();
-        }, 1000);
-
  
         function isLiked(){
             var url = \"$base/feed/likeRest/0/" . $_SESSION['UserId'] . "\"; 
@@ -124,8 +118,8 @@ echo "
                         elem.classList.remove('bg-accent');
                         elem.classList.remove('white');
                     }
+                    fetchLikes();
                 });
-            fetchLikes();
         };
   
         </script>

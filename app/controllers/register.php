@@ -260,13 +260,16 @@ class Register extends Controller
 
                 $message = $this->model('addModel')->addStudent($StudentId, $VerifiedStatus, $NICScanLink, $UniversityIDCopyLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink);
                 if ($message == "success") {
-                    header("Location: " . BASEURL . "/signin/student/$message");
+                    // header("Location: " . BASEURL . "/signin/student/$message");
+                    echo $message;
                 } else {
-                    header("Location: " . BASEURL . "/register/student/$message");
+                    // header("Location: " . BASEURL . "/register/student/$message");
+                    echo $message;
                 }
             }
         } else {
-            header("Location: " . BASEURL . "/register/student");
+            // header("Location: " . BASEURL . "/register/student");
+            echo "error";
         }
     }
 }

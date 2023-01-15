@@ -131,6 +131,11 @@ class addModel extends Model
     public function addAComment($commenttext, $postid, $commentorid)
     {
         $this->insert('Comment', ['Post' => $postid, 'Commentor' => $commentorid, 'comment' => $commenttext]);
+        if ($this->mysqli->affected_rows == 1) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
     }
     public function likePost($postid, $userid)
     {
