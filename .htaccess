@@ -1,3 +1,5 @@
+SetEnv TZ Asia/Colombo	
+
 RewriteEngine On
 RewriteRule ^$ public/ [L]
 RewriteRule  (.*) public/$1 [L]

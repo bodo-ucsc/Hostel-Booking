@@ -16,7 +16,7 @@ require_once '../public/components/propertyCard.php';
 require_once '../public/components/viewCardProperty.php';
 require_once '../public/components/comment.php';
 require_once '../public/components/likeSection.php';
-require_once '../public/components/PHPMailer/config.php';
+require_once '../public/components/PHPMailer/config.php'; 
 
 
 function restAPI($urlAppend, $external = null)

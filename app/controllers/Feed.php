@@ -137,12 +137,7 @@ class Feed extends Controller
             fetchComments();
         };
 
-
-        setInterval(function(){
-            fetchLikes();
-            fetchComments();
-        }, 1000);
-
+ 
         function isLiked(){
             var url = \"$base/feed/likeRest/$PostId/" . $_SESSION['UserId'] . "\"; 
             var elem = document.getElementById('like-button-$PostId');
@@ -153,16 +148,40 @@ class Feed extends Controller
             fetch(url)
                 .then((response) => response.json())
                 .then((json) => { 
-                    if(json[0][0].Reaction === 'y'){
-                    
-                        elem.classList.add('bg-accent');
-                        elem.classList.add('white');
-                        elem.classList.remove('black-hover');
-                        elem.classList.remove('bg-white-hover');
+                    if(json.length > 0){
+                        if(json[0][0].Reaction === 'y'){
+                            elem.classList.add('bg-accent');
+                            elem.classList.add('white');
+                            elem.classList.remove('black-hover');
+                            elem.classList.remove('bg-white-hover');
+                        } 
                     } 
+                    
                 });
         };
+var conn = new WebSocket('ws://localhost:8080');
+conn.onopen = function(e) {
+    console.log('Connection established!'); 
+    conn.send(JSON.stringify({ 
+        'msg': '',
+        'date;': '',
+        'name': '',
+        'newRoute': 'chat-$PostId'
+    }));
 
+};
+
+
+conn.onmessage = function(e) {
+    var data = JSON.parse(e.data);
+    console.log(data);
+    var commentElem = document.createElement('div');
+    commentElem.classList.add('col-11');
+    commentElem.classList.add('fill-container');
+    commentElem.innerHTML = \"<div class='row no-gap padding-3 bg-white shadow-small border-rounded'><div class='col-12 fill-container left small bold'>\" + data.name + \"</div><div class='col-12 fill-container left padding-bottom-2 '>\" + data.msg + \"</div><div class='col-12 fill-container right small grey '>\" +data.date + \"</div></div>\";
+    document.getElementById('comment-list-$PostId').appendChild(commentElem);
+
+};
         function fetchComments(){
             var url = \"$base/feed/commentRest/$PostId\";
             fetch(url)
@@ -177,7 +196,7 @@ class Feed extends Controller
                     elem.innerHTML = '';
                     for (var i = 0; i < json.length; i++) {
                         var comment = json[i];
-                        console.log(comment);
+                        console.log(comment); 
                         var commentElem = document.createElement('div');
                         commentElem.classList.add('col-11');
                         commentElem.classList.add('fill-container');
@@ -191,23 +210,25 @@ class Feed extends Controller
             fetch(url)
                 .then((response) => response.json())
                 .then((json) => {
-                    var elem = document.getElementById('like-list-$PostId');
-                    var count = 0;
-                    elem.innerHTML = '';
-                    for (var i = 0; i < json.length; i++) { 
-                        for (var j = 0; j < json[i].length; j++) {
-                            if(json[i][j].Reaction === 'y'){
-                                count++;
-                                var likes = json[i][j];
-                                var likeElem = document.createElement('div');
-                                likeElem.classList.add('padding-left-4'); 
-                                likeElem.classList.add('left'); 
-                                likeElem.classList.add('padding-2'); 
-                                likeElem.innerHTML =  likes.FirstName + \" \" + likes.LastName;
-                                elem.appendChild(likeElem);
+                    if(json.length >= 1){ 
+                        var elem = document.getElementById('like-list-$PostId');
+                        var count = 0;
+                        elem.innerHTML = '';
+                        for (var i = 0; i < json.length; i++) { 
+                            for (var j = 0; j < json[i].length; j++) {
+                                if(json[i][j].Reaction === 'y'){
+                                    count++;
+                                    var likes = json[i][j];
+                                    var likeElem = document.createElement('div');
+                                    likeElem.classList.add('padding-left-4'); 
+                                    likeElem.classList.add('left'); 
+                                    likeElem.classList.add('padding-2'); 
+                                    likeElem.innerHTML =  likes.FirstName + \" \" + likes.LastName;
+                                    elem.appendChild(likeElem);
+                                }
                             }
-                        }
-                         
+                            
+                        } 
                     } 
                     if(count === 1){
                         document.getElementById('like-count-$PostId').innerHTML = '1 Like';
@@ -222,21 +243,57 @@ class Feed extends Controller
             fetch(url)
                 .then((response) => response.json())
                 .then((json) => {
-                    if (json == 'liked') {
-                        console.log('liked');
+                    if (json == 'liked') { 
                         elem.classList.add('bg-accent');
                         elem.classList.add('white');
                         elem.classList.remove('black-hover');
                         elem.classList.remove('bg-white-hover');
                     } else {
-                        console.log('removed');
                         elem.classList.add('black-hover');
                         elem.classList.add('bg-white-hover');
                         elem.classList.remove('bg-accent');
                         elem.classList.remove('white');
                     }
+                    fetchLikes(); 
                 });
-            fetchLikes();
+        };";
+
+        $commentor = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
+        $datesent = date('M d, Y h.i A');
+
+        echo "
+
+var input = document.getElementById('comment-$PostId');
+
+input.addEventListener('keypress', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    addComment();
+  }
+});
+        function addComment() {
+            var url = \"$base/feed/addComment/$PostId\";
+            var comment = document.getElementById('comment-$PostId').value;
+            conn.send(JSON.stringify({
+                'msg': comment,
+                'name': '$commentor',
+                'date': '$datesent',
+                'newRoute': null
+            }));
+            fetch(url, {
+                method: 'POST',
+                body:  JSON.stringify({
+                    'comment': comment
+                })
+                ,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => response.json())
+                .then((json) => {
+                    fetchComments(); 
+                    document.getElementById('comment-$PostId').value = '';
+                });
         };
         </script>
         ";
@@ -285,17 +342,17 @@ class Feed extends Controller
         }
     }
 
-    public function addComment()
+    public function addComment($PostId = null)
     {
 
-        if (isset($_POST['postid'])) {
+        if (isset($PostId)) {
+            $_POST = json_decode(file_get_contents('php://input'), true);
             $commenttext = $_POST['comment'];
-            $PostId = $_POST['postid'];
             $commentorid = $_SESSION['UserId'];
-            $this->model('addModel')->addAComment($commenttext, $PostId, $commentorid);
-
-            header("Location: " . BASEURL . "/feed/viewPost/$PostId");
+            $result = $this->model('addModel')->addAComment($commenttext, $PostId, $commentorid);
+            echo json_encode($result);
         }
+
 
     }
 
