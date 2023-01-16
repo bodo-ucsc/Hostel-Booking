@@ -39,18 +39,24 @@ class Navigation
             echo "              <a class='padding-3' href='$base/listing'>Listing</a>";
         }
 
+
         if (isset($uname)) {
             if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'BoardingOwner') {
                 if ($active == 'management') {
-                echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/admin'>Management</a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/admin'>Management</a>";
                 } else {
-                echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/admin'>Management</a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/admin'>Management</a>";
                 }
-            } elseif ($role == 'Student') {
+            } elseif ($role == 'Student' || $role == 'Professional') {
                 if ($active == 'friends') {
                     echo "          <a class='padding-3 active' href='$base/friends'>Friends</a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/boarding'>My Boarding</a>";
+                } else if ($active == 'boarding') {
+                    echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/admin'>My Boarding</a>";
                 } else {
                     echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/boarding'>My Boarding</a>";
                 }
             }
         }
