@@ -1,6 +1,6 @@
 <?php
 
-class boardingOwner extends Controller{
+class property extends Controller{
 
     public function index()
     {
@@ -205,4 +205,22 @@ class boardingOwner extends Controller{
 //         echo $json_response;
 //         return $json_response;
 //     }
+
+    public function viewReviewsByPlaceId($placeId)
+    {
+        $data = $this->model('viewmodel')->getBoardingReviewsbyPlace($placeId);
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['ReviewId'] = $row['ReviewId'];
+            $array['Place'] = $row['Place'];
+            $array['BoaderId'] = $row['BoaderId'];
+            $array['Rating'] = $row['Rating'];
+            $array['Review'] = $row['Review'];
+            $array['DateTime'] = $row['DateTime'];
+            $array['BoardingOwnerReply'] = $row['BoardingOwnerReply'];
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
  }

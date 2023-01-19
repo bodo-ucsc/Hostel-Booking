@@ -4,7 +4,7 @@ $nav = new Navigation("home");
 $sidebar = new SidebarNavBO($active="properties");
 
 $placeid = $data['placeid'];
-$_boardingOwner = new BoardingOwner;
+$_boardingOwner = new property;
 
 $userid = $_SESSION['UserId'];
 
@@ -195,12 +195,12 @@ if (isset($data['alert'])) {
     }
 
     document.getElementById('editButton').addEventListener("click",function(){
-        submitForm('<?php echo BASEURL ?>/boardingOwner/editBoardingPlace');
+        submitForm('<?php echo BASEURL ?>/property/editBoardingPlace');
         console.log("excutededit");
     });
 
     document.getElementById('deleteButton').addEventListener("click",function(){
-        submitForm('<?php echo BASEURL ?>/boardingOwner/deleteBoardingPlace');
+        submitForm('<?php echo BASEURL ?>/property/deleteBoardingPlace');
         console.log("excuteddelete");
     });  
 

@@ -3,12 +3,15 @@ $header = new HTMLHeader("Add Property");
 $nav = new Navigation("home");
 $sidebar = new SidebarNavBO($active="properties");
 // $_location = new location;
-$_boardingOwner = new boardingOwner;
+$_boardingOwner = new property;
 
 ?>
 
 <main class=" navbar-offset sidebar-offset">
     <?php
+
+   
+    
     //  $provinces = $_boardingOwner->provinceRest();
     //  $result = json_decode($provinces);
     //  var_dump($result);
@@ -24,7 +27,7 @@ $_boardingOwner = new boardingOwner;
     //     echo "<br>";
     // }
     ?>
-    <form class=" padding-5 margin-left-2 " action="<?php echo BASEURL ?>/boardingOwner/addBoardingPlace" method="post">
+    <form class=" padding-5 margin-left-2 " action="<?php echo BASEURL ?>/property/addBoardingPlace" method="post">
     
         <div class="row">
             <div class="col-8 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i onclick="history.back()" data-feather="arrow-left"></i></div>
@@ -79,9 +82,12 @@ $_boardingOwner = new boardingOwner;
                 <div class="row">
                     <div class="col-4 fill-container">
                         <label for="City">Province</label><br>
-                            <select class=" margin-top-1" id="province" name="province">
+                            <select class=" margin-top-1" id="province" name="province" onchange="selectDistrict()">
                                 <option value="" disabled selected>-Select Province-</option>
                                 <?php
+
+                                $provinces = restAPI("location/provinceRest/");
+                                // print_r($resultProvince);
 
                                 // // $url = "$base/location/provinceRest";
                                 // // $client = curl_init($url);
@@ -93,13 +99,21 @@ $_boardingOwner = new boardingOwner;
                                 // $result = json_decode($provinces);
                                 // var_dump($result);
 
-                                // foreach ($result as $res) {
-                                //     foreach ($res as $key => $val) {
-                                //         echo"
-                                //         <option value=$val>$val</option>
-                                //         ";
-                                //     }
-                                // }
+                                foreach ($provinces as $res) {
+                                    foreach ($res as $key => $val) {
+                                        if(str_contains($val,'_')){
+                                            $nameArr = explode("_", $val);
+                                            echo"
+                                            <option value='$val'>$nameArr[0] $nameArr[1]</option>
+                                            ";
+                                        } else {
+                                            echo"
+                                            <option value='$val'>$val</option>
+                                            ";
+                                        }
+                                        
+                                    }
+                                }
                     
                                 ?>
                             </select>
@@ -107,8 +121,8 @@ $_boardingOwner = new boardingOwner;
 
                     </div>
                     <div class="col-4 fill-container">
-                        <label for="City">Distric</label><br>
-                            <select class=" margin-top-1" id="distric" name="distric">
+                        <label for="distric">Distric</label><br>
+                            <select class=" margin-top-1" id="distric" name="distric" onchange="selectCity()">
                                 <option value="" disabled selected>-Select Distric-</option>
                                 <?php
                                 ?>
@@ -199,6 +213,78 @@ $_boardingOwner = new boardingOwner;
 
 
 </main>
+
+<script>
+
+    function selectDistrict() {
+        console.log("f");
+        var provinceName = document.getElementById("province").value;
+        console.log(provinceName);
+        var url = "<?php echo BASEURL ?>/location/districtRest/".concat(provinceName);        
+        console.log(url);
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(JSON.stringify(json));
+                var select = document.getElementById("distric");
+                select.innerHTML = "<option value='0' selected>Select Distric</option>";
+                var districtArray = new Set();
+                for (var i = 0; i < json.length; i++) {
+                    districtArray.add([json[i].DistrictName].toString());
+                }
+                districtArray.forEach((value) => {
+                    var district = value;
+                    select.innerHTML += "<option value='" + district + "'>" + district + "</option>";
+                });
+            });
+    }
+
+    function selectCity() {
+        console.log("f");
+        var districName = document.getElementById("distric").value;
+        console.log(districName);
+        var url = "<?php echo BASEURL ?>/location/cityRest/".concat(districName);        
+        console.log(url);
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(JSON.stringify(json));
+                var select = document.getElementById("city");
+                select.innerHTML = "<option value='0' selected>Select City</option>";
+                var cityArray = new Set();
+                for (var i = 0; i < json.length; i++) {
+                    cityArray.add([json[i].CityName].toString());
+                }
+                cityArray.forEach((value) => {
+                    var city = value;
+                    select.innerHTML += "<option value='"+city+"'>" + city + "</option>";
+                });
+            });
+    }
+
+
+    // function selectDistric(){
+    //     var provinceName = document.getElementById("province").value;
+    //     var xmlhttp = new XMLHttpRequest();
+        // var url = "<?php echo BASEURL ?>/location/districRest/".concat(provinceName);
+
+    //     xmlhttp.onreadystatechange = function() {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         var myArr = JSON.parse(this.responseText);
+    //         myFunction(myArr);
+    //         }
+    //     };
+
+    //     xmlhttp.open("GET", url, true);
+    //     xmlhttp.send(); 
+
+    //     function myFunction(arr){
+    //         console.log(JSON.stringify(arr));
+    //     }
+
+    // }
+   
+</script>
 
 
 <?php

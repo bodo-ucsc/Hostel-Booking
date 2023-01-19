@@ -2,7 +2,7 @@
 $header = new HTMLHeader("View Listing");
 $nav = new Navigation("home");
 $base = BASEURL;
-$_boardingOwner = new boardingOwner;
+$_boardingOwner = new property;
 $placeid = $data['placeid'];
 
 $boardingPlace = $_boardingOwner->viewBoardingPlace($placeid);

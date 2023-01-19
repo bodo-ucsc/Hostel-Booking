@@ -95,9 +95,11 @@ $base = BASEURL;
     function selectName() {
         var userType = document.getElementById("userType").value;
         var url = "<?php echo BASEURL ?>/userManagement/userRest/" + userType;
+        console.log(url);
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
+                console.log(JSON.stringify(json));
                 var select = document.getElementById("userId");
                 select.innerHTML = "<option value='0' selected>Select Name</option>";
                 var nameArray = new Set();

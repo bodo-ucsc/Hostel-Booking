@@ -3,7 +3,7 @@ $header = new HTMLHeader("Property");
 $nav = new Navigation("management");
 $sidebar = new SidebarNavBO($active="properties");
 $base = BASEURL;
-$_boardingOwner = new boardingOwner;
+$_boardingOwner = new property;
 
 ?>
 

@@ -163,22 +163,33 @@ class viewModel extends Model
     }
 
     // public function getCitiesAsc()
-    public function getCities()
-    {
-        $result = $this->get('City', null, 'CityName ASC', null);
-        return $result;
-    }
-
-    // public function getCities($districName)
+    // public function getCities()
     // {
-    //     $result = $this->get('city', "DistricName = $districName");
+    //     $result = $this->get('City', null, 'CityName ASC', null);
     //     return $result;
     // }
 
-    public function getDistrics($provinceName)
+    public function getCities($districtName=null)
     {
-        $result = $this->get('distric', "ProviceName = $provinceName");
+        $append = null;
+        if(isset($districtName)){
+            $append = "DistrictName = '$districtName'";
+        }
+        $result = $this->get('city', $append);
         return $result;
+    }
+
+    public function getDistricts($provinceName = null)
+    {
+        $append = null;
+        if(isset($provinceName)){
+            $append = "ProvinceName = '$provinceName'";
+        }
+        $result = $this->get('district', $append);
+        // $sql = "SELECT * FROM distric WHERE ProvinceName = $provinceName";
+        // $result = $this->runQuery($sql);
+        return $result;
+        // return $result;
     }
 
     public function getProvinces()
@@ -251,6 +262,12 @@ class viewModel extends Model
         } else {
             return null;
         }
+    }
+
+    public function getBoardingReviewsbyPlace($placeId)
+    {
+        $result = $this->get('reviewrating',"Place = $placeId");
+        return $result;
     }
 
 
