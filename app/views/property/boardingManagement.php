@@ -31,10 +31,10 @@ if (isset($boardingPlace)) {
         </div>
         <div class="col-4 col-large-4 col-small-6 fill-container flex">
             <div>
-                <button class=" bg-white-hover black-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4 border-1 border-black"><i data-feather="edit"></i><?php echo "<a class=' black' href =$base/boardingOwner/editDeleteBoarding/$placeid>&nbsp;Edit Listing</a>";?></button>
+                <button class=" bg-white-hover black-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4 border-1 border-black"><i data-feather="edit"></i><?php echo "<a class=' black' href =$base/property/editDeleteBoarding/$placeid>&nbsp;Edit Listing</a>";?></button>
             </div>
             <div>
-                <button class=" bg-accent-hover white-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4"><i data-feather="eye"></i><?php echo "<a class=' white white-hover' href =$base/boardingOwner/boardingView/$placeid>&nbsp;View Listing</a>";?></button>
+                <button class=" bg-accent-hover white-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4"><i data-feather="eye"></i><?php echo "<a class=' white white-hover' href =$base/property/boardingView/$placeid>&nbsp;View Listing</a>";?></button>
             </div>
         </div>     
     </div>
