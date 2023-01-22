@@ -85,7 +85,6 @@ function viewMap($address)
             position: location
         });
 
-
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initMap"></script>
@@ -126,11 +125,6 @@ function viewMap($address)
     //         console.error(error);
     //     }); -->
 
-
-
-
-
-
 <script>
     /*
     function near(lats, lngs) {
@@ -164,12 +158,6 @@ function viewMap($address)
                 console.error(error);
             });
     } -->
-
-
-
-
-
-
     // function getData(lats, lngs) {
     //     window.$.ajax({
     //         url: "nearby.php",
@@ -206,8 +194,8 @@ function viewMap($address)
     //         }
     //     });
     // }
-
-    // ucsc,colombo, sri lanka
+</script>
+<!-- // ucsc,colombo, sri lanka
     // University of Colombo,colombo, sri lanka
     // University of kelaniya,Kelaniya, sri lanka
     // University of Moratuwa,Moratuwa, sri lanka
@@ -216,6 +204,3 @@ function viewMap($address)
     // University of Jaffna,Jaffna, sri lanka
     // University of Sabaragamuwa,Keppetipola, sri lanka
     // University of Sri Jayewardenepura,Kotte, sri lanka -->
-    */
-</script>
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initMap"></script> -->
