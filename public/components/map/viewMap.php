@@ -1,9 +1,8 @@
-<div id="map_container" style="width: 50%; height: 350px;">MAP</div>
-
 <?php
 
 function viewMap($address)
 {
+    echo '<div id="map_container" style="width: 50%; height: 350px;">MAP</div>';
     echo "<div id='address'>Address: $address</div>";
     $apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
     $base = BASEURL;
@@ -195,7 +194,7 @@ function viewMap($address)
     //     });
     // }
 </script>
-<!-- // ucsc,colombo, sri lanka
+ <!-- // ucsc,colombo, sri lanka
     // University of Colombo,colombo, sri lanka
     // University of kelaniya,Kelaniya, sri lanka
     // University of Moratuwa,Moratuwa, sri lanka
@@ -203,4 +202,4 @@ function viewMap($address)
     // University of Ruhuna,Galle, sri lanka
     // University of Jaffna,Jaffna, sri lanka
     // University of Sabaragamuwa,Keppetipola, sri lanka
-    // University of Sri Jayewardenepura,Kotte, sri lanka -->
+    // University of Sri Jayewardenepura,Kotte, sri lanka  -->
