@@ -159,7 +159,8 @@ class Admin extends Controller
 
     public function place()
     {
-        $this->view('map/place');
+        //$this->view('map/place');
+        $this->view('map/mapCard');
     }
 
     public function viewNearby()

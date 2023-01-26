@@ -2,7 +2,7 @@
 
 function viewMap($address)
 {
-    echo '<div id="map_container" style="width: 50%; height: 350px;">MAP</div>';
+    echo '<div id="map_container" style="width: 45%; height: 300px;">MAP</div>';
     echo "<div id='address'>Address: $address</div>";
     $apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
     $base = BASEURL;
@@ -60,6 +60,8 @@ function viewMap($address)
                 }
             }
         }
+        
+
     }
 
     echo $results;
