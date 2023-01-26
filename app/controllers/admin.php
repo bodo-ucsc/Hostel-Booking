@@ -86,6 +86,7 @@ class Admin extends Controller
             $result = $this->model('viewModel')->getUser("verificationTeam", $page, $perPage);
         }
         $this->view("userManagement/$user", ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
+
     }
 
     public function advertisement($message = null)
@@ -106,9 +107,10 @@ class Admin extends Controller
         $row = $this->model('viewModel')->getId("PostUpdate", "PostId");
 
         $this->view('advertisement/index', ['row' => $row, 'message' => $message, 'alert' => $alert]);
+
     }
 
-    public function support($type = 'issue', $page = 1, $perPage = 2, $message = null)
+    public function support($type='issue', $page = 1, $perPage = 2, $message = null)
     {
         if (isset($message)) {
 
@@ -124,14 +126,16 @@ class Admin extends Controller
             $alert = null;
         }
 
-        $rowCount = $this->model('viewModel')->numRowsWhere('Support', "Supporttype = '$type'");
+        $rowCount = $this->model('viewModel')->numRowsWhere('Support',"Supporttype = '$type'");
         $result = $this->model('viewModel')->getAllSupport($type, $page, $perPage);
         $this->view('support/index', ['type' => $type, 'result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
+
+
     }
 
-    public function addSupport($type = 'issue')
+    public function addSupport($type='issue')
     {
-        $this->view('support/addSupport', ['type' => $type]);
+        $this->view('support/addSupport',['type' => $type]);
     }
     public function addUpdate()
     {
@@ -159,8 +163,8 @@ class Admin extends Controller
 
     public function place()
     {
-        //$this->view('map/place');
-        $this->view('map/mapCard');
+        $this->view('map/place');
+        //$this->view('map/mapCard');
     }
 
     public function viewNearby()
@@ -174,4 +178,6 @@ class Admin extends Controller
             echo "not set location";
         }
     }
+
+
 }

@@ -60,8 +60,6 @@ function viewMap($address)
                 }
             }
         }
-        
-
     }
 
     echo $results;
@@ -196,12 +194,6 @@ function viewMap($address)
     //     });
     // }
 </script>
- <!-- // ucsc,colombo, sri lanka
-    // University of Colombo,colombo, sri lanka
-    // University of kelaniya,Kelaniya, sri lanka
-    // University of Moratuwa,Moratuwa, sri lanka
-    // University of Peradeniya,Peradeniya, sri lanka
-    // University of Ruhuna,Galle, sri lanka
-    // University of Jaffna,Jaffna, sri lanka
-    // University of Sabaragamuwa,Keppetipola, sri lanka
-    // University of Sri Jayewardenepura,Kotte, sri lanka  -->
+
+<?php
+?>

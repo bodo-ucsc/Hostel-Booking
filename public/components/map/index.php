@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html>
+<?php
+$header = new HTMLHeader("Home");
+$nav = new Navigation("feed");
+$base = BASEURL;
+
+?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<head>
-    Google map api with marker
-</head>
+
 
 <body>
-
-    <form action="">
-        <input type="text" name="Address" id="address">
-        <input type="button" value="Search" onclick="AddressCords()">
-    </form>
-
 
     <div id="map_container" style="width: 50%; height: 350px;"> </div>
     <div id="lat"></div>
@@ -87,7 +83,7 @@
                     //document.getElementById("rating-value").innerHTML=rating;
 
                 }
-                
+
             });
         }
 
@@ -99,8 +95,6 @@
         // University of Jaffna,Jaffna, sri lanka
         // University of Sabaragamuwa,Keppetipola, sri lanka
         // University of Sri Jayewardenepura,Kotte, sri lanka
-        
-
     </script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initialize_map"></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8">
