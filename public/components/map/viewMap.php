@@ -30,7 +30,7 @@
 function viewMap($address)
 {
     echo '<div id="map_container" style="width: 45%; height: 300px;">MAP</div>';
-    echo "<div id='address'>Address: $address</div>";
+    //echo "<div id='address'>Address: $address</div>";
     $apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
     $base = BASEURL;
     $radius = 1000;
@@ -46,8 +46,8 @@ function viewMap($address)
         $lats = $results['results'][0]['geometry']['location']['lat'];
         $lngs = $results['results'][0]['geometry']['location']['lng'];
 ?>
-        <div id='lat'>latitude:<?php echo $lats ?></div>
-        <div id='lng'>longitude:<?php echo $lngs ?></div>
+        <!-- <div id='lat'>latitude:<?php echo $lats ?></div>
+        <div id='lng'>longitude:<?php echo $lngs ?></div> -->
 
     <?php
         echo "<script>initMap($lats,$lngs);</script>";
@@ -57,7 +57,8 @@ function viewMap($address)
         echo 'Geocode was not successful for the following reason: ' . $results['status'];
     }
     ?>
-    <div id="nearby">Near By Places</div>
+    <span class="header-1">Near By Places</span>
+    <div id="nearby"></div>
     <?php
     $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=$apiKey&location=$lats,$lngs&radius=$radius&type=$type";
     $response = file_get_contents($url);
