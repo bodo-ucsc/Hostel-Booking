@@ -1,3 +1,30 @@
+<style>
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: 15%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.card img {
+    width: 100%;
+}
+
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+</style>
+
 <?php
 
 function viewMap($address)
@@ -31,7 +58,7 @@ function viewMap($address)
     }
     ?>
     <div id="nearby">Near By Places</div>
-<?php
+    <?php
     $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=$apiKey&location=$lats,$lngs&radius=$radius&type=$type";
     $response = file_get_contents($url);
     $results = json_decode($response, true);
@@ -43,7 +70,10 @@ function viewMap($address)
     // print_r($places);
     // return $results;
     //return $places;
-    $results = '';
+    //$results = '';
+    ?>
+    <div class="card-container">
+    <?php
     foreach ($places as $place) {
         $name = $place['name'];
         $address = $place['vicinity'];
@@ -56,42 +86,50 @@ function viewMap($address)
                 if ($photos) {
                     $photoReference = $photos[0]['photo_reference'];
                     $photoUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=$photoReference&key=$apiKey";
-                    $results .= "$name ($address) ($rating) <img src='$photoUrl'> <br>";
+                    
+                    echo '<div class="card">';
+                    echo '<img src="'.$photoUrl.'" alt="Place Image">';
+                    echo '<h2>'.$name.'</h2>';
+                    echo '<p>Address: '.$address.'</p>';
+                    echo '<i data-feather="star"></i>
+                    <p>Rating: '.$rating.'</p>';
+                    echo '</div>';
+                    
                 }
             }
         }
     }
 
-    echo $results;
 }
 
-?>
+    ?>
+    </div>
 
-<script>
-    function initMap(lats, lngs) {
+    <script>
+        function initMap(lats, lngs) {
 
-        var location = {
-            lat: parseFloat(lats),
-            lng: parseFloat(lngs)
-        };
+            var location = {
+                lat: parseFloat(lats),
+                lng: parseFloat(lngs)
+            };
 
-        var map = new google.maps.Map(document.getElementById('map_container'), {
-            zoom: 17,
-            center: location
-        });
-        var marker = new google.maps.Marker({
-            map: map,
-            position: location
-        });
+            var map = new google.maps.Map(document.getElementById('map_container'), {
+                zoom: 17,
+                center: location
+            });
+            var marker = new google.maps.Marker({
+                map: map,
+                position: location
+            });
 
-    }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initMap"></script>
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initMap"></script>
 
 
-<!-- <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initMap'></script> -->
+    <!-- <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initMap'></script> -->
 
-<!-- 
+    <!-- 
     // const apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
     // const radius = 1000;
     // const type = 'restaurant';
@@ -124,8 +162,8 @@ function viewMap($address)
     //         console.error(error);
     //     }); -->
 
-<script>
-    /*
+    <script>
+        /*
     function near(lats, lngs) {
 
         const apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
@@ -193,7 +231,7 @@ function viewMap($address)
     //         }
     //     });
     // }
-</script>
+    </script>
 
-<?php
-?>
+    <?php
+    ?>
