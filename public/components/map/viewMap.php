@@ -29,7 +29,7 @@
 
 function viewMap($address)
 {
-    echo '<div id="map_container" style="width: 45%; height: 300px;">MAP</div>';
+    echo '<div id="map_container" style="width: 35%; height: 250px;">MAP</div>';
     //echo "<div id='address'>Address: $address</div>";
     $apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
     $base = BASEURL;
@@ -45,21 +45,21 @@ function viewMap($address)
     if ($results['status'] == 'OK') {
         $lats = $results['results'][0]['geometry']['location']['lat'];
         $lngs = $results['results'][0]['geometry']['location']['lng'];
-?>
-        <!-- <div id='lat'>latitude:<?php echo $lats ?></div>
-        <div id='lng'>longitude:<?php echo $lngs ?></div> -->
+        //<!-- <div id='lat'>latitude:<?php echo $lats </div>
+        //<div id='lng'>longitude:<?php echo $lngs </div>
 
-    <?php
+    
         echo "<script>initMap($lats,$lngs);</script>";
         //when window load then call initMap function
         //window.addEventListener('load', initMap);
     } else {
         echo 'Geocode was not successful for the following reason: ' . $results['status'];
     }
-    ?>
+  
+    echo '
     <span class="header-1">Near By Places</span>
-    <div id="nearby"></div>
-    <?php
+    <div id="nearby"></div>';
+    
     $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=$apiKey&location=$lats,$lngs&radius=$radius&type=$type";
     $response = file_get_contents($url);
     $results = json_decode($response, true);
@@ -72,9 +72,9 @@ function viewMap($address)
     // return $results;
     //return $places;
     //$results = '';
-    ?>
-    <div class="card-container">
-    <?php
+   
+    echo '<div class="card-container">';
+    
     foreach ($places as $place) {
         $name = $place['name'];
         $address = $place['vicinity'];
@@ -91,7 +91,7 @@ function viewMap($address)
                     echo '<div class="card">';
                     echo '<img src="'.$photoUrl.'" alt="Place Image">';
                     echo '<h2>'.$name.'</h2>';
-                    echo '<p>Address: '.$address.'</p>';
+                    echo '<p>'.$address.'</p>';
                     echo '<i data-feather="star"></i>
                     <p>Rating: '.$rating.'</p>';
                     echo '</div>';
@@ -103,9 +103,11 @@ function viewMap($address)
 
 }
 
-    ?>
-    </div>
+    
 
+    echo '</div>';
+
+echo '
     <script>
         function initMap(lats, lngs) {
 
@@ -114,7 +116,7 @@ function viewMap($address)
                 lng: parseFloat(lngs)
             };
 
-            var map = new google.maps.Map(document.getElementById('map_container'), {
+            var map = new google.maps.Map(document.getElementById("map_container"), {
                 zoom: 17,
                 center: location
             });
@@ -124,9 +126,10 @@ function viewMap($address)
             });
 
         }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initMap"></script>
-
+    </script>';
+ 
+    echo '<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initMap"></script>';
+    ?>
 
     <!-- <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8&callback=initMap'></script> -->
 
@@ -162,8 +165,8 @@ function viewMap($address)
     //     .catch(error => {
     //         console.error(error);
     //     }); -->
-
-    <script>
+<?php
+    echo '<script>';
         /*
     function near(lats, lngs) {
 
@@ -195,7 +198,7 @@ function viewMap($address)
             .catch(error => {
                 console.error(error);
             });
-    } -->
+    } 
     // function getData(lats, lngs) {
     //     window.$.ajax({
     //         url: "nearby.php",
@@ -232,7 +235,10 @@ function viewMap($address)
     //         }
     //     });
     // }
-    </script>
+    
+    */
+    echo '
+    </script>';
 
-    <?php
+   
     ?>
