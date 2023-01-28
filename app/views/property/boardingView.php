@@ -195,6 +195,7 @@ if (isset($boardingPlace)) {
                             echo "Any";
                         }
                         ?>
+
                     </div>
                     <div class="col-1 fill-container flex-column accent">
                         <i class="icon-green margin-bottom-1" data-feather="smile"></i>
@@ -247,6 +248,70 @@ if (isset($boardingPlace)) {
                         ";
                     }    
                     ?>
+                </div>
+                <div class="row">
+                    <?php
+                    $reviews = restAPI("property/viewReviewsByPlaceId/$placeid");
+                    ?>
+                    <div class="col-12 fill-container border-rounded shadow margin-top-5 margin-top-4">
+                        <div class='col-12 padding-4 header-2 center'>
+                            Reviews
+                        </div>
+                        <?php
+                        if (!is_null($reviews)) {
+                            foreach ($reviews as $res) {    
+                                    echo "
+                                    <div class='row padding-2 shadow margin-2 border-rounded'>
+                                        <div class='row>
+                                            <div class='col-3'>
+                                                <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=$res->FirstName+$res->LastName' >
+                                            </div>
+                                            <div class='col-3'>
+                                               <div class='header-nb right'> $res->FirstName $res->LastName</div>
+                                               $res->UserType
+                                            </div>
+                                            <div class='col-2'></div>
+                                            <div class='col-4 left-flex'>";
+
+                                            if($res->Rating > 4.5){
+                                                echo "
+                                                <img height=20px class=' fill-container' src='$base/public/images/5.jpg' >
+                                                ";
+                                            }else if($res->Rating > 3.5){
+                                                echo "
+                                                <img height=20px class=' fill-container' src='$base/public/images/4.jpg' >
+                                                ";
+                                            }else if($res->Rating > 2.5){
+                                                echo "
+                                                <img height=20px class=' fill-container' src='$base/public/images/3.jpg' >
+                                                ";
+                                            }else if($res->Rating > 1.5){
+                                                echo "
+                                                <img height=20px class=' fill-container' src='$base/public/images/2.jpg' >
+                                                ";
+                                            }else{
+                                                echo "
+                                                <img height=20px class=' fill-container' src='$base/public/images/1.jpg' >
+                                                ";
+                                            }
+                                                
+                                        echo"
+                                            </div>
+                                            <div class='row'>
+                                                <div class='col-12'>
+                                                $res->Review
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                            
+                                    ";     
+                            }
+                        } else {
+                        
+                        }
+                    ?>
+                    </div>
                 </div>
             </div>
         </div>

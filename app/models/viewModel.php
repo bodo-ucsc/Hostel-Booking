@@ -162,7 +162,11 @@ class viewModel extends Model
         return $result;
     }
 
-    // public function getCitiesAsc()
+     public function getCitiesAsc()
+    {
+         $result = $this->get('City', null, 'CityName ASC', null);
+         return $result;
+     }
     // public function getCities()
     // {
     //     $result = $this->get('City', null, 'CityName ASC', null);
@@ -266,7 +270,35 @@ class viewModel extends Model
 
     public function getBoardingReviewsbyPlace($placeId)
     {
-        $result = $this->get('reviewrating',"Place = $placeId");
+        // $result = $this->get('reviewrating',"Place = $placeId");
+        $sql = "SELECT * FROM reviewrating INNER JOIN user ON reviewrating.BoarderId = user.UserId AND reviewrating.Place = $placeId";
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+
+    public function getRentCount($placeid)
+    {
+        $sql = "SELECT COUNT($placeid) AS numrows FROM boardingplacerent";
+        // $result = $this->numRowsWhere('boardingplacerent',"PlaceId = $placeid");
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+
+    public function getCurrentlyBoarded($placeid)
+    {
+        $result = $this->get('boardingplacetenant',"PlaceId = $placeid");
+        return $result;
+    }
+
+    public function getFromUser($userid)
+    {
+        $result = $this->get('user',"UserId = $userid");
+        return $result;
+    }
+
+    public function getBoardingRequests($placeid)
+    {
+        $result = $this->get('boardingplacerequests', "PlaceId = $placeid AND Status = 'not'");
         return $result;
     }
 

@@ -27,7 +27,8 @@ $_boardingOwner = new property;
     //     echo "<br>";
     // }
     ?>
-    <form class=" padding-5 margin-left-2 " action="<?php echo BASEURL ?>/property/addBoardingPlace" method="post">
+    <div class=" padding-5 margin-left-2 ">
+    <form  action="<?php echo BASEURL ?>/property/addBoardingPlace" method="post" enctype="multipart/form-data">
     
         <div class="row">
             <div class="col-8 header-2 fill-container vertical-align-middle left-flex">&nbsp;Add Property<i onclick="history.back()" data-feather="arrow-left"></i></div>
@@ -36,7 +37,7 @@ $_boardingOwner = new property;
             </div>
         </div><br>
         <div class="row">
-            <div class="col-9">
+            <div class="col-8">
                 <div class="row">
                     <div class="col-7 fill-container">
                         <label for="propertytitle">Property Listing Title</label><br>
@@ -138,10 +139,10 @@ $_boardingOwner = new property;
                     </div>
                 </div>
             </div>
-            <div class=" flex-column margin-left-5 border-dashed-1 border-black col-3 padding-vertical-2 padding-horizontal-4 border-black border-rounded">
+            <div class=" flex-column margin-left-5 border-dashed-1 border-black col-4 padding-vertical-2 padding-horizontal-4 border-black border-rounded">
                 <i data-feather="upload-cloud"></i><br>
                 <p class=" center">Drag and Drop <br> or</p>
-                <button class=" bg-blue-hover white-hover border-rounded padding-2 margin-top-2">Select Files</button>
+                <input type='file' name='files[]' id='fileupload'  class=" bg-blue-hover white-hover border-rounded padding-2 margin-top-2" multiple>
             </div>
          </div>
          <div class="row margin-top-3">
@@ -210,6 +211,7 @@ $_boardingOwner = new property;
             </div>
          </div>
     </form>
+    </div>
 
 
 </main>

@@ -19,7 +19,7 @@ class ViewCardProperty
             ";
         } else {
             echo "
-                <img class='fill-container border-rounded padding-5' src = $base/public/images/randomboardinghouse.png >
+                <img class='fill-container border-rounded ' src = $base/public/images/randomboardinghouse.png >
             ";
         }
 

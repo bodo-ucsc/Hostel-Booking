@@ -84,6 +84,27 @@ class property extends Controller{
         $noofmembers, $noofrooms, $noofwashrooms, $gender,
         $boardertype, $sqfeet, $parking);
 
+        // if (isset($_FILES['files[]']) && !is_null($_FILES['files[]'])) {
+
+        //      // Count total files
+        //     $countfiles = count($_FILES['files']['name']);
+
+        //     // Looping all files
+        //     for($i=0;$i<$countfiles;$i++){
+        //         $file = $_FILES['fileToUpload'];
+        //         $file_name = $file['name'];
+        //         $file_tmp = $file['tmp_name'];
+        //         $file_size = $file['size'];
+        //         $file_error = $file['error'];
+
+        //         $file_ext = explode('.', $file_name);
+        //         $file_ext = strtolower(end($file_ext));
+        //         $allowed = array('jpg', 'jpeg', 'png');
+        //     }
+        
+            
+        // }
+
         header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
     }
 
@@ -213,11 +234,47 @@ class property extends Controller{
         while ($row = $data->fetch_assoc()) {
             $array['ReviewId'] = $row['ReviewId'];
             $array['Place'] = $row['Place'];
-            $array['BoaderId'] = $row['BoaderId'];
+            $array['BoarderId'] = $row['BoarderId'];
             $array['Rating'] = $row['Rating'];
             $array['Review'] = $row['Review'];
             $array['DateTime'] = $row['DateTime'];
             $array['BoardingOwnerReply'] = $row['BoardingOwnerReply'];
+            $array['FirstName'] = $row['FirstName'];
+            $array['LastName'] = $row['LastName'];
+            $array['UserType'] = $row['UserType'];
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function rentCount($placeid)
+    {
+        $result = $this->model('viewmodel')->getRentCount($placeid);
+        return $result;  
+    }
+
+    public function currentlyBoarded($placeid)
+    {
+        $result = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
+        return $result;  
+    }
+
+    public function getBoarderDetails($userid)
+    {
+        // $result = $this->model('boardingOwnerModel')->userDetails($ownerid);
+        $result = $this->model('viewModel')->getFromUser($userid);
+        return $result;
+    }
+
+    public function boardingRequests($placeid)
+    {
+        $data = $this->model('viewmodel')->getBoardingRequests($placeid);
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['PlaceId'] = $row['PlaceId'];
+            $array['UserId'] = $row['UserId'];
+            $array['Status'] = $row['Status'];
             array_push($json, $array);
         }
         $json_response = json_encode($json);
