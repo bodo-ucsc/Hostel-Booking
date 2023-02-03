@@ -2,7 +2,7 @@
 
 class Listing extends Controller
 {
-    public function index($placeId = null)
+public function index($placeId = null)
     {
 
         if (isset($placeId)) {

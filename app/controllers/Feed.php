@@ -115,7 +115,7 @@ class Feed extends Controller
         echo $json_response;
     }
 
-    public function viewPost($PostId)
+    public function viewPost($PostId = null)
     {
         $base = BASEURL;
         new HTMLHeader("Feed | Post");
@@ -126,6 +126,14 @@ class Feed extends Controller
         echo "<div class='navbar-offset full-width center'>";
 
         $result = restAPI("feed/postRest/$PostId");
+        echo $result[0]->FirstName;
+        echo $result[0]->LastName;
+        echo $result[0]->UserType;
+        echo $result[0]->ProfilePicture;
+        echo $result[0]->PostId;
+        echo $result[0]->PlaceId;
+        echo $result[0]->DateTime;
+        echo $result[0]->Caption;
         new ViewCard($result[0], "y");
         echo "</div>";
         echo "

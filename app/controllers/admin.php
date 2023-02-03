@@ -161,6 +161,24 @@ class Admin extends Controller
         header('Location: ' . BASEURL . '/admin');
     }
 
+    public function place()
+    {
+        $this->view('map/place');
+        //$this->view('map/mapCard');
+    }
+
+    public function viewNearby()
+    {
+        if (isset($_POST['address'])) {
+            $address = $_POST['address'];
+            viewMap($address);
+
+            //viewMap("UCSC", "Colombo", "Sri Lanka");
+        } else {
+            echo "not set location";
+        }
+    }
+
 
 
 }

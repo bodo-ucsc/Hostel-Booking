@@ -7,11 +7,11 @@ class addModel extends Model
         parent::__construct();
     }
 
-    public function register($firstname, $lastname, $username, $email, $password, $usertype)
+    public function register($firstname, $lastname, $username, $email, $contactNumber, $password, $usertype)
     {
         //hashing the password
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $this->insert('User', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'Email' => $email, 'Password' => $password, 'UserType' => $usertype]);
+        $this->insert('User', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'Email' => $email, 'ContactNumber' => $contactNumber, 'Password' => $password, 'UserType' => $usertype]);
         //return last id
         return $this->lastInsertId();
     }
@@ -34,7 +34,7 @@ class addModel extends Model
         }
     }
 
-    public function addProfessional($ProfessionalId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $WorkPlace, $Occupation)
+    public function addProfessional($ProfessionalId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address, $WorkPlace, $Occupation)
     {
         $this->insert('Professional', [
             'ProfessionalId' => $ProfessionalId,
@@ -43,7 +43,6 @@ class addModel extends Model
             'DateOfBirth' => $DateOfBirth,
             'NIC' => $NIC,
             'Gender' => $Gender,
-            'ContactNumber' => $ContactNumber,
             'Address' => $Address,
             'WorkPlace' => $WorkPlace,
             'Occupation' => $Occupation
@@ -54,7 +53,7 @@ class addModel extends Model
             return 'fail';
         }
     }
-    public function addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $WorkPlace, $Occupation)
+    public function addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address, $WorkPlace, $Occupation)
     {
         $this->insert('BoardingOwner', [
             'BoardingOwnerId' => $BoardingOwnerId,
@@ -63,7 +62,6 @@ class addModel extends Model
             'DateOfBirth' => $DateOfBirth,
             'NIC' => $NIC,
             'Gender' => $Gender,
-            'ContactNumber' => $ContactNumber,
             'Address' => $Address,
             'WorkPlace' => $WorkPlace,
             'Occupation' => $Occupation
@@ -74,7 +72,7 @@ class addModel extends Model
             return 'fail';
         }
     }
-    public function addStudent($StudentId, $VerifiedStatus, $NICScanLink, $UniversityIDCopyLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink)
+    public function addStudent($StudentId, $VerifiedStatus, $NICScanLink, $UniversityIDCopyLink, $DateOfBirth, $NIC, $Gender, $Address, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink)
     {
         $this->insert('Student', [
             'StudentId' => $StudentId,
@@ -85,7 +83,7 @@ class addModel extends Model
             'DateOfBirth' => $DateOfBirth,
             'NIC' => $NIC,
             'Gender' => $Gender,
-            'ContactNumber' => $ContactNumber,
+           // 'ContactNumber' => $ContactNumber,
             'Address' => $Address,
             'StudentUniversity' => $StudentUniversity,
             'UniversityIDNo' => $UniversityIDNo
@@ -151,8 +149,8 @@ class addModel extends Model
         }
     }
     public function addSupport($type, $userId, $support, $description, $requestTo = 7)
-    { 
-        $this->insert('Support', ['SupportType' => $type, 'RequestBy' => $userId, 'SupportTitle' => $support, 'SupportMessage' => $description,'RequestTo' => $requestTo ]);
+    {
+        $this->insert('Support', ['SupportType' => $type, 'RequestBy' => $userId, 'SupportTitle' => $support, 'SupportMessage' => $description, 'RequestTo' => $requestTo]);
         if ($this->mysqli->affected_rows == 1) {
             return 'success';
         } else {

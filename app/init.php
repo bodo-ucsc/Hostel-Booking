@@ -17,7 +17,7 @@ require_once '../public/components/viewCardProperty.php';
 require_once '../public/components/comment.php';
 require_once '../public/components/likeSection.php';
 require_once '../public/components/PHPMailer/config.php'; 
-
+//require_once '../public/components/map/index.php';
 
 function restAPI($urlAppend, $external = null)
 {
