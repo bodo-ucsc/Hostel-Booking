@@ -219,7 +219,6 @@ $_boardingOwner = new property;
 <script>
 
     function selectDistrict() {
-        console.log("f");
         var provinceName = document.getElementById("province").value;
         console.log(provinceName);
         var url = "<?php echo BASEURL ?>/location/districtRest/".concat(provinceName);        

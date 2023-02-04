@@ -254,10 +254,22 @@ class property extends Controller{
         return $result;  
     }
 
+    // public function currentlyBoarded($placeid)
+    // {
+    //     $result = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
+    //     return $result;  
+    // }
+
     public function currentlyBoarded($placeid)
     {
-        $result = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
-        return $result;  
+        $data = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['TenantId'] = $row['TenantId'];
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
     }
 
     public function getBoarderDetails($userid)
@@ -272,12 +284,89 @@ class property extends Controller{
         $data = $this->model('viewmodel')->getBoardingRequests($placeid);
         $json = array();
         while ($row = $data->fetch_assoc()) {
-            $array['PlaceId'] = $row['PlaceId'];
-            $array['UserId'] = $row['UserId'];
-            $array['Status'] = $row['Status'];
+            $array['TenantId'] = $row['TenantId'];
             array_push($json, $array);
         }
         $json_response = json_encode($json);
         echo $json_response;
+    }
+
+    public function addBoardingMember($userid,$placeid)
+    {
+        $result = $this->model('editModel')->addABoardingMember($userid,$placeid);
+        // header("Location: " . BASEURL . "/property/viewABoardingPlace/$placeid");
+
+        $data0 = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
+
+        $data2 = $this->model('viewmodel')->getBoardingRequests($placeid);
+        $json = array();
+        $json1 = array();
+        $json2 = array();
+        while ($row = $data0->fetch_assoc()) {
+            $array['TenantId'] = $row['TenantId'];
+            $data1 = $this->model('viewModel')->getFromUser($row['TenantId']);
+            while ($row = $data1->fetch_assoc()) {
+                $array['FirstName'] = $row['FirstName'];
+                $array['LastName'] = $row['LastName'];
+            }
+            array_push($json1, $array);
+        }
+
+        array_push($json, $json1);
+
+        while ($row = $data2->fetch_assoc()) {
+            $array['TenantId'] = $row['TenantId'];
+            $data1 = $this->model('viewModel')->getFromUser($row['TenantId']);
+            while ($row = $data1->fetch_assoc()) {
+                $array['FirstName'] = $row['FirstName'];
+                $array['LastName'] = $row['LastName'];
+            }
+            array_push($json2, $array);
+        }      
+
+        array_push($json, $json2);
+
+        $json_response = json_encode($json);
+        echo $json_response;        
+
+    }
+
+    public function deleteBoardingRequest($userid,$placeid)
+    {
+        $result = $this->model('deleteModel')->deleteABoardingRequest($userid,$placeid);
+        // header("Location: " . BASEURL . "/property/viewABoardingPlace/$placeid");
+
+        $data0 = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
+
+        $data2 = $this->model('viewmodel')->getBoardingRequests($placeid);
+        $json = array();
+        $json1 = array();
+        $json2 = array();
+        while ($row = $data0->fetch_assoc()) {
+            $array['TenantId'] = $row['TenantId'];
+            $data1 = $this->model('viewModel')->getFromUser($row['TenantId']);
+            while ($row = $data1->fetch_assoc()) {
+                $array['FirstName'] = $row['FirstName'];
+                $array['LastName'] = $row['LastName'];
+            }
+            array_push($json1, $array);
+        }
+
+        array_push($json, $json1);
+
+        while ($row = $data2->fetch_assoc()) {
+            $array['TenantId'] = $row['TenantId'];
+            $data1 = $this->model('viewModel')->getFromUser($row['TenantId']);
+            while ($row = $data1->fetch_assoc()) {
+                $array['FirstName'] = $row['FirstName'];
+                $array['LastName'] = $row['LastName'];
+            }
+            array_push($json2, $array);
+        }      
+
+        array_push($json, $json2);
+
+        $json_response = json_encode($json);
+        echo $json_response;        
     }
  }

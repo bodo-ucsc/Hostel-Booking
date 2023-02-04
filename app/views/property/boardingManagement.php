@@ -12,6 +12,7 @@ $_boardingOwner = new property;
 <?php
 $placeid = $data['placeid'];
 
+
 $boardingPlace = $_boardingOwner->viewBoardingPlace($placeid);
 
 if (isset($boardingPlace)) {
@@ -27,6 +28,8 @@ $count = $countRow['numrows'];
 
 $total = (int)$count * $boardingRent;
 ?>
+
+<input type="hidden" id="placeidinput"  value="<?php echo $placeid; ?>">
 
     <div class="row margin-left-5">
         <div class="col-8 col-large-8 col-small-12 header-1 fill-container margin-left-5">
@@ -70,21 +73,21 @@ $total = (int)$count * $boardingRent;
         <div class="col-5 header-2 left-flex fill-container margin-left-5 padding-left-5">Currently Boarded</div>
     </div>
     
-    <div class="row margin-left-5 margin-top-2 ">
+    <div id='currentlyBoarded' class="row margin-left-5 margin-top-2 ">
     <?php
-    $boarders = $_boardingOwner->currentlyBoarded($placeid);
+    $boarders = restAPI("property/currentlyBoarded/$placeid");
     
-    if(!is_null($boarders->fetch_assoc())){
-        while ($boardersArr = $boarders->fetch_assoc()) {
+    if(!is_null($boarders)){
+        foreach($boarders as $res) {
 
-            $boarderId =  $boardersArr['TenantId'];
+            $boarderId =  $res->TenantId;
             $boarderUser = $_boardingOwner->getBoarderDetails($boarderId);
             $boarderUserArr = $boarderUser->fetch_assoc();
             $fname = $boarderUserArr['FirstName'];
             $lname = $boarderUserArr['LastName'];
 
             echo "
-            <div class='col-5 fill-container margin-3'>
+            <div class='col-5 fill-container margin-top-1 margin-right-3 margin-left-3'>
                 <div class=' shadow bg-white border-rounded padding-2'>
                     <div class='row'>
                         <div class='col-3'>
@@ -116,14 +119,14 @@ $total = (int)$count * $boardingRent;
         <div class="col-5 header-2 left-flex fill-container margin-left-5 padding-left-5">Boarding Requests</div>
     </div>
 
-    <div class="row margin-left-5 margin-top-2 ">
+    <div id='boardingRequests' class="row margin-left-5 margin-top-2 ">
 
     <?php
     $requsts = restAPI("property/boardingRequests/$placeid");
 
-    if(!is_null($requsts)){
+    if(!empty($requsts)){
         foreach($requsts as $res){
-            $boarderUser = $_boardingOwner->getBoarderDetails($res->UserId);
+            $boarderUser = $_boardingOwner->getBoarderDetails($res->TenantId);
             $boarderUserArr = $boarderUser->fetch_assoc();
             $fname = $boarderUserArr['FirstName'];
             $lname = $boarderUserArr['LastName'];
@@ -138,21 +141,31 @@ $total = (int)$count * $boardingRent;
                         <div class='col-7 left fill-container'>
                         <div class=' header-nb left grey'>$fname $lname</div>
                         </div>
-                        <div class='col-1'>
+                        <div class='col-1' onclick='addUser($res->TenantId,$placeid)'>
+                            
                             <div class=' accent-hover cursor-pointer '>
                             <i data-feather='user-check'></i>
                             </div>
+                           
                         </div>
-                        <div class='col-1 margin-right-2'>
-                            <div class=' red-hover cursor-pointer black-hover'>
-                            <i data-feather='user-x'></i>
-                            </div>
+                        <div class='col-1 margin-right-2' onclick='deleteUser($res->TenantId,$placeid)'>
+                                <div class=' red-hover cursor-pointer black-hover'>
+                                <i data-feather='user-x'></i>
+                                </div>
                         </div>
                     </div>
                 </div>
             </div>
             ";
         }
+    } else {
+        echo "
+        <div class=' row'>
+            <div class='col-12 fill-container'>
+                <div class=' grey'>No Requests to Display</div>
+            </div>
+        </div>
+    ";
     }
     ?>
     </div>
@@ -242,12 +255,10 @@ $total = (int)$count * $boardingRent;
     </div>
      <div class="row margin-left-5 margin-top-2 ">
     <?php
-    $boarders = $_boardingOwner->currentlyBoarded($placeid);
-    
-    if(!is_null($boarders->fetch_assoc())){
-        while ($boardersArr = $boarders->fetch_assoc()) {
+    if(!is_null($boarders)){
+        foreach($boarders as $res) {
 
-            $boarderId =  $boardersArr['TenantId'];
+            $boarderId =  $res->TenantId;
             $boarderUser = $_boardingOwner->getBoarderDetails($boarderId);
             $boarderUserArr = $boarderUser->fetch_assoc();
             $fname = $boarderUserArr['FirstName'];
@@ -289,6 +300,211 @@ $total = (int)$count * $boardingRent;
     </div>
 </main>
 
+
+
+<script>
+
+    function addUser(userid,placeid){
+        var url = "<?php echo BASEURL ?>/property/addBoardingMember/".concat(userid).concat("/").concat(placeid);        
+        console.log(url);
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(JSON.stringify(json));
+
+                const boardersArr = json[0];
+                const requestsArr = json[1];
+
+                console.log(JSON.stringify(boardersArr));
+                console.log(JSON.stringify(requestsArr));
+
+                var boardersArea = document.getElementById("currentlyBoarded");
+                boardersArea.innerHTML = "";
+                for (var i = 0; i < boardersArr.length; i++) {
+                    var fname = [boardersArr[i].FirstName].toString();
+                    var lname = [boardersArr[i].LastName].toString();
+                    
+                    boardersArea.innerHTML += `
+                    <div class='col-5 fill-container margin-top-1 margin-right-3 margin-left-3'>
+                        <div class=' shadow bg-white border-rounded padding-2'>
+                            <div class='row'>
+                                <div class='col-3'>
+                                <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=`+fname+lname+`' >
+                                </div>
+                                <div class='col-9 left fill-container'>
+                                <div class=' header-nb left grey'>`+fname+` `+lname+`</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                }
+
+                if(JSON.stringify(boardersArr) == '[]'){
+                    boardersArea.innerHTML += `
+                    <div class=' row'>
+                        <div class='col-12 fill-container'>
+                            <div class=' grey'>No Boarders to Display</div>
+                        </div>
+                    </div>
+                    `;
+                }
+
+                var placeId = document.getElementById("placeidinput").value;
+                var requestArea = document.getElementById("boardingRequests");
+                requestArea.innerHTML = "";
+                for (var i = 0; i < requestsArr.length; i++) {
+                    var tenantid = [requestsArr[i].TenantId].toString();
+                    var fname = [requestsArr[i].FirstName].toString();
+                    var lname = [requestsArr[i].LastName].toString();
+                    
+                    requestArea.innerHTML += `
+                    <div class='col-5 fill-container margin-3'>
+                        <div class=' shadow bg-white border-rounded padding-2'>
+                            <div class='row'>
+                                <div class='col-3'>
+                                <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=`+fname+lname+`' >
+                                </div>
+                                <div class='col-7 left fill-container'>
+                                <div class=' header-nb left grey'>`+fname+` `+lname+`</div>
+                                </div>
+                                <div class='col-1' onclick='addUser(`+tenantid+`,`+placeId+`)'>
+                                    
+                                    <div class=' accent-hover cursor-pointer '>
+                                    <i data-feather='user-check'></i>
+                                    </div>
+                                
+                                </div>
+                                <div class='col-1 margin-right-2' onclick='deleteUser(`+tenantid+`,`+placeId+`)'>
+                                        <div class=' red-hover cursor-pointer black-hover'>
+                                        <i data-feather='user-x'></i>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                }    
+
+                if(JSON.stringify(requestsArr) == '[]'){
+                    requestArea.innerHTML += `
+                    <div class=' row'>
+                        <div class='col-12 fill-container'>
+                            <div class=' grey'>No Requests to Display</div>
+                        </div>
+                    </div>
+                    `;
+                }
+
+            });
+    }
+
+    function deleteUser(userid,placeid){
+
+        var url = "<?php echo BASEURL ?>/property/deleteBoardingRequest/".concat(userid).concat("/").concat(placeid);        
+        console.log(url);
+
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(JSON.stringify(json));
+
+                const boardersArr = json[0];
+                const requestsArr = json[1];
+
+                console.log(JSON.stringify(boardersArr));
+                console.log(JSON.stringify(requestsArr));
+
+                var boardersArea = document.getElementById("currentlyBoarded");
+                boardersArea.innerHTML = "";
+                for (var i = 0; i < boardersArr.length; i++) {
+                    var fname = [boardersArr[i].FirstName].toString();
+                    var lname = [boardersArr[i].LastName].toString();
+                    
+                    boardersArea.innerHTML += `
+                    <div class='col-5 fill-container margin-top-1 margin-right-3 margin-left-3'>
+                        <div class=' shadow bg-white border-rounded padding-2'>
+                            <div class='row'>
+                                <div class='col-3'>
+                                <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=`+fname+lname+`' >
+                                </div>
+                                <div class='col-9 left fill-container'>
+                                <div class=' header-nb left grey'>`+fname+` `+lname+`</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                }
+
+                if(JSON.stringify(boardersArr) == '[]'){
+                    boardersArea.innerHTML += `
+                    <div class=' row'>
+                        <div class='col-12 fill-container'>
+                            <div class=' grey'>No Boarders to Display</div>
+                        </div>
+                    </div>
+                    `;
+                }
+
+                var placeId = document.getElementById("placeidinput").value;
+                var requestArea = document.getElementById("boardingRequests");
+                requestArea.innerHTML = "";
+                for (var i = 0; i < requestsArr.length; i++) {
+                    var tenantid = [requestsArr[i].TenantId].toString();
+                    var fname = [requestsArr[i].FirstName].toString();
+                    var lname = [requestsArr[i].LastName].toString();
+                    
+                    requestArea.innerHTML += `
+                    <div class='col-5 fill-container margin-3'>
+                        <div class=' shadow bg-white border-rounded padding-2'>
+                            <div class='row'>
+                                <div class='col-3'>
+                                <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=`+fname+lname+`' >
+                                </div>
+                                <div class='col-7 left fill-container'>
+                                <div class=' header-nb left grey'>`+fname+` `+lname+`</div>
+                                </div>
+                                <div class='col-1' onclick='addUser(`+tenantid+`,`+placeId+`)'>
+                                    
+                                    <div class=' accent-hover cursor-pointer '>
+                                    <i data-feather='user-check'></i>
+                                    </div>
+                                
+                                </div>
+                                <div class='col-1 margin-right-2' onclick='deleteUser(`+tenantid+`,`+placeId+`)'>
+                                        <div class=' red-hover cursor-pointer black-hover'>
+                                        <i data-feather='user-x'></i>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                }    
+
+                if(JSON.stringify(requestsArr) == '[]'){
+                    requestArea.innerHTML += `
+                    <div class=' row'>
+                        <div class='col-12 fill-container'>
+                            <div class=' grey'>No Requests to Display</div>
+                        </div>
+                    </div>
+                    `;
+                }
+
+            });
+    } 
+
+</script>
+
 <?php
 $footer = new HTMLFooter();
 ?>
+
+<!-- <a href='$base/property/addBoardingMember/$res->TenantId/$placeid'> </a> -->
+<!-- <a href='$base/property/deleteBoardingRequest/$res->TenantId/$placeid'> -->

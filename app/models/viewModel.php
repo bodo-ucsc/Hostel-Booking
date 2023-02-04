@@ -286,9 +286,11 @@ class viewModel extends Model
 
     public function getCurrentlyBoarded($placeid)
     {
-        $result = $this->get('boardingplacetenant',"PlaceId = $placeid");
+        $result = $this->get('boardingplacetenant',"PlaceId = $placeid AND BoarderStatus = 'boarded'");
         return $result;
     }
+
+    
 
     public function getFromUser($userid)
     {
@@ -298,7 +300,7 @@ class viewModel extends Model
 
     public function getBoardingRequests($placeid)
     {
-        $result = $this->get('boardingplacerequests', "PlaceId = $placeid AND Status = 'not'");
+        $result = $this->get('boardingplacetenant', "PlaceId = $placeid AND BoarderStatus = 'not'");
         return $result;
     }
 
