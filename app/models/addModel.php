@@ -160,4 +160,9 @@ class addModel extends Model
         }
     }
 
+    public function sendfriendrequest($senderid, $receieverid){
+        $this->insert('friend',['StudentFriendId'=>$senderid,'FriendId'=>$receieverid,'status'=>'requested']);
+    }
+
+
 }

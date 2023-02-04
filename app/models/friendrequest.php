@@ -1,7 +1,9 @@
 <?php
 
-class FriendRequest extends Controller {
+class FriendRequest extends Model {
 
+    private $stmt = null;
+    public $error = "";
     function query ($sql, $data=null) {
         $this->stmt = $this->pdo->prepare($sql);
         $this->stmt->execute($data);

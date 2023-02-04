@@ -218,5 +218,24 @@ class viewModel extends Model
         }
     }
 
+    public function getPeopleYouMayKnow($university){
+        $result = $this->get("student", "StudentUniversity = $university",null,6);
+        return $result;
+    }
+
+    public function getfriends($userid){
+        $result = $this->get("friend", "status = 'accepted' AND (StudentFriendId=$userid OR FriendId=$userid)");
+        return $result;
+    }
+
+    public function getFromUser($userid)
+    {
+        $result = $this->get('user',"UserId = $userid");
+        return $result;
+    }
+
+
+
+
 
 }
