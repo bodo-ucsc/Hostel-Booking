@@ -228,6 +228,16 @@ class viewModel extends Model
         return $result;
     }
 
+    public function getfriendsActive($userid){
+        $result = $this->get("friend", "status = 'accepted' AND StudentFriendId=$userid");
+        return $result;
+    }
+
+    public function getfriendsPassive($userid){
+        $result = $this->get("friend", "status = 'accepted' AND FriendId=$userid");
+        return $result;
+    }
+
     public function getFromUser($userid)
     {
         $result = $this->get('user',"UserId = $userid");
