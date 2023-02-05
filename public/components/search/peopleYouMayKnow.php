@@ -1,5 +1,5 @@
 <?php
-class SearchUser
+class SearchPeopleYouMayKnow
 {
 
     public function __construct($usertype = null)
@@ -10,9 +10,11 @@ class SearchUser
                <i data-feather='search'></i>
             </div>
 
-                <div class='col-medium-8 col-12 fill-container'>
+             
+
+                <div class='col-medium-8 col-9 fill-container'>
                     <input class=' header-nb border-none fill-container' type='text'
-                        placeholder='Find $usertype users...'>
+                        placeholder='Find $usertype friends from your university'>
                 </div>
 
                 <div class='display-none display-medium-block  col-3 fill-container'>
