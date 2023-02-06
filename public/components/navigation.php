@@ -54,10 +54,10 @@ class Navigation
                 } else if ($active == 'boarding') {
                     //echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
                     //echo "              <a class='padding-3 active' href='$base/boarding'>My Boarding</a>";
-                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/boarding'>My Boarding</a>";
+                    echo "          <a class='padding-3 active' href='$base/boarding'>My Boarding</a>";
                 } else {
                     echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
-                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue-hover white-hover border-rounded-more ' href='$base/boarding'>My Boarding</a>";
+                    echo "          <a class='padding-3' href='$base/boarding'>My Boarding</a>";
                     //echo "              <a class='padding-3' href='$base/boarding'>My Boarding</a>"; 
                     
                 }
@@ -163,6 +163,8 @@ class Navigation
         } else {
             echo "              <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more' title='Listing' href='$base/listing'><i data-feather='book-open'></i><span class='display-medium-none display-small-block display-none'></span></a>";
         }
+
+    
 
         if (isset($uname)) {
             if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'BoardingOwner') {
