@@ -600,6 +600,10 @@ select {
   box-sizing: border-box;
 }
 
+select.autowidth{
+  width: auto;
+}
+
 .icon-green {
   stroke: #288684;
 }

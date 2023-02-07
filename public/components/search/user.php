@@ -11,7 +11,7 @@ class SearchUser
                 </div>
 
                 <div class='col-medium-8 col-11 fill-container'>
-                    <input id='searchUser' class=' header-nb border-none fill-container' type='text' list='people'
+                    <input id='searchUser' class=' header-nb border-none fill-container' type='text' onkeyup='searchUser()'
                         placeholder='Find $usertype users...'>
                 </div>
 
@@ -21,12 +21,7 @@ class SearchUser
                 <div class='display-medium-none display-block col-1 fill-container'>
                     <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more'> <i data-feather='search'></i></button>
                 </div>
-            </div> 
-            <datalist id='people'>";
-            foreach ($data as $key => $value) {
-                echo "<option data-id='".$value->UserId."' value='". $value->FirstName." ".$value->LastName."' onclick='searchUser(this)'>";
-            }
-            echo "</datalist>";
+            </div>";
     }
 }
 ?>
