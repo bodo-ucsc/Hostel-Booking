@@ -732,6 +732,34 @@ header .nav-signup {
   width: 40px;
 }
 
+
+/* Map */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+
+.card {
+  width: 15%;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 2px 5px 7px 1px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.card img {
+  width: 100%;
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
 /* Feed, Listing & Adverts */
 
 .advert {

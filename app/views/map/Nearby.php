@@ -7,7 +7,7 @@ $base = BASEURL;
 <main class='navbar-offset'>
 
     <?php
-    ShowMap("ucsc,colombo,sri lanka");
+    new ShowMap("ucsc,colombo,sri lanka");
     ?>
 </main>
 
