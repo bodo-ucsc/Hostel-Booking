@@ -20,7 +20,8 @@ $base = BASEURL . '/admin';
                 </div>
                 <div class="col-1 display-small-none"></div>
                 <div class="col-2 col-large-3 fill-container right">
-                    <button class="bg-blue white border-rounded header-nb padding-3 right" onclick=" location.href='<?= $base ?>/create/verificationTeam'">
+                    <button class="bg-blue white border-rounded header-nb padding-3 right"
+                        onclick=" location.href='<?= $base ?>/create/verificationTeam'">
                         <i data-feather="user-plus" class=" vertical-align-middle "></i>
                         <span class="display-large-inline-block padding-left-2 display-none">Add User</span>
                     </button>
@@ -33,7 +34,8 @@ $base = BASEURL . '/admin';
             <div class="row margin-top-5 fill-container">
                 <div class=" shadow-small border-rounded-more   fill-container col-12 ">
                     <div class="row no-gap fill-container">
-                        <div class="col-8 col-small-9 table fill-container border-rounded-more-left padding-top-4 padding-bottom-5 shadow-small bg-white ">
+                        <div
+                            class="col-8 col-small-9 table fill-container border-rounded-more-left padding-top-4 padding-bottom-5 shadow-small bg-white ">
                             <div class="hs padding-horizontal-5 padding-vertical-3">
                                 <div class="col-2  text-overflow bold">First Name</div>
                                 <div class="col-2  text-overflow bold">Last Name</div>
@@ -47,32 +49,35 @@ $base = BASEURL . '/admin';
                             </div>
                             <?php
                             if (isset($data['result'])) {
+                                $result = array_slice($data['result'], ($data['page'] - 1) * $data['perPage'], $data['perPage']);
+
                                 $useridArray = array();
-                                while ($row = $data['result']->fetch_assoc()) {
-                                    array_push($useridArray, $row['UserId']);
-                                    $gender = $row['Gender'];
+                                foreach ($result as $key => $value) {
+                                    array_push($useridArray, $value->UserId);
+                                    $gender = $value->Gender;
                                     if ($gender == 'm') {
                                         $gender = 'Male';
                                     } else {
                                         $gender = 'Female';
                                     }
                                     echo "<div class='hs padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $row['FirstName'] . "' >" . $row['FirstName'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $row['LastName'] . "' >" . $row['LastName'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $row['Username'] . "' >" . $row['Username'] . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $row['DateOfBirth'] . "' >" . $row['DateOfBirth'] . "</div>";
+                                    echo "<div class='col-2  text-overflow ' title='" . $value->FirstName . "' >" . $value->FirstName . "</div>";
+                                    echo "<div class='col-2  text-overflow ' title='" . $value->LastName . "' >" . $value->LastName . "</div>";
+                                    echo "<div class='col-2  text-overflow ' title='" . $value->Username . "' >" . $value->Username . "</div>";
+                                    echo "<div class='col-2  text-overflow ' title='" . $value->DateOfBirth . "' >" . $value->DateOfBirth . "</div>";
                                     echo "<div class='col-2  text-overflow ' title=' $gender'>$gender</div>";
-                                    echo "<div class='col-3  text-overflow ' title='" . $row['NIC'] . "' >" . $row['NIC'] . "</div>";
-                                    echo "<div class='col-3  text-overflow ' title='" . $row['Email'] . "' >" . $row['Email'] . "</div>";
-                                    echo "<div class='col-3  text-overflow ' title='" . $row['ContactNumber'] . "' >" . $row['ContactNumber'] . "</div>";
-                                    echo "<div class='col-4  text-overflow ' title='" . $row['Address'] . "' >" . $row['Address'] . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $value->NIC . "' >" . $value->NIC . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $value->Email . "' >" . $value->Email . "</div>";
+                                    echo "<div class='col-3  text-overflow ' title='" . $value->ContactNumber . "' >" . $value->ContactNumber . "</div>";
+                                    echo "<div class='col-4  text-overflow ' title='" . $value->Address . "' >" . $value->Address . "</div>";
                                     echo "</div>";
                                 }
                             }
                             ?>
 
                         </div>
-                        <div class="col-4 col-small-3 fill-container border-rounded-more-right padding-top-4 padding-bottom-5 bg-white shadow-small ">
+                        <div
+                            class="col-4 col-small-3 fill-container border-rounded-more-right padding-top-4 padding-bottom-5 bg-white shadow-small ">
                             <div class="col-12 fill-container padding-3 bold ">Actions</div>
 
                             <?php
@@ -80,13 +85,13 @@ $base = BASEURL . '/admin';
                                 foreach ($useridArray as $userid) {
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3'>";
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='".$basePage."Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $basePage . "Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='".$basePage."Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $basePage . "Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
                                     echo "</div></a>";
 
@@ -113,10 +118,10 @@ $base = BASEURL . '/admin';
 
 
                                     if ($data['page'] > 1) {
-                                        echo "  <a href='$basePage/1'>
+                                        echo "  <a href='$basePage/1/" . $data['perPage'] . "'>
                                                     <button class='shadow-small bg-white'><i class='feather-body vertical-align-middle' data-feather='chevrons-left'></i></button>
                                                 </a>";
-                                        echo "  <a href='$basePage/" . ($data['page'] - 1) . "'>
+                                        echo "  <a href='$basePage/" . ($data['page'] - 1) . "/" . $data['perPage'] . "'>
                                                         <button class='shadow-small bg-white'><i class='feather-body vertical-align-middle' data-feather='chevron-left'></i></button>
                                                     </a>";
                                     } else {
@@ -132,7 +137,7 @@ $base = BASEURL . '/admin';
                                         if ($i == $data['page']) {
                                             echo "<button class='shadow-small padding-3 bg-blue white '>$i</button>";
                                         } else {
-                                            echo "  <a href='$basePage/$i'>
+                                            echo "  <a href='$basePage/$i/" . $data['perPage'] . "'>
                                                             <button  class='shadow-small bg-white padding-3 '>$i</button>
                                                         </a>";
                                         }
@@ -140,10 +145,10 @@ $base = BASEURL . '/admin';
 
 
                                     if ($data['page'] < $pages) {
-                                        echo "  <a href='$basePage/" . ($data['page'] + 1) . "'>
+                                        echo "  <a href='$basePage/" . ($data['page'] + 1) . "/" . $data['perPage'] . "'>
                                                         <button class='shadow-small bg-white'><i class='feather-body vertical-align-middle' data-feather='chevron-right'></i></button>
                                                     </a>";
-                                        echo "  <a href='$basePage/$pages'>
+                                        echo "  <a href='$basePage/$pages/" . $data['perPage'] . "'>
                                                     <button class='shadow-small bg-white'><i class='feather-body vertical-align-middle' data-feather='chevrons-right'></i></button>
                                                 </a>";
                                     } else {
@@ -159,7 +164,7 @@ $base = BASEURL . '/admin';
                             </div>
                         </div>
                     </div>
-                </div>
+               </div>
             </div>
 
         </div>

@@ -149,7 +149,7 @@ class boardingOwner extends Controller{
     public function getOwnerDetails($ownerid)
     {
         // $result = $this->model('boardingOwnerModel')->userDetails($ownerid);
-        $result = $this->model('viewModel')->getUserById('boardingOwner', $ownerid);
+        $result = $this->model('viewModel')->getUser('boardingOwner', $ownerid);
         return $result;
     }
 

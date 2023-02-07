@@ -2,16 +2,16 @@
 class SearchUser
 {
 
-    public function __construct($usertype = null)
-    {
+    public function __construct($usertype = null, $data = null)
+    { 
         echo " 
             <div class='row border-rounded-more searchbar fill-container'>
-            <div class='display-medium-inline-block  display-none  col-1  '>
-               <i data-feather='search'></i>
-            </div>
+                <div class='display-medium-inline-block  display-none  col-1  '>
+                <i data-feather='search'></i>
+                </div>
 
                 <div class='col-medium-8 col-11 fill-container'>
-                    <input class=' header-nb border-none fill-container' type='text'
+                    <input id='searchUser' class=' header-nb border-none fill-container' type='text' list='people'
                         placeholder='Find $usertype users...'>
                 </div>
 
@@ -22,7 +22,11 @@ class SearchUser
                     <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more'> <i data-feather='search'></i></button>
                 </div>
             </div> 
-        ";
+            <datalist id='people'>";
+            foreach ($data as $key => $value) {
+                echo "<option data-id='".$value->UserId."' value='". $value->FirstName." ".$value->LastName."' onclick='searchUser(this)'>";
+            }
+            echo "</datalist>";
     }
 }
 ?>

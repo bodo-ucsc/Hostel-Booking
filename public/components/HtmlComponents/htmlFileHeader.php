@@ -34,7 +34,10 @@ class HTMLHeader
 
                 <link rel='stylesheet' href=' $base/public/styles/styles.css'>
                 <link rel='shortcut icon' href='$base/public/images/favicon.png' type='image/x-icon'>
-            
+                <link href='https://unpkg.com/filepond@^4/dist/filepond.css' rel='stylesheet' />
+                <link rel='stylesheet' href='https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'>
+
+
                 <link rel='preconnect' href='https://fonts.googleapis.com'>
                 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
                 <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap' rel='stylesheet'>

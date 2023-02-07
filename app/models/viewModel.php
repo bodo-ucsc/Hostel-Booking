@@ -128,26 +128,28 @@ class viewModel extends Model
             return null;
         }
     }
-    public function getUser($user = "admin", $page = 1, $perPage = 1)
+    public function getUser($user = "admin", $id = null)
     {
-        $start = ($page - 1) * $perPage;
-        $result = $this->get("User,$user", 'UserId = ' . $user . 'Id', null, "$start,$perPage");
-        if ($result->num_rows > 0) {
-            return $result;
+        if (isset($id)) {
+            $append = "AND UserId = '$id'";
         } else {
-            return null;
-        }
-    }
+            $append = null;
+        } 
+        if ($user == "student" || $user == "profesional") { 
+            $result = $this->get("User, Boarder, $user", 'UserId = BoarderId AND BoarderId = ' . $user . "Id $append"   );
 
-    public function getUserById($user, $id)
-    {
-        $result = $this->get("User,$user", 'UserId = ' . $user . 'Id AND UserId = ' . $id);
+        } else {
+            $result = $this->get("User, $user", 'UserId = ' . $user . "Id $append" );
+
+        }
+            
         if ($result->num_rows > 0) {
             return $result;
         } else {
             return null;
         }
     }
+ 
     public function getCities()
     {
         $result = $this->get('City', null, 'CityName ASC', null);

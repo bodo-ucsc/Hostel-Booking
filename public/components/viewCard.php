@@ -116,13 +116,18 @@ class ViewCard
     </div>";
 
         if (isset($comments)) {
-            echo "<div id='comment-list-$PostId' class='margin-top-3 row bg-light-grey border-rounded padding-vertical-4 padding-horizontal-3'></div>";
+            echo "
+                <div id='comment-list-$PostId' class='margin-top-3 row bg-light-grey border-rounded padding-vertical-4 padding-horizontal-3'></div>
+                <div id='comment-typing-$PostId' class='fill-container left padding-top-3'> </div>
+            
+            ";
+
             if (isset($_SESSION['UserId'])) {
                 echo " 
                     <div class='row '>
                         <div class='col-10 fill-container'>
                             <input type='text' class='vertical-align-middle fill-container margin-top-4' id='comment-$PostId' name='comment'
-                            placeholder='Your Message' required>
+                            placeholder='Your Message' onkeyup='typing()' required>
                         </div>
                         <div class='col-2 fill-container'>
                             <button onclick='addComment()' class='border-rounded vertical-align-middle fill-container bg-blue-hover white-hover'>
