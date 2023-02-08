@@ -7,6 +7,7 @@ class Feed extends Controller
     {
         if (!isset($PostId)) {
             $this->view('Feed/index');
+            $this->view('bordings/index');
         } else {
             header("Location: " . BASEURL . "/feed/viewPost/$PostId");
         }

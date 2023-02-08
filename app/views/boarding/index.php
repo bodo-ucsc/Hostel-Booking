@@ -1,6 +1,7 @@
 <?php
 $header = new HTMLHeader("My Boarding");
 $nav = new Navigation('My Boarding');
+$base = BASEURL;
 
 $basePage = BASEURL . '/boarding';
 
@@ -18,10 +19,11 @@ $basePage = BASEURL . '/boarding';
             </div>
         </div>";
 
-
+    
 
     if (isset($data['result'])) {
 
+        $info['res'] = $data['result'];
         $rows = array();
 
         while ($row = $data['result']->fetch_assoc()) {
@@ -36,7 +38,7 @@ $basePage = BASEURL . '/boarding';
                 if ($row['UserType'] == 'Student') {
                     $borderType = $row['StudentUniversity'];
                     //$rows['StudentUniversity'] = $row['StudentUniversity'];
-                   
+    
                 } else if ($row['UserType'] == 'Professional') {
                     $borderType = $row['UserType'];
                 }
@@ -92,6 +94,7 @@ $basePage = BASEURL . '/boarding';
                     $borderType = $row['UserType'];
                 }
 
+
                 echo "<div class=' margin-left-2 row no-gap vertical-align-middle'>
                     <div class=' padding-2'>
                         <img class='dp1 '
@@ -145,8 +148,7 @@ $basePage = BASEURL . '/boarding';
 
 
             <div class="row margin-top-3 fill-container">
-                <div
-                    class="shadow-small padding-3 border-rounded-more  fill-container col-9  display-medium-block">
+                <div class="shadow-small padding-3 border-rounded-more  fill-container col-9  display-medium-block">
                     <span class=' fill-container margin-left-0 header-2'>Payments Due</span>
                     <div class="row margin-top-2 fill-container">
                         <div class='col-4 fill-container padding-3 margin-2'>
@@ -175,62 +177,171 @@ $basePage = BASEURL . '/boarding';
 
 
                 </div>
-                <div class=" margin-left-5 shadow border-rounded-more padding-3  fill-container col-3 bg-blue-hover ">
+                <div
+                    class=" margin-left-5 shadow border-rounded-more padding-5  fill-container col-3 bg-blue-hover display-medium-block ">
                     key money<br>
                     Rs 330,oooo/=
                 </div>
             </div>
 
             <div class="row margin-top-3 fill-container">
-                <div class="shadow-small border-rounded-more padding-3 fill-container col-9">
-                    reminders
-                    <div class="row margin-top-5 fill-container">
+                <div class="shadow-small padding-3 border-rounded-more  fill-container col-9  display-medium-block">
+                    <span class=' fill-container margin-left-0 header-2'>Reminders</span>
+                    <div class="row margin-top-2 fill-container">
+                        <div class='col-4 fill-container padding-3 margin-2'>
+                            <div class="shadow-small border-rounded-more accent padding-4 bg-accent">
+                                <div class='header-2 white'>Rent Due</div>
+                                <div class='header-1 white'>21st Nov</div>
+                            </div>
+                        </div>
 
-                        <div class="shadow-small border-rounded-more padding-2 margin-left-3 fill-container col-3">
-                            hello<br>
-                            Rs 10,oooo/=
+                        <div class='col-4 fill-container padding-3 margin-2'>
+                            <div class="shadow border-rounded-more bg-grey white padding-4">
+                                <div class='header-2'>Bills Due</div>
+                                <div class='header-1'>Rs.5000</div>
+                            </div>
                         </div>
-                        <div
-                            class="shadow border-rounded-more padding-2 margin-left-3 fill-container col-3 bg-grey-hover">
-                            hello<br>
-                            Rs 10,oooo/=
-                        </div>
-                        <div
-                            class="shadow border-rounded-more padding-2 margin-left-3 fill-container col-3 bg-red-hover ">
-                            hello<br>
-                            Rs 10,oooo/=
+                        <div class='col-4 fill-container padding-3 margin-2 '>
+                            <div class="shadow border-rounded-more white padding-4 bg-red">
+                                <div class='header-2'>Trash Collection</div>
+                                <div class='header-1'>Rs.10000</div>
+                            </div>
                         </div>
 
                     </div>
 
 
                 </div>
-                <div class=" margin-left-5 shadow border-rounded-more padding-2 fill-container col-3 ">
-                    Bed allowcation<br>
+                <div class=" margin-left-5 shadow border-rounded-more padding-3  fill-container col-3 bg-blue-hover ">
+                    key money<br>
                     Rs 330,oooo/=
                 </div>
             </div>
 
-            <div class="row margin-top-3 fill-container">
 
-                <div class=" shadow-small border-rounded-more  padding-2 fill-container col-6 ">
-                    Invited via <br>
-                    Rs 10,oooo/=
-                </div>
+            <div class=" fill-container right ">
+
+                <?php
+                
+                $result = restAPI("feed/postRest/11");
+                if ($result != null) {
+                    foreach ($result as $key => $value) {
+                        new ViewCard($value);
+                    }
+                } else {
+                    echo "<h1 class='text-center'>No Post Found</h1>";
+                }
+
+                echo "
+        <script>
+
+        window.onload = function(){
+            isLiked(); 
+            fetchComments();
+            fetchLikes();
+        };
+
+ 
+        function isLiked(){
+            var url = \"$base/feed/likeRest/0/" . $_SESSION['UserId'] . "\"; 
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => { 
+                        for(var i = 0; i < json.length; i++){ 
+                            var elem = document.getElementById('like-button-' + json[i][0].Post);  
+                            elem.classList.add('black-hover');
+                            elem.classList.add('bg-white-hover');
+                            elem.classList.remove('bg-accent');
+                            elem.classList.remove('white');
+                            if(json[i][0].Reaction === 'y'){
+                                elem.classList.add('bg-accent');
+                                elem.classList.add('white');
+                                elem.classList.remove('black-hover');
+                                elem.classList.remove('bg-white-hover');
+                            }
+                            
+                        } 
+                });
+        };
+        function fetchComments(){
+            var url = \"$base/feed/commentCountRest/\";
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => { 
+                    for (var i = 0; i < json.length; i++) { 
+                        if(json[i].Comments == 1){
+                            document.getElementById('comment-count-' + json[i].Post).innerHTML = '1 Comment';
+                        }else{
+                            document.getElementById('comment-count-' + json[i].Post).innerHTML = json[i].Comments + ' Comments';
+                        } 
+                    }
+                });
+        };
+        function fetchLikes(){
+            var url = \"$base/feed/likeRest/\";
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => {
+                    var count = 0; 
+                    for (var i = 0; i < json.length; i++) { 
+                        var elem = document.getElementById('like-list-' + json[i][0].Post);
+                        elem.innerHTML = '';
+                        for (var j = 0; j < json[i].length; j++) {
+                            if(json[i][j].Reaction === 'y'){
+                                count++;
+                                var likes = json[i][j];
+                                var likeElem = document.createElement('div');
+                                likeElem.classList.add('padding-left-4'); 
+                                likeElem.classList.add('left'); 
+                                likeElem.classList.add('padding-2'); 
+                                likeElem.innerHTML =  likes.FirstName + \" \" + likes.LastName;
+                                elem.appendChild(likeElem);
+                            }
+                        }
+                        if(count === 1){
+                            document.getElementById('like-count-' + json[i][0].Post).innerHTML = '1 Like';
+                        }else{
+                            document.getElementById('like-count-' + json[i][0].Post).innerHTML = count + ' Likes';
+                        } 
+                        count = 0;
+                    } 
+                    
+                });
+        };
+         function likePost(elem,post) {
+            var url = \"$base/feed/likeToggle/\" + post;
+            var stat;
+            fetch(url)
+                .then((response) => response.json())
+                .then((json) => {
+                    if (json == 'liked') {
+                        elem.classList.add('bg-accent');
+                        elem.classList.add('white');
+                        elem.classList.remove('black-hover');
+                        elem.classList.remove('bg-white-hover');
+                    } else {
+                        elem.classList.add('black-hover');
+                        elem.classList.add('bg-white-hover');
+                        elem.classList.remove('bg-accent');
+                        elem.classList.remove('white');
+                    }
+                    fetchLikes();
+                });
+        };
+  
+        </script>
+        ";
 
 
-                <div class=" shadow-small border-rounded-more  padding-2 fill-container col-6 ">
-                    Previw<br>
-                    Rs 10,oooo/=
-                </div>
+
+
+                ?>
             </div>
+
+
+
+
         </div>
-    </div>
-
-
-
-
-    </div>
 
 
 
