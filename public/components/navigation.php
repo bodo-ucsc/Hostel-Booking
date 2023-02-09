@@ -53,12 +53,12 @@ class Navigation
                     //echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue-hover white-hover border-rounded-more active' href='$base/boarding'>My Boarding</a>";
                 } else if ($active == 'boarding') {
                     //echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
-                    //echo "              <a class='padding-3 active' href='$base/boarding'>My Boarding</a>";
+                    echo "              <a class='padding-3 active' href='$base/boarding'>My Boarding</a>";
                     echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/boarding'>My Boarding</a>";
                 } else {
                     echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
-                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue-hover white-hover border-rounded-more ' href='$base/boarding'>My Boarding</a>";
-                    //echo "              <a class='padding-3' href='$base/boarding'>My Boarding</a>"; 
+                    //echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue-hover white-hover border-rounded-more ' href='$base/boarding'>My Boarding</a>";
+                    echo "              <a class='padding-3' href='$base/boarding'>My Boarding</a>"; 
                     
                 }
             }

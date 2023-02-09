@@ -27,6 +27,23 @@ class viewModel extends Model
         }
     }
 
+    public function getBoardingUsers($PlaceId=null,$userId=null){
+        if(isset($PlaceId)){
+            $append = "AND PlaceId = $PlaceId";
+        }else{
+            $append = "";
+        }
+        if(isset($userId)){
+            $append .= "AND UserId != $userId";
+        }
+        $result = $this->unionalt("student,user,boardingplacetenant,boarder","professional,user,boardingplacetenant,boarder"," firstname,lastname,studentuniversity as tagline, profilepicture","firstname,lastname,usertype as tagline, profilepicture","BoarderId = TenantID AND userId = BoarderId  AND userId=StudentId $append","BoarderId = TenantID AND userId = BoarderId  AND userId=ProfessionalId $append");
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
     public function getPost($PostId = NULL)
     {
         if (isset($PostId)) {

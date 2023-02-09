@@ -65,6 +65,20 @@ class Model extends Database
         $result = $this->runQuery($sql);
         return $result;
     }
+    public function unionalt($table1, $table2, $column1, $column2, $where1 = null, $where2 = null)
+    {
+        $sql = "SELECT $column1 FROM $table1";
+        if ($where1 != null) {
+            $sql .= " WHERE $where1";
+        }
+        $sql .= " UNION ";
+        $sql .= "SELECT $column2 FROM $table2";
+        if ($where2 != null) {
+            $sql .= " WHERE $where2";
+        }
+        $result = $this->runQuery($sql);
+        return $result;
+    }
 
     public function insert($table, $data)
     {
