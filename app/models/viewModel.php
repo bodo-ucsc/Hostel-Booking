@@ -219,9 +219,20 @@ class viewModel extends Model
     }
 
     public function getPeopleYouMayKnow($university){
-        $result = $this->get("student", "StudentUniversity = $university",null,6);
+        $university = str_replace(' ', '%20', $university);
+        $result = $this->get("student", "StudentUniversity = '$university'",null,6);
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
+    public function getRequests($userid){
+        $result = $this->get("friend", "status = 'requested' AND FriendId=$userid");
         return $result;
     }
+
 
     public function getfriends($userid){
         $result = $this->get("friend", "status = 'accepted' AND (StudentFriendId=$userid OR FriendId=$userid)");
@@ -229,13 +240,21 @@ class viewModel extends Model
     }
 
     public function getfriendsActive($userid){
-        $result = $this->get("friend", "status = 'accepted' AND StudentFriendId=$userid");
-        return $result;
+        $result = $this->get("friend", "status = 'accepted' AND StudentFriendId='$userid'");
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
     }
 
     public function getfriendsPassive($userid){
-        $result = $this->get("friend", "status = 'accepted' AND FriendId=$userid");
-        return $result;
+        $result = $this->get("friend", "status = 'accepted' AND FriendId='$userid'");
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
     }
 
     public function getFromUser($userid)

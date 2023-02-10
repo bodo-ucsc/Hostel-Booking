@@ -68,4 +68,16 @@ class editModel extends Model
         return $result;
     }
 
+    public function acceptRequest($senderid, $receieverid)
+    {
+        $result = $this->update('friends', ['status' => 'accepted'], "StudentFriendId = $senderid AND FriendId = $receieverid");
+        return $result;
+    }
+
+    public function rejectRequest($senderid, $receieverid)
+    {
+        $result = $this->update('friends', ['status' => 'rejected'], "StudentFriendId = $senderid AND FriendId = $receieverid");
+        return $result;
+    }
+
 }
