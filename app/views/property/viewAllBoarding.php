@@ -44,7 +44,7 @@ $base = BASEURL;
 
                     <?php
                     if (isset($_SESSION['UserId'])) {
-                         $ownersBoardings = $_boardingOwner->viewBoardingPlaces($_SESSION['UserId']);
+                        $ownersBoardings = $_boardingOwner->viewBoardingPlaces($_SESSION['UserId']);
                         if($ownersBoardings != null){
                             while ($boarding = $ownersBoardings->fetch_assoc()) {
                                 $viewcard = new ViewCardProperty($boarding['PlaceId'], $boarding['CityName'], $boarding['HouseNo'], $boarding['Street'], null, $boarding['NoOfMembers']);

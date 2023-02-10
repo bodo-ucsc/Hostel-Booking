@@ -94,7 +94,7 @@ $total = (int)$count * $boardingRent;
                         <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname' >
                         </div>
                         <div class='col-9 left fill-container'>
-                        <div class=' header-nb left grey'>$fname $lname</div>
+                        <div class=' big left grey'>$fname $lname</div>
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@ $total = (int)$count * $boardingRent;
                         <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname' >
                         </div>
                         <div class='col-7 left fill-container'>
-                        <div class=' header-nb left grey'>$fname $lname</div>
+                        <div class=' big left grey'>$fname $lname</div>
                         </div>
                         <div class='col-1' onclick='addUser($res->TenantId,$placeid)'>
                             
@@ -180,36 +180,36 @@ $total = (int)$count * $boardingRent;
             </div>
             <div class="row ">
                 <div class="col-4 margin-left-5 padding-left-5 fill-container">
-                    <div class=" shadow bg-white border-rounded padding-2 header-nb">
+                    <div class=" shadow bg-white border-rounded padding-2 big">
                         <div class="row">
-                            <div class="col-9 grey">
+                            <div class="col-8 grey">
                                 Food Trash
                             </div>
-                            <div class="col-3 grey">
+                            <div class="col-4 grey">
                                 <i data-feather="send"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-4 margin-left-5 padding-left-5 fill-container">
-                    <div class=" shadow bg-white border-rounded padding-2 header-nb">
+                    <div class=" shadow bg-white border-rounded padding-2 big">
                         <div class="row">
-                            <div class="col-9 grey">
+                            <div class="col-8 grey">
                                 Plastic Trash
                             </div>
-                            <div class="col-3 grey">
+                            <div class="col-4 grey">
                                 <i data-feather="send"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                  <div class="col-4 margin-left-5 padding-left-5 fill-container">
-                    <div class=" shadow bg-white border-rounded padding-2 header-nb">
+                    <div class=" shadow bg-white border-rounded padding-2 big">
                         <div class="row">
-                            <div class="col-9 grey">
+                            <div class="col-8 grey">
                                 Both Trash
                             </div>
-                            <div class="col-3 grey">
+                            <div class="col-4 grey">
                                 <i data-feather="send"></i>
                             </div>
                         </div>
@@ -223,7 +223,7 @@ $total = (int)$count * $boardingRent;
             </div>
             <div class="row margin-top-3">
                 <div class="col-6 margin-left-5 padding-left-5 fill-container">
-                    <div class=" shadow bg-white border-rounded padding-2 header-nb">
+                    <div class=" shadow bg-white border-rounded padding-2 big">
                         <div class="row">
                             <div class="col-9 grey">
                                 Electricity Bill
@@ -235,7 +235,7 @@ $total = (int)$count * $boardingRent;
                     </div>
                 </div>
                 <div class="col-6 margin-left-5 padding-left-5 fill-container">
-                    <div class=" shadow bg-white border-rounded padding-2 header-nb">
+                    <div class=" shadow bg-white border-rounded padding-2 big">
                         <div class="row">
                             <div class="col-9 grey">
                                 Water Bill
@@ -253,7 +253,7 @@ $total = (int)$count * $boardingRent;
     <div class="row">
         <div class="col-12 header-nb left-flex fill-container margin-left-5 padding-left-5 margin-top-5">Send Rent Reminder</div>
     </div>
-     <div class="row margin-left-5 margin-top-2 ">
+     <div id='paymentReminders' class="row margin-left-5 margin-top-2 ">
     <?php
     if(!is_null($boarders)){
         foreach($boarders as $res) {
@@ -265,14 +265,14 @@ $total = (int)$count * $boardingRent;
             $lname = $boarderUserArr['LastName'];
 
             echo "
-            <div class='col-5 fill-container margin-3'>
+            <div class='col-5 fill-container margin-top-1 margin-horizontal-4'>
                 <div class=' shadow bg-white border-rounded padding-2'>
                     <div class='row'>
                         <div class='col-3'>
                         <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname' >
                         </div>
                         <div class='col-7 left fill-container'>
-                        <div class=' header-nb left grey'>$fname $lname</div>
+                        <div class=' big left grey'>$fname $lname</div>
                         </div>
                         <div class='col-2 grey'>
                                 <i data-feather='send'></i>
@@ -298,8 +298,57 @@ $total = (int)$count * $boardingRent;
     <div class="row margin-top-4">
         <div class="col-12 header-2 left-flex fill-container margin-left-5 padding-left-5">Rent Payments</div>
     </div>
-</main>
 
+    <div class="row margin-top-4">
+        <div class="col-12 header-2 left-flex fill-container margin-left-5 padding-left-5">Reviews & Ratings</div>
+    </div>
+
+    <div class=" row shadow bg-white border-rounded padding-4 margin-left-5 margin-right-5 margin-top-3">
+        <div class="col-12 fill-container">
+            <div class="row margin-left-3">
+                <div class="col-2 grey fill-container">Name</div>
+                <div class="col-1 grey fill-container">Stars</div>
+                <div class="col-5 grey fill-container">Messege</div>
+                <div class="col-4 grey fill-container">Actions</div>
+            </div>
+        </div>
+        <?php
+        $comments = restAPI("property/viewReviewsByPlaceId/$placeid");
+
+        if(!empty($comments)){
+            foreach($comments as $res){
+                echo "
+                <div class='col-12 fill-container'>
+                    <div class='row margin-left-3'>
+                        <div class='col-2 fill-container'>$res->FirstName $res->LastName</div>
+                        <div class='col-1  fill-container'>$res->Rating</div>
+                        <div class='col-5  fill-container'>$res->Review</div>
+                        <div class='col-2  fill-container center'>
+                            <div class=' border-blue border-1 border-rounded padding-2 blue-hover '>
+                            View
+                            </div>
+                        </div>
+                        <div class='col-2  fill-container center'>
+                            <div class=' bg-accent border-rounded padding-2  white-hover'>
+                            Reply
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ";
+            }
+        }else{
+            echo "
+            <div class=' row'>
+                <div class='col-12 fill-container'>
+                    <div class=' grey'>No Comments to Display</div>
+                </div>
+            </div>                
+            ";
+        }
+        ?>
+    </div>
+</main>
 
 
 <script>
@@ -310,6 +359,7 @@ $total = (int)$count * $boardingRent;
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
+
                 console.log(JSON.stringify(json));
 
                 const boardersArr = json[0];
@@ -319,7 +369,9 @@ $total = (int)$count * $boardingRent;
                 console.log(JSON.stringify(requestsArr));
 
                 var boardersArea = document.getElementById("currentlyBoarded");
+                var remindersArea = document.getElementById("paymentReminders");
                 boardersArea.innerHTML = "";
+                remindersArea.innerHTML = "";
                 for (var i = 0; i < boardersArr.length; i++) {
                     var fname = [boardersArr[i].FirstName].toString();
                     var lname = [boardersArr[i].LastName].toString();
@@ -332,7 +384,28 @@ $total = (int)$count * $boardingRent;
                                 <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=`+fname+lname+`' >
                                 </div>
                                 <div class='col-9 left fill-container'>
-                                <div class=' header-nb left grey'>`+fname+` `+lname+`</div>
+                                <div class=' big left grey'>`+fname+` `+lname+`</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                    remindersArea.innerHTML += `
+                    <div class='col-5 fill-container margin-top-1 margin-right-3 margin-left-3'>
+                        <div class=' shadow bg-white border-rounded padding-2'>
+                            <div class='row'>
+                                <div class='col-3'>
+                                <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=`+fname+lname+`' >
+                                </div>
+                                <div class='col-7 left fill-container'>
+                                <div class=' big left grey'>`+fname+` `+lname+`</div>
+                                </div>
+                                <div class='col-2 grey'>
+                                    <svg class='feather feather-send' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                                        <line x1='22' y1='2' x2='11' y2='13'></line>
+                                        <polygon points='22 2 15 22 11 13 2 9 22 2'></polygon>
+                                    </svg>
                                 </div>
                             </div>
                         </div>
@@ -367,18 +440,27 @@ $total = (int)$count * $boardingRent;
                                 <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=`+fname+lname+`' >
                                 </div>
                                 <div class='col-7 left fill-container'>
-                                <div class=' header-nb left grey'>`+fname+` `+lname+`</div>
+                                <div class=' big left grey'>`+fname+` `+lname+`</div>
                                 </div>
                                 <div class='col-1' onclick='addUser(`+tenantid+`,`+placeId+`)'>
                                     
                                     <div class=' accent-hover cursor-pointer '>
-                                    <i data-feather='user-check'></i>
+                                        <svg class='feather feather-user-check' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                                            <path d='M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'></path>
+                                            <circle cx='8.5' cy='7' r='4'></circle>
+                                            <polyline points='17 11 19 13 23 9'></polyline>
+                                        </svg>
                                     </div>
                                 
                                 </div>
                                 <div class='col-1 margin-right-2' onclick='deleteUser(`+tenantid+`,`+placeId+`)'>
                                         <div class=' red-hover cursor-pointer black-hover'>
-                                        <i data-feather='user-x'></i>
+                                            <svg class='feather feather-user-x' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                                                <path d='M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'></path>
+                                                <circle cx='8.5' cy='7' r='4'></circle>
+                                                <line x1='18' y1='8' x2='23' y2='13'></line>
+                                                <line x1='23' y1='8' x2='18' y2='13'></line>
+                                            </svg>
                                         </div>
                                 </div>
                             </div>
@@ -399,6 +481,7 @@ $total = (int)$count * $boardingRent;
                 }
 
             });
+            
     }
 
     function deleteUser(userid,placeid){
@@ -409,6 +492,8 @@ $total = (int)$count * $boardingRent;
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
+
+
                 console.log(JSON.stringify(json));
 
                 const boardersArr = json[0];
@@ -431,7 +516,7 @@ $total = (int)$count * $boardingRent;
                                 <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=`+fname+lname+`' >
                                 </div>
                                 <div class='col-9 left fill-container'>
-                                <div class=' header-nb left grey'>`+fname+` `+lname+`</div>
+                                <div class=' big left grey'>`+fname+` `+lname+`</div>
                                 </div>
                             </div>
                         </div>
@@ -466,18 +551,27 @@ $total = (int)$count * $boardingRent;
                                 <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=`+fname+lname+`' >
                                 </div>
                                 <div class='col-7 left fill-container'>
-                                <div class=' header-nb left grey'>`+fname+` `+lname+`</div>
+                                <div class=' big left grey'>`+fname+` `+lname+`</div>
                                 </div>
                                 <div class='col-1' onclick='addUser(`+tenantid+`,`+placeId+`)'>
                                     
                                     <div class=' accent-hover cursor-pointer '>
-                                    <i data-feather='user-check'></i>
+                                        <svg class='feather feather-user-check' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                                            <path d='M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'></path>
+                                            <circle cx='8.5' cy='7' r='4'></circle>
+                                            <polyline points='17 11 19 13 23 9'></polyline>
+                                        </svg>
                                     </div>
                                 
                                 </div>
                                 <div class='col-1 margin-right-2' onclick='deleteUser(`+tenantid+`,`+placeId+`)'>
                                         <div class=' red-hover cursor-pointer black-hover'>
-                                        <i data-feather='user-x'></i>
+                                            <svg class='feather feather-user-x' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                                                <path d='M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'></path>
+                                                <circle cx='8.5' cy='7' r='4'></circle>
+                                                <line x1='18' y1='8' x2='23' y2='13'></line>
+                                                <line x1='23' y1='8' x2='18' y2='13'></line>
+                                            </svg>
                                         </div>
                                 </div>
                             </div>
@@ -498,6 +592,8 @@ $total = (int)$count * $boardingRent;
                 }
 
             });
+
+            
     } 
 
 </script>
@@ -508,3 +604,8 @@ $footer = new HTMLFooter();
 
 <!-- <a href='$base/property/addBoardingMember/$res->TenantId/$placeid'> </a> -->
 <!-- <a href='$base/property/deleteBoardingRequest/$res->TenantId/$placeid'> -->
+
+<!-- <svg class='feather feather-send' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+    <line x1='22' y1='2' x2='11' y2='13'></line>
+    <polygon points='22 2 15 22 11 13 2 9 22 2'></polygon>
+</svg> -->

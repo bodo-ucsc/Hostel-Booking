@@ -13,6 +13,7 @@ if (isset($boardingPlace)) {
 
     $title = $result['Title'];
     $address = $result['Address'];
+    $city = $result['CityName'];
     $summaryLine1 = $result['SummaryLine1'];
     $summaryLine2 = $result['SummaryLine2'];
     $summaryLine3 = $result['SummaryLine3'];
@@ -103,6 +104,7 @@ if (isset($boardingPlace)) {
                     </div>
                     </div>
                 </div>
+                
             </div>
             <div class="col-5 col-small-12 col-large-5 fill-container padding-4 fill-vertical margin-top-5">
                 <div class="row fill-container">
@@ -165,61 +167,51 @@ if (isset($boardingPlace)) {
                         </button>
                     </div>
                 </div>
-                <div class="row margin-top-4">
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="users"></i>
-                        <?php
-                        echo "$noofmembers Members";
-                        ?>
+                
+                <?php
+                echo"
+                <div class='table padding-vertical-2 margin-top-2'>
+                        <div class='hs'>
+                            <div title='No. of Members' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='users' class='accent'></i></span>
+                                <span class=' display-block center'>$noofmembers Members</span>
+                            </div>
+                            <div title='No. of Rooms' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='archive' class='accent'></i></span>
+                                <span class=' display-block center'>$noofrooms Rooms</span>
+                            </div>
+                            <div title='No. of Washrooms' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='grid' class='accent'></i></span>
+                                <span class=' display-block center'>$noofwashrooms Washroom</span>
+                            </div>
+                            <div title='Gender' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='user' class='accent'></i></span>
+                                <span class=' display-block center'>$gender</span>
+                            </div>
+                            <div title='Type of Tenant' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='briefcase' class='accent'></i></span>
+                                <span class=' display-block center'>$boardertype</span>
+                            </div>
+                            <div title='Square Feet' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='shuffle' class='accent'></i></span>
+                                <span class=' display-block center'>$squarefeet Sq.Ft</span>
+                            </div>
+                            <div title='Parking availability'
+                                class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='navigation' class='accent'></i></span>
+                                <span class=' display-block center'>$parking</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="archive"></i>
-                        <?php
-                        echo "$noofrooms Rooms";
-                        ?>
-                    </div>
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="grid"></i>
-                        <?php
-                        echo "$noofwashrooms Washrooms";
-                        ?>
-                    </div>
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="user"></i>
-                        <?php
-                        if ($gender == "M") {
-                            echo "Gentlemen";
-                        } else if ($gender == "F") {
-                            echo "Ladies";
-                        } else {
-                            echo "Any";
-                        }
-                        ?>
-
-                    </div>
-                    <div class="col-1 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="smile"></i>
-                        <?php
-                        echo $boardertype;
-                        ?>
-                    </div>
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="shuffle"></i>
-                        <?php
-                        echo "$squarefeet Sq.Ft";
-                        ?>
-                    </div>
-                    <div class="col-1 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="map-pin"></i>
-                        <?php
-                        if ($parking == 'y') {
-                            echo "Parking";
-                        } else {
-                            echo "No Parking";
-                        }
-                        ?>
-                    </div>
-                </div>
+                "
+                ?>
                 <div class="row">
                     <?php
                     $boardingPlaceImages = $_boardingOwner->getBoardingImages($placeid);
@@ -313,6 +305,14 @@ if (isset($boardingPlace)) {
                     ?>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row flex">
+            <div class='col-12 fill-container'>
+            <?php
+            $addressMap = "$address, $city";
+            $mapcard = new ShowMap($addressMap);
+            ?>
             </div>
         </div>
     </div>

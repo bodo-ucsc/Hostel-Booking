@@ -4,7 +4,7 @@ class property extends Controller{
 
     public function index()
     {
-        $this->view('boardingowner/bohome');
+        $this->view('property/viewAllBoarding');
     }
     public function addBoarding(){
         $this->view('property/addBoarding');
@@ -135,14 +135,14 @@ class property extends Controller{
         $summary3,  $description, $price, null, $houseNo, $street,  $city, $googlemapsLink, $propertytype,
         $noofmembers, $noofrooms, $noofwashrooms, $gender, $boardertype, $sqfeet, $parking);
 
-        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings/editsuccess");
+        header("Location: " . BASEURL . "/property/viewAllBoardings/editsuccess");
 
     }
 
     public function deleteBoardingPlace(){
         $placeid = $_POST['placeid'];
         $this->model('deleteModel')->deleteABoarding($placeid);
-        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings/deletesuccess");
+        header("Location: " . BASEURL . "/property/viewAllBoardings/deletesuccess");
 
     }
 
