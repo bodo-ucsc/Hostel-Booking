@@ -8,7 +8,7 @@ class ShowMap
     public $rc;
 
 
-    public function __construct($address,$destination=null)
+    public function __construct($address,$destination)
     {
         $src = $address;
         $dest= $destination;
@@ -115,45 +115,45 @@ class ShowMap
                     });
                     
 
-                if(isset($dest)&& isset($src)){
-                    var directionsService = new google.maps.DirectionsService();
-                    var directionsRenderer = new google.maps.DirectionsRenderer({
-                        map: map,
-                        suppressMarkers: true,
-                        preserveViewport: true
-                    });
+                    if(isset($dest)&& isset($src)){
+                        var directionsService = new google.maps.DirectionsService();
+                        var directionsRenderer = new google.maps.DirectionsRenderer({
+                            map: map,
+                            suppressMarkers: true,
+                            preserveViewport: true
+                        });
 
-                    var request = {
-                        origin: '$src',
-                        destination: '$dest',
-                        travelMode: 'TRANSIT'
-                    };
+                        var request = {
+                            origin: '$src',
+                            destination: '$dest',
+                            travelMode: 'TRANSIT'
+                        };
 
-                    directionsService.route(request, function(result, status) {
-                        if (status == 'OK') {
-                            for (var i = 0, len = result.routes.length; i < len; i++) {
-                                var route = result.routes[i];
-                                for (var j = 0, len2 = route.legs.length; j < len2; j++) {
-                                var leg = route.legs[j];
-                                for (var k = 0, len3 = leg.steps.length; k < len3; k++) {
-                                    var step = leg.steps[k];
-                                    if (step.travel_mode == 'TRANSIT') {
-                                    var transit_info = step.transit;
-                                    var transit_line = transit_info.line.name;
-                                    var transit_details = transit_info.line.vehicle;
-                                    // Use transit_info and transit_details to customize the appearance of the transit route
+                        directionsService.route(request, function(result, status) {
+                            if (status == 'OK') {
+                                for (var i = 0, len = result.routes.length; i < len; i++) {
+                                    var route = result.routes[i];
+                                    for (var j = 0, len2 = route.legs.length; j < len2; j++) {
+                                    var leg = route.legs[j];
+                                    for (var k = 0, len3 = leg.steps.length; k < len3; k++) {
+                                        var step = leg.steps[k];
+                                        if (step.travel_mode == 'TRANSIT') {
+                                        var transit_info = step.transit;
+                                        var transit_line = transit_info.line.name;
+                                        var transit_details = transit_info.line.vehicle;
+                                        // Use transit_info and transit_details to customize the appearance of the transit route
+                                        }
+                                    }
                                     }
                                 }
-                                }
+                                directionsRenderer.setDirections(result);
                             }
-                            directionsRenderer.setDirections(result);
-                        }
-                    });
+                        });
 
+                    }
                 }
-            }
             </script> 
-      ";
+            ";
         }
     }
 }

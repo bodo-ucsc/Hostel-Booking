@@ -6,7 +6,7 @@ class StudentDashboard extends Controller
     {
         
 
-        $this->view('studentDashboard/index', ['message' => $message, 'alert' => $alert]);
+        $this->view('studentDashboard/index', ['message' => $message]);
     }
 
     public function create($user = null, $message = null)
@@ -38,7 +38,7 @@ class StudentDashboard extends Controller
         }
     }
 
-    public function userManagement
+    //public function userManagement
 
 
 }
