@@ -165,19 +165,6 @@ class viewModel extends Model
             return null;
         }
     }
-    public function getCities()
-    {
-        $result = $this->get('City', null, 'CityName ASC', null);
-        return $result;
-    }
-
-    public function getPlace($PlaceId)
-    {
-        $result = $this->getColumn("BoardingPlace", "PlaceId,SummaryLine1, SummaryLine2,SummaryLine3,Price,PriceType,HouseNo,Street,CityName,PropertyType,NoOfMembers,NoOfRooms,NoOfWashRooms,Gender,BoarderType,SquareFeet,Parking", "PlaceId = '$PlaceId'");
-        return $result;
-    }
-
-
 
     public function getPlace($PlaceId=NULL)
     {
@@ -196,12 +183,7 @@ class viewModel extends Model
          $result = $this->get('City', null, 'CityName ASC', null);
          return $result;
      }
-    // public function getCities()
-    // {
-    //     $result = $this->get('City', null, 'CityName ASC', null);
-    //     return $result;
-    // }
-
+ 
     public function getCities($districtName=null)
     {
         $append = null;
