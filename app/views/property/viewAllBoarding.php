@@ -1,11 +1,13 @@
 <?php
 $header = new HTMLHeader("All Property");
 $nav = new Navigation("home");
-$sidebar = new SidebarNav($active = "properties");
+$sidebar = new SidebarNavBO($active = "properties");
 
-$_boardingOwner = new boardingOwner;
+$_boardingOwner = new property;
 
 $base = BASEURL;
+
+
 
 ?>
 <main class="full-width">
@@ -24,7 +26,7 @@ $base = BASEURL;
                     <div>
                         <button
                             class=" bg-blue-hover white-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4"><i
-                                data-feather="plus"></i><?php echo "<a class=' white white-hover' href =$base/boardingOwner/addBoarding>&nbsp;Add Property</a>"?></button>
+                                data-feather="plus"></i><?php echo "<a class=' white white-hover' href =$base/property/addBoarding>&nbsp;Add Property</a>"?></button>
                     </div>
                     <div class=" header-nb">
                         <?php
@@ -42,7 +44,7 @@ $base = BASEURL;
 
                     <?php
                     if (isset($_SESSION['UserId'])) {
-                         $ownersBoardings = $_boardingOwner->viewBoardingPlaces($_SESSION['UserId']);
+                        $ownersBoardings = $_boardingOwner->viewBoardingPlaces($_SESSION['UserId']);
                         if($ownersBoardings != null){
                             while ($boarding = $ownersBoardings->fetch_assoc()) {
                                 $viewcard = new ViewCardProperty($boarding['PlaceId'], $boarding['CityName'], $boarding['HouseNo'], $boarding['Street'], null, $boarding['NoOfMembers']);

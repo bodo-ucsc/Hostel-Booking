@@ -1,6 +1,6 @@
 <?php
 
-class SideBarNav
+class SideBarNavBO
 {
 
     public function __construct($active = null, $type = null)

@@ -118,18 +118,21 @@ class ViewCard
         if (isset($comments)) {
             echo "<div id='comment-list-$PostId' class='margin-top-3 row bg-light-grey border-rounded padding-vertical-4 padding-horizontal-3'></div>";
             if (isset($_SESSION['UserId'])) {
-                echo " 
+                echo "
+                    <form action= '$base/Feed/addComment' method='post'>
                     <div class='row '>
                         <div class='col-10 fill-container'>
-                            <input type='text' class='vertical-align-middle fill-container margin-top-4' id='comment-$PostId' name='comment'
+                            <input type='text' class='vertical-align-middle fill-container margin-top-4' id='comment' name='comment'
                             placeholder='Your Message' required>
                         </div>
                         <div class='col-2 fill-container'>
-                            <button onclick='addComment()' class='border-rounded vertical-align-middle fill-container bg-blue-hover white-hover'>
+                            <button role='submit' class='border-rounded vertical-align-middle fill-container bg-blue-hover white-hover'>
                             <i data-feather='send' class='feather-body'></i>
                             </button>
                         </div>
-                    </div>";
+                    </div>
+                    <input type='hidden' id='postid' name='postid' value=$PostId>
+                    </form>";
             } else {
                 echo "<div class='row padding-2'>
                         <div class='col-12 fill-container'>

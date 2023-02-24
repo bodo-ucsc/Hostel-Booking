@@ -31,7 +31,13 @@ class HTMLFooter
                 })";
         }
         echo "
-                feather.replace();
+        document.addEventListener('DOMContentLoaded', function () {
+            feather.replace();
+          }, false);
+
+        
+          
+               
             </script>
         </body>
         

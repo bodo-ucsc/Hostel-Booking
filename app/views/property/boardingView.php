@@ -2,7 +2,7 @@
 $header = new HTMLHeader("View Listing");
 $nav = new Navigation("home");
 $base = BASEURL;
-$_boardingOwner = new boardingOwner;
+$_boardingOwner = new property;
 $placeid = $data['placeid'];
 
 $boardingPlace = $_boardingOwner->viewBoardingPlace($placeid);
@@ -13,6 +13,7 @@ if (isset($boardingPlace)) {
 
     $title = $result['Title'];
     $address = $result['Address'];
+    $city = $result['CityName'];
     $summaryLine1 = $result['SummaryLine1'];
     $summaryLine2 = $result['SummaryLine2'];
     $summaryLine3 = $result['SummaryLine3'];
@@ -103,6 +104,7 @@ if (isset($boardingPlace)) {
                     </div>
                     </div>
                 </div>
+                
             </div>
             <div class="col-5 col-small-12 col-large-5 fill-container padding-4 fill-vertical margin-top-5">
                 <div class="row fill-container">
@@ -165,60 +167,51 @@ if (isset($boardingPlace)) {
                         </button>
                     </div>
                 </div>
-                <div class="row margin-top-4">
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="users"></i>
-                        <?php
-                        echo "$noofmembers Members";
-                        ?>
+                
+                <?php
+                echo"
+                <div class='table padding-vertical-2 margin-top-2'>
+                        <div class='hs'>
+                            <div title='No. of Members' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='users' class='accent'></i></span>
+                                <span class=' display-block center'>$noofmembers Members</span>
+                            </div>
+                            <div title='No. of Rooms' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='archive' class='accent'></i></span>
+                                <span class=' display-block center'>$noofrooms Rooms</span>
+                            </div>
+                            <div title='No. of Washrooms' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='grid' class='accent'></i></span>
+                                <span class=' display-block center'>$noofwashrooms Washroom</span>
+                            </div>
+                            <div title='Gender' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='user' class='accent'></i></span>
+                                <span class=' display-block center'>$gender</span>
+                            </div>
+                            <div title='Type of Tenant' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='briefcase' class='accent'></i></span>
+                                <span class=' display-block center'>$boardertype</span>
+                            </div>
+                            <div title='Square Feet' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='shuffle' class='accent'></i></span>
+                                <span class=' display-block center'>$squarefeet Sq.Ft</span>
+                            </div>
+                            <div title='Parking availability'
+                                class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='navigation' class='accent'></i></span>
+                                <span class=' display-block center'>$parking</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="archive"></i>
-                        <?php
-                        echo "$noofrooms Rooms";
-                        ?>
-                    </div>
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="grid"></i>
-                        <?php
-                        echo "$noofwashrooms Washrooms";
-                        ?>
-                    </div>
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="user"></i>
-                        <?php
-                        if ($gender == "M") {
-                            echo "Gentlemen";
-                        } else if ($gender == "F") {
-                            echo "Ladies";
-                        } else {
-                            echo "Any";
-                        }
-                        ?>
-                    </div>
-                    <div class="col-1 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="smile"></i>
-                        <?php
-                        echo $boardertype;
-                        ?>
-                    </div>
-                    <div class="col-2 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="shuffle"></i>
-                        <?php
-                        echo "$squarefeet Sq.Ft";
-                        ?>
-                    </div>
-                    <div class="col-1 fill-container flex-column accent">
-                        <i class="icon-green margin-bottom-1" data-feather="map-pin"></i>
-                        <?php
-                        if ($parking == 'y') {
-                            echo "Parking";
-                        } else {
-                            echo "No Parking";
-                        }
-                        ?>
-                    </div>
-                </div>
+                "
+                ?>
                 <div class="row">
                     <?php
                     $boardingPlaceImages = $_boardingOwner->getBoardingImages($placeid);
@@ -248,6 +241,78 @@ if (isset($boardingPlace)) {
                     }    
                     ?>
                 </div>
+                <div class="row">
+                    <?php
+                    $reviews = restAPI("property/viewReviewsByPlaceId/$placeid");
+                    ?>
+                    <div class="col-12 fill-container border-rounded shadow margin-top-5 margin-top-4">
+                        <div class='col-12 padding-4 header-2 center'>
+                            Reviews
+                        </div>
+                        <?php
+                        if (!is_null($reviews)) {
+                            foreach ($reviews as $res) {    
+                                    // echo "
+                                    // <div class='row padding-2 shadow margin-2 border-rounded'>
+                                    //     <div class='row>
+                                    //         <div class='col-3'>
+                                    //             <img class=' dp  border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=$res->FirstName+$res->LastName' >
+                                    //         </div>
+                                    //         <div class='col-3'>
+                                    //            <div class='header-nb right'> $res->FirstName $res->LastName</div>
+                                    //            $res->UserType
+                                    //         </div>
+                                    //         <div class='col-2'></div>
+                                    //         <div class='col-4 left-flex'>";
+
+                                    //         if($res->Rating > 4.5){
+                                    //             echo "
+                                    //             <img height=20px class=' fill-container' src='$base/public/images/5.jpg' >
+                                    //             ";
+                                    //         }else if($res->Rating > 3.5){
+                                    //             echo "
+                                    //             <img height=20px class=' fill-container' src='$base/public/images/4.jpg' >
+                                    //             ";
+                                    //         }else if($res->Rating > 2.5){
+                                    //             echo "
+                                    //             <img height=20px class=' fill-container' src='$base/public/images/3.jpg' >
+                                    //             ";
+                                    //         }else if($res->Rating > 1.5){
+                                    //             echo "
+                                    //             <img height=20px class=' fill-container' src='$base/public/images/2.jpg' >
+                                    //             ";
+                                    //         }else{
+                                    //             echo "
+                                    //             <img height=20px class=' fill-container' src='$base/public/images/1.jpg' >
+                                    //             ";
+                                    //         }
+                                                
+                                    //     echo"
+                                    //         </div>
+                                    //         <div class='row'>
+                                    //             <div class='col-12'>
+                                    //             $res->Review
+                                    //             </div>
+                                    //         </div>
+                                    //     </div>
+                                        
+                                            
+                                    // ";     
+                            }
+                        } else {
+                        
+                        }
+                    ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row flex">
+            <div class='col-12 fill-container'>
+            <?php
+            $addressMap = "$address, $city";
+            $mapcard = new ShowMap($addressMap);
+            ?>
             </div>
         </div>
     </div>

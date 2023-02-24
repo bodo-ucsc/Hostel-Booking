@@ -68,4 +68,10 @@ class editModel extends Model
         return $result;
     }
 
+    public function addABoardingMember($userid,$placeid)
+    {
+        $result = $this->update('boardingplacetenant',['BoarderStatus'=>'boarded'],"TenantId = $userid AND PlaceId = $placeid");
+        return $result;
+    }
+
 }

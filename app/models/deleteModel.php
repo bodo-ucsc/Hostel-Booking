@@ -61,6 +61,12 @@ class deleteModel extends Model
         // $result5 = $this->runQuery($sql);
     }
 
+    public function deleteABoardingRequest($userid,$placeid)
+    {
+        $result = $this->delete('boardingplacetenant', "TenantId = $userid AND PlaceId = $placeid");
+        return $result;
+    }
+
 
 
 }

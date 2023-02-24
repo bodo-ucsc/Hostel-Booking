@@ -49,7 +49,6 @@ class SignIn extends Controller
                     header('Location: ' . BASEURL . '/BoardingOwner');
                 }
 
-
                 header('Location: '. BASEURL );
             } else {
                 echo "message";

@@ -12,7 +12,8 @@ class ShowMap
         $src = $address;
         $dest= $destination;
 
-        echo '<div id="map_container" style="width: 35%; height: 250px;">MAP</div>';
+        echo '<div class=" margin-left-5 map" id="map_container">MAP</div>';
+
         //echo "<div id='address'>Address: $address</div>";
         $apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
         $base = BASEURL;
@@ -36,7 +37,7 @@ class ShowMap
         }
 
         echo '
-    <br><span class="header-2">Near By Places</span>
+    <br><span class="header-2 margin-left-4">Near By Places</span>
     <div id="nearby"></div>';
 
         $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=$apiKey&location=$lats,$lngs&radius=$radius&type=$type";
@@ -52,7 +53,7 @@ class ShowMap
         //return $places;
         //$results = '';
 
-        echo '<div class="card-container">';
+        echo '<div class=" row padding-4">';
 
         $limit = 10;
         $count = 0;
@@ -73,11 +74,13 @@ class ShowMap
                         $photoReference = $photos[0]['photo_reference'];
                         $photoUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=$photoReference&key=$apiKey";
 
-                        echo '<div class="card">';
-                        echo '<img src="' . $photoUrl . '" alt="Place Image">';
+                        echo '<div class="col-3 margin-horizontal-2 margin-vertical-1 fill-container">';
+                        echo "<div class='shadow border-rounded padding-3 map-card'>";
+                        echo '<img style="height: 150px;" src="' . $photoUrl . '" alt="Place Image">';
                         echo '<h2>' . $name . '</h2>';
                         echo '<p>' . $address . '</p>';
                         echo '<i data-feather="star"></i>' . $rating . '</p>';
+                        echo '</div>';
                         echo '</div>';
                     }
                 }
