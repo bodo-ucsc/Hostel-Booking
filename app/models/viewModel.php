@@ -114,20 +114,37 @@ class viewModel extends Model
             return null;
         }
     }
-    public function retrieveBoardingUsers($usertype = null)
+    public function retrieveBoardingUsers($usertype = null, $userId = null)
     {
         if (isset($usertype)) {
             $append = "AND UserType = '$usertype'";
         } else {
             $append = null;
         }
-        $result = $this->union("User,BoardingPlaceTenant,BoardingPlace", "User,BoardingPlaceTenant,BoardingPlace,BoardingOwner", "UserId,FirstName,LastName,UserType,Place,Title", "TenantId=UserId AND PlaceId = Place $append", "PlaceId = Place AND OwnerId=BoardingOwnerId AND BoardingOwnerId=UserId $append");
+        if (isset($userId)) {
+            $append .= "AND UserId = '$userId'";
+        } else {
+            $append .= null;
+        }
+        $result = $this->union("User,Boarder,BoardingPlaceTenant,BoardingPlace", "User,BoardingPlace,BoardingOwner", "UserId,FirstName,LastName,UserType,PlaceId,Title", "TenantId=BoarderId AND BoarderId=UserId  AND PlaceId = Place $append", "OwnerId=BoardingOwnerId AND BoardingOwnerId=UserId $append");
         if ($result->num_rows > 0) {
             return $result;
         } else {
             return null;
         }
     }
+
+    public function getImage($PlaceId = NULL)
+    {
+        if (isset($PlaceId)) {
+            $append = "BoardingPlace = '$PlaceId'";
+        } else {
+            $append = null;
+        }
+        $result = $this->get("BoardingPlacePicture", "$append");
+        return $result;
+    } 
+
     public function getUser($user = "admin", $id = null)
     {
         if (isset($id)) {

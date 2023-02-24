@@ -129,12 +129,13 @@ conn.onmessage = function(e) {
         };
         function fetchLikes(){
             let url = \"$base/feed/likeRest/$PostId\";
+            let count = 0;
             fetch(url)
                 .then((response) => response.json())
                 .then((json) => {
                     if(json.length >= 1){ 
                         let elem = document.getElementById('like-list-$PostId');
-                        let count = 0;
+                        
                         elem.innerHTML = '';
                         for (let i = 0; i < json.length; i++) { 
                             for (let j = 0; j < json[i].length; j++) {

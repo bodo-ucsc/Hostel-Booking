@@ -42,15 +42,19 @@ class Navigation
         if (isset($uname)) {
             if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'BoardingOwner') {
                 if ($active == 'management') {
-                echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/admin'>Management</a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/admin'>Management</a>";
                 } else {
-                echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/admin'>Management</a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/admin'>Management</a>";
                 }
-            } elseif ($role == 'Student') {
+            } elseif ($role == 'Student' || $role == 'Professional') {
                 if ($active == 'friends') {
                     echo "          <a class='padding-3 active' href='$base/friends'>Friends</a>";
+                } else if ($active == 'boarding') {
+                    echo "          <a class='padding-3 active' href='$base/boarding'>My Boarding</a>";
                 } else {
                     echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
+                    echo "          <a class='padding-3' href='$base/boarding'>My Boarding</a>";
+
                 }
             }
         }
@@ -121,8 +125,17 @@ class Navigation
             <div class=' dropdown padding-2 '>
                 <div class=' dropdown-button  right-flex'>
                     <span class='header-2 padding-horizontal-2 text-overflow'>$fname</span>
-                    <img class=' dp border-blue border-1 border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname' alt='user'>
-                </div>
+                    ";
+                            
+                    if (isset($_SESSION['profilepic'])) {
+                         echo "<img class=' dp border-blue border-1 border-circle' src='$base/public/".$_SESSION['profilepic']."' alt='user'>";
+                    }
+                    else {
+                        echo "<img class=' dp border-blue border-1 border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname' alt='user'>";
+                    }
+                    
+                    echo "
+                    </div>
                 <div class='dropdown-content'>
                         <a href='$base/profile'><button class='fill-container border-rounded bg-white-hover left'><i class='vertical-align-middle padding-horizontal-2' data-feather='edit'></i><span class=' vertical-align-middle'>Profile</span></button></a>
                         <a href='$base/home/signout'><button class='fill-container border-rounded bg-white-hover left'><i class='vertical-align-middle padding-horizontal-2' data-feather='log-out'></i><span class=' vertical-align-middle'>Sign Out</span></button></a>
@@ -172,12 +185,19 @@ class Navigation
                     echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/admin'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
 
                 }
-            } elseif ($role == 'Student') {
+            } elseif ($role == 'Student' || $role == 'Professional' ){
                 if ($active == 'friends') {
                     echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Friends'  href='$base/friends'><i data-feather='users'></i><span class='display-medium-none display-small-block display-none'>Friends</span></a>";
 
                 } else {
                     echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Friends'  href='$base/friends'><i data-feather='users'></i><span class='display-medium-none display-small-block display-none'></span></a>";
+
+                }
+                if ($active == 'management') {
+                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/admin'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
+
+                } else {
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/boarding'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
 
                 }
 

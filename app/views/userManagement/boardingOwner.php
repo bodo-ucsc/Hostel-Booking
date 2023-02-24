@@ -4,6 +4,7 @@ $nav = new Navigation('management');
 $sidebar = new SidebarNav("user", "boardingOwner");
 $basePage = BASEURL . '/admin/userManagement/boardingOwner';
 $base = BASEURL . '/admin';
+ 
 
 ?>
 <main class=" full-width ">
@@ -20,7 +21,7 @@ $base = BASEURL . '/admin';
 
                     <?php
                     if (isset($data['result'])) {
-                        $search = new SearchUser("Boarding Owner");
+                        new SearchUser("Boarding Owner");
                     }
 
 

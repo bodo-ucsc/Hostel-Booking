@@ -1,10 +1,12 @@
-<?php 
+<?php
 
-class pagination{
+class pagination
+{
 
-    public function __construct($page,$limit){
-        
-    echo "
+    public function __construct($page, $limit)
+    {
+
+        echo "
  
     const paginationNumbers = document.getElementById('pagination-numbers');
     const paginatedList = document.getElementById('table');
@@ -17,6 +19,7 @@ class pagination{
     const paginationLimit = '$limit';
     const pageCount = Math.ceil(listItems.length / paginationLimit);
     let currentPage = '$page';
+
 
     const disableButton = (button) => {
         button.classList.add('disabled');
@@ -40,6 +43,7 @@ class pagination{
         } else {
             enableButton(nextButton);
         }
+
     };
 
     const handleActivePageNumber = () => {
@@ -97,7 +101,9 @@ class pagination{
 
     window.addEventListener('load', () => {
         getPaginationNumbers();
+        setCurrentPage(1);
         setCurrentPage($page);
+        
 
         prevButton.addEventListener('click', () => {
             setCurrentPage(currentPage - 1);

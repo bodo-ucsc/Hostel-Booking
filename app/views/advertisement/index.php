@@ -26,10 +26,13 @@ new SideBarNav("Advertisement");
             </div>
 
             <?php
-            if (isset($data['row'])) {
-                while ($row = $data['row']->fetch_assoc()) {
-                    new ViewCard($row['PostId']);
+            $result = restAPI("feed/postRest/");
+            if ($result != null) {
+                foreach ($result as $key => $value) {
+                    new ViewCard($value);
                 }
+            } else {
+                echo "<h1 class='text-center'>No Post Found</h1>";
             }
             ?>
         </div>

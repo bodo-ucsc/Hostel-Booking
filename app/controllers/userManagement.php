@@ -165,13 +165,13 @@ class userManagement extends Controller
         echo $json_response;
     }
 
-    public function boardingUserRest($usertype = null)
+    public function boardingUserRest($usertype = null, $userId = null)
     {
-        $data = $this->model('viewModel')->retrieveBoardingUsers($usertype);
+        $data = $this->model('viewModel')->retrieveBoardingUsers($usertype, $userId);
         $json = array();
         while ($row = $data->fetch_assoc()) {
             $array['Id'] = $row['UserId'];
-            $array['Place'] = $row['Place'];
+            $array['Place'] = $row['PlaceId'];
             $array['Title'] = $row['Title'];
             $array['FirstName'] = $row['FirstName'];
             $array['LastName'] = $row['LastName'];

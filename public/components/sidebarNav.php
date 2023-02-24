@@ -212,6 +212,71 @@ class SideBarNav
             </div></a> 
                 ";
         }
+        if ($active == 'verification') {
+            echo "    
+            <div class='row padding-bottom-1 padding-top-3 padding-horizontal-4 cursor-pointer' onclick='location.href=\"$base/adminverification/\"'> 
+                <div class='col-12 flex left fill-container  padding-horizontal-3'>
+                    <i data-feather='user-check' class='black'></i>
+                    <span class=' fill-container  margin-left-2 header-nb'>Verification</span>
+                    <i data-feather='chevron-down' class='black'></i>
+                </div>   
+            </div>     ";
+        } else {
+            echo "     
+            <div class='row padding-bottom-1 padding-top-3 padding-horizontal-4 cursor-pointer' onclick='location.href=\"$base/adminverification/\"'> 
+                <div class='col-12 flex left fill-container  padding-horizontal-3'>
+                    <i data-feather='user-check' class='grey'></i>
+                    <span class=' fill-container margin-left-2 header-nb grey'>Verification</span>
+                    <i data-feather='chevron-down' class='grey'></i>
+                </div>   
+            </div>     ";
+        }
+ 
+        if ($active == 'verification' && $type == 'student') {
+            echo "   
+            <a href='$base/admin/verification/' class=''><div class='row padding-vertical-1 fill-container'>   
+                <div class='col-1'></div>
+                <span class='col-10 margin-left-2  fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Student</span> 
+            </div></a> 
+                ";
+        } else {
+            echo "    
+            <a href='$base/admin/verification/' class=''><div class='row padding-vertical-1'>   
+                <div class='col-1'></div>
+                <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Student</span> 
+            </div></a> 
+                ";
+        }
+        if ($active == 'verification' && $type == 'professional') {
+            echo "   
+            <a href='$base/admin/verification/professional' class=''><div class='row padding-vertical-1 fill-container'>   
+                <div class='col-1'></div>
+                <span class='col-10 margin-left-2 fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Professional</span> 
+            </div></a> 
+                ";
+        } else {
+            echo "    
+            <a href='$base/admin/verification/professional' class=''><div class='row padding-vertical-1'>   
+                <div class='col-1'></div>
+                <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Professional</span> 
+            </div></a> 
+                ";
+        }
+        if ($active == 'verification' && $type == 'boardingOwner') {
+            echo "   
+            <a href='$base/admin/verification/boardingOwner' class=''><div class='row padding-vertical-1 fill-container'>   
+                <div class='col-1'></div>
+                <span class='col-10 margin-left-2 fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Boarding Owner</span> 
+            </div></a> 
+                ";
+        } else {
+            echo "    
+            <a href='$base/admin/verification/boardingOwner' class=''><div class='row padding-vertical-1'>   
+                <div class='col-1'></div>
+                <span class='col-10 margin-left-2 fill-container padding-left-4 grey '>Boarding Owner</span> 
+            </div></a> 
+                ";
+        }
         echo "</div>  ";
 
         echo " 
@@ -294,6 +359,24 @@ class SideBarNav
             <div class=' padding-bottom-1 padding-top-2 '> 
                 <button class=' bg-white-hover center fill-container  padding-horizontal-3 grey-hover' onclick='location.href=\"$base/admin/support/issue\"'> 
                     <i data-feather='headphones' class=''></i>
+                </button>   
+            </div>   
+        ";
+        }
+
+        if ($active == 'verification') {
+            echo "    
+            <div class=' padding-bottom-1 padding-top-2 '> 
+                <button class=' bg-blue center fill-container  padding-horizontal-3' onclick='location.href=\"$base/admin/verification\"'> 
+                    <i data-feather='user-check' class='white'></i>
+                </button>   
+            </div>   
+        ";
+        } else {
+            echo "    
+            <div class=' padding-bottom-1 padding-top-2 '> 
+                <button class=' bg-white-hover center fill-container  padding-horizontal-3 grey-hover' onclick='location.href=\"$base/admin/verification\"'> 
+                    <i data-feather='user-check' class=''></i>
                 </button>   
             </div>   
         ";

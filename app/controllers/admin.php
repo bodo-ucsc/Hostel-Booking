@@ -96,6 +96,43 @@ class Admin extends Controller
 
     }
 
+
+    public function verification($user = "student", $page = 1, $perPage = 2, $message = null)
+    {
+        if (isset($message)) {
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Verification Failed";
+            } else if ($message == 'success') {
+                $message = "Verified Successfully";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
+        if ($user == 'student') {
+            $rowCount = $this->model('viewModel')->numRows('student');
+            $result = restAPI("userManagement/getUser/student");
+        } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
+            $rowCount = $this->model('viewModel')->numRows('boardingowner');
+            $result = restAPI("userManagement/getUser/boardingowner");
+        } else if ($user == 'professional') {
+            $rowCount = $this->model('viewModel')->numRows('professional');
+            $result = restAPI("userManagement/getUser/professional");
+        } 
+        
+        if($page <= 0){
+            header("Location: " . BASEURL . "/admin/verification/$user/1/$perPage");
+        }
+        if($perPage <= 0){
+            header("Location: " . BASEURL . "/admin/verification/$user/$page/1");
+        }
+
+        $this->view("verification/$user", ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
+
+    }
+
     public function advertisement($message = null)
     {
         if (isset($message)) {
@@ -110,10 +147,9 @@ class Admin extends Controller
         } else {
             $message = null;
             $alert = null;
-        }
-        $row = $this->model('viewModel')->getId("PostUpdate", "PostId");
+        } 
 
-        $this->view('advertisement/index', ['row' => $row, 'message' => $message, 'alert' => $alert]);
+        $this->view('advertisement/index', [ 'message' => $message, 'alert' => $alert]);
 
     }
 
@@ -139,6 +175,22 @@ class Admin extends Controller
 
 
     }
+
+    public function property($message = null){
+        if ($message == 'editsuccess') {
+            $message = "Property has been edited";
+            $alert = 'Edited';
+        } else if ($message == 'deletesuccess') {
+            $message = "Property has been deleted";
+            $alert = 'Deleted';
+        } else {
+            $message = null;
+            $alert = null;
+        }
+
+        $this->view('property/viewAllBoarding',['message' => $message, 'alert' => $alert]);
+    }
+
 
     public function addSupport($type = 'issue')
     {
