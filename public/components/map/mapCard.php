@@ -4,9 +4,14 @@ class ShowMap
 {
     public $lats;
     public $lngs;
+    public $dest;
+    public $rc;
 
-    public function __construct($address)
-    {  
+
+    public function __construct($address,$destination=null)
+    {
+        $src = $address;
+        $dest= $destination;
         echo '<div id="map_container" style="width: 35%; height: 250px;">MAP</div>';
         //echo "<div id='address'>Address: $address</div>";
         $apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
@@ -22,7 +27,7 @@ class ShowMap
 
         if ($results['status'] == 'OK') {
             $lats = $results['results'][0]['geometry']['location']['lat'];
-            $lngs = $results['results'][0]['geometry']['location']['lng']; 
+            $lngs = $results['results'][0]['geometry']['location']['lng'];
 
             //when window load then call initMap function
             //window.addEventListener('load', initMap);
@@ -90,6 +95,10 @@ class ShowMap
                 initMap(); 
         
                 function initMap( ) { 
+
+                    
+                    var transitLayer = new google.maps.TransitLayer();
+                    transitLayer.setMap(map);
                     
                     var location = {
                         lat: parseFloat($lats),
@@ -103,8 +112,46 @@ class ShowMap
                     var marker = new google.maps.Marker({
                         map: map,
                         position: location
-                    }); 
+                    });
+                    
+
+                if(isset($dest)&& isset($src)){
+                    var directionsService = new google.maps.DirectionsService();
+                    var directionsRenderer = new google.maps.DirectionsRenderer({
+                        map: map,
+                        suppressMarkers: true,
+                        preserveViewport: true
+                    });
+
+                    var request = {
+                        origin: '$src',
+                        destination: '$dest',
+                        travelMode: 'TRANSIT'
+                    };
+
+                    directionsService.route(request, function(result, status) {
+                        if (status == 'OK') {
+                            for (var i = 0, len = result.routes.length; i < len; i++) {
+                                var route = result.routes[i];
+                                for (var j = 0, len2 = route.legs.length; j < len2; j++) {
+                                var leg = route.legs[j];
+                                for (var k = 0, len3 = leg.steps.length; k < len3; k++) {
+                                    var step = leg.steps[k];
+                                    if (step.travel_mode == 'TRANSIT') {
+                                    var transit_info = step.transit;
+                                    var transit_line = transit_info.line.name;
+                                    var transit_details = transit_info.line.vehicle;
+                                    // Use transit_info and transit_details to customize the appearance of the transit route
+                                    }
+                                }
+                                }
+                            }
+                            directionsRenderer.setDirections(result);
+                        }
+                    });
+
                 }
+            }
             </script> 
       ";
         }

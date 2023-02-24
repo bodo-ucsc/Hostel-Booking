@@ -174,13 +174,13 @@ class Navigation
 
                 }
             } elseif ($role == 'Student') {
-                if ($active == 'friends') {
-                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Friends'  href='$base/friends'><i data-feather='users'></i><span class='display-medium-none display-small-block display-none'>Friends</span></a>";
+                // if ($active == 'friends') {
+                //     echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Friends'  href='$base/friends'><i data-feather='users'></i><span class='display-medium-none display-small-block display-none'>Friends</span></a>";
 
-                } else {
-                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Friends'  href='$base/friends'><i data-feather='users'></i><span class='display-medium-none display-small-block display-none'></span></a>";
+                // } else {
+                //     echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Friends'  href='$base/friends'><i data-feather='users'></i><span class='display-medium-none display-small-block display-none'></span></a>";
 
-                }
+                // }
 
             }
         }
