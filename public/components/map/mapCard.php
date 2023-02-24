@@ -4,14 +4,14 @@ class ShowMap
 {
     public $lats;
     public $lngs;
+    public $src;
     public $dest;
-    public $rc;
 
-
-    public function __construct($address,$destination)
+    public function __construct($address,$destination=null)
     {
         $src = $address;
         $dest= $destination;
+
         echo '<div id="map_container" style="width: 35%; height: 250px;">MAP</div>';
         //echo "<div id='address'>Address: $address</div>";
         $apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
@@ -27,7 +27,7 @@ class ShowMap
 
         if ($results['status'] == 'OK') {
             $lats = $results['results'][0]['geometry']['location']['lat'];
-            $lngs = $results['results'][0]['geometry']['location']['lng'];
+            $lngs = $results['results'][0]['geometry']['location']['lng']; 
 
             //when window load then call initMap function
             //window.addEventListener('load', initMap);
@@ -91,14 +91,11 @@ class ShowMap
 
         if (isset($lats) && isset($lngs)) {
             echo "
+            $dest,$src
             <script>
                 initMap(); 
         
                 function initMap( ) { 
-
-                    
-                    var transitLayer = new google.maps.TransitLayer();
-                    transitLayer.setMap(map);
                     
                     var location = {
                         lat: parseFloat($lats),
@@ -115,7 +112,7 @@ class ShowMap
                     });
                     
 
-                    if(isset($dest)&& isset($src)){
+                    if (typeof '$src' !== 'undefined' && typeof '$dest' !== 'undefined') {
                         var directionsService = new google.maps.DirectionsService();
                         var directionsRenderer = new google.maps.DirectionsRenderer({
                             map: map,
