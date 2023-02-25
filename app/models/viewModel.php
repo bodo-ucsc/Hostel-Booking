@@ -148,7 +148,7 @@ class viewModel extends Model
     public function getUser($user = "admin", $page = 1, $perPage = 1)
     {
         $start = ($page - 1) * $perPage;
-        $result = $this->get("User,boarder,$user", 'UserId = ' . $user . 'Id', null, "$start,$perPage");
+        $result = $this->get("User,boarder,$user", 'UserId = ' . $user . 'Id group by UserId', null, "$start,$perPage");
         if ($result->num_rows > 0) {
             return $result;
         } else {
