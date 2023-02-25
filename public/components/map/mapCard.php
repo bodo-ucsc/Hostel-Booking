@@ -7,10 +7,10 @@ class ShowMap
     public $src;
     public $dest;
 
-    public function __construct($address,$destination=null)
+    public function __construct($address, $destination = null)
     {
         $src = $address;
-        $dest= $destination;
+        $dest = $destination;
 
         echo '<div class=" margin-left-5 map" id="map_container">MAP</div>';
 
@@ -28,7 +28,7 @@ class ShowMap
 
         if ($results['status'] == 'OK') {
             $lats = $results['results'][0]['geometry']['location']['lat'];
-            $lngs = $results['results'][0]['geometry']['location']['lng']; 
+            $lngs = $results['results'][0]['geometry']['location']['lng'];
 
             //when window load then call initMap function
             //window.addEventListener('load', initMap);
@@ -94,7 +94,6 @@ class ShowMap
 
         if (isset($lats) && isset($lngs)) {
             echo "
-            $dest,$src
             <script>
                 initMap(); 
         
@@ -109,46 +108,71 @@ class ShowMap
                         zoom: 17,
                         center: location
                     });
+
                     var marker = new google.maps.Marker({
                         map: map,
                         position: location
                     });
                     
-
                     if (typeof '$src' !== 'undefined' && typeof '$dest' !== 'undefined') {
-                        var directionsService = new google.maps.DirectionsService();
-                        var directionsRenderer = new google.maps.DirectionsRenderer({
+                        var routeFinder = new google.maps.DirectionsService();
+                        var showRoute = new google.maps.DirectionsRenderer({
                             map: map,
                             suppressMarkers: true,
                             preserveViewport: true
                         });
 
-                        var request = {
+                        var direction = {
                             origin: '$src',
                             destination: '$dest',
                             travelMode: 'TRANSIT'
                         };
 
-                        directionsService.route(request, function(result, status) {
+                        routeFinder.route(direction, function(result, status) {
                             if (status == 'OK') {
-                                for (var i = 0, len = result.routes.length; i < len; i++) {
+                                var numOfRoutes = result.routes.length;
+                                for (var i = 0;i < numOfRoutes;i++) {
+
                                     var route = result.routes[i];
-                                    for (var j = 0, len2 = route.legs.length; j < len2; j++) {
-                                    var leg = route.legs[j];
-                                    for (var k = 0, len3 = leg.steps.length; k < len3; k++) {
-                                        var step = leg.steps[k];
-                                        if (step.travel_mode == 'TRANSIT') {
-                                        var transit_info = step.transit;
-                                        var transit_line = transit_info.line.name;
-                                        var transit_details = transit_info.line.vehicle;
-                                        // Use transit_info and transit_details to customize the appearance of the transit route
+                                    var len2 = route.legs.length
+                                    for (var j = 0;j < len2;j++) {
+
+                                        var leg = route.legs[j];
+                                        var len3 = leg.steps.length;
+                                        for (var k = 0;k < len3;k++) {
+
+                                            var step = leg.steps[k];
+                                            if (step.travel_mode == 'TRANSIT') {
+
+                                                var transit_info = step.transit;
+                                                var transit_line = transit_info.line.name;
+                                                var transit_details = transit_info.line.vehicle;
+                                                var transit_location = step.end_location;
+                                                var transit_marker = new google.maps.Marker({
+                                                    position: transit_location,
+                                                    map: map,
+                                                    icon: {
+                                                        url: transit_details.icon,
+                                                        size: new google.maps.Size(32, 32),
+                                                        scaledSize: new google.maps.Size(24, 24),
+                                                        origin: new google.maps.Point(0, 0),
+                                                        anchor: new google.maps.Point(12, 12)
+                                                    }
+                                                });
+                                                google.maps.event.addListener(transit_marker, 'click', function() {
+                                                    infowindow.setContent('<div><strong>' + transit_line + '</strong><br>' + transit_details.name + '</div>');
+                                                    infowindow.open(map, transit_marker);
+                                                });
+                                               
+                                            }
                                         }
                                     }
-                                    }
                                 }
-                                directionsRenderer.setDirections(result);
+                                showRoute.setDirections(result);
                             }
                         });
+
+                        var infowindow = new google.maps.InfoWindow();
 
                     }
                 }
