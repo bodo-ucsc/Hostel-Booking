@@ -46,10 +46,29 @@ class Model extends Database
         
         if ($order != null) {
             $sql .= " ORDER BY $order";
+        } 
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+ 
+    public function getColumnGroup($table,$column, $where = null, $group = null, $order = null) 
+    {
+
+        $sql = "SELECT $column FROM $table";
+        if ($where != null) {
+            $sql .= " WHERE $where";
+        }
+        
+        if ($group != null) {
+            $sql .= " GROUP BY $group";
+        }
+        if ($order != null) {
+            $sql .= " ORDER BY $order";
         }
         $result = $this->runQuery($sql);
         return $result;
     }
+ 
 
     public function union($table1, $table2, $column, $where1 = null, $where2 = null)
     {

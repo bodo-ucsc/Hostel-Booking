@@ -175,12 +175,14 @@ class userManagement extends Controller
             $array['Title'] = $row['Title'];
             $array['FirstName'] = $row['FirstName'];
             $array['LastName'] = $row['LastName'];
+            $array['ProfilePicture'] = $row['ProfilePicture'];
             $array['UserType'] = $row['UserType'];
             array_push($json, $array);
         }
         $json_response = json_encode($json);
         echo $json_response;
     }
+
 
     public function createVerificationTeam()
     {

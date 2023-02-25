@@ -135,6 +135,13 @@ $base = BASEURL;
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
+                if (json[0].ProfilePicture === null || json[0].ProfilePicture === '') {
+                    document.getElementById('dp-preview').src = "https://ui-avatars.com/api/?background=288684&color=fff&name=" + json[0].FirstName + "+" + json[0].LastName;
+                } else{
+                    document.getElementById('dp-preview').src = "<?= $base; ?>/" + json[0].ProfilePicture;
+                }
+
+               
                 let select = document.getElementById("place");
                 select.innerHTML = "<option value='0' selected>Select Property</option>";
                 for (let i = 0; i < json.length; i++) {
@@ -154,7 +161,7 @@ $base = BASEURL;
         let place = document.getElementById("place").value;
         let url = "<?php echo BASEURL ?>/listing/placeRest/" + place;
         fetch(url)
-            .then((response) => response.json())
+            .then((response) => response.json()) 
             .then((json) => {
                 console.log(json);
                 document.getElementById('city-preview').innerHTML = json.CityName;
