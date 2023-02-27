@@ -134,12 +134,12 @@ class ShowMap
                                 for (var i = 0;i < numOfRoutes;i++) {
 
                                     var route = result.routes[i];
-                                    var len2 = route.legs.length
-                                    for (var j = 0;j < len2;j++) {
+                                    var sectionLength = route.legs.length
+                                    for (var j = 0;j < sectionLength;j++) {
 
                                         var leg = route.legs[j];
-                                        var len3 = leg.steps.length;
-                                        for (var k = 0;k < len3;k++) {
+                                        var legLength = leg.steps.length;
+                                        for (var k = 0;k < legLength;k++) {
 
                                             var step = leg.steps[k];
                                             if (step.travel_mode == 'TRANSIT') {
