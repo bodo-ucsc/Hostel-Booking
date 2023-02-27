@@ -25,8 +25,8 @@ class Boarding extends Controller
         }
 
        
-        $json_response = json_encode($array);
-        echo $json_response;
+       // $json_response = json_encode($array);
+        //echo $json_response;
     }
 
     public function viewBoarders($uname)

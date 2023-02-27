@@ -1,17 +1,20 @@
 <?php
 class Search
 {
-
+    
     public function __construct()
     {
+        $base = BASEURL;
+        
         echo " 
+        <form action='$base/searchProperty' method='post'>
             <div class='row border-rounded-more searchbar '>
                 <div class='display-small-block  display-none  col-1 '>
                     <i data-feather='search'></i>
                 </div>
         
                 <div class='col-small-7 col-10 fill-container'>
-                    <input class=' header-nb border-none fill-container' type='text'
+                    <input class=' header-nb border-none fill-container' name='q' type='text'
                         placeholder='Search Boarding places, Hostels...'>
                 </div>
 
@@ -28,13 +31,15 @@ class Search
                 </div>
 
                 <div class='display-none display-small-block  col-2 fill-container'>
-                    <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more'>Search</button>
+                    <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit'>Search</button>
                 </div>
                 <div class='display-small-none display-block col-1 fill-container'>
-                    <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more'> <i data-feather='search'></i></button>
-                </div>
+                <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit'><i data-feather='search'></i></button>
+            </div>
+                
             </div> 
+           
         ";
+   
     }
 }
-?>

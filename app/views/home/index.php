@@ -14,7 +14,7 @@
                     $search = new Search();
                     // $filter = new Filter();
                     // $sidebar = new SideBarNav("user","admin"); //pass the parameter to set active
-                    ?>
+?>
             </div>
         </div>
         <div class="fill-container padding-5 display-block  display-small-none"></div>
