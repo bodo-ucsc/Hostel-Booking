@@ -21,11 +21,11 @@ class property extends Controller
         if ($id == null) {
             header('Location: ' . BASEURL . '/property');
         } else {
-            $place= restAPI("listing/placeRest/$id");
+            $place = restAPI("listing/placeRest/$id");
             $this->view('property/manage', ['id' => $id, 'place' => $place]);
         }
     }
- 
+
 
     public function getBoardingOwner($id = null)
     {
@@ -78,19 +78,118 @@ class property extends Controller
         echo $json_response;
     }
 
+    public function joinBoarding($placeId, $userId)
+    {
+        $data = $this->model('addModel')->addTenant($placeId, $userId);
+        if ($data == 'success') {
+            $json['Status'] = "Success";
+        } else {
+            $json['Status'] = "Failed";
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+
+    }
+
     public function boardingMembersRest($placeId = null, $status = null)
     {
         $data = $this->model('viewModel')->retrieveBoardingMembers($placeId, $status);
         $json = array();
         while ($row = $data->fetch_assoc()) {
             $array['Id'] = $row['UserId'];
-            $array['Place'] = $row['PlaceId'];
+            $array['Place'] = $row['Place'];
             $array['FirstName'] = $row['FirstName'];
             $array['LastName'] = $row['LastName'];
             $array['BoarderStatus'] = $row['BoarderStatus'];
             $array['ProfilePicture'] = $row['ProfilePicture'];
-            $array['UserType'] = $row['UserType'];
+            $array['Tagline'] = $row['Tagline'];
+            $array['Bed'] = $row['Bed'];
             array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function boardingMemberTypes($placeId = null)
+    {
+        $data = restAPI("property/boardingMembersRest/$placeId/boarded");
+        $array = array();
+        foreach ($data as $row => $value) {
+            array_push($array, $value->Tagline);
+        }
+        $json = array_count_values($array);
+        echo json_encode($json);
+
+    }
+
+
+
+    public function bedCountRest($placeId = null)
+    {
+        $data = $this->model('viewModel')->getColumn('BoardingPlace', 'NoOfMembers', "PlaceId = $placeId")->fetch_assoc()['NoOfMembers'];
+        $json['Count'] = $data;
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+    public function bedRest($placeId = null)
+    {
+        $count = restAPI("property/bedCountRest/$placeId")->Count;
+        $data = $this->model('viewModel')->retrieveBed($placeId);
+
+        $json = array();
+
+        for ($j = 1; $j <= $count; $j++) {
+            $array['Bed'] = $j;
+            $array['Id'] = null;
+            $array['Name'] = null;
+            array_push($json, $array);
+        }
+
+
+        if ($data != null) {
+            while ($row = $data->fetch_assoc()) {
+                $json[$row['Bed'] - 1]['Id'] = $row['UserId'];
+                $json[$row['Bed'] - 1]['Name'] = $row['FirstName'] . " " . $row['LastName'];
+            }
+        }
+
+
+        $json_response = json_encode($json);
+        echo $json_response;
+
+    }
+
+    public function noBedRest($placeId = null)
+    {
+        $data = $this->model('viewModel')->retrieveNoBed($placeId);
+        $json = array();
+        if ($data != null) {
+            while ($row = $data->fetch_assoc()) {
+                $array['Id'] = $row['UserId'];
+                $array['Name'] = $row['FirstName'] . " " . $row['LastName'];
+                array_push($json, $array);
+            }
+        } else {
+            $json = null;
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function changeBed($placeId = null, $userId = null, $bed = null)
+    {
+        if ($placeId == null) {
+            header('Location: ' . BASEURL . '/property');
+        }
+        if ($userId == 'remove' || $bed == null) {
+            $userId = null;
+        }
+
+        $data = $this->model('editModel')->changeBed($placeId, $bed, $userId);
+        if ($data == true) {
+            $json['Status'] = "Success";
+        } else {
+            $json['Status'] = "Failed";
         }
         $json_response = json_encode($json);
         echo $json_response;

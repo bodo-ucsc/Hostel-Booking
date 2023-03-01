@@ -1,22 +1,20 @@
 <?php
-$header = new HTMLHeader("Register | Verification Team");
+$header = new HTMLHeader("Register | Manager");
 $nav = new Navigation("home");
-$sidebar = new SidebarNav("user", "verification");
+$sidebar = new SidebarNav("user", "manager");
 $base = BASEURL;
-
-
 ?>
 <main class=" full-width ">
-    <form action="<?php echo BASEURL ?>/userManagement/createVerificationTeam" method="post">
+    <form action="<?php echo BASEURL ?>/userManagement/createManager" method="post">
         <div class="row sidebar-offset navbar-offset ">
             <div class="col-12 col-medium-12 width-90">
                 <div class="row ">
                     <div class="col-12 col-medium-8 fill-container left"
-                        onclick=" location.href='<?= $base ?>/userManagement/verificationTeam'">
+                        onclick=" location.href='<?= $base ?>/userManagement/manager'">
                         <h1 class="header-1 black-hover cursor-pointer">
 
                             <i data-feather="chevron-left" class="feather-large vertical-align-middle"></i>
-                            <span class="vertical-align-middle">Add Verification Team</span>
+                            <span class="vertical-align-middle">Add Manager</span>
                         </h1>
                     </div>
                     <div class="col-12 col-medium-4 fill-container right">
@@ -59,10 +57,10 @@ $base = BASEURL;
                             <div class="col-12 col-medium-3 fill-container padding-bottom-4">
                                 <!-- gender radio buttons-->
                                 <div class="bold black padding-bottom-2 ">Gender</div>
-                                <input type="radio" name="gender" value="m" id="male"   checked>
+                                <input type="radio" name="gender" value="m" id="male"  checked>
                                 <label for="male" class="">Male</label>
 
-                                <input type="radio" name="gender" value="f" id="female"  >
+                                <input type="radio" name="gender" value="f" id="female" >
                                 <label for="female" class="">Female</label>
                             </div>
                         </div>

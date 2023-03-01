@@ -1,17 +1,17 @@
 <?php
-$header = new HTMLHeader("Edit User | Verification Team");
+$header = new HTMLHeader("Edit User | Professional");
 $nav = new Navigation("home");
-$sidebar = new SidebarNav("user", "verificationTeam");
+$sidebar = new SidebarNav("user", "professional");
 $base = BASEURL;
 
 if (isset($data['id'])) {
     $id = $data['id'];
-    $result = restAPI("userManagement/getUser/verificationteam/$id");
+    $result = restAPI("userManagement/getUser/professional/$id");
     if (isset($result['0'])) {
         $value = $result['0'];
     }
 } else {
-    header("Location:  '$base/userManagement/verificationTeam'");
+    header("Location:  '$base/userManagement/professional'");
 }
 
 $FirstName = $value->FirstName;
@@ -19,8 +19,9 @@ $LastName = $value->LastName;
 $Gender = $value->Gender;
 
 $Username = $value->Username;
-$Email = $value->Email; 
-
+$Email = $value->Email;
+$WorkPlace = $value->WorkPlace;
+$Occupation = $value->Occupation;
 $DateOfBirth = $value->DateOfBirth;
 $NIC = $value->NIC;
 $ContactNumber = $value->ContactNumber;
@@ -31,11 +32,11 @@ $Address = $value->Address;
         <div class="col-12 col-medium-12 width-90">
             <div class="row ">
                 <div class="col-12   fill-container left"
-                    onclick=" location.href='<?= $base ?>/userManagement/verificationTeam'">
+                    onclick=" location.href='<?= $base ?>/userManagement/professional'">
                     <h1 class="header-1 black-hover cursor-pointer">
 
                         <i data-feather="chevron-left" class="feather-large vertical-align-middle"></i>
-                        <span class="vertical-align-middle">Edit Verification Team</span>
+                        <span class="vertical-align-middle">Edit Professional</span>
                     </h1>
                 </div>
                 <div class="col-12 col-medium-4 fill-container right">
@@ -111,7 +112,7 @@ $Address = $value->Address;
                                 </div>
                                 <div class="col-1 fill-container right ">
                                     <button
-                                        onclick="updateGender('VerificationTeam','VerificationTeamId','<?= $id ?>','Gender','gender')"
+                                        onclick="updateGender('Boarder','BoarderId','<?= $id ?>','Gender','gender')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
@@ -129,7 +130,7 @@ $Address = $value->Address;
 
                                 <div class="col-2 fill-container right ">
                                     <button
-                                        onclick="update('VerificationTeam','VerificationTeamId','<?= $id ?>','DateOfBirth','dob')"
+                                        onclick="update('Boarder','BoarderId','<?= $id ?>','DateOfBirth','dob')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
@@ -145,7 +146,7 @@ $Address = $value->Address;
                                         placeholder="Enter NIC Number" value='<?= $NIC ?>'>
                                 </div>
                                 <div class="col-2 fill-container right ">
-                                    <button onclick="update('VerificationTeam','VerificationTeamId','<?= $id ?>','NIC','nic')"
+                                    <button onclick="update('Boarder','BoarderId','<?= $id ?>','NIC','nic')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
@@ -162,6 +163,40 @@ $Address = $value->Address;
                                 </div>
                                 <div class="col-2 fill-container right ">
                                     <button onclick="update('User','UserId','<?= $id ?>','ContactNumber','mobile')"
+                                        class="bg-accent-hover white-hover border-rounded-more ">
+                                        <i data-feather="check" class=" vertical-align-middle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-medium-4 fill-container">
+                            <label for="occupation" class="bold black">Occupation</label><br>
+                            <div class="searchbar row fill-container border-rounded-more">
+                                <div class="col-10 fill-container ">
+                                    <input type="text" class=" fill-container margin-0 " id="occupation"
+                                        name="occupation" placeholder="Enter Occupation" value='<?= $Occupation ?>'>
+                                </div>
+                                <div class="col-2 fill-container right ">
+                                    <button
+                                        onclick="update('Professional','ProfessionalId','<?= $id ?>','Occupation','occupation')"
+                                        class="bg-accent-hover white-hover border-rounded-more ">
+                                        <i data-feather="check" class=" vertical-align-middle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-medium-4 fill-container">
+                            <label for="workplace" class="bold black">Work Place</label><br>
+                            <div class="searchbar row fill-container border-rounded-more">
+                                <div class="col-10 fill-container ">
+                                    <input type="text" class=" fill-container margin-0 " id="workplace" name="workplace"
+                                        placeholder="Enter Work Place" value='<?= $WorkPlace ?>'>
+                                </div>
+                                <div class="col-2 fill-container right ">
+                                    <button
+                                        onclick="update('Professional','ProfessionalId','<?= $id ?>','WorkPlace','workplace')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
@@ -195,7 +230,7 @@ $Address = $value->Address;
                                 </div>
                                 <div class="col-2 fill-container right ">
                                     <button
-                                        onclick="update('VerificationTeam','VerificationTeamId','<?= $id ?>','Address','address')"
+                                        onclick="update('Boarder','BoarderId','<?= $id ?>','Address','address')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>

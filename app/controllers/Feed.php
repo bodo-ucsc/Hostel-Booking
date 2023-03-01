@@ -118,21 +118,6 @@ class Feed extends Controller
     public function viewPost($PostId = NULL){ 
         $this->view('Feed/viewPost', ['PostId' => $PostId]);
     }
-    public function postUpdate()
-    {
-        $base = BASEURL;
-        if (isset($_POST['userId'])) {
-            $userId = $_POST['userId'];
-            $caption = $_POST['caption'];
-            $place = $_POST['place'];
-
-            $result = $this->model('addModel')->postUpdate($userId, $place, $caption);
-            
-            header("Location: $base/feed/$result");
-
-        }
-    }
-    
 
     public function likeToggle($PostId = null)
     {
@@ -140,7 +125,7 @@ class Feed extends Controller
             $UserId = $_SESSION['UserId'];
 
 
-            $test = $this->model('viewModel')->checkData("React", "Post = '$PostId' AND Liker = '$UserId'");
+            $test = $this->model('viewModel')->getTable("React", "Post = '$PostId' AND Liker = '$UserId'");
             if ($test != NULL) {
                 while ($row = $test->fetch_assoc()) {
                     $Reaction = $row['Reaction'];

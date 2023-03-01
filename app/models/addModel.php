@@ -11,23 +11,27 @@ class addModel extends Model
     {
         //hashing the password
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $this->insert('User', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'Email' => $email, 'ContactNumber' => $ContactNumber, 'Password' => $password, 'UserType' => $usertype, 'ProfilePicture' => $profilepic]);
+        $result = $this->insert('User', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'Email' => $email, 'ContactNumber' => $ContactNumber, 'Password' => $password, 'UserType' => $usertype, 'ProfilePicture' => $profilepic]);
         //return last id
         return $this->lastInsertId();
     }
 
     public function addAdvertisement($userid, $placeid, $date, $message)
     {
-        $this->insert('PostUpdate', ['UserId' => $userid, 'PlaceId' => $placeid, 'DateTime' => $date, 'Caption' => $message]);
-
+        $result = $this->insert('PostUpdate', ['UserId' => $userid, 'PlaceId' => $placeid, 'DateTime' => $date, 'Caption' => $message]);
+        if ($result) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
     }
 
 
 
     public function addVerificationTeam($id, $dob, $gender, $address, $nic)
     {
-        $this->insert('VerificationTeam', ['VerificationTeamId' => $id, 'DateOfBirth' => $dob, 'NIC' => $nic, 'Address' => $address, 'Gender' => $gender]);
-        if ($this->mysqli->affected_rows == 1) {
+        $result = $this->insert('VerificationTeam', ['VerificationTeamId' => $id, 'DateOfBirth' => $dob, 'NIC' => $nic, 'Address' => $address, 'Gender' => $gender]);
+        if ($result) {
             return 'success';
         } else {
             return 'fail';
@@ -36,26 +40,28 @@ class addModel extends Model
 
     public function addManager($id, $dob, $gender, $address, $nic)
     {
-        $this->insert('Manager', ['ManagerId' => $id, 'DateOfBirth' => $dob, 'NIC' => $nic, 'Address' => $address, 'Gender' => $gender]);
-        if ($this->mysqli->affected_rows == 1) {
+        $result = $this->insert('Manager', ['ManagerId' => $id, 'DateOfBirth' => $dob, 'NIC' => $nic, 'Address' => $address, 'Gender' => $gender]);
+
+
+        if ($result) {
             return 'success';
         } else {
             return 'fail';
         }
     }
 
-    public function addBoarder($BoarderId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender,  $Address)
+    public function addBoarder($BoarderId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address)
     {
-        $this->insert('Boarder', [
+        $result = $this->insert('Boarder', [
             'BoarderId' => $BoarderId,
             'VerifiedStatus' => $VerifiedStatus,
             'NICScanLink' => $NICScanLink,
             'DateOfBirth' => $DateOfBirth,
             'NIC' => $NIC,
-            'Gender' => $Gender, 
+            'Gender' => $Gender,
             'Address' => $Address
         ]);
-        if ($this->mysqli->affected_rows == 1) {
+        if ($result) {
             return 'success';
         } else {
             return 'fail';
@@ -64,12 +70,12 @@ class addModel extends Model
 
     public function addProfessional($ProfessionalId, $WorkPlace, $Occupation)
     {
-        $this->insert('Professional', [
-            'ProfessionalId' => $ProfessionalId, 
+        $result = $this->insert('Professional', [
+            'ProfessionalId' => $ProfessionalId,
             'WorkPlace' => $WorkPlace,
             'Occupation' => $Occupation
         ]);
-        if ($this->mysqli->affected_rows == 1) {
+        if ($result) {
             return 'success';
         } else {
             return 'fail';
@@ -79,34 +85,34 @@ class addModel extends Model
 
     public function addStudent($StudentId, $UniversityIDCopyLink, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink)
     {
-        $this->insert('Student', [
+        $result = $this->insert('Student', [
             'StudentId' => $StudentId,
             'UniversityIDCopyLink' => $UniversityIDCopyLink,
             'UniversityAdmissionLetterCopyLink' => $UniversityAdmissionLetterCopyLink,
             'StudentUniversity' => $StudentUniversity,
             'UniversityIDNo' => $UniversityIDNo
         ]);
-        if ($this->mysqli->affected_rows == 1) {
+        if ($result) {
             return 'success';
         } else {
             return 'fail';
         }
     }
 
-    public function addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender,  $Address, $WorkPlace, $Occupation)
+    public function addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address, $WorkPlace, $Occupation)
     {
-        $this->insert('BoardingOwner', [
+        $result = $this->insert('BoardingOwner', [
             'BoardingOwnerId' => $BoardingOwnerId,
             'VerifiedStatus' => $VerifiedStatus,
             'NICScanLink' => $NICScanLink,
             'DateOfBirth' => $DateOfBirth,
             'NIC' => $NIC,
-            'Gender' => $Gender, 
+            'Gender' => $Gender,
             'Address' => $Address,
             'WorkPlace' => $WorkPlace,
             'Occupation' => $Occupation
         ]);
-        if ($this->mysqli->affected_rows == 1) {
+        if ($result) {
             return 'success';
         } else {
             return 'fail';
@@ -115,12 +121,17 @@ class addModel extends Model
 
     public function addUniversity($uni)
     {
-        $this->insert('university', ['UniversityName' => $uni]);
+        $result = $this->insert('university', ['UniversityName' => $uni]);
+        if ($result) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
     }
 
     public function addABoarding($ownerid, $title, $verifiedStatus, $summaryL1, $summaryL2, $summaryL3, $description, $price, $priceType, $houseNo, $street, $cityName, $googleMaps, $propertyType, $noofMembers, $noofRooms, $noofWashRooms, $gender, $boarderType, $sqft, $parking)
     {
-        $this->insert('boardingPlace', [
+        $result = $this->insert('boardingPlace', [
             'OwnerId' => $ownerid,
             'Title' => $title,
             'VerifiedStatus' => $verifiedStatus,
@@ -143,11 +154,26 @@ class addModel extends Model
             'SquareFeet' => $sqft,
             'Parking' => $parking
         ]);
+        if ($result) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
     }
+
+    public function addTenant($placeId,$userId){
+        $result = $this->insert('BoardingPlaceTenant', ['Place' => $placeId, 'TenantId' => $userId, 'BoarderStatus' => 'requested']);
+        if ($result) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
+    }
+
     public function addAComment($commenttext, $postid, $commentorid)
     {
-        $this->insert('Comment', ['Post' => $postid, 'Commentor' => $commentorid, 'comment' => $commenttext]);
-        if ($this->mysqli->affected_rows == 1) {
+        $result = $this->insert('Comment', ['Post' => $postid, 'Commentor' => $commentorid, 'comment' => $commenttext]);
+        if ($result) {
             return 'success';
         } else {
             return 'fail';
@@ -155,21 +181,21 @@ class addModel extends Model
     }
     public function likePost($postid, $userid)
     {
-        $this->insert('React', ['Post' => $postid, 'Liker' => $userid, 'Reaction' => 'y']);
+        $result = $this->insert('React', ['Post' => $postid, 'Liker' => $userid, 'Reaction' => 'y']);
     }
     public function postUpdate($userid, $placeid, $caption)
     {
-        $this->insert('PostUpdate', ['UserId' => $userid, 'PlaceId' => $placeid, 'Caption' => $caption]);
-        if ($this->mysqli->affected_rows == 1) {
+        $result = $this->insert('PostUpdate', ['UserId' => $userid, 'PlaceId' => $placeid, 'Caption' => $caption]);
+        if ($result) {
             return 'success';
         } else {
             return 'fail';
         }
     }
     public function addSupport($type, $userId, $support, $description, $requestTo = 7)
-    { 
-        $this->insert('Support', ['SupportType' => $type, 'RequestBy' => $userId, 'SupportTitle' => $support, 'SupportMessage' => $description,'RequestTo' => $requestTo ]);
-        if ($this->mysqli->affected_rows == 1) {
+    {
+        $result = $this->insert('Support', ['SupportType' => $type, 'RequestBy' => $userId, 'SupportTitle' => $support, 'SupportMessage' => $description, 'RequestTo' => $requestTo]);
+        if ($result) {
             return 'success';
         } else {
             return 'fail';

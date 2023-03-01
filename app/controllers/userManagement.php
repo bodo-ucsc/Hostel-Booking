@@ -2,9 +2,79 @@
 
 class userManagement extends Controller
 {
-    public function index()
+    public function index($user = "student", $page = 1, $perPage = 10, $message = null)
     {
-        header("Location: " . BASEURL . "/admin");
+        if (isset($message)) {
+
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Insertion Failed";
+            } else if ($message == 'success') {
+                $message = "Inserted Successfully";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
+
+        if ($user == 'admin') {
+            header("Location: " . BASEURL . "/admin");
+        } else if ($user == 'student') {
+            $rowCount = $this->model('viewModel')->numRows('student');
+            $result = restAPI("userManagement/getUser/student");
+        } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
+            $rowCount = $this->model('viewModel')->numRows('boardingowner');
+            $result = restAPI("userManagement/getUser/boardingowner");
+        } else if ($user == 'professional') {
+            $rowCount = $this->model('viewModel')->numRows('professional');
+            $result = restAPI("userManagement/getUser/professional");
+        } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
+            $rowCount = $this->model('viewModel')->numRows('verificationteam');
+            $result = restAPI("userManagement/getUser/verificationteam");
+        } else if ($user == 'manager') {
+            $rowCount = $this->model('viewModel')->numRows('manager');
+            $result = restAPI("userManagement/getUser/manager");
+        }
+        
+        if($page <= 0){
+            header("Location: " . BASEURL . "/userManagement/$user/1/$perPage");
+        }
+        if($perPage <= 0){
+            header("Location: " . BASEURL . "/userManagement/$user/1/10");
+        }
+
+        $this->view("userManagement/$user", ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
+
+    }
+
+    public function create($user = null, $message = null)
+    {
+        if (isset($message)) {
+
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Insertion Failed";
+            } else if ($message == 'success') {
+                $message = "Inserted Successfully";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
+
+        if ($user == 'student') {
+            $this->view('create/student', ['message' => $message, 'alert' => $alert]);
+        } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
+            $this->view('create/boardingOwner', ['message' => $message, 'alert' => $alert]);
+        } else if ($user == 'professional') {
+            $this->view('create/professional', ['message' => $message, 'alert' => $alert]);
+        }else if ($user == 'manager') {
+            $this->view('create/manager', ['message' => $message, 'alert' => $alert]);
+        } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
+            $this->view('create/verificationTeam', ['message' => $message, 'alert' => $alert]);
+        } 
     }
 
     public function getUser($user = "admin", $id = null)
@@ -28,6 +98,9 @@ class userManagement extends Controller
                 $array['FirstName'] = $row['FirstName'];
                 $array['LastName'] = $row['LastName'];
                 $array['Username'] = $row['Username'];
+                $array['NICScanLink'] = $row['NICScanLink'];
+                $array['UniversityIDCopyLink'] = $row['UniversityIDCopyLink'];
+                $array['UniversityAdmissionLetterCopyLink'] = $row['UniversityAdmissionLetterCopyLink'];
                 $array['Email'] = $row['Email'];
                 $array['Gender'] = $row['Gender'];
                 $array['VerifiedStatus'] = $row['VerifiedStatus'];
@@ -46,6 +119,7 @@ class userManagement extends Controller
                 $array['FirstName'] = $row['FirstName'];
                 $array['LastName'] = $row['LastName'];
                 $array['Username'] = $row['Username'];
+                $array['NICScanLink'] = $row['NICScanLink'];
                 $array['Email'] = $row['Email'];
                 $array['Gender'] = $row['Gender'];
                 $array['VerifiedStatus'] = $row['VerifiedStatus'];
@@ -65,6 +139,7 @@ class userManagement extends Controller
                 $array['LastName'] = $row['LastName'];
                 $array['Username'] = $row['Username'];
                 $array['Email'] = $row['Email'];
+                $array['NICScanLink'] = $row['NICScanLink'];
                 $array['Gender'] = $row['Gender'];
                 $array['VerifiedStatus'] = $row['VerifiedStatus'];
                 $array['WorkPlace'] = $row['WorkPlace'];
@@ -90,11 +165,38 @@ class userManagement extends Controller
                 $array['Address'] = $row['Address'];
                 array_push($json, $array);
             }
+        } else if ($user == 'manager') {
+            $result = $this->model('viewModel')->getUser("manager", $id);
+            while ($row = $result->fetch_assoc()) {
+                $array['UserId'] = $row['UserId'];
+                $array['FirstName'] = $row['FirstName'];
+                $array['LastName'] = $row['LastName'];
+                $array['Username'] = $row['Username'];
+                $array['Email'] = $row['Email'];
+                $array['Gender'] = $row['Gender'];
+                $array['DateOfBirth'] = $row['DateOfBirth'];
+                $array['NIC'] = $row['NIC'];
+                $array['ContactNumber'] = $row['ContactNumber'];
+                $array['Address'] = $row['Address'];
+                array_push($json, $array);
+            }
         }
         $json_response = json_encode($json);
         echo $json_response;
 
     }
+
+
+    public function userEdit($user = "student", $id = null)
+    {
+        if ($id == null) {
+            header('Location: ' . BASEURL . "/userManagement/$user");
+        }
+
+
+        $this->view("edit/$user", ['id' => $id]);
+    }
+
     public function getUserName()
     {
         $_POST = json_decode(file_get_contents('php://input'), true);
@@ -165,6 +267,18 @@ class userManagement extends Controller
         echo $json_response;
     }
 
+    public function universityRest()
+    {
+        $data = $this->model('viewModel')->getTable('University');
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['Name'] = $row['UniversityName'];
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
     public function boardingUserRest($usertype = null, $userId = null)
     {
         $data = $this->model('viewModel')->retrieveBoardingUsers($usertype, $userId);
@@ -176,6 +290,7 @@ class userManagement extends Controller
             $array['FirstName'] = $row['FirstName'];
             $array['LastName'] = $row['LastName'];
             $array['ProfilePicture'] = $row['ProfilePicture'];
+            $array['Contact'] = $row['ContactNumber'];
             $array['UserType'] = $row['UserType'];
             array_push($json, $array);
         }
@@ -194,7 +309,7 @@ class userManagement extends Controller
             $res = $res->fetch_assoc();
             if ($res != null) {
                 $message = "User name already exists";
-                header("Location: " . BASEURL . "/admin/userManagement/verificationTeam/1/2/$message");
+                header("Location: " . BASEURL . "/userManagement/verificationTeam/1/10/$message");
             } else {
                 $firstname = $_POST['firstname'];
                 $lastname = $_POST['lastname'];
@@ -220,9 +335,55 @@ class userManagement extends Controller
 
                 $message = $this->model('addModel')->addVerificationTeam($id, $dob, $gender, $address, $nic);
                 if ($message == "success") {
-                    header("Location: " . BASEURL . "/admin/userManagement/verificationTeam/1/2/$message");
+                    header("Location: " . BASEURL . "/userManagement/verificationTeam/1/10/$message");
                 } else {
-                    header("Location: " . BASEURL . "/admin/userManagement/verificationTeam/1/2/$message");
+                    header("Location: " . BASEURL . "/userManagement/verificationTeam/1/10/$message");
+                }
+            }
+        } else {
+            header("Location: " . BASEURL);
+        }
+    }
+
+    public function createManager()
+    {
+        if (isset($_POST['username'])) {
+
+            $username = $_POST['username'];
+            //check user already exists
+            $res = $this->model('viewModel')->checkUser('Username', $username);
+            $res = $res->fetch_assoc();
+            if ($res != null) {
+                $message = "User name already exists";
+                header("Location: " . BASEURL . "/userManagement/manager/1/10/$message");
+            } else {
+                $firstname = $_POST['firstname'];
+                $lastname = $_POST['lastname'];
+                $username = $_POST['username'];
+
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $usertype = "Manager";
+                $ContactNumber = $_POST['mobile'];
+
+                $id = $this->model('addModel')->register($firstname, $lastname, $username, $email, $ContactNumber, $password, $usertype);
+
+                $password = $_POST['password'];
+                $usertype = "Manager";
+
+                echo $id;
+
+                $dob = $_POST['dob'];
+                $gender = $_POST['gender'];
+                $address = $_POST['address'];
+                $nic = $_POST['nic'];
+
+
+                $message = $this->model('addModel')->addManager($id, $dob, $gender, $address, $nic);
+                if ($message == "success") {
+                    header("Location: " . BASEURL . "/userManagement/manager/1/10/$message");
+                } else {
+                    header("Location: " . BASEURL . "/userManagement/manager/1/10/$message");
                 }
             }
         } else {
@@ -241,7 +402,7 @@ class userManagement extends Controller
             if ($res != null) {
 
                 $message = "User name already exists";
-                header("Location: " . BASEURL . "/admin/userManagement/boardingOwner/1/2/$message");
+                header("Location: " . BASEURL . "/userManagement/boardingOwner/1/10/$message");
             } else {
 
                 $firstname = $_POST['firstname'];
@@ -270,14 +431,14 @@ class userManagement extends Controller
 
                 $message = $this->model('addModel')->addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $WorkPlace, $Occupation);
                 if ($message == "success") {
-                    header("Location: " . BASEURL . "/admin/userManagement/boardingOwner/1/2/$message");
+                    header("Location: " . BASEURL . "/userManagement/boardingOwner/1/10/$message");
                 } else {
-                    header("Location: " . BASEURL . "/admin/userManagement/boardingOwner/1/2/$message");
+                    header("Location: " . BASEURL . "/userManagement/boardingOwner/1/10/$message");
                 }
             }
 
         } else {
-            header("Location: " . BASEURL . "/admin/userManagement/boardingOwner");
+            header("Location: " . BASEURL . "/userManagement/boardingOwner");
         }
     }
 
@@ -293,7 +454,7 @@ class userManagement extends Controller
             if ($res != null) {
 
                 $message = "User name already exists";
-                header("Location: " . BASEURL . "/admin/userManagement/professional/1/2/$message");
+                header("Location: " . BASEURL . "/userManagement/professional/1/10/$message");
             } else {
                 $firstname = $_POST['firstname'];
                 $lastname = $_POST['lastname'];
@@ -321,13 +482,13 @@ class userManagement extends Controller
 
                 $message = $this->model('addModel')->addProfessional($ProfessionalId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $WorkPlace, $Occupation);
                 if ($message == "success") {
-                    header("Location: " . BASEURL . "/admin/userManagement/professional/1/2/$message");
+                    header("Location: " . BASEURL . "/userManagement/professional/1/10/$message");
                 } else {
-                    header("Location: " . BASEURL . "/admin/userManagement/professional/1/2/$message");
+                    header("Location: " . BASEURL . "/userManagement/professional/1/10/$message");
                 }
             }
         } else {
-            header("Location: " . BASEURL . "/admin/userManagement/professional");
+            header("Location: " . BASEURL . "/userManagement/professional");
         }
     }
 
@@ -343,7 +504,7 @@ class userManagement extends Controller
             if ($res != null) {
 
                 $message = "User name already exists";
-                header("Location: " . BASEURL . "/admin/userManagement/student/1/2/$message");
+                header("Location: " . BASEURL . "/userManagement/student/1/10/$message");
             } else {
                 $firstname = $_POST['firstname'];
                 $lastname = $_POST['lastname'];
@@ -402,13 +563,14 @@ class userManagement extends Controller
 
                 $message = $this->model('addModel')->addStudent($StudentId, $VerifiedStatus, $NICScanLink, $UniversityIDCopyLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink);
                 if ($message == "success") {
-                    header("Location: " . BASEURL . "/admin/userManagement/student/1/2/$message");
+                    header("Location: " . BASEURL . "/userManagement/student/1/10/$message");
                 } else {
-                    header("Location: " . BASEURL . "/admin/userManagement/student/1/2/$message");
+                    header("Location: " . BASEURL . "/userManagement/student/1/10/$message");
                 }
             }
         } else {
-            header("Location: " . BASEURL . "/admin/userManagement/student");
+            header("Location: " . BASEURL . "/userManagement/student");
         }
     }
+
 }

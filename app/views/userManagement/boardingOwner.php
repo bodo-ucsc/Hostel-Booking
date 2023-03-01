@@ -2,8 +2,8 @@
 $header = new HTMLHeader("Boarding Owner Management");
 $nav = new Navigation('management');
 $sidebar = new SidebarNav("user", "boardingOwner");
-$basePage = BASEURL . '/admin/userManagement/boardingOwner';
-$base = BASEURL . '/admin';
+$basePage = BASEURL . '/userManagement/boardingOwner';
+$base = BASEURL . '/userManagement' ;
  
 
 ?>
@@ -109,13 +109,13 @@ $base = BASEURL . '/admin';
                                 foreach ($useridArray as $userid) {
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>";
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='" . $basePage . "Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $base . "/userEdit/boardingOwner/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='" . $basePage . "Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $base . "/userDelete/boardingOwner/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
                                     echo "</div></a>";
 

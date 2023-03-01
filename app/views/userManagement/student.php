@@ -2,8 +2,9 @@
 $header = new HTMLHeader("Student Management");
 $nav = new Navigation('management');
 $sidebar = new SidebarNav("user", "student");
-$basePage = BASEURL . '/admin/userManagement/student';
-$base = BASEURL . '/admin';
+$basePage = BASEURL . '/userManagement/student';
+$base = BASEURL . '/userManagement' ;
+
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
@@ -103,13 +104,13 @@ $base = BASEURL . '/admin';
                                 foreach ($useridArray as $userid) {
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>";
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='" . $basePage . "Edit/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $base . "/userEdit/student/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='" . $basePage . "Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $base . "/userDelete/student/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
                                     echo "</div></a>";
 

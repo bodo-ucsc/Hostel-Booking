@@ -5,7 +5,7 @@ $header = new HTMLHeader("Password Mesaage");
 <main class=" full-width overflow-hidden position-absolute">
     <div class="row">
         <div class="col-12 bg-white flex full-height">
-            <div class="shadow padding-5">
+            <div class="shadow border-rounded-more padding-5">
                 <div class="row">
                     <div class="col-12">
                         <img class=" fill-container " src="<?php echo BASEURL . '/public/images/logo.svg' ?>">
@@ -23,7 +23,7 @@ $header = new HTMLHeader("Password Mesaage");
                         </P>
                         <form action="<?php echo BASEURL ?>/forgotpassword/otpCheck" method="post">
                             <label for="otp" class="bold black">OTP</label><br>
-                            <input type="text" id="otp" name="otp" placeholder="Enter OTP here"><br>
+                            <input type="text" id="otp" name="otp" placeholder="Enter OTP here" required><br>
 
                             <input type="hidden" id="email" name="email" value="<?php echo $row['Email']; ?>"><br>
                             <input type="hidden" id="userId" name="userId" value="<?php echo $row['UserId']; ?>"><br>

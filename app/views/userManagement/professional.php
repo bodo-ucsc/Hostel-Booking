@@ -2,8 +2,9 @@
 $header = new HTMLHeader("Professional Management");
 $nav = new Navigation('management');
 $sidebar = new SidebarNav("user", "professional");
-$basePage = BASEURL . '/admin/userManagement/professional';
-$base = BASEURL . '/admin';
+$basePage = BASEURL . '/userManagement/professional';
+$base = BASEURL . '/userManagement' ;
+
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">

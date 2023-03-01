@@ -1,8 +1,8 @@
 <?php
-$header = new HTMLHeader("Student Verification");
+$header = new HTMLHeader("Professional Verification");
 $nav = new Navigation('management');
-$sidebar = new SidebarNav("verification", "student");
-$basePage = BASEURL . '/verification/student';
+$sidebar = new SidebarNav("verification", "boardingPlace");
+$basePage = BASEURL . '/verification/boardingplace';
 $base = BASEURL;
 ?>
 <main class=" full-width ">
@@ -11,18 +11,18 @@ $base = BASEURL;
             <div class="row no-gap">
                 <div class="col-12 left fill-container">
                     <h1 class="header-1 ">
-                        Student User Verification
+                        Boarding Place Verification
                     </h1>
                 </div>
 
                 <div class="col-12 fill-container left">
+
                     <?php
                     if (isset($data['result'])) {
-                        new SearchUser("Student");
-                    }
-                    ?>
-                </div>
+                        new SearchUser("Boarding Place");
+                    } ?>
 
+                </div>
             </div>
 
 
@@ -37,65 +37,82 @@ $base = BASEURL;
                                 echo $data['page'];
                             } ?>" aria-live="polite">
                             <div class="hs padding-horizontal-5 padding-vertical-3">
-                                <div class="col-2  text-overflow bold">First Name</div>
-                                <div class="col-2  text-overflow bold">Last Name</div>
-                                <div class="col-2  text-overflow bold">User Name</div>
-                                <div class="col-4  text-overflow bold">Email</div>
-                                <div class="col-4  text-overflow bold">University</div>
-                                <div class="col-2  text-overflow bold">Uni ID</div>
-                                <div class="col-2  text-overflow bold">Verified</div>
-                                <div class="col-2  text-overflow bold">DOB</div>
+                                <div class="col-3  text-overflow bold">OwnerName</div>
+                                <div class="col-5  text-overflow bold">Title</div>
+                                <div class="col-2  text-overflow bold">Status</div>
+                                <div class="col-4  text-overflow bold">Point 1</div>
+                                <div class="col-4  text-overflow bold">Point 2</div>
+                                <div class="col-4  text-overflow bold">Point 3</div>
+                                <div class="col-6  text-overflow bold">Description</div>
+                                <div class="col-2  text-overflow bold">Price</div>
+                                <div class="col-2  text-overflow bold">Pricing</div>
+                                <div class="col-2  text-overflow bold">Type</div>
+                                <div class="col-2  text-overflow bold">House No.</div>
+                                <div class="col-2  text-overflow bold">Street</div>
+                                <div class="col-2  text-overflow bold">City</div>
+                                <div class="col-2  text-overflow bold">Members</div>
+                                <div class="col-2  text-overflow bold">Rooms</div>
+                                <div class="col-2  text-overflow bold">Washroom</div>
                                 <div class="col-2  text-overflow bold">Gender</div>
-                                <div class="col-3  text-overflow bold">NIC</div>
-                                <div class="col-3  text-overflow bold">Contact</div>
-                                <div class="col-4  text-overflow bold">Address</div>
+                                <div class="col-2  text-overflow bold">Boarder</div>
+                                <div class="col-2  text-overflow bold">Sq Ft</div>
+                                <div class="col-2  text-overflow bold">Parking</div>
                             </div>
                             <?php
                             if (isset($data['result'])) {
+                                $placeidArray = array();
                                 $count = 0;
-                                $useridArray = array();
                                 foreach ($data['result'] as $key => $value) {
                                     $verifiedStatus = $value->VerifiedStatus;
                                     if ($verifiedStatus != "verified") {
                                         $count++;
-                                        $verifiedstyle = " border-grey grey";
+
+                                        $verifiedstyle = "border-1 border-rounded center border-grey grey small";
                                         $verifiedStatus = "not verified";
 
-                                        
-                                        $array['UserId'] = $value->UserId;
-                                        $array['NICScanLink']=$value->NICScanLink;
-                                        $array['UniID']=$value->UniversityIDCopyLink;
-                                        $array['UniAdm']=$value->UniversityAdmissionLetterCopyLink;
-
-                                        array_push($useridArray, $array);
-
-                                        $gender = $value->Gender;
-                                        if ($gender == 'm') {
-                                            $gender = 'Male';
+                                        $park = $value->Parking;
+                                        if ($park == 'y') {
+                                            $park = "Available";
                                         } else {
-                                            $gender = 'Female';
+                                            $park = "N/A";
                                         }
+                                        
+                                        $array['PlaceId'] = $value->PlaceId;
+                                        $placeid = $value->PlaceId;
+                                        $array['Util']=$value->UtilityBillReceiptLink;
 
-                                        echo "<div class='hs list-items padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
-                                        echo "<div class='person-name col-2  text-overflow ' title='" . $value->FirstName . "' >" . $value->FirstName . "</div>";
-                                        echo "<div class='person-name col-2  text-overflow ' title='" . $value->LastName . "' >" . $value->LastName . "</div>";
-                                        echo "<div class='col-2  text-overflow ' title='" . $value->Username . "' >" . $value->Username . "</div>";
-                                        echo "<div class='col-4  text-overflow ' title='" . $value->Email . "' >" . $value->Email . "</div>";
-                                        echo "<div class='col-4  text-overflow ' title='" . $value->StudentUniversity . "' >" . $value->StudentUniversity . "</div>";
-                                        echo "<div class='col-2  text-overflow ' title='" . $value->UniversityIDNo . "' >" . $value->UniversityIDNo . "</div>";
-                                        echo "<div class='col-2 text-overflow ' title=' $verifiedStatus ' > <span class=' border-1 border-rounded-more small padding-horizontal-2 $verifiedstyle'> $verifiedStatus  </span></div>";
-                                        echo "<div class='col-2  text-overflow ' title='" . $value->DateOfBirth . "' >" . $value->DateOfBirth . "</div>";
-                                        echo "<div class='col-2  text-overflow ' title=' $gender'>$gender</div>";
-                                        echo "<div class='col-3  text-overflow ' title='" . $value->NIC . "' >" . $value->NIC . "</div>";
-                                        echo "<div class='col-3  text-overflow ' title='" . $value->ContactNumber . "' >" . $value->ContactNumber . "</div>";
-                                        echo "<div class='col-4  text-overflow ' title='" . $value->Address . "' >" . $value->Address . "</div>";
+                                        array_push($placeidArray, $array);
+
+                                          
+
+                                        echo "<div id='result-$placeid' class='hs list-items padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
+                                        echo "<div class='person-name col-3  text-overflow ' title='" . $value->OwnerName . "' >" . $value->OwnerName . "</div>";
+                                        echo "<div class='person-name col-5  text-overflow ' title='" . $value->Title . "' >" . $value->Title . "</div>";
+                                        echo "<div class='col-2  text-overflow $verifiedstyle' title='" . $verifiedStatus . "' >" . $verifiedStatus . "</div>"; 
+                                        echo "<div class='col-4  text-overflow ' title='" . $value->SummaryLine1 . "' >" . $value->SummaryLine1 . "</div>"; 
+                                        echo "<div class='col-4  text-overflow ' title='" . $value->SummaryLine2 . "' >" . $value->SummaryLine2 . "</div>"; 
+                                        echo "<div class='col-4  text-overflow ' title='" . $value->SummaryLine3 . "' >" . $value->SummaryLine3 . "</div>"; 
+                                        echo "<div class='col-6  text-overflow ' title='" . $value->Description . "' >" . $value->Description . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->Price . "' >" . $value->Price . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->PriceType . "' >" . $value->PriceType . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->PropertyType . "' >" . $value->PropertyType . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->HouseNo . "' >" . $value->HouseNo . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->Street . "' >" . $value->Street . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->CityName . "' >" . $value->CityName . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->NoOfMembers . "' >" . $value->NoOfMembers . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->NoOfRooms . "' >" . $value->NoOfRooms . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->NoOfWashRooms . "' >" . $value->NoOfWashRooms . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->Gender . "' >" . $value->Gender . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->BoarderType . "' >" . $value->BoarderType . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->SquareFeet . "' >" . $value->SquareFeet . "</div>"; 
+                                        echo "<div class='col-2  text-overflow ' title='" . $park . "' >" . $park . "</div>"; 
                                         echo "</div>";
                                     }
                                 }
                             }
                             if ($count == 0) {
                                 echo "<div class='hs list-items padding-horizontal-5 padding-vertical-2 border-1 border-white'>
-                                        <div class='col-12  text-overflow ' title='No results found' >All users verified</div>
+                                        <div class='col-12  text-overflow ' title='No results found' >All properties verified</div>
                                     </div>
                                 ";
 
@@ -108,35 +125,34 @@ $base = BASEURL;
                             <div class="col-12 fill-container padding-3 bold ">Actions</div>
 
                             <?php
-                            if (isset($useridArray) && !empty($useridArray)) {
-                                foreach ($useridArray as $key => $value) {
-                                    $userid = $value['UserId'];
-                                    $nic=$value['NICScanLink'];
-                                    $uniid=$value['UniID'];
-                                    $uniadm=$value['UniAdm'];
+                            if (isset($placeidArray) && !empty($placeidArray)) {
+                                foreach ($placeidArray as $key => $value) {
+                                    $placeId = $value['PlaceId'];
+                                    $util=$value['Util'];
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>";
 
                                     echo "<div class='col-4 fill-container '>";
-                                    echo "<a onclick='showModal(\"$nic\",\"$uniid\",\"$uniadm\")' class='cursor-pointer'><div class=' fill-container  border-accent bg-white accent-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a onclick='showModal(\"$util\")' class='cursor-pointer'><div class=' fill-container  border-accent bg-white accent-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='eye' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>View</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-4 fill-container '>";
-                                    echo "<a onclick='verify($userid)' class='cursor-pointer'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a onclick='verify($placeId)' class='cursor-pointer'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='user-check' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Verify</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-4 fill-container '>";
-                                    echo "<a href='" . $basePage . "Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a href='" . $base . "/userDelete/boardingplace/$placeId'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
                                     echo "</div></a>";
 
                                     echo "</div>";
                                     echo "</div>";
                                 }
-                            } else{
+                            }
+                            else{
                                 echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>
                                         <div class='col-12 fill-container padding-2 bold '>No actions available</div>
                                     </div>
@@ -151,7 +167,7 @@ $base = BASEURL;
 
                             <?php
                             if (isset($data['rowCount']) && isset($data['page']) && isset($data['perPage'])) {
-                                echo '<span class="padding-horizontal-4">' . $data["perPage"] . ' entries per page (Total ' . count($useridArray) . ' entries)</span>';
+                                echo '<span class="padding-horizontal-4">' . $data["perPage"] . ' entries per page (Total ' . count($placeidArray) . ' entries)</span>';
                             }
                             ?>
                         </div>
@@ -236,35 +252,28 @@ $base = BASEURL;
     </div>
 </main>
 
-
 <script>
-    function showModal(elem1, elem2, elem3){
-        let str;
-        if((elem1 == null || elem1 == "") &&  (elem2 == null || elem2 == "") && (elem3 == null || elem3 == "")){
+    function showModal(elem){
+        if(elem == null || elem == ""){
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Image not found!'
             })
             return;
-        } 
-        if (!(elem1 == null || elem1 == "")) {
-            str = '<a class="" href="<?= $base ?>/'+elem1+'" target="_blank"><img class="fill-container" src="<?= $base ?>/'+elem1+'" />NIC Scanned Copy</a>'  
-        }
-        if (!(elem2 == null || elem2 == "")) {
-            str = str + '<a class="" href="<?= $base ?>/'+elem2+'" target="_blank"><img class="fill-container" src="<?= $base ?>/'+elem2+'" /> University ID</a>'
-        }
-        if (!(elem3 == null || elem3 == "")) {
-            str = str + '<a class="" href="<?= $base ?>/'+elem3+'" target="_blank"><img class="fill-container" src="<?= $base ?>/'+elem3+'" /> University Admission Letter</a>'
         }
         Swal.fire({
-            title: 'User Documents',     
-            html: str,
-        });
+                title: 'Utility Bill Scanned',
+                 
+            html:
+                '<a href="<?= $base ?>/'+elem+'" target="_blank"><img class="fill-container border-rounded" src="<?= $base ?>/'+elem+'" /></a>'
+            
+            });
     }
-    
+
     function verify(id) {
-        let url = "<?= $base ?>/verification/verify/Student/";
+        let url = "<?= $base ?>/verification/verify/BoardingPlace/";
+        console.log(url + id);
         fetch(url + id).then((response) => response.json()).then((json) => {
             console.log(json);
             if (json.Status === 'Success') {

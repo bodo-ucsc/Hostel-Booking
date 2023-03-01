@@ -1,17 +1,17 @@
 <?php
-$header = new HTMLHeader("Edit User | Verification Team");
+$header = new HTMLHeader("Edit User | Manager");
 $nav = new Navigation("home");
-$sidebar = new SidebarNav("user", "verificationTeam");
+$sidebar = new SidebarNav("user", "manager");
 $base = BASEURL;
 
 if (isset($data['id'])) {
     $id = $data['id'];
-    $result = restAPI("userManagement/getUser/verificationteam/$id");
+    $result = restAPI("userManagement/getUser/manager/$id");
     if (isset($result['0'])) {
         $value = $result['0'];
     }
 } else {
-    header("Location:  '$base/userManagement/verificationTeam'");
+    header("Location:  '$base/userManagement/manager'");
 }
 
 $FirstName = $value->FirstName;
@@ -20,7 +20,6 @@ $Gender = $value->Gender;
 
 $Username = $value->Username;
 $Email = $value->Email; 
-
 $DateOfBirth = $value->DateOfBirth;
 $NIC = $value->NIC;
 $ContactNumber = $value->ContactNumber;
@@ -31,11 +30,11 @@ $Address = $value->Address;
         <div class="col-12 col-medium-12 width-90">
             <div class="row ">
                 <div class="col-12   fill-container left"
-                    onclick=" location.href='<?= $base ?>/userManagement/verificationTeam'">
+                    onclick=" location.href='<?= $base ?>/userManagement/manager'">
                     <h1 class="header-1 black-hover cursor-pointer">
 
                         <i data-feather="chevron-left" class="feather-large vertical-align-middle"></i>
-                        <span class="vertical-align-middle">Edit Verification Team</span>
+                        <span class="vertical-align-middle">Edit Manager</span>
                     </h1>
                 </div>
                 <div class="col-12 col-medium-4 fill-container right">
@@ -111,7 +110,7 @@ $Address = $value->Address;
                                 </div>
                                 <div class="col-1 fill-container right ">
                                     <button
-                                        onclick="updateGender('VerificationTeam','VerificationTeamId','<?= $id ?>','Gender','gender')"
+                                        onclick="updateGender('Manager','ManagerId','<?= $id ?>','Gender','gender')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
@@ -129,7 +128,7 @@ $Address = $value->Address;
 
                                 <div class="col-2 fill-container right ">
                                     <button
-                                        onclick="update('VerificationTeam','VerificationTeamId','<?= $id ?>','DateOfBirth','dob')"
+                                        onclick="update('Manager','ManagerId','<?= $id ?>','DateOfBirth','dob')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
@@ -145,7 +144,7 @@ $Address = $value->Address;
                                         placeholder="Enter NIC Number" value='<?= $NIC ?>'>
                                 </div>
                                 <div class="col-2 fill-container right ">
-                                    <button onclick="update('VerificationTeam','VerificationTeamId','<?= $id ?>','NIC','nic')"
+                                    <button onclick="update('Manager','ManagerId','<?= $id ?>','NIC','nic')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
@@ -167,7 +166,7 @@ $Address = $value->Address;
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
 
                         <div class="col-12 col-medium-4 fill-container">
                             <label for="email" class="bold black">Email</label><br>
@@ -195,7 +194,7 @@ $Address = $value->Address;
                                 </div>
                                 <div class="col-2 fill-container right ">
                                     <button
-                                        onclick="update('VerificationTeam','VerificationTeamId','<?= $id ?>','Address','address')"
+                                        onclick="update('Manager','ManagerId','<?= $id ?>','Address','address')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
