@@ -136,12 +136,7 @@ class Feed extends Controller
             fetchComments();
         };
 
-
-        setInterval(function(){
-            fetchLikes();
-            fetchComments();
-        }, 1000);
-
+ 
         function isLiked(){
             var url = \"$base/feed/likeRest/$PostId/" . $_SESSION['UserId'] . "\"; 
             var elem = document.getElementById('like-button-$PostId');
@@ -200,7 +195,7 @@ conn.onmessage = function(e) {
                     elem.innerHTML = '';
                     for (var i = 0; i < json.length; i++) {
                         var comment = json[i];
-                        console.log(comment);
+                        console.log(comment); 
                         var commentElem = document.createElement('div');
                         commentElem.classList.add('col-11');
                         commentElem.classList.add('fill-container');
@@ -253,7 +248,6 @@ conn.onmessage = function(e) {
                         elem.classList.remove('black-hover');
                         elem.classList.remove('bg-white-hover');
                     } else {
-                        console.log('removed');
                         elem.classList.add('black-hover');
                         elem.classList.add('bg-white-hover');
                         elem.classList.remove('bg-accent');
@@ -354,9 +348,8 @@ input.addEventListener('keypress', function(event) {
             $_POST = json_decode(file_get_contents('php://input'), true);
             $commenttext = $_POST['comment'];
             $commentorid = $_SESSION['UserId'];
-            $this->model('addModel')->addAComment($commenttext, $PostId, $commentorid);
-
-            header("Location: " . BASEURL . "/feed/viewPost/$PostId");
+            $result = $this->model('addModel')->addAComment($commenttext, $PostId, $commentorid);
+            echo json_encode($result);
         }
 
 
