@@ -23,18 +23,21 @@ $base = BASEURL;
 </main>
 
 
-<?php
 
-echo "
-        <script>
+<script>
 
-        window.onload = function(){
-            isLiked(); 
-            fetchComments();
-            fetchLikes();
-        };
+    <?php
 
- 
+    if (isset($_SESSION['UserId'])) {
+
+        echo "
+
+    window.onload = function(){
+        isLiked(); 
+        fetchComments();
+        fetchLikes();
+    };
+
         function isLiked(){
             var url = \"$base/feed/likeRest/0/" . $_SESSION['UserId'] . "\"; 
             fetch(url)
@@ -56,6 +59,15 @@ echo "
                         } 
                 });
         };
+    ";
+    } else {
+        echo "window.onload = function(){
+        fetchComments();
+        fetchLikes();
+    };";
+    }
+
+    echo "
         function fetchComments(){
             var url = \"$base/feed/commentCountRest/\";
             fetch(url)
@@ -122,9 +134,10 @@ echo "
                 });
         };
   
-        </script>
         ";
-
+    ?>
+</script>
+<?php
 if (isset($data['alert'])) {
     $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
