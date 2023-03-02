@@ -131,18 +131,17 @@ class viewModel extends Model
             return null;
         }
     }
-    public function retrieveBoardingUsers($usertype = null)
+    public function retrieveBoardingUsers($usertype = null, $userId = null)
     {
         if (isset($usertype)) {
             $append = "AND UserType = '$usertype'";
         } else {
             $append = null;
         }
-        $result = $this->union("User,BoardingPlaceTenant,BoardingPlace", "User,BoardingPlaceTenant,BoardingPlace,BoardingOwner", "UserId,FirstName,LastName,UserType,Place,Title", "TenantId=UserId AND PlaceId = Place $append", "PlaceId = Place AND OwnerId=BoardingOwnerId AND BoardingOwnerId=UserId $append");
-        if ($result->num_rows > 0) {
-            return $result;
+        if (isset($userId)) {
+            $append .= "AND UserId = '$userId'";
         } else {
-            return null;
+            $append .= null;
         }
     }
     public function getUser($user = "admin", $page = 1, $perPage = 1)
@@ -156,17 +155,41 @@ class viewModel extends Model
         }
     }
 
-    public function getUserById($user, $id)
+    public function getImage($PlaceId = NULL)
     {
-        $result = $this->get("User,$user", 'UserId = ' . $user . 'Id AND UserId = ' . $id);
-        if ($result->num_rows > 0) {
-            return $result;
+        if (isset($PlaceId)) {
+            $append = "BoardingPlace = '$PlaceId'";
         } else {
-            return null;
+            $append = null;
         }
-    }
+        $result = $this->get("BoardingPlacePicture", "$append");
+        return $result;
+    } 
+
+    // public function getUser($user = "admin", $id = null)
+    // {
+    //     if (isset($id)) {
+    //         $append = "AND UserId = '$id'";
+    //     } else {
+    //         $append = null;
+    //     } 
+    //     if ($user == "student" || $user == "profesional") { 
+    //         $result = $this->get("User, Boarder, $user", 'UserId = BoarderId AND BoarderId = ' . $user . "Id $append"   );
+
+    //     } else {
+    //         $result = $this->get("User, $user", 'UserId = ' . $user . "Id $append" );
+
+    //     }
+            
+    //     if ($result->num_rows > 0) {
+    //         return $result;
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
     public function getPlace($PlaceId=NULL)
+  
     {
         if(isset($PlaceId)){
             $append = "AND PlaceId = $PlaceId";

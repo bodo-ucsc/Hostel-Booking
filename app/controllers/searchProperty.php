@@ -10,10 +10,9 @@ class SearchProperty extends Controller
                 //$search_query = mysqli_real_escape_string($this->model()->dbConnect, $_POST['q']);
                 $search_query = $_POST['searchText'];
                 
-               $search_query = explode(" ", $search_query);
+                $search_query = explode(" ", $search_query);
                 $search_query = implode("%", $search_query);
-                $search_query = "%" . $search_query . "%";
-
+               
                 $result = $this->model('viewModel')->searchBoarding($search_query);
                 if ($result == null) {
                     $resultCount = 0;

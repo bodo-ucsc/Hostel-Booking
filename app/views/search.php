@@ -1,7 +1,7 @@
 <?php
 
 new HTMLHeader("Search | Place");
-new Navigation("listing");
+new Navigation();
 $base = BASEURL;
 ?>
 
@@ -32,7 +32,7 @@ $base = BASEURL;
 
             $PlaceId = $row['PlaceId'];
             //echo $PlaceId;
-            //new PropertyCard($PlaceId);
+            $place =new PropertyCard($PlaceId);
 
             // echo "place id= ".$row['PlaceId']."<br>";
             // echo $row['Title']."<br>";

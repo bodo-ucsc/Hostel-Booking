@@ -16,3 +16,4 @@ use MyApp\Chat;
     );
 
     $server->run();
+

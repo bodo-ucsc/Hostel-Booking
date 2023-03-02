@@ -80,6 +80,7 @@ class IoServer {
      * @param \React\Socket\ConnectionInterface $conn
      */
     public function handleConnect($conn) {
+        
         $conn->decor = new IoConnection($conn);
         $conn->decor->resourceId = (int)$conn->stream;
 
