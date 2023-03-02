@@ -64,6 +64,9 @@ body {
   white-space: nowrap;
 }
 
+.wordwrap{
+  word-wrap: break-word;
+}
 /* icons */
 
 .feather-body {
@@ -532,7 +535,7 @@ ul li::marker {
 /* Form and Inputs */
 
 input[type=button],
-input[type=submit],
+input[type=submit], 
 button {
   width: -moz-fit-content;
   height: -moz-fit-content;
@@ -564,11 +567,12 @@ button.swal2-styled.swal2-confirm {
   color: #fff;
 }
 
-/* Form */
+/* Form */ 
+
 input[type=text],
 input[type=password],
 input[type=tel],
-input[type=number],
+input[type=number], 
 input[type=email],
 input[type=datetime],
 input[type=datetime-local],
@@ -594,6 +598,10 @@ select {
   border: 2px solid #EAEAEA;
   background-color: #F2F2F2;
   box-sizing: border-box;
+}
+
+select.autowidth{
+  width: auto;
 }
 
 .icon-green {
@@ -650,6 +658,29 @@ input[type=date].bg-red
 {
     background: #C83A3A;
     color: #fff;
+}
+
+
+/*
+ * FilePond Custom Styles
+ */
+
+ .filepond--drop-label {
+
+	color: #4c4e53;
+}
+
+.filepond--label-action {
+	text-decoration-color: #babdc0;
+}
+
+.filepond--panel-root {
+  border: 2px solid #EAEAEA;
+	background-color: #edf0f4;
+}
+ 
+.filepond--root { 
+	margin: 0 auto;
 }
 
 /* components */

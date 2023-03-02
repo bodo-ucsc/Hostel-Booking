@@ -4,46 +4,60 @@ class ViewCard
 {
     public function __construct($value, $comments = null)
     {
-        $FirstName = $value->FirstName;
-        $LastName = $value->LastName;
-        $UserType = $value->UserType;
-        $ProfilePicture = $value->ProfilePicture;
-        $PostId = $value->PostId; 
-        $PlaceId = $value->PlaceId;
-        $DateTime = $value->DateTime;
-        $Caption = $value->Caption;
 
-        if ($UserType == "BoardingOwner") {
-            $UserType = "Owner";
-        } else {
-            $UserType = ucfirst($UserType);
-        }
         $base = BASEURL;
+        if ($value == 'preview') {
+            $FirstName = "Preview";
+            $LastName = "User";
+            $UserType = "preview";
+            $ProfilePicture = null;
+            $PostId = 'preview';
+            $PlaceId = 'preview';
+            $DateTime = date('Y-m-d H:i:s');
+            $Caption = 'Your message will appear here.';
+        } else {
+
+
+            $FirstName = $value->FirstName;
+            $LastName = $value->LastName;
+            $UserType = $value->UserType;
+            $ProfilePicture = $value->ProfilePicture;
+            $PostId = $value->PostId;
+            $PlaceId = $value->PlaceId;
+            $DateTime = $value->DateTime;
+            $Caption = $value->Caption;
+
+            if ($UserType == "BoardingOwner") {
+                $UserType = "Owner";
+            } else {
+                $UserType = ucfirst($UserType);
+            }
+        }
         echo "
     <div class='advert shadow bg-white border-rounded-more padding-3 display-inline-block'>
     <div class='row no-gap vertical-align-middle'>
         <div class=' padding-2'>";
         if ($ProfilePicture == null) {
-            echo "<img src='https://ui-avatars.com/api/?background=288684&color=fff&name=$FirstName+$LastName' alt='' class='vertical-align-middle border-white border-3 shadow dp border-circle'>";
+            echo "<img id='dp-$PostId' src='https://ui-avatars.com/api/?background=288684&color=fff&name=$FirstName+$LastName' alt='' class='vertical-align-middle border-white border-3 shadow dp border-circle'>";
         } else {
-            echo "<img src='$base/$ProfilePicture' alt='' class='vertical-align-middle border-white border-3 shadow dp border-circle'>";
+            echo "<img id='dp-$PostId' src='$base/$ProfilePicture' alt='' class='vertical-align-middle border-white border-3 shadow dp border-circle'>";
         }
         echo " </div>
         <div class='col-11 fill-container left margin-left-2'>
             <div class='row no-gap'>
                 <div class='col-12 fill-container left  '>
-                    <div class='display-inline-block big vertical-align-middle'>
+                    <div id='name-$PostId' class='display-inline-block big vertical-align-middle'>
                         $FirstName $LastName
                     </div>
                     <div
                         class='display-inline-block border-rounded-more shadow   padding-1 margin-left-2 vertical-align-middle'>
-                        <i data-feather='award'
+                        <i data-feather='award' 
                             class='feather-body vertical-align-middle bg-accent white border-circle padding-2'></i>
-                        <span class='small vertical-align-middle padding-2'>$UserType</span>
+                        <span id='user-type-$PostId' class='small vertical-align-middle padding-2'>$UserType</span>
                     </div>
 
                 </div>
-                <div class='col-12 fill-container left'>";
+                <div id='date-$PostId' class='col-12 fill-container left'>";
         $timestamp = strtotime($DateTime);
         echo date("M d, Y h.i A", $timestamp);
         echo "</div>
@@ -51,16 +65,16 @@ class ViewCard
         </div>
     </div>
     <div class='row padding-2'>
-        <div class='col-12 fill-container left'>
+        <div id='caption-$PostId'class='col-12 fill-container left'>
             $Caption
         </div>
     </div>";
 
-        new PropertyCard($PlaceId, "yes");
+        new PropertyCard($PlaceId, "yes", $PostId);
 
- 
 
-        echo "
+        if ($value != 'preview') {
+            echo "
             <div class='row no-gap padding-2 margin-bottom-2  '>
                 <div class='col-12 fill-container '> 
                     <div class='row no-gap padding-horizontal-4 padding-vertical-2 bg-white shadow-small border-rounded-more cursor-pointer'>
@@ -80,7 +94,7 @@ class ViewCard
         ";
 
 
-        echo " <div class='row padding-2'> 
+            echo " <div class='row padding-2'> 
         <div class='col-4 fill-container'>
             <button onclick='likePost(this,\"$PostId\")' id='like-button-$PostId' class='bold fill-container   border-rounded-more shadow '>
                 <i data-feather='thumbs-up' class='vertical-align-middle'></i>
@@ -88,7 +102,7 @@ class ViewCard
             </button> 
         </div>";
 
-        echo "
+            echo "
         <div class='col-4 fill-container'>
             <button class='button bold fill-container bg-white-hover black-hover border-rounded-more shadow ' onclick='location.href=\"$base/feed/viewPost/$PostId\"'>
                 <i data-feather='message-square' class='vertical-align-middle'></i>
@@ -114,15 +128,28 @@ class ViewCard
             </div>
         </div> 
     </div>";
+        } else {
+            echo "
+        <div class=' fill-container'>
+            <button class='bold fill-container   border-rounded-more shadow '>
+                <span class='display-none display-large-inline-block vertical-align-middle'>This is just a preview</span>
+            </button>
+        </div>";
+        }
 
         if (isset($comments)) {
-            echo "<div id='comment-list-$PostId' class='margin-top-3 row bg-light-grey border-rounded padding-vertical-4 padding-horizontal-3'></div>";
+            echo "
+                <div id='comment-list-$PostId' class='margin-top-3 row bg-light-grey border-rounded padding-vertical-4 padding-horizontal-3'></div>
+                <div id='comment-typing-$PostId' class='fill-container left padding-top-3'> </div>
+            
+            ";
+
             if (isset($_SESSION['UserId'])) {
                 echo " 
                     <div class='row '>
                         <div class='col-10 fill-container'>
                             <input type='text' class='vertical-align-middle fill-container margin-top-4' id='comment-$PostId' name='comment'
-                            placeholder='Your Message' required>
+                            placeholder='Your Message' onkeyup='typing()' required>
                         </div>
                         <div class='col-2 fill-container'>
                             <button onclick='addComment()' class='border-rounded vertical-align-middle fill-container bg-blue-hover white-hover'>

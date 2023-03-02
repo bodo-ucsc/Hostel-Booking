@@ -39,6 +39,9 @@ class SignIn extends Controller
                 $_SESSION['lastname'] = $row['LastName'];
                 $_SESSION['UserId'] = $row['UserId'];
                 $_SESSION['role'] = $row['UserType'];
+                if (isset($row['ProfilePicture']) && $row['ProfilePicture'] != null) {
+                    $_SESSION['profilepic'] = $row['ProfilePicture'];
+                }
 
                 echo "success";
                 if ($row['UserType'] == 'Admin') {
@@ -49,7 +52,7 @@ class SignIn extends Controller
                     header('Location: ' . BASEURL . '/BoardingOwner');
                 }
 
-                header('Location: '. BASEURL );
+                header('Location: ' . BASEURL);
             } else {
                 echo "message";
                 header("Location: " . BASEURL . "/signin/error");

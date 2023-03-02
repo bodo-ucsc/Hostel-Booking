@@ -5,6 +5,7 @@ use Ratchet\App;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
+#[AllowDynamicProperties]
 class Chat implements MessageComponentInterface
 {
     protected $clients;
@@ -16,6 +17,8 @@ class Chat implements MessageComponentInterface
         $this->routes = array();
     }
 
+
+    #[AllowDynamicProperties]
     public function onOpen(ConnectionInterface $conn)
     {
         $route = $conn->route;
@@ -34,6 +37,8 @@ class Chat implements MessageComponentInterface
         $this->routes[$route]['clients']++;
     }
 
+
+    #[AllowDynamicProperties]
     public function onClose(ConnectionInterface $conn)
     {
         $route = $conn->route;
@@ -52,6 +57,8 @@ class Chat implements MessageComponentInterface
         }
     }
 
+
+    #[AllowDynamicProperties]
     public function onMessage(ConnectionInterface $from, $msg)
     {
         $data = json_decode($msg);
@@ -68,6 +75,24 @@ class Chat implements MessageComponentInterface
             $this->routes[$newRoute]['connections']->attach($from);
             $this->routes[$newRoute]['clients']++;
             echo "Connection {$from->resourceId} has connected to route $newRoute \n";
+        } else if (isset($data->typing)) {
+            $route = $from->route;
+            $numRecv = count($this->routes[$route]['connections']) - 1;
+            echo sprintf(
+                'Connection %d is typing in %s route' . "\n"
+                , $from->resourceId,
+                $route
+            );
+
+            foreach ($this->routes[$route]['connections'] as $client) {
+                if ($from !== $client) {
+                    // The sender is not the receiver, send to each client connected 
+                    $client->send(json_encode([
+                        'typing' => 'y',
+                        'name' => $data->name
+                    ]));
+                }
+            }
         } else {
             $route = $from->route;
             $numRecv = count($this->routes[$route]['connections']) - 1;
@@ -163,6 +188,8 @@ class Chat implements MessageComponentInterface
     //     // }
     // }
 
+
+    #[AllowDynamicProperties]
     public function onError(ConnectionInterface $conn, \Exception $e)
     {
         echo "An error has occurred: {$e->getMessage()}\n";

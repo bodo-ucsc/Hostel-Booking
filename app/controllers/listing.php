@@ -55,6 +55,18 @@ class Listing extends Controller
         //viewPlace($json['PlaceId']);
     }
 
+    public function imageRest($PlaceId = null)
+    {
+        $data = $this->model('viewModel')->getImage($PlaceId);
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['Place'] = $row['BoardingPlace'];
+            $array['Image'] = $row['PictureLink'];
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
     public function viewPlace($PlaceId = null)
     {
         if (isset($PlaceId)) {

@@ -3,33 +3,62 @@
 class PropertyCard
 {
 
-    public function __construct($PlaceId,$feed=null)
+    public function __construct($PlaceId, $feed = null, $PostId = null)
+    
     {
-        $result = restAPI("listing/placeRest/$PlaceId");
- 
-        $SummaryLine1=$result->SummaryLine1;
-        $SummaryLine2=$result->SummaryLine2;
-        $SummaryLine3=$result->SummaryLine3;
-        $Price=$result->Price;
-        $PriceType=$result->PriceType;
-        $Street=$result->Street;
-        $CityName=$result->CityName;
-        $NoOfMembers=$result->NoOfMembers;
-        $NoOfRooms=$result->NoOfRooms;
-        $NoOfWashRooms=$result->NoOfWashRooms;
-        $Gender=$result->Gender;
-        $BoarderType=$result->BoarderType;
-        $SquareFeet=$result->SquareFeet;
-        $Parking=$result->Parking;
- 
-        if(isset($feed)){
+        $base = BASEURL;
+        if ($PlaceId == 'preview') {
+            $PlaceId = 'preview';
+            $SummaryLine1 = "Preview line 1";
+            $SummaryLine2 = "Preview line 2";
+            $SummaryLine3 = "Preview line 3";
+            $Price = "x,xxx";
+            $PriceType = "(per month)";
+            $Street = "Street";
+            $CityName = "City";
+            $NoOfMembers = "Preview";
+            $NoOfRooms = "Preview";
+            $NoOfWashRooms = "Preview";
+            $Gender = "Preview";
+            $BoarderType = "Preview";
+            $SquareFeet = "Preview";
+            $Parking = "Preview";
+        } else {
+
+
+            $result = restAPI("listing/placeRest/$PlaceId");
+
+            $SummaryLine1 = $result->SummaryLine1;
+            $SummaryLine2 = $result->SummaryLine2;
+            $SummaryLine3 = $result->SummaryLine3;
+            $Price = $result->Price;
+            $PriceType = $result->PriceType;
+            $Street = $result->Street;
+            $CityName = $result->CityName;
+            $NoOfMembers = $result->NoOfMembers;
+            $NoOfRooms = $result->NoOfRooms;
+            $NoOfWashRooms = $result->NoOfWashRooms;
+            $Gender = $result->Gender;
+            $BoarderType = $result->BoarderType;
+            $SquareFeet = $result->SquareFeet;
+            $Parking = $result->Parking;
+
+            $Price = number_format($Price);
+
+            $imageResult = restAPI("listing/imageRest/$PlaceId");
+            if (isset($imageResult[0])) {
+                $image = $imageResult[0]->Image;
+            }
+        }
+        if (isset($feed)) {
             $feed5 = "col-large-5";
             $feed7 = "col-large-7";
             $def = "";
-        }else{
+        } else {
             $feed5 = "";
             $feed7 = "";
             $def = "def";
+            $PostId = $PlaceId;
         }
 
         if ($Parking == 'y') {
@@ -44,29 +73,34 @@ class PropertyCard
         } else {
             $Gender = "Any";
         }
-        $Price = number_format($Price);
         echo "   
         <div class='listing display-inline-block $def '>
         <div class='row padding-4 '>
         <div class='col-12 shadow fill-container padding-3 border-rounded-more'>
             <div class='row'>
-                <div class='col-12 $feed5 fill-container property-image fill-vertical padding-5 '>
-                    <img src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/brewster-mcleod-architects-1486154143.jpg'
-                        class='fill-container fill-vertical border-rounded-more' alt=''>
+                <div class='col-12 $feed5 fill-container property-image fill-vertical padding-5 '>";
+
+        if (isset($image)) {
+            echo "<img id='image-$PostId'  src='$base/$image' class='fill-container fill-vertical border-rounded-more' alt=''>";
+        } else {
+            echo "<img id='image-$PostId' src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/brewster-mcleod-architects-1486154143.jpg' class='fill-container fill-vertical border-rounded-more' alt=''>";
+        }
+
+        echo "
                 </div>
 
                 <div class='col-12 $feed7 fill-container padding-3 '>
                     <div class='row'>
-                        <div class='col-8 header-2 fill-container left'>
+                        <div id='city-$PostId' class='col-8 header-2 fill-container left'>
                             $CityName
                         </div>
                         <div class='col-4 big bold fill-container right'>
                             <i data-feather='star' class='fill-black vertical-align-middle'></i>
-                            <span class=' vertical-align-middle'>4.5</span>
+                            <span id='rating-$PostId' class=' vertical-align-middle'>4.5</span>
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col-12 fill-container left small grey'>
+                        <div id='address-$PostId' class='col-12 fill-container left small grey'>
                             $Street, $CityName
                         </div>
                     </div>
@@ -75,57 +109,57 @@ class PropertyCard
                             <div title='No. of Members' class='col-2 center fill-container left small grey'>
                                 <span class='display-block center'>
                                     <i data-feather='users' class='accent'></i></span>
-                                <span class=' display-block center'>$NoOfMembers Members</span>
+                                <span id='members-$PostId' class=' display-block center'>$NoOfMembers Members</span>
                             </div>
                             <div title='No. of Rooms' class='col-2 center fill-container left small grey'>
                                 <span class='display-block center'>
                                     <i data-feather='archive' class='accent'></i></span>
-                                <span class=' display-block center'>$NoOfRooms Rooms</span>
+                                <span id='rooms-$PostId' class=' display-block center'>$NoOfRooms Rooms</span>
                             </div>
                             <div title='No. of Washrooms' class='col-2 center fill-container left small grey'>
                                 <span class='display-block center'>
                                     <i data-feather='grid' class='accent'></i></span>
-                                <span class=' display-block center'>$NoOfWashRooms Washroom</span>
+                                <span id='washrooms-$PostId' class=' display-block center'>$NoOfWashRooms Washroom</span>
                             </div>
                             <div title='Gender' class='col-2 center fill-container left small grey'>
                                 <span class='display-block center'>
                                     <i data-feather='user' class='accent'></i></span>
-                                <span class=' display-block center'>$Gender</span>
+                                <span id='gender-$PostId' class=' display-block center'>$Gender</span>
                             </div>
                             <div title='Type of Tenant' class='col-2 center fill-container left small grey'>
                                 <span class='display-block center'>
                                     <i data-feather='briefcase' class='accent'></i></span>
-                                <span class=' display-block center'>$BoarderType</span>
+                                <span id='boardertype-$PostId' class=' display-block center'>$BoarderType</span>
                             </div>
                             <div title='Square Feet' class='col-2 center fill-container left small grey'>
                                 <span class='display-block center'>
                                     <i data-feather='shuffle' class='accent'></i></span>
-                                <span class=' display-block center'>$SquareFeet Sq.Ft</span>
+                                <span id='squarefeet-$PostId' class=' display-block center'>$SquareFeet Sq.Ft</span>
                             </div>
                             <div title='Parking availability'
                                 class='col-2 center fill-container left small grey'>
                                 <span class='display-block center'>
                                     <i data-feather='navigation' class='accent'></i></span>
-                                <span class=' display-block center'>$Parking</span>
+                                <span id='parking-$PostId' class=' display-block center'>$Parking</span>
                             </div>
                         </div>
                     </div>
                     <div class='row'>
                         <div class='col-12 fill-container left  grey'>
                             <ul>
-                                <li>$SummaryLine1</li>
-                                <li>$SummaryLine2</li>
-                                <li>$SummaryLine3</li>
+                                <li id='summary1-$PostId'>$SummaryLine1</li>
+                                <li id='summary2-$PostId'>$SummaryLine2</li>
+                                <li id='summary3-$PostId'>$SummaryLine3</li>
 
                             </ul>
                         </div>
                     </div>
                     <div class='row no-gap'>
                         <div class='col-12 fill-container left  '>
-                            <div class='display-inline-block big vertical-align-middle'>
+                            <div id='price-$PostId' class='display-inline-block big vertical-align-middle'>
                                 Rs. $Price
                             </div>
-                            <div class='display-inline-block small vertical-align-middle'>
+                            <div id='priceType-$PostId' class='display-inline-block small vertical-align-middle'>
                                 ($PriceType)
                             </div>
 

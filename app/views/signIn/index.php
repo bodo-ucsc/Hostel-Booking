@@ -1,5 +1,5 @@
 <?php
-$header = new HTMLHeader("Sign In | Verification Team");
+$header = new HTMLHeader("Sign In");
 $nav = new Navigation();
 ?>
 

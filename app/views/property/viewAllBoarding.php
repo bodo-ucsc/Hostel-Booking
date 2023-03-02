@@ -24,9 +24,9 @@ $base = BASEURL;
                 </div>
                 <div class="col-4 col-large-4 col-small-12 fill-container flex">
                     <div>
-                        <button
+                        <button onclick="location.href='<?php echo $base; ?>/boardingOwner/addBoarding'"
                             class=" bg-blue-hover white-hover padding-2 border-rounded-more padding-3 flex justify-content center margin-right-4"><i
-                                data-feather="plus"></i><?php echo "<a class=' white white-hover' href =$base/property/addBoarding>&nbsp;Add Property</a>"?></button>
+                                data-feather="plus"></i>Add Property</button>
                     </div>
                     <div class=" header-nb">
                         <?php

@@ -24,9 +24,9 @@ class addModel extends Model
 
 
 
-    public function addVerificationTeam($id, $mobile, $dob, $gender, $address, $nic)
+    public function addVerificationTeam($id, $dob, $gender, $address, $nic)
     {
-        $this->insert('VerificationTeam', ['VerificationTeamId' => $id, 'DateOfBirth' => $dob, 'NIC' => $nic, 'ContactNumber' => $mobile, 'Address' => $address, 'Gender' => $gender]);
+        $this->insert('VerificationTeam', ['VerificationTeamId' => $id, 'DateOfBirth' => $dob, 'NIC' => $nic, 'Address' => $address, 'Gender' => $gender]);
         if ($this->mysqli->affected_rows == 1) {
             return 'success';
         } else {
@@ -36,16 +36,26 @@ class addModel extends Model
 
     public function addProfessional($ProfessionalId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address, $WorkPlace, $Occupation)
     {
-        $this->insert('Professional', [
-            'ProfessionalId' => $ProfessionalId,
+        $this->insert('Manager', ['ManagerId' => $ProfessionalId, 'DateOfBirth' => $DateOfBirth, 'NIC' => $NIC, 'Address' => $Address, 'Gender' => $Gender]);
+        if ($this->mysqli->affected_rows == 1) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
+    }
+
+    public function addBoarder($BoarderId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender,  $Address)
+    {
+        $this->insert('Boarder', [
+            'BoarderId' => $BoarderId,
             'VerifiedStatus' => $VerifiedStatus,
             'NICScanLink' => $NICScanLink,
             'DateOfBirth' => $DateOfBirth,
             'NIC' => $NIC,
             'Gender' => $Gender,
             'Address' => $Address,
-            'WorkPlace' => $WorkPlace,
-            'Occupation' => $Occupation
+            //'WorkPlace' => $WorkPlace,
+            //'Occupation' => $Occupation
         ]);
         if ($this->mysqli->affected_rows == 1) {
             return 'success';

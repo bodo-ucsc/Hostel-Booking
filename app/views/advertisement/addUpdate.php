@@ -68,7 +68,7 @@ $base = BASEURL;
                         <div class="row">
                             <div class="col-12 fill-container">
                                 <label for="caption" class="bold black">Caption</label><br>
-                                <input type="text" class="fill-container" id="caption" name="caption"
+                                <input type="text" class="fill-container" id="caption" name="caption" onkeyup="previewCaption()"
                                     placeholder="Enter Caption" required><br>
                             </div>
                         </div>
@@ -77,21 +77,11 @@ $base = BASEURL;
 
             <div class="col-12 col-large-6 ">
                 <span class="header-2">Preview</span>
-                <div class="shadow border-rounded padding-4 width-90">
-                    <div class="row fill-container">
-                        <div class="col-12 col-medium-4 col-large-12 fill-container">
-                            <label for="username" class="bold black">Name</label><br>
-
-                        </div>
-                        <div class="col-12 col-medium-4 col-large-12 fill-container">
-                            <label for="" class="bold black">Date</label><br>
-
-                        </div>
-                        <div class="col-12 col-medium-4 col-large-12 fill-container">
-                            <label for="" class="bold black">Message</label><br>
-
-                        </div>
-                    </div>
+                <div class=" width-90">
+                     
+                        <?php 
+                            new ViewCard('preview');
+                        ?> 
                 </div>
             </div>
 
@@ -109,34 +99,45 @@ $base = BASEURL;
 
 <script>
     function selectName() {
-        var userType = document.getElementById("userType").value;
-        var url = "<?php echo BASEURL ?>/userManagement/boardingUserRest/" + userType;
+        let userType = document.getElementById("userType").value;
+        let url = "<?php echo BASEURL ?>/userManagement/boardingUserRest/" + userType;
+        if (userType === "BoardingOwner") {
+            document.getElementById('user-type-preview').innerHTML = "Owner";
+        }else{
+            document.getElementById('user-type-preview').innerHTML = userType;
+        }
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
-                var select = document.getElementById("userId");
+                let select = document.getElementById("userId");
                 select.innerHTML = "<option value='0' selected>Select Name</option>";
-                var nameArray = new Set();
-                for (var i = 0; i < json.length; i++) {
+                let nameArray = new Set();
+                for (let i = 0; i < json.length; i++) {
                     nameArray.add([json[i].FirstName + " " + json[i].LastName, json[i].Id].toString());
                 }
                 nameArray.forEach((value) => {
-                    var name = value.split(",");
+                    let name = value.split(",");
                     select.innerHTML += "<option value='" + name[1] + "'>" + name[0] + "</option>";
                 });
             });
 
     }
 
+    //function to 
+
     function selectPlace() {
-        var userType = document.getElementById("userType").value;
-        var url = "<?php echo BASEURL ?>/userManagement/boardingUserRest/" + userType;
+        let userType = document.getElementById("userType").value;
+        let user = document.getElementById("userId");
+        let userId = user.value;
+        document.getElementById('name-preview').innerHTML =  user.options[user.selectedIndex].text;
+
+        let url = "<?php echo BASEURL ?>/userManagement/boardingUserRest/"+ userType + "/" + userId;
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
-                var select = document.getElementById("place");
+                let select = document.getElementById("place");
                 select.innerHTML = "<option value='0' selected>Select Property</option>";
-                for (var i = 0; i < json.length; i++) {
+                for (let i = 0; i < json.length; i++) {
                     select.innerHTML += "<option value='" + json[i].Place + "'>" + json[i].Title + "</option>";
 
                 }
@@ -144,27 +145,47 @@ $base = BASEURL;
             });
     }
 
-    // function previewPost() {
-    //     var userType = document.getElementById("userType").value;
-
-    //     var url = "<?php echo BASEURL ?>/feed/postPreview/" + userType;
-    //     fetch(url)
-    //         .then((response) => response.json())
-    //         .then((json) => {
-    //             var select = document.getElementById("place"); 
-    //             select.innerHTML = "<option value='0' selected>Select Place</option>";
-    //             for (var i = 0; i < json.length; i++) {
-    //                 select.innerHTML += "<option value='" + json[i].Place + "'>" + json[i].Title + "</option>";
-
-    //             }
-
-    //         });
-    // }
-
-    function alertUser() {
-        var userId = document.getElementById("userId").value;
-        alert(userId);
+    function previewCaption() {
+        let caption = document.getElementById("caption").value;
+        document.getElementById('caption-preview').innerHTML = caption;
     }
+
+    function previewPost() {
+        let place = document.getElementById("place").value;
+        let url = "<?php echo BASEURL ?>/listing/placeRest/" + place;
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                document.getElementById('city-preview').innerHTML = json.CityName;
+                document.getElementById('address-preview').innerHTML = json.Street + ", " + json.CityName;
+                document.getElementById('price-preview').innerHTML = "Rs. " + json.Price;
+                document.getElementById('priceType-preview').innerHTML = json.PriceType;
+                document.getElementById('summary1-preview').innerHTML = json.SummaryLine1;
+                document.getElementById('summary2-preview').innerHTML = json.SummaryLine2;
+                document.getElementById('summary3-preview').innerHTML = json.SummaryLine3;
+                document.getElementById('members-preview').innerHTML = json.NoOfMembers;
+                document.getElementById('rooms-preview').innerHTML = json.NoOfRooms;
+                document.getElementById('washrooms-preview').innerHTML = json.NoOfWashRooms;
+                document.getElementById('squarefeet-preview').innerHTML = json.SquareFeet;
+                document.getElementById('parking-preview').innerHTML = json.Parking;
+                document.getElementById('boardertype-preview').innerHTML = json.BoarderType;
+                if(json.gender === "M"){
+                    document.getElementById('gender-preview').innerHTML = 'Male';
+                }else{
+                    document.getElementById('gender-preview').innerHTML = 'Female';
+                }
+            });
+        let url2 = "<?php echo $base; ?>/listing/imageRest/" + place;
+        fetch(url2)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                document.getElementById('image-preview').src = "<?php echo $base; ?>/" + json[0].Image;
+            });
+
+    }
+ 
 </script>
 <?php
 
