@@ -26,7 +26,6 @@ class SearchProperty extends Controller
             }
         } else {
             $this->view('home/index');
-
         }
     }
 }
