@@ -1,6 +1,6 @@
 <?php
 $header = new HTMLHeader("My Boarding");
-$nav = new Navigation('My Boarding');
+$nav = new Navigation('boarding');
 $base = BASEURL;
 
 $basePage = BASEURL . '/boarding';
@@ -19,7 +19,6 @@ $basePage = BASEURL . '/boarding';
             </div>
         </div>";
 
-    
 
     if (isset($data['result'])) {
 
@@ -178,9 +177,12 @@ $basePage = BASEURL . '/boarding';
 
                 </div>
                 <div
-                    class=" margin-left-5 shadow border-rounded-more padding-5  fill-container col-3 bg-blue-hover display-medium-block ">
-                    key money<br>
-                    Rs 330,oooo/=
+                    class=" row  white fill-vertical  margin-left-5  shadow border-rounded-more fill-container col-3 bg-blue-hover ">
+                    <div class="col-12">
+                        <div class='header-2'>Key Money</div>
+                        <div class='header-1'>Rs.33,000</div>
+                    </div>
+
                 </div>
             </div>
 
@@ -204,7 +206,7 @@ $basePage = BASEURL . '/boarding';
                         <div class='col-4 fill-container padding-3 margin-2 '>
                             <div class="shadow border-rounded-more white padding-4 bg-red">
                                 <div class='header-2'>Trash Collection</div>
-                                <div class='header-1'>Rs.10000</div>
+                                <div class='header-1'>All Trash</div>
                             </div>
                         </div>
 
@@ -212,9 +214,33 @@ $basePage = BASEURL . '/boarding';
 
 
                 </div>
-                <div class=" margin-left-5 shadow border-rounded-more padding-3  fill-container col-3 bg-blue-hover ">
-                    key money<br>
-                    Rs 330,oooo/=
+                <div
+                    class=" row  black fill-vertical  margin-left-5  shadow border-rounded-more fill-container col-3 bg-white ">
+                    <div class="col-12 padding-2 fill-container">
+                        <div class='header-2 fill-container'>Bed Allocation</div>
+                        <div class='row shadow fill-container'>
+                            <div class="col-2 fill-container padding-left-4">
+                                <i data-feather="battery"></i>
+                            </div>
+                            <div class="col-3 fill-container">Bed 1</div>
+                            <div class="col-7 left fill-container">Stuart Pitt</div>
+                        </div>
+                        <div class='row shadow'>
+                            <div class="col-2 fill-container padding-left-4">
+                                <i data-feather="battery"></i>
+                            </div>
+                            <div class="col-3 fill-container">Bed 2</div>
+                            <div class="col-7 left fill-container">Kate Guiness</div>
+                        </div>
+                        <div class='row shadow'>
+                            <div class="col-2 fill-container padding-left-4">
+                                <i data-feather="battery"></i>
+                            </div>
+                            <div class="col-3 fill-container">Bed 3</div>
+                            <div class="col-7 left fill-container">Katsun Pieris</div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -222,7 +248,7 @@ $basePage = BASEURL . '/boarding';
             <div class=" fill-container right ">
 
                 <?php
-                
+
                 $result = restAPI("feed/postRest/11");
                 if ($result != null) {
                     foreach ($result as $key => $value) {
@@ -337,6 +363,9 @@ $basePage = BASEURL . '/boarding';
 
                 ?>
             </div>
+
+
+
 
 
 
