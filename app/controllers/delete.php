@@ -34,4 +34,23 @@ class Delete extends Controller
         $json_response = json_encode($json);
         echo $json_response;
     }
+
+    public function deleteUser(){
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        if (empty($_POST)) {
+            $json['Status'] = "Failed no values";
+            $json_response = json_encode($json);
+            echo $json_response;
+            return;
+        }
+        $id = $_POST['UserId'];
+        $data = $this->model('deleteModel')->deleteUser($id);
+        if ($data == 'success') {
+            $json['Status'] = "Success";
+        } else {
+            $json['Status'] = "Failed";
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
 }

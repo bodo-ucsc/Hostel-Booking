@@ -18,6 +18,8 @@ class ViewCard
         } else {
 
 
+
+
             $FirstName = $value->FirstName;
             $LastName = $value->LastName;
             $UserType = $value->UserType;
@@ -42,9 +44,10 @@ class ViewCard
         <div class='row no-gap vertical-align-middle zindex'>
             <div class='col-8 margin-n4'></div>
             <div class='col-4 margin-n4 right'>
-                <div class='row less-gap '>
-                    <div class='col-6'>
-                        <button class='bg-blue-hover white border-rounded padding-3 right' onclick='location.href=\"$base/advertisement/edit/$PostId\"'>
+                <div class='row less-gap '>";
+            if ($_SESSION['role'] == 'Manager' || ($_SESSION['role'] == 'BoardingOwner' && $_SESSION['UserId'] == $value->UserId)) {
+                echo "<div class='col-6'>
+                        <button class='bg-blue-hover white border-rounded padding-3 right' onclick='editPost(\"$PostId\",\"$Caption\")'>
                             <i data-feather='edit' class=' vertical-align-middle '></i>
                         </button>
                     </div>
@@ -52,7 +55,10 @@ class ViewCard
                         <button class='bg-red-hover white border-rounded padding-3 right' onclick='deletePost(\"$PostId\")'>
                             <i data-feather='trash-2' class=' vertical-align-middle '></i>
                         </button>
-                    </div>
+                    </div>";
+            }
+
+            echo "
                 </div>
             </div>
         </div>

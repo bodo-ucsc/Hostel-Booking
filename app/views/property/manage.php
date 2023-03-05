@@ -52,7 +52,7 @@ if (isset($data['place'])) {
 
                 <div class="col-5 right  fill-container ">
                     <div class="red-hover cursor-pointer border-rounded right"
-                        onclick="location.href='<?php echo BASEURL ?>/admin/addSupport/<?php echo $type ?>' ">
+                        onclick="deleteTenant()">
                         <i data-feather="user-x" class=" vertical-align-middle "></i>
                         <span class="display-small-inline-block padding-left-2 display-none">Delete Tenant</span>
                     </div>
@@ -61,12 +61,13 @@ if (isset($data['place'])) {
             </div>
             <div id='currentlyBoarded' class="row margin-3 ">
                 <?php
-                $boarders = restAPI("property/boardingMembersRest/$placeid/boarded");
-                if (isset($boarders)) {
-                    foreach ($boarders as $res => $value) {
+                $boarded = restAPI("property/boardingMembersRest/$placeid/boarded");
+                if (isset($boarded)) {
+                    foreach ($boarded as $res => $value) {
                         $userId = $value->Id;
                         $fname = $value->FirstName;
                         $lname = $value->LastName;
+                        $phone = $value->ContactNumber;
                         $profilePicture = $value->ProfilePicture;
                         if ($profilePicture == null) {
                             $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
@@ -81,9 +82,12 @@ if (isset($data['place'])) {
                                         <div class='padding-horizontal-3'>
                                             <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
                                         </div>
-                                        <div class='col-11 left fill-container'>
+                                        <div class='col-9 left fill-container'>
                                             <div class='  grey'>$fname $lname</div>
                                             <div class=' small grey'>$Tagline</div>
+                                        </div>
+                                        <div class='col-2 center fill-container' onclick='location.href=\"tel:$phone\"'>
+                                            <i data-feather='phone-call' class=' vertical-align-middle cursor-pointer'></i>
                                         </div>
                                     </div>
 
@@ -110,12 +114,13 @@ if (isset($data['place'])) {
             </div>
             <div id='boardingRequest' class="row margin-3 ">
                 <?php
-                $boarders = restAPI("property/boardingMembersRest/$placeid/requested"); 
-                if (isset($boarders)) {
-                    foreach ($boarders as $res => $value) {
+                $requested = restAPI("property/boardingMembersRest/$placeid/requested"); 
+                if (isset($requested)) {
+                    foreach ($requested as $res => $value) {
                         $userId = $value->Id;
                         $fname = $value->FirstName;
                         $lname = $value->LastName;
+                        $phone = $value->ContactNumber;
                         $profilePicture = $value->ProfilePicture;
                         if ($profilePicture == null) {
                             $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
@@ -125,14 +130,21 @@ if (isset($data['place'])) {
                         $Tagline = $value->Tagline;
 
                         echo "
-                            <div class='col-12 col-small-6 col-large-4 fill-container '>
+                            <div class='col-12  col-medium-7 col-large-5 fill-container '>
                                 <div class=' shadow bg-white border-rounded-more padding-2 row no-gap vertical-align-middle'>
                                         <div class='padding-horizontal-3'>
                                             <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
                                         </div>
-                                        <div class='col-11 left fill-container'>
+                                        <div class='col-6 left fill-container'>
                                             <div class='  grey'>$fname $lname</div>
                                             <div class=' small grey'>$Tagline</div>
+                                        </div>
+                                        <div class='col-5 right fill-container' >
+                                            <div class='margin-right-3 display-inline-block left' onclick='location.href=\"tel:$phone\"'><i data-feather='phone-call' class=' vertical-align-middle cursor-pointer'></i></div>
+                                            <div class='margin-horizontal-2 display-inline-block center' >
+                                                <div class='margin-right-1 display-inline-block center' onclick='boarderStatus(\"$userId\",\"boarded\")'><i data-feather='user-plus' class='accent vertical-align-middle cursor-pointer'></i> </div>
+                                                <div class='margin-left-1 display-inline-block right' onclick='boarderStatus(\"$userId\",\"rejected\")'><i data-feather='user-x' class='red vertical-align-middle cursor-pointer'></i></div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -212,11 +224,15 @@ if (isset($data['place'])) {
                         select1.appendChild(el);
                         if (data[i].Id != null) { 
                             opt = data[i].Name;
-                            el = document.createElement("option");
+                            el = document.createElement("option"); 
+                            select1.classList.add("white","bg-black");
                             el.textContent = opt;
                             el.value = data[i].Id;
                             el.selected = true;
                             select1.appendChild(el);
+                        }
+                        else {
+                            select1.classList.remove("white","bg-black");
                         }
                     };
                 }
@@ -270,7 +286,103 @@ if (isset($data['place'])) {
             });
     }
 
+    function deleteTenant() {
 
+        Swal.fire({
+        title: 'Delete Tenant',
+        html:
+            '<select id="tenant-delete" class="" required>' +
+            '<option value="">Select Tenant</option>' +
+            <?php
+            foreach ($boarded as $key => $value) {
+                echo "'<option value=\" " . $value->Id . "\">" . $value->FirstName . " " . $value->LastName . "</option>'+";
+            }
+            ?>
+            '</select>',
+        showCancelButton: true,
+        cancelButtonColor: '#788292',
+        }).then((result) => {
+        if (result.isConfirmed && document.getElementById('tenant-delete').value != "") {
+            const data = { 
+                    Table: 'BoardingPlaceTenant',
+                    Id: 'TenantId',
+                    IdValue: document.getElementById('tenant-delete').value, 
+                    Key: 'BoarderStatus',
+                    Value: 'left'
+            };
+
+            fetch("<?php echo BASEURL ?>/edit/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.json())
+                .then(json => {
+                    if (json.Status === 'Success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Updated Successfully'
+                        }).then((result) => {
+                            location.reload();
+                        });
+
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!'
+                        })
+                    }
+                }).catch(function (error) {
+                    console.log('Request failed', error);
+                });
+
+        }
+        })
+};
+
+function boarderStatus(id, Status) {
+
+ 
+    const data = {
+        Table: 'BoardingPlaceTenant',
+        Id: 'TenantId',
+        IdValue: id,
+        Key: 'BoarderStatus',
+        Value: Status,
+    };
+
+    fetch("<?php echo BASEURL ?>/edit/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }).then(response => response.json())
+        .then(json => {
+            if (json.Status === 'Success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Updated Successfully'
+                }).then((result) => {
+                    location.reload();
+                });
+
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        }).catch(function (error) {
+            console.log('Request failed', error);
+        });
+
+    } 
 
 </script>
 

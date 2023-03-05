@@ -1,6 +1,6 @@
 <?php
 
-if (!( $_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'Manager')) {
+if (!( $_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'BoardingOwner')) {
     header('Location: ' . BASEURL . '/home');
 }
 class Advertisement extends Controller{

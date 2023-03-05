@@ -16,9 +16,9 @@ $nav = new Navigation();
                 <h2 class="header-2">Sign In</h2>
                 <form action="<?php echo BASEURL ?>/signin/login" method="post">
                     <label for="username" class="bold black">Username or Email</label><br>
-                    <input type="text" id="username" name="username" placeholder="Enter Username"><br>
+                    <input type="text" id="username" name="username" placeholder="Enter Username" required><br>
                     <label for="password" class="bold black">Password</label><br>
-                    <input type="password" id="password" name="password" placeholder="Enter Password">
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
                     <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit"
                         value="Sign In"><br>
                     <div class="center padding-top-3 ">

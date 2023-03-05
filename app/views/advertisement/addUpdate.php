@@ -29,36 +29,55 @@ $base = BASEURL;
                 <div class="col-12 col-large-6 fill-container ">
 
                     <div class="row">
-                        <div class="col-12 fill-container">
-                            <label for="userType" class="bold black">User Type</label><br>
-                            <select name="userType" id="userType" onchange="selectName()" required>
-                                <option value="0">Select User Type</option>
-                                <?php
-                                $result = restAPI("userManagement/boardingUserRest");
-                                $userTypeArray = array();
-                                foreach ($result as $key => $value) {
-                                    array_push($userTypeArray, $value->UserType);
-                                }
-                                $userTypeArray = array_unique($userTypeArray);
+                        <?php
+                        if ($_SESSION['role'] == 'BoardingOwner') {
+                            echo "<input type='hidden' name='userType' id='userType' value='BoardingOwner'/>";
+                        } else {
+                            echo "
+                                    <div class='col-12 fill-container'>
+                                        <label for='userType' class='bold black'>User Type</label><br>
+                                        <select name='userType' id='userType' onchange='selectName()' required>
+                                            <option value='0'>Select User Type</option>
+                                    ";
+                            $result = restAPI("userManagement/boardingUserRest");
+                            $userTypeArray = array();
+                            foreach ($result as $key => $value) {
+                                array_push($userTypeArray, $value->UserType);
+                            }
+                            $userTypeArray = array_unique($userTypeArray);
 
-                                foreach ($userTypeArray as $key => $value) {
-                                    echo "<option value='$value'>$value</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+                            foreach ($userTypeArray as $key => $value) {
+                                echo "<option value='$value'>$value</option>";
+                            }
+                            echo "
+                                        </select>
+                                    </div>
+                                    ";
+                        }
+                        ?>
+                    </div>
+                    <div class="row">
+                        <?php
+                        if ($_SESSION['role'] == 'BoardingOwner') {
+                            echo "<input type='hidden' name='userId' id='userId' value='".$_SESSION['UserId']."'/>";
+                        } else {
+
+                            echo "
+                            <div class='col-12 fill-container'>
+                                <label for='userId' class='bold black'>Name</label><br>
+                                <select name='userId' id='userId' onchange='selectPlace()' required>
+                                    <option value='0' selected>Select Name</option>
+                                </select>
+                            </div>
+                            ";
+                        }
+
+                        ?>
+
                     </div>
                     <div class="row">
                         <div class="col-12 fill-container">
-                            <label for="userId" class="bold black">Name</label><br>
-                            <select name="userId" id="userId" onchange="selectPlace()" required>
-                                <option value="0" selected>Select Name</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 fill-container">
-                            <label for="place" class="bold black">Name</label><br>
+                            <label for="place" class="bold black">Property</label><br>
                             <select name="place" id="place" onchange="previewPost()" required>
                                 <option value="0" selected>Select Property</option>
                             </select>
@@ -96,6 +115,22 @@ $base = BASEURL;
 </main>
 
 <script>
+    <?php
+    if ($_SESSION['role'] == 'BoardingOwner') {
+        echo "
+        document.getElementById('user-type-preview').innerHTML = 'Owner';
+        document.getElementById('name-preview').innerHTML =  '" . $_SESSION['firstname'] . " " . $_SESSION['lastname'] . "';
+        window.onload = function() {
+            selectPlace();
+        }; 
+        ";
+        if (!isset($_SESSION['profilepic'])) {
+            echo "document.getElementById('dp-preview').src = 'https://ui-avatars.com/api/?background=288684&color=fff&name=" . $_SESSION['firstname'] . "+" . $_SESSION['lastname'] . "';";
+        } else {
+            echo "document.getElementById('dp-preview').src = '$base/" . $_SESSION['profilepic'] . "';";
+        }
+    }
+    ?>
     function selectName() {
         let userType = document.getElementById("userType").value;
         let url = "<?php echo BASEURL ?>/userManagement/boardingUserRest/" + userType;
@@ -121,13 +156,19 @@ $base = BASEURL;
 
     }
 
-    //function to 
 
     function selectPlace() {
         let userType = document.getElementById("userType").value;
         let user = document.getElementById("userId");
         let userId = user.value;
-        document.getElementById('name-preview').innerHTML = user.options[user.selectedIndex].text;
+        <?php
+        if ($_SESSION['role'] != 'BoardingOwner') {
+            echo "       
+             document.getElementById('name-preview').innerHTML = user.options[user.selectedIndex].text;
+            ";
+        }
+        ?>
+ 
 
         let url = "<?php echo BASEURL ?>/userManagement/boardingUserRest/" + userType + "/" + userId;
         fetch(url)
@@ -160,8 +201,7 @@ $base = BASEURL;
         let url = "<?php echo BASEURL ?>/listing/placeRest/" + place;
         fetch(url)
             .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
+            .then((json) => { 
                 document.getElementById('city-preview').innerHTML = json.CityName;
                 document.getElementById('address-preview').innerHTML = json.Street + ", " + json.CityName;
                 document.getElementById('price-preview').innerHTML = "Rs. " + json.Price;
@@ -185,11 +225,13 @@ $base = BASEURL;
         let url2 = "<?php echo $base; ?>/listing/imageRest/" + place;
         fetch(url2)
             .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
+            .then((json) => { 
                 //check if json array is empty
                 if (json.length != 0) {
                     document.getElementById('image-preview').src = "<?php echo $base; ?>/" + json[0].Image;
+                }
+                else {
+                    document.getElementById('image-preview').src = "<?php echo $base; ?>/images/defboarding.png";
                 }
             });
 
@@ -230,8 +272,7 @@ $base = BASEURL;
             "place": place,
             "caption": caption
         };
-
-        console.log(data);
+ 
 
 
         fetch("<?php echo BASEURL ?>/advertisement/postUpdate", {
@@ -259,7 +300,7 @@ $base = BASEURL;
                         text: 'Something went wrong!'
                     })
                 }
-            }).catch(function (error) {                        
+            }).catch(function (error) {
                 console.log('Request failed', error);
             });
     }; 

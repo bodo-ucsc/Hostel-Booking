@@ -40,11 +40,17 @@ class Navigation
         }
 
         if (isset($uname)) {
-            if ($role == 'VerificationTeam' || $role == 'Admin'  || $role == 'Manager' || $role == 'BoardingOwner') {
+            if ($role == 'VerificationTeam' || $role == 'Admin'  || $role == 'Manager') {
                 if ($active == 'management') {
                     echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/userManagement'>Management</a>";
                 } else {
                     echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/userManagement'>Management</a>";
+                }
+            }else if ($role == 'BoardingOwner') {
+                if ($active == 'management') {
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/property'>Management</a>";
+                } else {
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/property'>Management</a>";
                 }
             } elseif ($role == 'Student' || $role == 'Professional') {
                 if ($active == 'friends') {
@@ -178,12 +184,20 @@ class Navigation
         
 
         if (isset($uname)) {
-            if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'Manager' || $role == 'BoardingOwner') {
+            if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'Manager' ) {
                 if ($active == 'management') {
                     echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/userManagement'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
 
                 } else {
                     echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/userManagement'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
+
+                }
+            }else if ($role == 'BoardingOwner') {
+                if ($active == 'management') {
+                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/property'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
+
+                } else {
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/property'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
 
                 }
             } elseif ($role == 'Student' || $role == 'Professional' ){

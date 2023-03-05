@@ -24,4 +24,22 @@ class deleteModel extends Model
     }
 
 
+    public function deleteUser($id){
+        $result = $this->update('User', [
+            'FirstName' => "Deleted",
+            'LastName' => "User",
+            'Email' => NULL,
+            'Username' => NULL,
+            'NIC' => NULL,
+            'ContactNumber' => NULL,
+            'ProfilePicture' => NULL,
+            'Deleted' => "y"
+        ], "UserId = '$id'");
+        if ($result) {
+            return 'success';
+        } else {
+            return 'failed';
+        }
+    }
+
 }

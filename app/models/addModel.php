@@ -7,11 +7,11 @@ class addModel extends Model
         parent::__construct();
     }
 
-    public function register($firstname, $lastname, $username, $email, $ContactNumber, $password, $usertype, $profilepic = null)
+    public function register($firstname, $lastname, $username, $NIC, $Gender, $email, $ContactNumber, $password, $usertype, $profilepic = null)
     {
         //hashing the password
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $result = $this->insert('User', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'Email' => $email, 'ContactNumber' => $ContactNumber, 'Password' => $password, 'UserType' => $usertype, 'ProfilePicture' => $profilepic]);
+        $result = $this->insert('User', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'NIC' => $NIC, 'Gender' => $Gender, 'Email' => $email, 'ContactNumber' => $ContactNumber, 'Password' => $password, 'UserType' => $usertype, 'ProfilePicture' => $profilepic]);
         //return last id
         return $this->lastInsertId();
     }
@@ -28,9 +28,9 @@ class addModel extends Model
 
 
 
-    public function addVerificationTeam($id, $dob, $gender, $address, $nic)
+    public function addVerificationTeam($id, $dob, $address)
     {
-        $result = $this->insert('VerificationTeam', ['VerificationTeamId' => $id, 'DateOfBirth' => $dob, 'NIC' => $nic, 'Address' => $address, 'Gender' => $gender]);
+        $result = $this->insert('VerificationTeam', ['VerificationTeamId' => $id, 'DateOfBirth' => $dob, 'Address' => $address]);
         if ($result) {
             return 'success';
         } else {
@@ -38,9 +38,9 @@ class addModel extends Model
         }
     }
 
-    public function addManager($id, $dob, $gender, $address, $nic)
+    public function addManager($id, $dob, $address)
     {
-        $result = $this->insert('Manager', ['ManagerId' => $id, 'DateOfBirth' => $dob, 'NIC' => $nic, 'Address' => $address, 'Gender' => $gender]);
+        $result = $this->insert('Manager', ['ManagerId' => $id, 'DateOfBirth' => $dob, 'Address' => $address]);
 
 
         if ($result) {
@@ -50,15 +50,13 @@ class addModel extends Model
         }
     }
 
-    public function addBoarder($BoarderId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address)
+    public function addBoarder($BoarderId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $Address)
     {
         $result = $this->insert('Boarder', [
             'BoarderId' => $BoarderId,
             'VerifiedStatus' => $VerifiedStatus,
             'NICScanLink' => $NICScanLink,
-            'DateOfBirth' => $DateOfBirth,
-            'NIC' => $NIC,
-            'Gender' => $Gender,
+            'DateOfBirth' => $DateOfBirth, 
             'Address' => $Address
         ]);
         if ($result) {
@@ -99,15 +97,13 @@ class addModel extends Model
         }
     }
 
-    public function addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address, $WorkPlace, $Occupation)
+    public function addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $Address, $WorkPlace, $Occupation)
     {
         $result = $this->insert('BoardingOwner', [
             'BoardingOwnerId' => $BoardingOwnerId,
             'VerifiedStatus' => $VerifiedStatus,
             'NICScanLink' => $NICScanLink,
-            'DateOfBirth' => $DateOfBirth,
-            'NIC' => $NIC,
-            'Gender' => $Gender,
+            'DateOfBirth' => $DateOfBirth, 
             'Address' => $Address,
             'WorkPlace' => $WorkPlace,
             'Occupation' => $Occupation
@@ -161,7 +157,8 @@ class addModel extends Model
         }
     }
 
-    public function addTenant($placeId,$userId){
+    public function addTenant($placeId, $userId)
+    {
         $result = $this->insert('BoardingPlaceTenant', ['Place' => $placeId, 'TenantId' => $userId, 'BoarderStatus' => 'requested']);
         if ($result) {
             return 'success';

@@ -139,6 +139,7 @@ class SideBarNav
                 ";
             }
         }
+        
         if ($active == "properties") {
             echo "  
             <a href='$base/property' class=''>
@@ -161,7 +162,7 @@ class SideBarNav
         ";
         }
 
-        if ($_SESSION['role'] == 'Manager') {
+        if ($_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'BoardingOwner') {
             if ($active == "Advertisement") {
                 echo "  
             <a href='$base/advertisement' class=''>
@@ -336,9 +337,11 @@ class SideBarNav
         </div>     
     ";
 
+    if ($_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'VerificationTeam') {
+
         if ($active == 'user') {
             echo "    
-            <div class=' padding-bottom-1 padding-top-2 ' onclick='location.href=\"$base/admin\"'> 
+            <div class=' padding-bottom-1 padding-top-2 ' onclick='location.href=\"$base/userManagement\"'> 
                 <button class=' bg-blue center fill-container  padding-horizontal-3'>
                     <i data-feather='settings' class='white'></i>
                 </button>   
@@ -346,17 +349,19 @@ class SideBarNav
         ";
         } else {
             echo "    
-            <div class=' padding-bottom-1 padding-top-2 ' onclick='location.href=\"$base/admin\"'> 
+            <div class=' padding-bottom-1 padding-top-2 ' onclick='location.href=\"$base/userManagement\"'> 
                 <button class=' bg-white-hover center fill-container  padding-horizontal-3 grey-hover'>
                     <i data-feather='settings' class=''></i>
                 </button>   
             </div>   
         ";
         }
+        }
+
 
         if ($active == 'properties') {
             echo "    
-            <div class=' padding-bottom-1 padding-top-2' onclick='location.href=\"$base/admin/property\"'> 
+            <div class=' padding-bottom-1 padding-top-2' onclick='location.href=\"$base/property\"'> 
                 <button class=' bg-blue center fill-container  padding-horizontal-3'>
                     <i data-feather='grid' class='white'></i>
                 </button>   
@@ -364,7 +369,7 @@ class SideBarNav
         ";
         } else {
             echo "    
-            <div class=' padding-bottom-1 padding-top-2' onclick='location.href=\"$base/admin/property\"'> 
+            <div class=' padding-bottom-1 padding-top-2' onclick='location.href=\"$base/property\"'> 
                 <button class=' bg-white-hover center fill-container  padding-horizontal-3 grey-hover'>
                     <i data-feather='grid' class=''></i>
                 </button>   
@@ -372,7 +377,7 @@ class SideBarNav
         ";
         }
 
-        if ($_SESSION['role'] == 'Manager') {
+        if ($_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'BoardingOwner') {
 
             if ($active == 'Advertisement') {
                 echo "    

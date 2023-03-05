@@ -4,48 +4,53 @@ class userManagement extends Controller
 {
     public function index($user = "student", $page = 1, $perPage = 10, $message = null)
     {
-        if (isset($message)) {
+        if ($_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'VerificationTeam') {
 
-            $alert = 'error';
-            if ($message == 'fail') {
-                $message = "Insertion Failed";
-            } else if ($message == 'success') {
-                $message = "Inserted Successfully";
-                $alert = 'success';
+            if (isset($message)) {
+
+                $alert = 'error';
+                if ($message == 'fail') {
+                    $message = "Insertion Failed";
+                } else if ($message == 'success') {
+                    $message = "Inserted Successfully";
+                    $alert = 'success';
+                }
+            } else {
+                $message = null;
+                $alert = null;
             }
+
+            if ($user == 'admin') {
+                header("Location: " . BASEURL . "/admin");
+            } else if ($user == 'student') {
+                $rowCount = $this->model('viewModel')->numRows('student');
+                $result = restAPI("userManagement/getUser/student");
+            } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
+                $rowCount = $this->model('viewModel')->numRows('boardingowner');
+                $result = restAPI("userManagement/getUser/boardingowner");
+            } else if ($user == 'professional') {
+                $rowCount = $this->model('viewModel')->numRows('professional');
+                $result = restAPI("userManagement/getUser/professional");
+            } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
+                $rowCount = $this->model('viewModel')->numRows('verificationteam');
+                $result = restAPI("userManagement/getUser/verificationteam");
+            } else if ($user == 'manager') {
+                $rowCount = $this->model('viewModel')->numRows('manager');
+                $result = restAPI("userManagement/getUser/manager");
+            }
+
+            if ($page <= 0) {
+                header("Location: " . BASEURL . "/userManagement/$user/1/$perPage");
+            }
+            if ($perPage <= 0) {
+                header("Location: " . BASEURL . "/userManagement/$user/1/10");
+            }
+
+            $this->view("userManagement/$user", ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
+
         } else {
-            $message = null;
-            $alert = null;
+            header("Location: " . BASEURL);
         }
-
-        if ($user == 'admin') {
-            header("Location: " . BASEURL . "/admin");
-        } else if ($user == 'student') {
-            $rowCount = $this->model('viewModel')->numRows('student');
-            $result = restAPI("userManagement/getUser/student");
-        } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
-            $rowCount = $this->model('viewModel')->numRows('boardingowner');
-            $result = restAPI("userManagement/getUser/boardingowner");
-        } else if ($user == 'professional') {
-            $rowCount = $this->model('viewModel')->numRows('professional');
-            $result = restAPI("userManagement/getUser/professional");
-        } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
-            $rowCount = $this->model('viewModel')->numRows('verificationteam');
-            $result = restAPI("userManagement/getUser/verificationteam");
-        } else if ($user == 'manager') {
-            $rowCount = $this->model('viewModel')->numRows('manager');
-            $result = restAPI("userManagement/getUser/manager");
-        }
-        
-        if($page <= 0){
-            header("Location: " . BASEURL . "/userManagement/$user/1/$perPage");
-        }
-        if($perPage <= 0){
-            header("Location: " . BASEURL . "/userManagement/$user/1/10");
-        }
-
-        $this->view("userManagement/$user", ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
-
     }
 
     public function create($user = null, $message = null)
@@ -70,11 +75,11 @@ class userManagement extends Controller
             $this->view('create/boardingOwner', ['message' => $message, 'alert' => $alert]);
         } else if ($user == 'professional') {
             $this->view('create/professional', ['message' => $message, 'alert' => $alert]);
-        }else if ($user == 'manager') {
+        } else if ($user == 'manager') {
             $this->view('create/manager', ['message' => $message, 'alert' => $alert]);
         } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
             $this->view('create/verificationTeam', ['message' => $message, 'alert' => $alert]);
-        } 
+        }
     }
 
     public function getUser($user = "admin", $id = null)
@@ -252,6 +257,19 @@ class userManagement extends Controller
         }
     }
 
+    public function getVerified($userId = null)
+    {
+        $data = $this->model('viewModel')->getVerified($userId);
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['UserId'] = $row['UserId'];
+            $array['VerifiedStatus'] = $row['VerifiedStatus'];
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
     public function userRest($usertype = null)
     {
         $data = $this->model('viewModel')->retrieveUser($usertype);
@@ -318,9 +336,11 @@ class userManagement extends Controller
                 $email = $_POST['email'];
                 $password = $_POST['password'];
                 $usertype = "VerificationTeam";
+                $gender = $_POST['gender'];
+                $nic = $_POST['nic'];
                 $ContactNumber = $_POST['mobile'];
 
-                $id = $this->model('addModel')->register($firstname, $lastname, $username, $email, $ContactNumber, $password, $usertype);
+                $id = $this->model('addModel')->register($firstname, $lastname, $username, $nic, $gender, $email, $ContactNumber, $password, $usertype);
 
                 $password = $_POST['password'];
                 $usertype = "VerificationTeam";
@@ -328,12 +348,12 @@ class userManagement extends Controller
                 echo $id;
 
                 $dob = $_POST['dob'];
-                $gender = $_POST['gender'];
                 $address = $_POST['address'];
-                $nic = $_POST['nic'];
 
+                echo $dob;
+                echo $address;
 
-                $message = $this->model('addModel')->addVerificationTeam($id, $dob, $gender, $address, $nic);
+                $message = $this->model('addModel')->addVerificationTeam($id, $dob, $address);
                 if ($message == "success") {
                     header("Location: " . BASEURL . "/userManagement/verificationTeam/1/10/$message");
                 } else {
@@ -365,8 +385,11 @@ class userManagement extends Controller
                 $password = $_POST['password'];
                 $usertype = "Manager";
                 $ContactNumber = $_POST['mobile'];
+                $gender = $_POST['gender'];
+                $nic = $_POST['nic'];
 
-                $id = $this->model('addModel')->register($firstname, $lastname, $username, $email, $ContactNumber, $password, $usertype);
+
+                $id = $this->model('addModel')->register($firstname, $lastname, $username, $nic, $gender, $email, $ContactNumber, $password, $usertype);
 
                 $password = $_POST['password'];
                 $usertype = "Manager";
@@ -374,12 +397,10 @@ class userManagement extends Controller
                 echo $id;
 
                 $dob = $_POST['dob'];
-                $gender = $_POST['gender'];
                 $address = $_POST['address'];
-                $nic = $_POST['nic'];
 
 
-                $message = $this->model('addModel')->addManager($id, $dob, $gender, $address, $nic);
+                $message = $this->model('addModel')->addManager($id, $dob, $address);
                 if ($message == "success") {
                     header("Location: " . BASEURL . "/userManagement/manager/1/10/$message");
                 } else {
@@ -411,15 +432,16 @@ class userManagement extends Controller
                 $password = $_POST['password'];
                 $email = $_POST['email'];
                 $usertype = "BoardingOwner";
-
-                $BoardingOwnerId = $this->model('addModel')->register($firstname, $lastname, $username, $email, $password, $usertype);
-
+                $Gender = $_POST['gender'];
+                $NIC = $_POST['nic'];
                 $ContactNumber = $_POST['mobile'];
+
+
+                $BoardingOwnerId = $this->model('addModel')->register($firstname, $lastname, $username, $NIC, $Gender, $email, $ContactNumber, $password, $usertype);
+
                 $DateOfBirth = $_POST['dob'];
 
-                $Gender = $_POST['gender'];
                 $Address = $_POST['address'];
-                $NIC = $_POST['nic-number'];
                 $Occupation = $_POST['occupation'];
                 $WorkPlace = $_POST['workplace'];
                 $VerifiedStatus = "verified";
@@ -429,7 +451,7 @@ class userManagement extends Controller
                     $NICScanLink = "NULL";
                 }
 
-                $message = $this->model('addModel')->addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $WorkPlace, $Occupation);
+                $message = $this->model('addModel')->addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $Address, $WorkPlace, $Occupation);
                 if ($message == "success") {
                     header("Location: " . BASEURL . "/userManagement/boardingOwner/1/10/$message");
                 } else {
@@ -462,15 +484,16 @@ class userManagement extends Controller
                 $password = $_POST['password'];
                 $email = $_POST['email'];
                 $usertype = "Professional";
-
-                $ProfessionalId = $this->model('addModel')->register($firstname, $lastname, $username, $email, $password, $usertype);
-
+                $Gender = $_POST['gender'];
+                $NIC = $_POST['nic'];
                 $ContactNumber = $_POST['mobile'];
+
+
+                $ProfessionalId = $this->model('addModel')->register($firstname, $lastname, $username, $NIC, $Gender, $email, $ContactNumber, $password, $usertype);
+
                 $DateOfBirth = $_POST['dob'];
 
-                $Gender = $_POST['gender'];
                 $Address = $_POST['address'];
-                $NIC = $_POST['nic-number'];
                 $Occupation = $_POST['occupation'];
                 $WorkPlace = $_POST['workplace'];
                 $VerifiedStatus = "verified";
@@ -480,7 +503,10 @@ class userManagement extends Controller
                     $NICScanLink = "NULL";
                 }
 
-                $message = $this->model('addModel')->addProfessional($ProfessionalId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $WorkPlace, $Occupation);
+                $message = $this->model('addModel')->addBoarder($ProfessionalId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $Address);
+
+                $message = $this->model('addModel')->addProfessional($ProfessionalId, $WorkPlace, $Occupation);
+
                 if ($message == "success") {
                     header("Location: " . BASEURL . "/userManagement/professional/1/10/$message");
                 } else {
@@ -512,9 +538,16 @@ class userManagement extends Controller
                 $password = $_POST['password'];
                 $email = $_POST['email'];
                 $usertype = "Student";
+                $Gender = $_POST['gender'];
+                $NIC = $_POST['nic'];
+                $ContactNumber = $_POST['mobile'];
 
 
-                $StudentId = $this->model('addModel')->register($firstname, $lastname, $username, $email, $password, $usertype);
+
+                $StudentId = $this->model('addModel')->register($firstname, $lastname, $username, $NIC, $Gender, $email, $ContactNumber, $password, $usertype);
+echo $StudentId;
+
+
                 $VerifiedStatus = "verified";
                 if (isset($_POST['niclink'])) {
                     $NICScanLink = $_POST['niclink'];
@@ -538,9 +571,6 @@ class userManagement extends Controller
                 }
 
                 $DateOfBirth = $_POST['dob'];
-                $NIC = $_POST['nic'];
-                $Gender = $_POST['gender'];
-                $ContactNumber = $_POST['mobile'];
                 $Address = $_POST['address'];
                 $StudentUniversity = $_POST['uni'];
 
@@ -560,8 +590,10 @@ class userManagement extends Controller
 
 
 
+                $message = $this->model('addModel')->addBoarder($StudentId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $Address);
+                $message = $this->model('addModel')->addStudent($StudentId, $UniversityIDCopyLink, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink);
 
-                $message = $this->model('addModel')->addStudent($StudentId, $VerifiedStatus, $NICScanLink, $UniversityIDCopyLink, $DateOfBirth, $NIC, $Gender, $ContactNumber, $Address, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink);
+
                 if ($message == "success") {
                     header("Location: " . BASEURL . "/userManagement/student/1/10/$message");
                 } else {

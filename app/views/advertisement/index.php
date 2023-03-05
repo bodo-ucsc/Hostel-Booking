@@ -1,5 +1,5 @@
 <?php
-$header = new HTMLHeader("Admin | Advertisement Management");
+$header = new HTMLHeader("Advertisement Management");
 $nav = new Navigation("management");
 $base = BASEURL;
 
@@ -26,14 +26,19 @@ new SideBarNav("Advertisement");
             </div>
 
             <?php
-            $result = restAPI("feed/postRest/");
-            if ($result != null) {
-                foreach ($result as $key => $value) {
-                    new ViewCard($value, null, 'y');
+                if ($_SESSION['role'] == 'BoardingOwner') {
+                    $result = restAPI("feed/postRest/null/" . $_SESSION['UserId']);}
+                else {
+                    $result = restAPI("feed/postRest");
                 }
-            } else {
-                echo "<h1 class='text-center'>No Post Found</h1>";
-            }
+                if ($result != null) {
+                    foreach ($result as $key => $value) {
+                        new ViewCard($value, null, 'y');
+                    }
+                } else {
+                    echo "<h1 class='text-center'>No Post Found</h1>";
+                }
+            
             ?>
         </div>
     </div>
@@ -61,18 +66,19 @@ new SideBarNav("Advertisement");
                 .then((response) => response.json())
                 .then((json) => { 
                         for(var i = 0; i < json.length; i++){ 
-                            var elem = document.getElementById('like-button-' + json[i][0].Post);  
-                            elem.classList.add('black-hover');
-                            elem.classList.add('bg-white-hover');
-                            elem.classList.remove('bg-accent');
-                            elem.classList.remove('white');
-                            if(json[i][0].Reaction === 'y'){
-                                elem.classList.add('bg-accent');
-                                elem.classList.add('white');
-                                elem.classList.remove('black-hover');
-                                elem.classList.remove('bg-white-hover');
+                            if(json[i][0].Post != null){
+                                var elem = document.getElementById('like-button-' + json[i][0].Post);  
+                                elem.classList.add('black-hover');
+                                elem.classList.add('bg-white-hover');
+                                elem.classList.remove('bg-accent');
+                                elem.classList.remove('white');
+                                if(json[i][0].Reaction === 'y'){
+                                    elem.classList.add('bg-accent');
+                                    elem.classList.add('white');
+                                    elem.classList.remove('black-hover');
+                                    elem.classList.remove('bg-white-hover');
+                                }
                             }
-                            
                         } 
                 });
         };
@@ -184,7 +190,7 @@ new SideBarNav("Advertisement");
                                 icon: 'success',
                                 title: 'Deleted Successfully'
                             }).then((result) => {
-                                    location.reload();
+                                location.reload();
                             });
 
                         }
@@ -203,7 +209,62 @@ new SideBarNav("Advertisement");
         })
 
 
-    }; 
+    };
+
+    function editPost(id, Caption) {
+
+
+
+        Swal.fire({
+            title: 'Edit Caption',
+            html:
+                '<input type="text" class=" fill-container margin-0 " id="caption" name="firstname" placeholder="Enter First Name" value="' + Caption + '" >',
+            showCancelButton: true,
+            cancelButtonColor: '#788292',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const data = {
+                    Table: 'PostUpdate',
+                    Id: 'PostId',
+                    IdValue: id,
+                    Key: 'Caption',
+                    Value: document.getElementById('caption').value,
+                };
+
+                fetch("<?php echo BASEURL ?>/edit/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                }).then(response => response.json())
+                    .then(json => {
+                        if (json.Status === 'Success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Updated Successfully'
+                            }).then((result) => {
+                                location.reload();
+                            });
+
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            })
+                        }
+                    }).catch(function (error) {
+                        console.log('Request failed', error);
+                    });
+
+            }
+        })
+
+
+    };
+
 </script>
 
 <?php

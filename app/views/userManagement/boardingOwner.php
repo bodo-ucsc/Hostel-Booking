@@ -115,7 +115,7 @@ $base = BASEURL . '/userManagement' ;
                                     echo "</div>";
 
                                     echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='" . $base . "/userDelete/boardingOwner/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a onclick='deleteUser($userid)' class='cursor-pointer'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
                                     echo "</div></a>";
 
@@ -217,6 +217,55 @@ $base = BASEURL . '/userManagement' ;
 </main>
 
 <script>
+    function deleteUser(id) {
+        const data = { 
+            UserId: id
+        };
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#006DFF',
+            cancelButtonColor: '#C83A3A',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                fetch("<?php echo BASEURL ?>/delete/deleteUser", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                }).then(response => response.json())
+                    .then(json => {
+                        if (json.Status === 'Success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted Successfully'
+                            }).then((result) => {
+                                location.reload();
+                            });
+
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            })
+                        }
+                    }).catch(function (error) {
+                        console.log('Request failed', error);
+                    });
+
+            }
+        })
+
+
+    };
+
     <?php
     if (isset($data['page']) && isset($data['perPage'])) {
         new pagination($data['page'], $data['perPage']);

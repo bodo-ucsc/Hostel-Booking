@@ -1,15 +1,30 @@
 <?php
 
+if (!($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'VerificationTeam' || $_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+    header('Location: ' . BASEURL);
+}
+
 class property extends Controller
 {
 
     public function index()
     {
-        $this->view('property/index');
+
+        if ($_SESSION['role'] == 'BoardingOwner') {
+            header('Location: ' . BASEURL . '/property/place/' . $_SESSION['UserId']);
+        } else {
+            $this->view('property/index');
+        }
     }
 
     public function place($id = null)
     {
+        if ($_SESSION['role'] == 'BoardingOwner') {
+            if ($id != $_SESSION['UserId']) {
+                header('Location: ' . BASEURL . '/property/place/' . $_SESSION['UserId']);
+            }
+        }
+
         if ($id == null) {
             header('Location: ' . BASEURL . '/property');
         } else {
@@ -18,6 +33,9 @@ class property extends Controller
     }
     public function manage($id = null)
     {
+        if (!($_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL . '/listing/viewPlace/' . $id);
+        }
         if ($id == null) {
             header('Location: ' . BASEURL . '/property');
         } else {
@@ -102,6 +120,7 @@ class property extends Controller
             $array['LastName'] = $row['LastName'];
             $array['BoarderStatus'] = $row['BoarderStatus'];
             $array['ProfilePicture'] = $row['ProfilePicture'];
+            $array['ContactNumber'] = $row['ContactNumber'];
             $array['Tagline'] = $row['Tagline'];
             $array['Bed'] = $row['Bed'];
             array_push($json, $array);
