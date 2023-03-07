@@ -4,12 +4,14 @@ new HTMLHeader("Search | Place");
 new Navigation();
 $base = BASEURL;
 ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class='navbar-offset full-width'>
     <div class='row full-width margin-bottom-4'>
         <div class='col-12'>
             <?php
             $search = new Search(); ?>
+            <div id="suggested-places"></div>
         </div>
     </div>
     <?php
@@ -31,23 +33,47 @@ $base = BASEURL;
         while ($row = $data['result']->fetch_assoc()) {
 
             $PlaceId = $row['PlaceId'];
-            //echo $PlaceId;
-            $place =new PropertyCard($PlaceId);
-
-            // echo "place id= ".$row['PlaceId']."<br>";
-            // echo $row['Title']."<br>";
-            // echo $row['Description']."<br>";
-            // echo $row['Price']."<br>";
-            // echo $row['PriceType']."<br>";
-            // echo $row['Street']."<br>";
-            // echo $row['CityName']."<br>";
-            // echo $row['NoOfMembers']."<br>";
-            // echo $row['NoOfRooms']."<br>";
-
+            new PropertyCard($PlaceId);
         }
     }
 
     echo "</div>";
     echo "
 </div>";
-    new HTMLFooter();
+    
+?>
+    <script>
+        $(document).ready(function() {
+            $('#search-text').on('input', function() {
+                var searchText = $(this).val();
+
+                $.ajax({
+                    url: '/Bodo/SearchProperty/getSuggestions',
+                    method: 'POST',
+                    data: {
+                        searchText: searchText
+                    },
+                    success: function(response) {
+                        var suggestedPlaces = JSON.parse(response);
+
+                        $('#suggested-places').empty();
+                        for (var i = 0; i < suggestedPlaces.length; i++) {
+                            var placeName = suggestedPlaces[i];
+                            var suggestedPlace = $('<div class="suggested-place"></div>');
+                            suggestedPlace.text(placeName);
+                            suggestedPlace.click(function() {
+                                $('#search-text').val(placeName);
+                                $('#suggested-places').empty();
+                            });
+                            $('#suggested-places').append(suggestedPlace);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+<?php
+
+new HTMLFooter();
+?>

@@ -320,7 +320,7 @@ class viewModel extends Model
 
     public function searchBoarding($query){
 
-        $result= $this->get('boardingplace',"Title LIKE '%$query%' OR CityName LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%'");
+        $result= $this->get('boardingplace',"Title LIKE '%$query%' OR CityName LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%' OR SummaryLine1 LIKE '%$query%' OR SummaryLine2 LIKE '%$query%' OR SummaryLine3 LIKE '%$query%'");
         return $result;
         
         // if($result->num_rows>0){
