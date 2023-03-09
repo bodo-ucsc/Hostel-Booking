@@ -48,7 +48,6 @@ class viewModel extends Model
         } else {
             $result = $this->getColumn("User, PostUpdate", "FirstName,LastName,UserType ,ProfilePicture,PostId ,PlaceId,DateTime,Caption", "User.UserId= PostUpdate.UserId $append");
         }
-
         if ($result->num_rows > 0) {
             return $result;
         } else {
