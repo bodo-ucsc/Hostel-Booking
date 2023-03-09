@@ -74,14 +74,15 @@ class ShowMap
                         $photoReference = $photos[0]['photo_reference'];
                         $photoUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=$photoReference&key=$apiKey";
 
-                        echo '<div class="col-3 margin-horizontal-2 margin-vertical-1 fill-container">';
-                        echo "<div class='shadow border-rounded padding-3 map-card'>";
-                        echo '<img style="height: 150px;" src="' . $photoUrl . '" alt="Place Image">';
-                        echo '<h2>' . $name . '</h2>';
-                        echo '<p>' . $address . '</p>';
-                        echo '<i data-feather="star"></i>' . $rating . '</p>';
+                        echo '<div class="col-4 margin-horizontal-2 margin-vertical-1 fill-container">';
+                        echo "<div class='shadow border-rounded padding-3 map-card img-cover'>";
+                        echo "<img class='fill-container img-cover border-rounded' src='$photoUrl' alt='Place Image'>";
+                        echo "<div class='margin-top-n4 flex cursor-default'> <div class='bg-white border-rounded-more shadow padding-2 padding-horizontal-4'><i class='vertical-align-middle feather-body' data-feather='star'></i><span class='vertical-align-middle margin-left-2'>$rating</span></div></div>";
+                        echo "<h2>$name</h2>";
+                        echo "<p>$address</p>";
                         echo '</div>';
                         echo '</div>';
+
                     }
                 }
             }
