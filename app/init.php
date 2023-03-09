@@ -17,10 +17,10 @@ require_once '../public/components/propertyCard.php';
 require_once '../public/components/comment.php';
 require_once '../public/components/likeSection.php';
 require_once '../public/components/PHPMailer/config.php'; 
-//require_once '../public/components/map/viewMap.php';
 require_once '../public/components/map/mapCard.php';
 require_once '../public/components/sidebarNavBO.php'; 
-
+require_once '../public/components/viewPropertyCard.php'; 
+require_once '../public/components/ownerCard.php'; 
 
 
 function restAPI($urlAppend, $external = null)

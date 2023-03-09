@@ -78,7 +78,8 @@ $nav = new Navigation();
                     </div>
                     <div class="col-12 col-medium-4 fill-container">
                         <label id="mobileLabel" class="big" for="mobile">Mobile Number</label>
-                        <input class="margin-top-2" type="text" name="mobile" placeholder="Mobile" id="mobile" onkeyup="checkUserNumber()" required>
+                        <input class="margin-top-2" type="text" name="mobile" placeholder="Mobile" id="mobile"
+                            onkeyup="checkUserNumber()" required>
                     </div>
                     <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="dob">Date of Birth</label>
@@ -105,8 +106,16 @@ $nav = new Navigation();
                 <p></p>
                 <div class="row">
                     <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="university">University</label>
-                        <input class="margin-top-2" type="text" name="uni" placeholder="University" id="uni" required>
+                        <label class="big" for="uni">University</label>
+                        <select id='uni' name='uni' required>
+                            <option value=''>Select University</option>
+                            <?php
+                            $university = restAPI('userManagement/universityRest');
+                            foreach ($university as $uni) {
+                                echo "<option value='" . $uni->Name . "'>" . $uni->Name . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="col-12 col-medium-3 fill-container padding-bottom-4">
                         <div class="big black padding-bottom-2 ">University Email</div>
@@ -126,8 +135,8 @@ $nav = new Navigation();
                 <div class="row">
                     <div class="col-12 col-medium-4 fill-container">
                         <label id="emailLabel" class="big" for="email">University Email Address</label>
-                        <input class="margin-top-2" type="text" name="email" placeholder="University Email Address" onkeyup="checkUserEmail()"
-                            id="email" required>
+                        <input class="margin-top-2" type="text" name="email" placeholder="University Email Address"
+                            onkeyup="checkUserEmail()" id="email" required>
                     </div>
 
                     <div class="col-12 col-medium-4 fill-container">
@@ -151,9 +160,9 @@ $nav = new Navigation();
                 <h2 class="header-2 margin-top-2 margin-bottom-1">Login Credentials</h2>
                 <div class="row fill-container">
                     <div class="col-12 col-medium-4 fill-container">
-                        <label id="usernameLabel"  class="big" for="username">Username</label>
-                        <input class="margin-top-2" type="text" name="username" placeholder="User Name" id="username" onkeyup="checkUserName()"
-                            required>
+                        <label id="usernameLabel" class="big" for="username">Username</label>
+                        <input class="margin-top-2" type="text" name="username" placeholder="User Name" id="username"
+                            onkeyup="checkUserName()" required>
                     </div>
                     <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="password">Password</label>
@@ -261,7 +270,6 @@ $nav = new Navigation();
 
 
     FilePond.registerPlugin(FilePondPluginFileValidateType, FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginImageCrop, FilePondPluginImageResize, FilePondPluginImageTransform);
-    
     FilePond.create(document.getElementById('nicupload'), {
         server: '<?php echo BASEURL ?>/imageUpload/nic',
         allowImagePreview: false
@@ -280,7 +288,6 @@ $nav = new Navigation();
             document.getElementById('niclink').value = filepath;
         }
     });
-    
     FilePond.create(document.getElementById('uniidupload'), {
         server: '<?php echo BASEURL ?>/imageUpload/uniid',
         allowImagePreview: false
@@ -320,7 +327,6 @@ $nav = new Navigation();
         }
     });
 
-    
     FilePond.create(document.getElementById('profilepic'), {
         server: '<?php echo BASEURL ?>/imageUpload/profilepic',
         labelIdle: `<img src='<?php echo BASEURL ?>/images/image.svg'/><br/> <span>Upload Profile Picture</span>`,

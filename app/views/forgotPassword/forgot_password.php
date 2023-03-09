@@ -5,7 +5,7 @@ $header = new HTMLHeader("Forgot Password");
 <main class=" full-width overflow-hidden position-absolute">
     <div class="row">
         <div class="col-12 bg-white flex full-height">
-            <div class="shadow padding-5">
+            <div class="shadow border-rounded-more padding-5">
                 <div class="row">
                     <div class="col-12">
                         <img class=" fill-container " src="<?php echo BASEURL . '/public/images/logo.svg' ?>">
@@ -14,45 +14,29 @@ $header = new HTMLHeader("Forgot Password");
                 <div class="row">
                     <div class="col-12">
                         <h2 class="header-2 flex">Recover Your Password</h2>
-                        <P>Please enter your email address you used to sign up on this site.</P>
-                        <P>OTP will send to your email address.</P>
+                        <P>Please enter the email address you used to sign up on this site.</P>
+                        <P>OTP will be sent to this email address.</P>
 
                         <?php
                         ?>
                         <form action="<?php echo BASEURL ?>/forgotpassword/Check" method="post">
                             <label for="email" class="bold black">Email</label><br>
-                            <input type="text" id="email" name="email" placeholder="Enter Email"><br>
+                            <input type="email" id="email" name="email" placeholder="Enter Email" required><br>
 
-                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit" name="submit" value="Send Link"><br><br>
-                            <a  onclick="window.history.back()" class=" cursor-pointer flex">Back</a>
+                            <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded "
+                                type="submit" name="submit" value="Send Link"><br><br>
+                            <a onclick="window.history.back()" class=" cursor-pointer flex">Back</a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        <?php
-        $base = BASEURL;
-        if (isset($data['code'])) {
-            echo "Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: '$data[code]',
-            footer: '<a href>Why do I have this issue?</a>'
-        })";
-            unset($data['code']);
-        }
-        ?>
-    </script>
-    </div>
 </main>
 
 <?php
-if (isset($data['error'])) {
-    $footer = new HTMLFooter($data['error']);
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();
 }

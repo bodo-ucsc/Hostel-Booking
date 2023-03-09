@@ -2,7 +2,9 @@
 $header = new HTMLHeader("Register | Verification Team");
 $nav = new Navigation("home");
 $sidebar = new SidebarNav("user", "verification");
-$base = BASEURL . '/admin';
+$base = BASEURL;
+
+
 ?>
 <main class=" full-width ">
     <form action="<?php echo BASEURL ?>/userManagement/createVerificationTeam" method="post">
@@ -57,10 +59,10 @@ $base = BASEURL . '/admin';
                             <div class="col-12 col-medium-3 fill-container padding-bottom-4">
                                 <!-- gender radio buttons-->
                                 <div class="bold black padding-bottom-2 ">Gender</div>
-                                <input type="radio" name="gender" value="m" id="male" id="" checked>
+                                <input type="radio" name="gender" value="m" id="male"   checked>
                                 <label for="male" class="">Male</label>
 
-                                <input type="radio" name="gender" value="f" id="female" id="">
+                                <input type="radio" name="gender" value="f" id="female"  >
                                 <label for="female" class="">Female</label>
                             </div>
                         </div>

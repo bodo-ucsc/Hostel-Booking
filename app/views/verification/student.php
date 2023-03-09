@@ -1,9 +1,9 @@
 <?php
-$header = new HTMLHeader("Student Management");
+$header = new HTMLHeader("Student Verification");
 $nav = new Navigation('management');
 $sidebar = new SidebarNav("verification", "student");
-$basePage = BASEURL . '/admin/userManagement/student';
-$base = BASEURL . '/admin';
+$basePage = BASEURL . '/verification/student';
+$base = BASEURL;
 ?>
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
@@ -22,7 +22,6 @@ $base = BASEURL . '/admin';
                     }
                     ?>
                 </div>
-                 
             </div>
 
 
@@ -32,7 +31,8 @@ $base = BASEURL . '/admin';
                 <div class=" shadow-small border-rounded-more   fill-container col-12 ">
                     <div class="row no-gap fill-container">
                         <div id="table"
-                            class="col-7 col-small-8 table fill-container border-rounded-more-left padding-top-4 padding-bottom-5 shadow-small bg-white "  data-current-page="<?php if (isset($data['page'])) {
+                            class="col-7 col-small-8 table fill-container border-rounded-more-left padding-top-4 padding-bottom-5 shadow-small bg-white "
+                            data-current-page="<?php if (isset($data['page'])) {
                                 echo $data['page'];
                             } ?>" aria-live="polite">
                             <div class="hs padding-horizontal-5 padding-vertical-3">
@@ -51,38 +51,53 @@ $base = BASEURL . '/admin';
                             </div>
                             <?php
                             if (isset($data['result'])) {
-
+                                $count = 0;
                                 $useridArray = array();
                                 foreach ($data['result'] as $key => $value) {
-                                    array_push($useridArray, $value->UserId);
-                                    $gender = $value->Gender;
-                                    if ($gender == 'm') {
-                                        $gender = 'Male';
-                                    } else {
-                                        $gender = 'Female';
-                                    }
                                     $verifiedStatus = $value->VerifiedStatus;
-                                    if ($verifiedStatus == "verified") {
-                                        $verifiedstyle = " border-accent accent";
-                                    } else {
+                                    if ($verifiedStatus != "verified") {
+                                        $count++;
                                         $verifiedstyle = " border-grey grey";
                                         $verifiedStatus = "not verified";
+
+                                        
+                                        $array['UserId'] = $value->UserId;
+                                        $array['NICScanLink']=$value->NICScanLink;
+                                        $array['UniID']=$value->UniversityIDCopyLink;
+                                        $array['UniAdm']=$value->UniversityAdmissionLetterCopyLink;
+
+                                        array_push($useridArray, $array);
+
+                                        $gender = $value->Gender;
+                                        if ($gender == 'm') {
+                                            $gender = 'Male';
+                                        } else {
+                                            $gender = 'Female';
+                                        }
+
+                                        echo "<div class='hs list-items padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
+                                        echo "<div class='person-name col-2  text-overflow ' title='" . $value->FirstName . "' >" . $value->FirstName . "</div>";
+                                        echo "<div class='person-name col-2  text-overflow ' title='" . $value->LastName . "' >" . $value->LastName . "</div>";
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->Username . "' >" . $value->Username . "</div>";
+                                        echo "<div class='col-4  text-overflow ' title='" . $value->Email . "' >" . $value->Email . "</div>";
+                                        echo "<div class='col-4  text-overflow ' title='" . $value->StudentUniversity . "' >" . $value->StudentUniversity . "</div>";
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->UniversityIDNo . "' >" . $value->UniversityIDNo . "</div>";
+                                        echo "<div class='col-2 text-overflow ' title=' $verifiedStatus ' > <span class=' border-1 border-rounded-more small padding-horizontal-2 $verifiedstyle'> $verifiedStatus  </span></div>";
+                                        echo "<div class='col-2  text-overflow ' title='" . $value->DateOfBirth . "' >" . $value->DateOfBirth . "</div>";
+                                        echo "<div class='col-2  text-overflow ' title=' $gender'>$gender</div>";
+                                        echo "<div class='col-3  text-overflow ' title='" . $value->NIC . "' >" . $value->NIC . "</div>";
+                                        echo "<div class='col-3  text-overflow ' title='" . $value->ContactNumber . "' >" . $value->ContactNumber . "</div>";
+                                        echo "<div class='col-4  text-overflow ' title='" . $value->Address . "' >" . $value->Address . "</div>";
+                                        echo "</div>";
                                     }
-                                    echo "<div class='hs list-items padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
-                                    echo "<div class='person-name col-2  text-overflow ' title='" . $value->FirstName . "' >" . $value->FirstName . "</div>";
-                                    echo "<div class='person-name col-2  text-overflow ' title='" . $value->LastName . "' >" . $value->LastName . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $value->Username . "' >" . $value->Username . "</div>";
-                                    echo "<div class='col-4  text-overflow ' title='" . $value->Email . "' >" . $value->Email . "</div>";
-                                    echo "<div class='col-4  text-overflow ' title='" . $value->StudentUniversity . "' >" . $value->StudentUniversity . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $value->UniversityIDNo . "' >" . $value->UniversityIDNo . "</div>";
-                                    echo "<div class='col-2 text-overflow ' title=' $verifiedStatus ' > <span class=' border-1 border-rounded-more small padding-horizontal-2 $verifiedstyle'> $verifiedStatus  </span></div>";
-                                    echo "<div class='col-2  text-overflow ' title='" . $value->DateOfBirth . "' >" . $value->DateOfBirth . "</div>";
-                                    echo "<div class='col-2  text-overflow ' title=' $gender'>$gender</div>";
-                                    echo "<div class='col-3  text-overflow ' title='" . $value->NIC . "' >" . $value->NIC . "</div>";
-                                    echo "<div class='col-3  text-overflow ' title='" . $value->ContactNumber . "' >" . $value->ContactNumber . "</div>";
-                                    echo "<div class='col-4  text-overflow ' title='" . $value->Address . "' >" . $value->Address . "</div>";
-                                    echo "</div>";
                                 }
+                            }
+                            if ($count == 0) {
+                                echo "<div class='hs list-items padding-horizontal-5 padding-vertical-2 border-1 border-white'>
+                                        <div class='col-12  text-overflow ' title='No results found' >All users verified</div>
+                                    </div>
+                                ";
+
                             }
                             ?>
 
@@ -92,30 +107,40 @@ $base = BASEURL . '/admin';
                             <div class="col-12 fill-container padding-3 bold ">Actions</div>
 
                             <?php
-                            if (isset($useridArray)) {
-                                foreach ($useridArray as $userid) {
+                            if (isset($useridArray) && !empty($useridArray)) {
+                                foreach ($useridArray as $key => $value) {
+                                    $userid = $value['UserId'];
+                                    $nic=$value['NICScanLink'];
+                                    $uniid=$value['UniID'];
+                                    $uniadm=$value['UniAdm'];
                                     echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>";
-                                   
+
                                     echo "<div class='col-4 fill-container '>";
-                                    echo "<a href='" . $base . "/view/student/$userid'><div class=' fill-container  border-accent bg-white accent-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a onclick='showModal(\"$nic\",\"$uniid\",\"$uniadm\")' class='cursor-pointer'><div class=' fill-container  border-accent bg-white accent-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='eye' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>View</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-4 fill-container '>";
-                                    echo "<a href='" . $base . "/verify/student/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a onclick='verify($userid)' class='cursor-pointer'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='user-check' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Verify</span>";
                                     echo "</div></a>";
                                     echo "</div>";
 
                                     echo "<div class='col-4 fill-container '>";
-                                    echo "<a href='" . $basePage . "Delete/$userid'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                    echo "<a onclick='deleteUser($userid)' class='cursor-pointer'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
                                     echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
                                     echo "</div></a>";
 
                                     echo "</div>";
                                     echo "</div>";
                                 }
+                            } else{
+                                echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>
+                                        <div class='col-12 fill-container padding-2 bold '>No actions available</div>
+                                    </div>
+                                ";
+
                             }
                             ?>
                         </div>
@@ -125,7 +150,7 @@ $base = BASEURL . '/admin';
 
                             <?php
                             if (isset($data['rowCount']) && isset($data['page']) && isset($data['perPage'])) {
-                                echo '<span class="padding-horizontal-4">' . $data["perPage"] . ' entries per page (Total ' . $data["rowCount"] . ' entries)</span>';
+                                echo '<span class="padding-horizontal-4">' . $data["perPage"] . ' entries per page (Total ' . count($useridArray) . ' entries)</span>';
                             }
                             ?>
                         </div>
@@ -173,7 +198,7 @@ $base = BASEURL . '/admin';
                                             } else {
                                                 echo '<option value="100">100</option>';
                                             }
-                                        }else{
+                                        } else {
                                             echo '<option value="' . $data['perPage'] . '" selected>' . $data['perPage'] . '</option>';
                                             echo '<option value="2">2</option>';
                                             echo '<option value="5">5</option>';
@@ -183,7 +208,6 @@ $base = BASEURL . '/admin';
                                             echo '<option value="80">80</option>';
                                             echo '<option value="100">100</option>';
                                         }
- 
                                     }
                                     ?>
                                 </select>
@@ -212,6 +236,104 @@ $base = BASEURL . '/admin';
 
 
 <script>
+    function showModal(elem1, elem2, elem3){
+        let str;
+        if((elem1 == null || elem1 == "") &&  (elem2 == null || elem2 == "") && (elem3 == null || elem3 == "")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Image not found!'
+            })
+            return;
+        } 
+        if (!(elem1 == null || elem1 == "")) {
+            str = '<a class="" href="<?= $base ?>/'+elem1+'" target="_blank"><img class="fill-container" src="<?= $base ?>/'+elem1+'" />NIC Scanned Copy</a>'  
+        }
+        if (!(elem2 == null || elem2 == "")) {
+            str = str + '<a class="" href="<?= $base ?>/'+elem2+'" target="_blank"><img class="fill-container" src="<?= $base ?>/'+elem2+'" /> University ID</a>'
+        }
+        if (!(elem3 == null || elem3 == "")) {
+            str = str + '<a class="" href="<?= $base ?>/'+elem3+'" target="_blank"><img class="fill-container" src="<?= $base ?>/'+elem3+'" /> University Admission Letter</a>'
+        }
+        Swal.fire({
+            title: 'User Documents',     
+            html: str,
+        });
+    }
+    
+    function verify(id) {
+        let url = "<?= $base ?>/verification/verify/Student/";
+        fetch(url + id).then((response) => response.json()).then((json) => {
+            console.log(json);
+            if (json.Status === 'Success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'User Verified'
+                }).then((result) => {
+                    location.reload();
+                });
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+
+        });
+    }
+    function deleteUser(id) {
+        const data = {
+            Table: 'User',
+            Id1: 'UserId',
+            IdValue1: id,
+        };
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#006DFF',
+            cancelButtonColor: '#C83A3A',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                fetch("<?php echo BASEURL ?>/delete/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                }).then(response => response.json())
+                    .then(json => {
+                        if (json.Status === 'Success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted Successfully'
+                            }).then((result) => {
+                                location.reload();
+                            });
+
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            })
+                        }
+                    }).catch(function (error) {
+                        console.log('Request failed', error);
+                    });
+
+            }
+        })
+
+
+    };
+
     <?php
     if (isset($data['page']) && isset($data['perPage'])) {
         new pagination($data['page'], $data['perPage']);

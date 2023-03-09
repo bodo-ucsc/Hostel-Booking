@@ -4,7 +4,6 @@ class PropertyCard
 {
 
     public function __construct($PlaceId, $feed = null, $PostId = null)
-    
     {
         $base = BASEURL;
         if ($PlaceId == 'preview') {
@@ -20,14 +19,16 @@ class PropertyCard
             $NoOfRooms = "Preview";
             $NoOfWashRooms = "Preview";
             $Gender = "Preview";
-            $BoarderType = "Preview";
             $SquareFeet = "Preview";
+            $PropertyType = "Preview";
+            $BoarderType = "Preview";
             $Parking = "Preview";
+            $vacancy = "X";
         } else {
 
 
             $result = restAPI("listing/placeRest/$PlaceId");
-
+            $Boarded = $result->Boarded;
             $SummaryLine1 = $result->SummaryLine1;
             $SummaryLine2 = $result->SummaryLine2;
             $SummaryLine3 = $result->SummaryLine3;
@@ -39,9 +40,12 @@ class PropertyCard
             $NoOfRooms = $result->NoOfRooms;
             $NoOfWashRooms = $result->NoOfWashRooms;
             $Gender = $result->Gender;
-            $BoarderType = $result->BoarderType;
             $SquareFeet = $result->SquareFeet;
+            $PropertyType = $result->PropertyType;
+            $BoarderType = $result->BoarderType;
             $Parking = $result->Parking;
+
+            $vacancy = $NoOfMembers - $Boarded;
 
             $Price = number_format($Price);
 
@@ -73,20 +77,23 @@ class PropertyCard
         } else {
             $Gender = "Any";
         }
-        echo "   
-        <div class='listing display-inline-block $def '>
-        <div class='row padding-4 '>
-        <div class='col-12 shadow fill-container padding-3 border-rounded-more'>
-            <div class='row'>
-                <div class='col-12 $feed5 fill-container property-image fill-vertical padding-5 '>";
-
-        if (isset($image)) {
-            echo "<img id='image-$PostId'  src='$base/$image' class='fill-container fill-vertical border-rounded-more' alt=''>";
-        } else {
-            echo "<img id='image-$PostId' src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/brewster-mcleod-architects-1486154143.jpg' class='fill-container fill-vertical border-rounded-more' alt=''>";
+        if (!isset($image)) { 
+            $image = "images/defboarding.png";
         }
+        echo "   
+        <div class='listing display-inline-block  $def' onclick='window.location.href=\"$base/listing/viewPlace/$PlaceId \"'>
+        <div class='row padding-4 '>
+            <div class='col-12 shadow cursor-pointer bg-white-hover fill-container padding-3 border-rounded-more'>
+                <div class='row'>
 
-        echo "
+                <div class='col-12 $feed5 fill-container property-image fill-vertical padding-5 '>
+                    <img id='image-$PostId'  src='$base/$image' class='fill-container fill-vertical border-rounded-more' alt=''>
+                    <div class='flex  margin-top-n4'>
+                        <div class='bg-light-grey border-rounded-more shadow '>
+                            <button id='vacancy-$PostId' class='border-circle shadow bg-accent padding-horizontal-3 padding-vertical-2 white display-inline-block'>$vacancy</button> 
+                            <button class='border-rounded padding-2 bg-light-grey  display-inline-block'> vacancies</button> 
+                        </div>
+                    </div>
                 </div>
 
                 <div class='col-12 $feed7 fill-container padding-3 '>
@@ -110,6 +117,11 @@ class PropertyCard
                                 <span class='display-block center'>
                                     <i data-feather='users' class='accent'></i></span>
                                 <span id='members-$PostId' class=' display-block center'>$NoOfMembers Members</span>
+                            </div>
+                            <div title='Property Type' class='col-2 center fill-container left small grey'>
+                                <span class='display-block center'>
+                                    <i data-feather='shopping-bag' class='accent'></i></span>
+                                <span id='propertytype-$PostId' class=' display-block center'>$PropertyType</span>
                             </div>
                             <div title='No. of Rooms' class='col-2 center fill-container left small grey'>
                                 <span class='display-block center'>

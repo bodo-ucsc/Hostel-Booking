@@ -12,7 +12,7 @@ class Navigation
             $uname = $_SESSION['username'];
             $fname = $_SESSION['firstname'];
             $lname = $_SESSION['lastname'];
-            $role = $_SESSION['role'];
+            $role = $_SESSION['role']; 
         }
 
         $base = BASEURL;
@@ -41,25 +41,27 @@ class Navigation
 
 
         if (isset($uname)) {
-            if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'BoardingOwner') {
+            if ($role == 'VerificationTeam' || $role == 'Admin'  || $role == 'Manager') {
                 if ($active == 'management') {
-                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/admin'>Management</a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/userManagement'>Management</a>";
                 } else {
-                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/admin'>Management</a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/userManagement'>Management</a>";
+                }
+            }else if ($role == 'BoardingOwner') {
+                if ($active == 'management') {
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/property'>Management</a>";
+                } else {
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-grey-hover white-hover border-rounded-more ' href='$base/property'>Management</a>";
                 }
             } elseif ($role == 'Student' || $role == 'Professional') {
                 if ($active == 'friends') {
                     echo "          <a class='padding-3 active' href='$base/friends'>Friends</a>";
-                    //echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue-hover white-hover border-rounded-more active' href='$base/boarding'>My Boarding</a>";
                 } else if ($active == 'boarding') {
-                    //echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
-                    echo "              <a class='padding-3 active' href='$base/boarding'>My Boarding</a>";
-                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue white-hover border-rounded-more ' href='$base/boarding'>My Boarding</a>";
+                    echo "          <a class='padding-3 active' href='$base/boarding'>My Boarding</a>";
                 } else {
                     echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
-                    //echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 bg-blue-hover white-hover border-rounded-more ' href='$base/boarding'>My Boarding</a>";
-                    echo "              <a class='padding-3' href='$base/boarding'>My Boarding</a>"; 
-                    
+                    echo "          <a class='padding-3' href='$base/boarding'>My Boarding</a>";
+
                 }
             }
         }
@@ -180,14 +182,23 @@ class Navigation
         } else {
             echo "              <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more' title='Listing' href='$base/listing'><i data-feather='book-open'></i><span class='display-medium-none display-small-block display-none'></span></a>";
         }
+        
 
         if (isset($uname)) {
-            if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'BoardingOwner') {
+            if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'Manager' ) {
                 if ($active == 'management') {
-                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/admin'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
+                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/userManagement'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
 
                 } else {
-                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/admin'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/userManagement'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
+
+                }
+            }else if ($role == 'BoardingOwner') {
+                if ($active == 'management') {
+                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/property'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
+
+                } else {
+                    echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/property'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
 
                 }
             } elseif ($role == 'Student' || $role == 'Professional' ){
@@ -199,7 +210,7 @@ class Navigation
 
                 }
                 if ($active == 'management') {
-                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/admin'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
+                    echo "          <a class='padding-vertical-2 margin-1 bg-blue white padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/userManagement'><i data-feather='tool'></i><span class='display-medium-none display-small-block  display-none'>Management</span></a>";
 
                 } else {
                     echo "          <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more'  title='Management'  href='$base/boarding'><i data-feather='tool'></i><span class='display-medium-none display-small-block display-none'></span></a>";
