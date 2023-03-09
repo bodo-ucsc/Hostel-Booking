@@ -109,21 +109,15 @@ class Register extends Controller
                 $email = $_POST['email'];
                 $contactNumber = $_POST['mobile'];
                 $usertype = "BoardingOwner";
-                $ContactNumber = $_POST['mobile'];
-                $Gender = $_POST['gender'];
-                $NIC = $_POST['nic-number'];
-                if (isset($_POST['pplink'])) {
-                    $ProfilePicture = $_POST['pplink'];
-                } else {
-                    $ProfilePicture = "NULL";
-                }
 
+                $BoardingOwnerId = $this->model('addModel')->register($firstname, $lastname, $username, $email, $contactNumber, $password, $usertype);
 
-                $BoardingOwnerId = $this->model('addModel')->register($firstname, $lastname, $username, $NIC, $Gender, $email, $ContactNumber, $password, $usertype, $ProfilePicture);
-
+               
                 $DateOfBirth = $_POST['dob'];
 
+                $Gender = $_POST['gender'];
                 $Address = $_POST['address'];
+                $NIC = $_POST['nic-number'];
                 $Occupation = $_POST['occupation'];
                 $WorkPlace = $_POST['workplace'];
                 $VerifiedStatus = "not";
@@ -134,7 +128,7 @@ class Register extends Controller
                 }
                 
 
-                $message = $this->model('addModel')->addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $Address, $WorkPlace, $Occupation);
+                $message = $this->model('addModel')->addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address, $WorkPlace, $Occupation);
                 if ($message == "success") {
                     header("Location: " . BASEURL . "/signin/boardingOwner/$message");
                 } else {
@@ -167,9 +161,6 @@ class Register extends Controller
                 $email = $_POST['email'];
                 $contactNumber = $_POST['mobile'];
                 $usertype = "Professional";
-                $Gender = $_POST['gender'];
-                $NIC = $_POST['nic-number'];
-
                 $ContactNumber = $_POST['mobile']; 
                 if (isset($_POST['pplink'])) {
                     $ProfilePicture = $_POST['pplink'];
@@ -177,11 +168,14 @@ class Register extends Controller
                     $ProfilePicture = "NULL";
                 }
 
-                $ProfessionalId = $this->model('addModel')->register($firstname, $lastname, $username, $NIC, $Gender, $email, $ContactNumber, $password, $usertype, $ProfilePicture);
+                $ProfessionalId = $this->model('addModel')->register($firstname, $lastname, $username, $email, $contactNumber, $password, $usertype);
 
+                
                 $DateOfBirth = $_POST['dob'];
 
+                $Gender = $_POST['gender'];
                 $Address = $_POST['address'];
+                $NIC = $_POST['nic-number'];
                 $VerifiedStatus = "not";
                 if (isset($_POST['niclink'])) {
                     $NICScanLink = $_POST['niclink'];
@@ -189,13 +183,14 @@ class Register extends Controller
                     $NICScanLink = "NULL";
                 }
                 
-                $message = $this->model('addModel')->addBoarder($ProfessionalId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $Address);
+                $message = $this->model('addModel')->addBoarder($ProfessionalId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address);
 
 
                 $Occupation = $_POST['occupation'];
                 $WorkPlace = $_POST['workplace'];
 
 
+                $message = $this->model('addModel')->addProfessional($ProfessionalId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $NIC, $Gender, $Address, $WorkPlace, $Occupation);
                 if ($message == "success") {
                     echo "success";
                     $message = $this->model('addModel')->addProfessional($ProfessionalId, $WorkPlace, $Occupation);
@@ -239,16 +234,10 @@ class Register extends Controller
                 $contactNumber = $_POST['mobile'];
                 $usertype = "Student";
                 $ContactNumber = $_POST['mobile'];
-                $NIC = $_POST['nic'];
-                $Gender = $_POST['gender'];
-                if (isset($_POST['pplink'])) {
-                    $ProfilePicture = $_POST['pplink'];
-                } else {
-                    $ProfilePicture = "NULL";
-                }
+                $ProfilePicture = $_POST['pplink'];
 
 
-                $StudentId = $this->model('addModel')->register($firstname, $lastname, $username, $NIC, $Gender, $email, $ContactNumber, $password, $usertype, $ProfilePicture);
+                $StudentId = $this->model('addModel')->register($firstname, $lastname, $username, $email, $contactNumber, $password, $usertype);
                 $VerifiedStatus = "not";
                 if (isset($_POST['niclink'])) {
                     $NICScanLink = $_POST['niclink'];
@@ -272,6 +261,9 @@ class Register extends Controller
                 }
 
                 $DateOfBirth = $_POST['dob'];
+                $NIC = $_POST['nic'];
+                $Gender = $_POST['gender'];
+               // $ContactNumber = $_POST['mobile'];
                 $Address = $_POST['address'];
                 $StudentUniversity = $_POST['uni'];
 
@@ -281,7 +273,8 @@ class Register extends Controller
                 echo ("$DateOfBirth <br>");
                 echo ("$NIC <br>");
                 echo ("$Gender <br>");
-                echo ("$ContactNumber <br>");
+
+        
                 echo ("$Address <br>");
                 
                 
@@ -293,16 +286,9 @@ class Register extends Controller
 
 
 
-                $message = $this->model('addModel')->addBoarder($StudentId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $Address);
+                $message = $this->model('addModel')->addStudent($StudentId, $VerifiedStatus, $NICScanLink, $UniversityIDCopyLink, $DateOfBirth, $NIC, $Gender, $Address, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink);
                 if ($message == "success") {
-                    echo $message;
-                    $message = $this->model('addModel')->addStudent($StudentId, $UniversityIDCopyLink, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink);
-                    if ($message == "success") {
-                        
-                        header("Location: " . BASEURL . "/signin/student/$message");
-                    } else {
-                        header("Location: " . BASEURL . "/register/student/$message");
-                    }
+                     header("Location: " . BASEURL . "/signin/$message");
                     echo $message;
                 } else {
                     header("Location: " . BASEURL . "/register/student/$message");

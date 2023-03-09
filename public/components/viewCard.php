@@ -2,7 +2,7 @@
 
 class ViewCard
 {
-    public function __construct($value, $comments = null, $crud = null)
+    public function __construct($value, $comments = null)
     {
 
         $base = BASEURL;
@@ -16,8 +16,6 @@ class ViewCard
             $DateTime = date('Y-m-d H:i:s');
             $Caption = 'Your message will appear here.';
         } else {
-
-
 
 
             $FirstName = $value->FirstName;
@@ -35,38 +33,8 @@ class ViewCard
                 $UserType = ucfirst($UserType);
             }
         }
-
-        if (isset($crud)) {
-            //edit and delete buttons
-            echo " 
-    <div class='bg-white border-rounded-more display-inline-block margin-top-5'> 
-
-        <div class='row no-gap vertical-align-middle zindex'>
-            <div class='col-8 margin-n4'></div>
-            <div class='col-4 margin-n4 right'>
-                <div class='row less-gap '>";
-            if ($_SESSION['role'] == 'Manager' || ($_SESSION['role'] == 'BoardingOwner' && $_SESSION['UserId'] == $value->UserId)) {
-                echo "<div class='col-6'>
-                        <button class='bg-blue-hover white border-rounded padding-3 right' onclick='editPost(\"$PostId\",\"$Caption\")'>
-                            <i data-feather='edit' class=' vertical-align-middle '></i>
-                        </button>
-                    </div>
-                    <div class='col-6'>
-                        <button class='bg-red-hover white border-rounded padding-3 right' onclick='deletePost(\"$PostId\")'>
-                            <i data-feather='trash-2' class=' vertical-align-middle '></i>
-                        </button>
-                    </div>";
-            }
-
-            echo "
-                </div>
-            </div>
-        </div>
-        <div class='advert shadow bg-white border-rounded-more padding-3 '> ";
-        } else {
-            echo "<div class='advert shadow bg-white border-rounded-more padding-3 display-inline-block'> ";
-        }
         echo "
+    <div class='advert shadow bg-white border-rounded-more padding-3 display-inline-block'>
     <div class='row no-gap vertical-align-middle'>
         <div class=' padding-2'>";
         if ($ProfilePicture == null) {
@@ -125,14 +93,10 @@ class ViewCard
                 </div>
         ";
 
-            if (isset($_SESSION['UserId'])) {
-                $onclick = " onclick='likePost(this,\"$PostId\")' ";
-            } else {
-                $onclick = " onclick='location.href=\"$base/signin\"' ";
-            }
+
             echo " <div class='row padding-2'> 
         <div class='col-4 fill-container'>
-            <button $onclick id='like-button-$PostId' class='bold fill-container   border-rounded-more shadow '>
+            <button onclick='likePost(this,\"$PostId\")' id='like-button-$PostId' class='bold fill-container   border-rounded-more shadow '>
                 <i data-feather='thumbs-up' class='vertical-align-middle'></i>
                 <span class='display-none display-large-inline-block vertical-align-middle'>Like</span>
             </button> 
@@ -207,9 +171,5 @@ class ViewCard
         }
 
         echo "</div>";
-        if (isset($crud)) {
-            echo "</div>";
-
-        }
     }
 }

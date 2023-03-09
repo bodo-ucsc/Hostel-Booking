@@ -10,12 +10,12 @@ $basePage = BASEURL . "/admin/support/$type";
         <div class="col-12 col-small-12 width-90">
             <div class="row no-gap">
 
-                <div class="col-12 col-medium-8 fill-container left">
+                <div class="col-6 fill-container left">
                     <h1 class="header-1 ">
                         Support | <?php echo $type ?>
                     </h1>
                 </div>
-                <div class="col-12 col-medium-4 fill-container right">
+                <div class="col-6 fill-container right">
                     <button class="bg-blue white border-rounded header-nb padding-3 right" onclick="location.href='<?php echo BASEURL ?>/admin/addSupport/<?php echo $type ?>' ">
                         <i data-feather="plus" class=" vertical-align-middle "></i>
                         <span class="display-small-inline-block padding-left-2 display-none">Add <?php echo $type ?></span>

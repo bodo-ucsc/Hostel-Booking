@@ -9,9 +9,6 @@ class SignIn extends Controller
         if ($message == 'error') {
             $message = "Incorrect username or password";
             $alert = 'error';
-        } else if ($message == 'verror') {
-            $message = "Your account is not verified yet. Please contact support if 24 hours have elapsed.";
-            $alert = 'error';
         } else if ($message == 'success') {
             $message = "Successfully registered";
             $alert = 'success';
@@ -32,18 +29,6 @@ class SignIn extends Controller
             $password = $_POST['password'];
 
             $result = $this->model('loginModel')->login($username, $password);
-
-            $row = $result->fetch_assoc();
-            if($row['UserType'] == 'Student' || $row['UserType'] == 'Professional' || $row['UserType'] == 'BoardingOwner'){
-                $data=restAPI('userManagement/getVerified/'.$row['UserId']);
-                if($data == null || $data == [] || empty($data)){ 
-                    header("Location: " . BASEURL . "/signin/verror");  
-                    return;
-
-                }
-            }
-
-            $result->data_seek(0);
 
             if ($result != null) {
                 session_destroy();

@@ -8,25 +8,64 @@ class editModel extends Model
     {
         parent::__construct();
     }
- 
 
-    public function changeBed($placeId, $bed = null, $userId = null)
+    public function EditUser($id, $firstname, $lastname, $username, $email, $usertype)
     {
-        if($userId == null){
-            $result = $this->update('BoardingPlaceTenant', ['Bed' => $userId], "Place = $placeId AND Bed = $bed");
-        }else {
-            $result = $this->update('BoardingPlaceTenant', ['Bed' => $bed], "Place = $placeId AND TenantId = $userId");
-        }
-        if ($result) {
-            return true;
-        } else {
-            return false;
+        $this->update('user', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'UserType' => $usertype, 'Email' => $email], "UserId = '$id'");
+    }
+
+    public function updateBoardingOwner($id, $mobile, $dob, $gender, $address, $nic, $occupation, $workplace)
+    {
+        $this->update('BoardingOwner', ['DateOfBirth' => $dob, 'NIC' => $nic, 'ContactNumber' => $mobile, 'Address' => $address, 'Gender' => $gender, 'Occupation' => $occupation, 'Workplace' => $workplace], "BoardingOwnerId = '$id'");
+    }
+
+    public function editAdvertisement($pid, $userid, $placeid, $date, $message)
+    {
+        $this->update('postupdate', ['UserId' => $userid, 'PlaceId' => $placeid, 'DateTime' => $date, 'Caption' => $message], "PostId = '$pid'");
+
+    }
+
+    public function editABoarding($placeid, $title = null, $ubrLink = null, $summaryL1 = null, $summaryL2 = null, $summaryL3 = null, $description = null, $price = null, $priceType = null, $houseNo = null, $street = null, $cityName = null, $googleMaps = null, $propertyType = null, $noofMembers = null, $noofRooms = null, $noofWashRooms = null, $gender = null, $boarderType = null, $sqft = null, $parking = null)
+    {
+
+        if (isset($placeid)) {
+            $result = $this->update('boardingplace',[
+
+                'Title' => "$title",
+                'SummaryLine1' => "$summaryL1",
+                'SummaryLine2' => "$summaryL2",
+                'SummaryLine3' => "$summaryL3",
+                'Description' => "$description",
+                'Price' => $price,
+                'PriceType' => "per month",
+                'HouseNo' => "$houseNo",
+                'Street' => "$street",
+                'CityName' => "$cityName",
+                'GoogleMap' => "$googleMaps",
+                'PropertyType' => "$propertyType",
+                'NoOfMembers' => $noofMembers,
+                'NoOfRooms' => $noofRooms,
+                'NoOfWashRooms' => $noofWashRooms,
+                'Gender' => "$gender",
+                'BoarderType' => "$boarderType",
+                'SquareFeet' => $sqft,
+                'Parking' => "$parking"
+            ], "PlaceId = $placeid");
+
+            // $sql = "UPDATE SET Title = '$title', SummaryLine1 = '$summaryL1', SummaryLine2 = '$summaryL2', SummaryLine3 = '$summaryL3', Description = '$description', Price = $price, PriceType = 'per month', HouseNo = '$houseNo', Street = '$street', CityName = '$cityName', GoogleMap = '$googleMaps', PropertyType = '$propertyType', NoOfMembers = $noofMembers, NoOfRooms = $noofRooms, NoOfWashRooms = $noofWashRooms, Gender = '$gender', BoarderType = '$boarderType', SquareFeet = $sqft, Parking = '$parking' WHERE PlaceId = $placeid";
+            // echo $sql;
+            // $result = $this->runQuery($sql);
         }
     }
 
-    public function toggleLike($PostId, $UserId, $Reaction)
+    public function toggleLike($PostId,$UserId,$Reaction){
+        $result = $this->update('React',['Reaction'=>$Reaction],"Post = $PostId AND Liker = $UserId");
+    }
+ 
+    public function modifyData($table,$data,$condition)
     {
-        $result = $this->update('React', ['Reaction' => $Reaction], "Post = $PostId AND Liker = $UserId");
+        $result = $this->update($table,$data,$condition);
+        return $result;
     }
 
     public function addABoardingMember($userid,$placeid)
@@ -34,39 +73,5 @@ class editModel extends Model
         $result = $this->update('boardingplacetenant',['BoarderStatus'=>'boarded'],"TenantId = $userid AND PlaceId = $placeid");
         return $result;
     }
-
-    public function modifyData($table, $data, $condition)
-    {
-        $result = $this->update($table, $data, $condition);
-        if ($result) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function verify($table, $id, $verified)
-    {
-        $data = ['VerifiedBy' => $verified,'VerifiedStatus' => "verified"];
-        if($table=='Boarder'){
-            $tableid = 'BoarderId';
-        }
-        else if($table=='BoardingOwner'){
-            $tableid='BoardingOwnerId';
-        }
-        else if($table == 'BoardingPlace'){
-            $tableid='PlaceId';
-
-        }
-        $condition = "$tableid = '$id'";
-        
-        $result = $this->update($table, $data, $condition);
-        if ($result) {
-            return true;
-        } else { 
-            return false;
-        }
-    }
-
 
 }

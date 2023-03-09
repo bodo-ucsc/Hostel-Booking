@@ -2,35 +2,15 @@
 class Forgotpassword extends Controller
 {
 
-    public function index($err = null)
+    public function index()
     {
-        if (isset($err)) {
-            $alert = 'error';
-            if ($err == 1) {
-                $message = "No user registered with this Email";
-            } else if ($err == 2) {
-                $message = "Invalid Email Address";
-            }
-            if ($err == 11) {
-                $message = "Invalid OTP";
-            } else if ($err == 12) {
-                $message = "Email Address not found";
-            } else if ($err == 13) {
-                $message = "Please Enter OTP";
-            }
-        } else {
-            $message = null;
-            $alert = null;
-        }
 
-        $this->view('forgotPassword/forgot_password', ['message' => $message, 'alert' => $alert]);
+        $this->view('forgotPassword/forgot_password');
     }
 
 
     public function Check()
-    { 
-
-
+    {
         if (isset($_POST['submit']) || isset($_POST['resend'])) {
 
             if (isset($_POST['email'])) {
@@ -38,12 +18,11 @@ class Forgotpassword extends Controller
 
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                    $info = $this->model('viewModel')->getTable("User", "Email = '$email'");
-                    if (isset($info)) {
-                        $result = $info->fetch_assoc();
+                    $info = $this->model('viewModel')->checkData("user", "Email = '$email'");
+                    $result = $info->fetch_assoc();
+                    $_SESSION['userType'] = $result['UserType'];
 
-                        $_SESSION['userType'] = $result['UserType'];
-
+                    if ($result != null) {
 
                         $otp = mt_rand(100000, 999999);
                         $_SESSION['otp'] = $otp;
@@ -71,22 +50,22 @@ class Forgotpassword extends Controller
                         //directed to OTP enter page
                         $this->view('forgotPassword/password_message', ['info' => $result]);
                     } else {
-                        header("Location: " . BASEURL . "/forgotpassword/1");
+                        echo "No user registered with this Email";
                     }
                 } else {
-                    header("Location: " . BASEURL . "/forgotpassword/2");
+                    die("Invalid Email Address");
                 }
             } else {
-                header("Location: " . BASEURL . "/forgotpassword");
+                die("Email not set");
             }
         } else {
-            header("Location: " . BASEURL . "/forgotpassword");
+            echo "Submit not set";
         }
     }
 
 
-    public function otpCheck(){
-
+    public function otpCheck()
+    {
         if (isset($_POST['submit'])) {
 
             if (isset($_POST['otp'])) {
@@ -94,7 +73,7 @@ class Forgotpassword extends Controller
                 $email = $_POST['email'];
                 $inputedOTP = $_POST['otp'];
 
-                $info = $this->model('viewModel')->getTable("user", "Email = '$email'");
+                $info = $this->model('viewModel')->checkData("user", "Email = '$email'");
                 $res = $info->fetch_assoc();
 
                 if ($res != null) {
@@ -111,7 +90,7 @@ class Forgotpassword extends Controller
                     //set to within 3 minutes 60*5 = 300
                     if ($nowtime - $timeREQ > 300) {
 
-                        header("Location: " . BASEURL . "/forgotpassword/13");
+                        echo 'alert("OTP Expired, Try again")';
                         //$this->view('forgotPassword/password_message', ['info' => $res]);
                     } else {
 
@@ -126,20 +105,20 @@ class Forgotpassword extends Controller
                             unset($timeREQ);
                             $this->view('forgotPassword/new_password', ['info' => $res]);
                         } else {
-                            header("Location: " . BASEURL . "/forgotpassword/11"); 
+                            echo "Invalid OTP";
                         }
                     }
                 } else {
-                    header("Location: " . BASEURL . "/forgotpassword/12");
+                    echo "No email found";
                 }
             } else {
-                header("Location: " . BASEURL . "/forgotpassword/11");
+                die("OTP Not Entered");
             }
         } else if (isset($_POST['resend'])) {
 
             $this->Check();
         } else {
-            header("Location: " . BASEURL . "/forgotpassword");
+            echo "Not submited";
         }
     }
 

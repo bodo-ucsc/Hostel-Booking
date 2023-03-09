@@ -24,36 +24,34 @@ class Admin extends Controller
         $this->view('userManagement/admin', ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
     }
 
-   
+    public function create($user = null, $message = null)
+    {
+        if (isset($message)) {
 
-    // public function support($type = 'issue', $page = 1, $perPage = 2, $message = null)
-    // {
-    //     if (isset($message)) {
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Insertion Failed";
+            } else if ($message == 'success') {
+                $message = "Inserted Successfully";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
 
-    //         $alert = 'error';
-    //         if ($message == 'fail') {
-    //             $message = "Insertion Failed";
-    //         } else if ($message == 'success') {
-    //             $message = "Inserted Successfully";
-    //             $alert = 'success';
-    //         }
-    //     } else {
-    //         $message = null;
-    //         $alert = null;
-    //     }
-
-    //     if ($user == 'student') {
-    //         $this->view('create/student', ['message' => $message, 'alert' => $alert]);
-    //     } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
-    //         $this->view('create/boardingOwner', ['message' => $message, 'alert' => $alert]);
-    //     } else if ($user == 'professional') {
-    //         $this->view('create/professional', ['message' => $message, 'alert' => $alert]);
-    //     } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
-    //         $this->view('create/verificationTeam', ['message' => $message, 'alert' => $alert]);
-    //     } else {
-    //         $this->view('userManagement/student', ['message' => $message, 'alert' => $alert]);
-    //     }
-    // }
+        if ($user == 'student') {
+            $this->view('create/student', ['message' => $message, 'alert' => $alert]);
+        } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
+            $this->view('create/boardingOwner', ['message' => $message, 'alert' => $alert]);
+        } else if ($user == 'professional') {
+            $this->view('create/professional', ['message' => $message, 'alert' => $alert]);
+        } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
+            $this->view('create/verificationTeam', ['message' => $message, 'alert' => $alert]);
+        } else {
+            $this->view('userManagement/student', ['message' => $message, 'alert' => $alert]);
+        }
+    }
 
     public function userManagement($user = "admin", $page = 1, $perPage = 2, $message = null)
     {
@@ -177,7 +175,6 @@ class Admin extends Controller
 
 
     }
- 
 
     public function property($message = null){
         if ($message == 'editsuccess') {
@@ -222,7 +219,6 @@ class Admin extends Controller
         session_destroy();
         header('Location: ' . BASEURL . '/admin');
     }
- 
 
     public function place()
     {

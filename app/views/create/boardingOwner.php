@@ -2,8 +2,7 @@
 $header = new HTMLHeader("Add User | Boarding Owner");
 $nav = new Navigation("home");
 $sidebar = new SidebarNav("user", "boardingOwner");
-$base = BASEURL;
-
+$base = BASEURL . '/admin';
 
 ?>
 <main class=" full-width ">
@@ -50,10 +49,10 @@ $base = BASEURL;
                             <div class="col-12 col-medium-2 fill-container padding-bottom-4">
                                 <!-- gender radio buttons-->
                                 <div class="bold black padding-bottom-2 ">Gender</div>
-                                <input type="radio" name="gender" value="m" id="male" checked>
+                                <input type="radio" name="gender" value="m" id="male" id="" checked>
                                 <label for="male" class="">Male</label>
 
-                                <input type="radio" name="gender" value="f" id="female">
+                                <input type="radio" name="gender" value="f" id="female" id="">
                                 <label for="female" class="">Female</label>
                             </div>
                             <div class="col-12 col-medium-3 fill-container">
