@@ -226,17 +226,4 @@ class Admin extends Controller
         $this->view('map/Nearby');
     }
 
-    public function viewNearby()
-    {
-        if (isset($_POST['address'])) {
-            $address = $_POST['address'];
-            viewMap($address);
-
-            //viewMap("UCSC", "Colombo", "Sri Lanka");
-        } else {
-            echo "not set location";
-        }
-    }
-
-
 }

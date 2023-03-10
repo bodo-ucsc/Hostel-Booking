@@ -3,7 +3,7 @@
     $nav = new Navigation("home");
     ?>
 
-<main class=" home full-width full-height overflow-hidden ">
+<main class=" home full-width full-height overflow-hidden">
     <div class="row  no-gap margin-medium-left-5 margin-horizontal-3 full-height">
     <div class="display-block  display-small-none"></div>
 
@@ -12,7 +12,7 @@
             <div class="margin-medium-left-3">
                 <?php 
                     $search = new Search();
-                    // $filter = new Filter();
+                    $filter = new Filter();
                     // $sidebar = new SideBarNav("user","admin"); //pass the parameter to set active
 ?>
             </div>

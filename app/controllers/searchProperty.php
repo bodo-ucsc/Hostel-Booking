@@ -14,7 +14,20 @@ class SearchProperty extends Controller
                 
                 $search_query = str_replace(" ","%","$search_query"); 
                 //$search_query = implode("%", $search_query);
-               
+                
+                $Price = $_POST['Price'];
+                $PriceType = $_POST['PriceType'];
+                $Street = $_POST['Street'];
+                $CityName = $_POST['CityName'];
+                $NoOfMembers =$_POST['NoOfMembers'];
+                $NoOfRooms = $_POST['NoOfRooms'];
+                $NoOfWashRooms = $_POST['NoOfWashRooms'];
+                $Gender = $_POST['Gender'];
+                $BoarderType = $_POST['BoarderType'];
+                $SquareFeet = $_POST['SquareFeet'];
+                $Parking = $_POST['Parking'];
+
+                //$result = $this->model('viewModel')->filterProperty($search_query,$Price,$PriceType,$Street,$CityName,$NoOfMembers,$NoOfRooms,$NoOfWashRooms,$Gender,$BoarderType,$SquareFeet,$Parking);
                 $result = $this->model('viewModel')->searchBoarding($search_query);
                 if ($result == null) {
                     $resultCount = 0;
