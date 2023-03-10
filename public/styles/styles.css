@@ -687,7 +687,8 @@ input[type=date].bg-red
 
 .sidebar {
   width: 300px;
-  top: 0
+  top: 0;
+  overflow-y: auto;
 }
 
 .navbar-offset {
