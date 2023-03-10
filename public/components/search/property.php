@@ -1,11 +1,11 @@
 <?php
 class Search
 {
-
+    
     public function __construct()
     {
         $base = BASEURL;
-
+        
         echo " 
         <form action='$base/searchProperty' method='POST'>
             <div class='row border-rounded-more searchbar '>
@@ -14,10 +14,8 @@ class Search
                 </div>
         
                 <div class='col-small-7 col-10 fill-container'>
-                <input id='search-text' class='header-nb border-none fill-container' required name='searchText' type='text'
-                placeholder='Search Boarding places, Hostels...'>
-            <div id='suggested-places' class='suggested-places'></div>
-            </select>
+                    <input class=' header-nb border-none fill-container' required name='searchText' type='text'
+                        placeholder='Search Boarding places, Hostels...'>
                 </div>
 
                 <div class='display-none display-small-block col-2'>
@@ -42,5 +40,6 @@ class Search
             </div> 
            
         ";
+   
     }
 }
