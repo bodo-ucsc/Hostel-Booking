@@ -1888,6 +1888,21 @@ header .nav-signup {
     height: 300px;
   }
 
+  .corner {
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    z-index: 69;
+  }
+
+  .feedback-form{
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 28px;
+    z-index: 69;
+  }
+
 }
 
  

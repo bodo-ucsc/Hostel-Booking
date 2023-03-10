@@ -13,13 +13,15 @@ require_once '../public/components/search/user.php';
 require_once '../public/components/sidebarNav.php';
 require_once '../public/components/filter.php';
 require_once '../public/components/viewCard.php';
+require_once '../public/components/viewCardProperty.php';
 require_once '../public/components/propertyCard.php'; 
 require_once '../public/components/comment.php';
 require_once '../public/components/likeSection.php';
 require_once '../public/components/PHPMailer/config.php'; 
 //require_once '../public/components/map/viewMap.php';
 require_once '../public/components/map/mapCard.php';
-require_once '../public/components/sidebarNavBO.php'; 
+require_once '../public/components/sidebarNavBO.php';
+require_once '../public/components/feedbackForm.php'; 
 
 
 
