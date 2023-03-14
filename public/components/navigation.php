@@ -23,6 +23,11 @@ class Navigation
                                 <img src='$base/public/images/logo.svg' alt='logo'>
                             </div>
                             <nav class='col-6  nav-link  fill-container header-nb'>";
+        if ($active == 'about') {
+            echo "              <a class='padding-3 active' href='$base/about'>About</a>";
+        } else {
+            echo "              <a class='padding-3' href='$base/about'>About</a>";
+        }
         if ($active == 'home') {
             echo "              <a class='padding-3 active' href='$base'>Home</a>";
         } else {
@@ -59,7 +64,7 @@ class Navigation
                     echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
                     echo "          <a class='padding-3' href='$base/boarding'>My Boarding</a>";
                     //echo "              <a class='padding-3' href='$base/boarding'>My Boarding</a>"; 
-                    
+
                 }
             }
         }
@@ -164,7 +169,7 @@ class Navigation
             echo "              <a class='padding-vertical-2 margin-1 padding-horizontal-3 border-rounded-more' title='Listing' href='$base/listing'><i data-feather='book-open'></i><span class='display-medium-none display-small-block display-none'></span></a>";
         }
 
-    
+
 
         if (isset($uname)) {
             if ($role == 'VerificationTeam' || $role == 'Admin' || $role == 'BoardingOwner') {

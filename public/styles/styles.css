@@ -22,6 +22,8 @@ body {
   background-position: bottom right;
 }
 
+
+
 /* Font styles */
 
 .cover-text {
@@ -1807,4 +1809,76 @@ header .nav-signup {
 .dp1 img {
   width: 100%;
   height: auto;
+}
+
+.text-1 {
+  font-size: 27px;
+}
+
+.text-2 {
+  font-size: 100px;
+  font-weight: 600;
+  
+}
+
+.text-3 {
+  font-size: 40px;
+  
+}
+
+.btn {
+  display: inline-block;
+  background: #288684;
+  color: #fff;
+  font-size: 25px;
+  padding: 12px 36px;
+  margin-top: 20px;
+  font-weight: 400;
+  border-radius: 6px;
+  border: 2px solid #288684;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  color: #288684;
+  background: none;
+}
+
+.title{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  
+}
+
+.text-4{
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.text-5{
+  text-align: justify;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.btn-1{
+  display: inline-block;
+  background: #288684;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 10px 30px;
+  margin-top: 20px;
+  border-radius: 6px;
+  border: 2px solid #288684;
+  transition: all 0.3s ease;
+}
+.btn-1:hover{
+  color:#288684;
+  background: none;
 }
