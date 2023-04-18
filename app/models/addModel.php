@@ -168,8 +168,8 @@ class addModel extends Model
         }
     }
 
-    public function feedback($name, $email, $message){
-        $this->insert('feedback', ['name'=>$name, 'email'=>$email, 'message'=>$message, 'status'=>'not']);
+    public function feedback($name, $email, $message,$type,$userid,$topic){
+        $this->insert('feedback', ['name'=>$name, 'email'=>$email, 'message'=>$message, 'status'=>'not', 'userid'=>$userid, 'topic'=>$topic, 'type'=>$type]);
     }
 
 }
