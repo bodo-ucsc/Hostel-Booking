@@ -707,6 +707,9 @@ input[type=date].bg-red
   padding-left: 75px;
 }
 
+.sidebar-offset-right {
+  padding-right: 75px;
+}
 
 .sidebar.left {
   left: 0;
@@ -1689,6 +1692,9 @@ header .nav-signup {
     padding-left: 320px;
   }
 
+  .sidebar-offset-right {
+    padding-right: 320px;
+  }
 
   .navbar-offset {
     padding-top: 100px;

@@ -3,8 +3,8 @@
     $nav = new Navigation("home");
     ?>
 
-<main class=" home full-width full-height overflow-hidden ">
-    <div class="row  no-gap margin-medium-left-5 margin-horizontal-3 full-height">
+<main class=" home full-height overflow-hidden ">
+    <div class="row no-gap margin-medium-left-5 margin-horizontal-3 full-height">
     <div class="display-block  display-small-none"></div>
 
         <div class=" col-large-7 col-medium-9 col-12 fill-container padding-horizontal-3  ">
@@ -13,7 +13,8 @@
                 <?php 
                     $search = new Search();
                     //$filter = new Filter();
-                    // $sidebar = new SideBarNav("user","admin"); //pass the parameter to set active
+                    $filter = new FilterProperty();
+                    //$sidebar = new SideBarNav("user","admin"); //pass the parameter to set active
 ?>
             </div>
         </div>

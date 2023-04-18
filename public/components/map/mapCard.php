@@ -15,13 +15,13 @@ class ShowMap
         echo '<div class=" margin-left-5 map" id="map_container">MAP</div>';
 
         //echo "<div id='address'>Address: $address</div>";
-        $apiKey = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
+        $apiKey = 'AIzaSyD18HsT80v9YamFpa8KNovdzBNAZDkQgDA';
         $base = BASEURL;
         $radius = 1000;
         $type = 'restaurant';
         $address = str_replace(array(','), '', $address);
         $address = str_replace(' ', '+', $address);
-        $APIKEY = 'AIzaSyB_4NA4TKBUNQ9WNgLUnwtD5HZaKdIfdx8';
+        $APIKEY = 'AIzaSyD18HsT80v9YamFpa8KNovdzBNAZDkQgDA';
         $url = "https://maps.googleapis.com/maps/api/geocode/json?address=$address&key=$APIKEY";
         $response = file_get_contents($url);
         $results = json_decode($response, true);
