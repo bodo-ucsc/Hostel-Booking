@@ -1895,6 +1895,32 @@ header .nav-signup {
     height: 300px;
   }
 
+
+  /* The filter menu */
+.sidebarfilter {
+  height: 100%;
+  width: 0;
+  position: fixed; 
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #ffffff;
+  overflow-x: hidden; 
+  padding-top: 30px; 
+  transition: 0.5s; 
+}
+
+.filter-container {
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 325px;
+}
+
+.filter-item {
+  margin-bottom: 10px;
+}
+
 }
 
  

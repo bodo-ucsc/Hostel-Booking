@@ -1,16 +1,3 @@
-<style>
-    .filter-container {
-        padding: 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-
-    .filter-item {
-        margin-bottom: 10px;
-
-    }
-</style>
-
 <?php
 class FilterProperty
 {
@@ -171,8 +158,6 @@ class FilterProperty
 }
 ?>
 
-
-?>
 <script>
     var displayed = false;
 
