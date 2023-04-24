@@ -20,7 +20,7 @@ require_once '../public/components/PHPMailer/config.php';
 //require_once '../public/components/map/viewMap.php';
 require_once '../public/components/map/mapCard.php';
 require_once '../public/components/sidebarNavBO.php'; 
-require_once '../public/components/filterProperty.php';
+//require_once '../public/components/filterProperty.php';
 
 
 

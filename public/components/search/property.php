@@ -13,9 +13,21 @@ class Search
                     <i data-feather='search'></i>
                 </div>
         
-                <div class='col-small-8 col-10 fill-container'>
+                <div class='col-small-7 col-10 fill-container'>
                     <input class=' header-nb border-none fill-container' required name='searchText' type='text'
                         placeholder='Search Boarding places, Hostels...'>
+                </div>
+
+                <div class='display-none display-small-block col-2'>
+                    <button class='flex grey  bg-transparent'>
+                        <i data-feather='filter'></i>
+                        <span class=' margin-left-2 header-nb'>Filters</span>
+                    </button>
+                </div>
+                <div class='display-block  display-small-none col-1 '>
+                    <button class='flex grey  bg-transparent'>
+                        <i data-feather='filter'></i> 
+                    </button>
                 </div>
 
               
