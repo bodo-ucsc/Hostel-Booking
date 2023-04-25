@@ -13,13 +13,14 @@ class HTMLFooter
 
             <script> 
 
-
             function toggleNav(openElement,closeElement) {
                 document.getElementById(openElement).classList.add('display-block');
                 document.getElementById(closeElement).classList.add('display-none'); 
                 document.getElementById(openElement).classList.remove('display-none');
                 document.getElementById(closeElement).classList.remove('display-block'); 
               } 
+
+
               ";
         if (isset($alert) && isset($message)) {
             $title = ucfirst($alert); 
@@ -34,10 +35,7 @@ class HTMLFooter
         document.addEventListener('DOMContentLoaded', function () {
             feather.replace();
           }, false);
-
-        
           
-               
             </script>
         </body>
         
@@ -48,6 +46,3 @@ class HTMLFooter
 
     }
 }
-
-
-?>

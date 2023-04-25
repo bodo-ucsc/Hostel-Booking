@@ -13,7 +13,6 @@
                 <?php 
                     $search = new Search();
                     //$filter = new Filter();
-                    //$filter = new FilterProperty();
                     //$sidebar = new SideBarNav("user","admin"); //pass the parameter to set active
 ?>
             </div>
