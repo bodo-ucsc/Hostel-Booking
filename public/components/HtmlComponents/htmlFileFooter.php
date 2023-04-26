@@ -20,6 +20,20 @@ class HTMLFooter
                 document.getElementById(closeElement).classList.remove('display-block'); 
               } 
 
+               
+            var displayed = false;
+            function toggleFilter(BarId) {
+                
+                var sidebar = document.getElementById(BarId);
+                if (displayed) {
+                    sidebar.style.display = 'block';
+                    displayed = false;
+                } else {
+                    sidebar.style.display = 'none';
+                    displayed = true;
+                }
+            }
+
 
              function openFilter(openElement) {
                 document.getElementById(openElement).classList.add('display-block');
@@ -41,6 +55,22 @@ class HTMLFooter
                 });
               }
 
+              function resetFilter(Id1,Id2,Id3,Id4,Id5,Id6,Id7,Id8,Id9,Id10,Id11,Id12){
+
+                document.getElementById(Id1).value = 0;
+                document.getElementById(Id2).innerHTML = 0;
+                document.getElementById(Id3).value = 'monthly';
+                document.getElementById(Id4).value = '';
+                document.getElementById(Id5).value = '';
+                document.getElementById(Id6).value = 0;
+                document.getElementById(Id7).value = 0;
+                document.getElementById(Id8).value = 0;
+                document.getElementById(Id9).value = '';
+                document.getElementById(Id10).value = '';
+                document.getElementById(Id11).value = 0;
+                document.getElementById(Id12).checked = '';
+        
+            }
 
 
 

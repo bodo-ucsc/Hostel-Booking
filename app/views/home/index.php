@@ -11,8 +11,8 @@
             <div class="fill-container cover-text">Boarding?</div> 
             <div class="margin-medium-left-3">
                 <?php 
-                    //$search = new Search();
-                    $filter = new Filter();
+                    $search = new Search();
+                    //$filter = new Filter();
                     //$sidebar = new SideBarNav("user","admin"); //pass the parameter to set active
 ?>
             </div>

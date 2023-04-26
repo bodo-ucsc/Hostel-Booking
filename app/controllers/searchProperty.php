@@ -43,6 +43,17 @@ class SearchProperty extends Controller
 
     public function FilterProperty()
     {
+        // $jsonData = $_POST['jsonData'];
+        // $myArray = json_decode($jsonData, true);
+
+        // // Do some processing with the array
+
+        // // Return the updated array as a response
+        // header('Content-Type: application/json');
+        // echo json_encode($myArray);
+        
+
+
         if ( isset($_POST['submit'])){
 
             if (isset($_POST['searchText'])) {
@@ -95,9 +106,9 @@ class SearchProperty extends Controller
                 echo "Not text set";
             }
         
+}else{
+    echo "Not submitted";
 }
 
 }
 }
-
-?>

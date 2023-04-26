@@ -10,15 +10,16 @@ $base = BASEURL;
     <div class='row full-width margin-bottom-4'>
         <div class='col-12'>
             <?php
-            
-            $search = new Search();
-    
+            $search = new Search("true");
+    ?>
+        </div>
+    </div>
+    <?php
     if ($data) {
         $resultCount = $data['resultCount'];
         $searchText = $data['searchText'];
     }
     echo "
-  
             <div class='row full-width'>
                 <span class='col-12 grey'>
                     Search result for '" . $searchText . "'<br>
@@ -49,7 +50,6 @@ $base = BASEURL;
 
     ?>
 </div>
-    </div>
 
 
 <?php
@@ -57,3 +57,43 @@ $base = BASEURL;
 new HTMLFooter();
 ?>
 
+<script>
+  
+    var displayed = true;
+
+    function closeFilter() {
+        var sidebar = document.getElementById('FilterSidebar');
+        if (displayed) {
+            sidebar.style.display = 'block';
+            displayed = false;
+        } else {
+            sidebar.style.display = 'none';
+        }
+    }
+    
+
+    function resetFilter() {
+
+        document.getElementById('price-range').value = 0;
+        document.getElementById('price-output').innerHTML = 0;
+        document.getElementById('price-type').value = 'monthly';
+        document.getElementById('street').value = '';
+        document.getElementById('city').value = '';
+        document.getElementById('no-of-rooms').value = 0;
+        document.getElementById('no-of-members').value = 0;
+        document.getElementById('no-of-wash-rooms').value = 0;
+        document.getElementById('gender').value = '';
+        document.getElementById('boarder-type').value = '';
+        document.getElementById('square-feet').value = 0;
+        document.getElementById('parking').checked = '';
+
+    }
+
+    var priceRange = document.getElementById("price-range");
+    var priceOutput = document.getElementById("price-output");
+    priceOutput.innerHTML = priceRange.value;
+    
+    priceRange.addEventListener("input", () => {
+        priceOutput.innerHTML = priceRange.value;
+    });
+</script>
