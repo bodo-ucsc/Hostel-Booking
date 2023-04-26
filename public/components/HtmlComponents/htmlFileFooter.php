@@ -21,9 +21,32 @@ class HTMLFooter
               } 
 
 
+             function openFilter(openElement) {
+                document.getElementById(openElement).classList.add('display-block');
+                document.getElementById(openElement).classList.remove('display-none'); 
+              } 
+
+              function closeFilter(closeElement) {
+                document.getElementById(closeElement).classList.add('display-none'); 
+                document.getElementById(closeElement).classList.remove('display-block'); 
+              } 
+
+              function showPrice(Element1,Element2) {
+                var priceRange = document.getElementById('price-range');
+                var priceOutput = document.getElementById('price-output');
+                priceOutput.innerHTML = priceRange.value;
+                
+                priceRange.addEventListener('input', () => {
+                    priceOutput.innerHTML = priceRange.value;
+                });
+              }
+
+
+
+
               ";
         if (isset($alert) && isset($message)) {
-            $title = ucfirst($alert); 
+            $title = ucfirst($alert);
             echo "
                 Swal.fire({
                     icon: '$alert',
@@ -42,7 +65,5 @@ class HTMLFooter
         </html>
             
             ";
-
-
     }
 }
