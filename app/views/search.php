@@ -95,5 +95,6 @@ new HTMLFooter();
     
     priceRange.addEventListener("input", () => {
         priceOutput.innerHTML = priceRange.value;
+        document.getElementById('price').value = priceRange.value;
     });
 </script>

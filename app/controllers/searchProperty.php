@@ -56,55 +56,67 @@ class SearchProperty extends Controller
 
         if ( isset($_POST['submit'])){
 
-            if (isset($_POST['searchText'])) {
+           // if (isset($_POST['searchText'])) {
         
                 $search_query = $_POST['searchText'];
                 $search_query = explode(" ", $search_query);
                 $search_query = implode("%", $search_query);
                 
-                if($_POST['Price'] != 0){
-                    $Price = $_POST['Price'];
+                if($_POST['price'] != 0){
+                    $Price = $_POST['price'];
+                    echo $Price."<br>";
                 }
-                if($_POST['PriceType'] != ''){
-                    $PriceType = $_POST['PriceType'];
+                if($_POST['price-type'] != ''){
+                    $PriceType = $_POST['price-type'];
+                    echo $PriceType."<br>";
                 }
-                if($_POST['Street'] != ''){
-                    $Street = $_POST['Street'];
+                if($_POST['street'] != ''){
+                    $Street = $_POST['street'];
+                    echo $Street."<br>";
                 }
-                if($_POST['CityName'] != ''){
-                    $CityName = $_POST['CityName'];
+                if($_POST['city'] != ''){
+                    $CityName = $_POST['city'];
+                    echo $CityName."<br>";
                 }
-                if($_POST['NoOfMembers'] != ''){
-                    $NoOfMembers =$_POST['NoOfMembers'];
+                if($_POST['no-of-members'] != ''){
+                    $NoOfMembers =$_POST['no-of-members'];
+                    echo $NoOfMembers."<br>";
 
                 }
-                if($_POST['NoOfRooms'] != 0){
-                    $NoOfRooms = $_POST['NoOfRooms'];
+                if($_POST['no-of-rooms'] != 0){
+                    $NoOfRooms = $_POST['no-of-rooms'];
+                    echo $NoOfRooms."<br>";
 
                 }
-                if($_POST['NoOfWashRooms'] != 0){
-                    $NoOfWashRooms = $_POST['NoOfWashRooms'];
+                if($_POST['no-of-wash-rooms'] != 0){
+                    $NoOfWashRooms = $_POST['no-of-wash-rooms'];
+                    echo $NoOfWashRooms."<br>";
 
                 }
                 if($_POST['gender'] != ''){
+                    $gender=$_POST['gender'];
+                    echo $gender."<br>";
 
                 }
-                if($_POST['BoarderType'] != ''){
-                    $BoarderType = $_POST['BoarderType'];
+                if($_POST['boarder-type'] != ''){
+                    $BoarderType = $_POST['boarder-type'];
+                    echo $BoarderType."<br>";
 
                 }
-                if($_POST['SquareFeet'] != 0){
-                    $SquareFeet = $_POST['SquareFeet'];
+                if($_POST['square-feet'] != 0){
+                    $SquareFeet = $_POST['square-feet'];
+                    echo $SquareFeet."<br>";
 
                 }
-                if($_POST['Parking'] != ''){
-                    $Parking = $_POST['Parking'];
+                if($_POST['parking'] != ''){
+                    $Parking = $_POST['parking'];
+                    echo $Parking."<br>";
 
                 }
                 
-            } else {
-                echo "Not text set";
-            }
+            // } else {
+            //     echo "Not text set";
+            // }
         
 }else{
     echo "Not submitted";

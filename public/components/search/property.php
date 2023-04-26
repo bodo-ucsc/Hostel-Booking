@@ -99,8 +99,9 @@ class Search
                             <label for='price'>Price</label>
                         </div>
                         <div class='col-7 fill-container'>
-                            <input type='range' onclick=$price id='price-range' min='0' max='70000' step='1000' value='2000'>
-                            <div  class='header-nb'>Rs: <span id='price-output' class='header-nb' ></span></div>
+                            <input type='range' onclick=$price id='price-range' min='0' max='70000' step='1000' value='2000' name='price-range'>
+                            <div  class='header-nb'>Rs: <span id='price-output' class='header-nb'name='price-output' ></span></div>
+                            <input type='hidden' id='price' name='price'>
                         </div>
                     </div>
 
@@ -167,7 +168,7 @@ class Search
                             <label for='gender'>Gender</label>
                         </div>
                         <div class='col-6 fill-container'>
-                            <select id='gender' name='Gender'>
+                            <select id='gender' name='gender'>
                                 <option value=''></option>
                                 <option value='m'>Male</option>
                                 <option value='f'>Female</option>
@@ -203,12 +204,11 @@ class Search
                             <label for='parking'>Parking</label>
                         </div>
                         <div class='col-2 fill-container'>
-                            <input type='checkbox' id='parking' name='Parking'>
+                            <input type='checkbox' id='parking' name='parking'>
                         </div>
                     </div>
-                    <input type='hidden' id='searchText'  name='searchText'>
+                   
                     <div class='padding-vertical-5'>
-                        
                         <div class='col-5 fill-container'>
                             <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Apply</button>
                         </div>
