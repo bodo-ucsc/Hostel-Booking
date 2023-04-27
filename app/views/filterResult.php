@@ -45,24 +45,7 @@ $base = BASEURL;
             // echo $row['CityName']."<br>";
             // echo $row['NoOfMembers']."<br>";
             // echo $row['NoOfRooms']."<br>";
-
-            $dataArray[$PlaceId] = array(
-                'PlaceId' => $row['PlaceId'],
-                'Title' => $row['Title'],
-                'Description' => $row['Description'],
-                'Price' => $row['Price'],
-                'PriceType' => $row['PriceType'],
-                'Street' => $row['Street'],
-                'CityName' => $row['CityName'],
-                'NoOfMembers' => $row['NoOfMembers'],
-                'NoOfRooms' => $row['NoOfRooms'],
-                'NoOfWashRooms' => $row['NoOfWashRooms'],
-                'BoarderType' => $row['BoarderType'],
-                'SquareFeet' => $row['SquareFeet'],
-                'Parking' => $row['Parking']
-            );
         }
-        $jsonData = json_encode($dataArray);
     }
 
     ?>

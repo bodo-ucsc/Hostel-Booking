@@ -46,8 +46,8 @@ class HTMLFooter
               } 
 
               function showPrice(Element1,Element2) {
-                var priceRange = document.getElementById('price-range');
-                var priceOutput = document.getElementById('price-output');
+                var priceRange = document.getElementById('priceRange');
+                var priceOutput = document.getElementById('priceOutput');
                 priceOutput.innerHTML = priceRange.value;
                 
                 priceRange.addEventListener('input', () => {
@@ -56,24 +56,21 @@ class HTMLFooter
                 });
               }
 
-              function resetFilter(Id1,Id2,Id3,Id4,Id5,Id6,Id7,Id8,Id9,Id10,Id11,Id12){
+              function toggleBox(Id1,Id2){
+              
+                const checkbox1 = document.getElementById(Id1);
+                const checkbox2 = document.getElementById(Id2);
+  
+                if (checkbox1.checked) {
+                  checkbox2.disabled = true;
 
-                document.getElementById(Id1).value = 0;
-                document.getElementById(Id2).innerHTML = 0;
-                document.getElementById(Id3).value = 'monthly';
-                document.getElementById(Id4).value = '';
-                document.getElementById(Id5).value = '';
-                document.getElementById(Id6).value = 0;
-                document.getElementById(Id7).value = 0;
-                document.getElementById(Id8).value = 0;
-                document.getElementById(Id9).value = '';
-                document.getElementById(Id10).value = '';
-                document.getElementById(Id11).value = 0;
-                document.getElementById(Id12).checked = '';
-        
-            }
-
-
+                }else if(checkbox2.checked) {
+                  checkbox1.disabled = true;
+                } else {
+                  checkbox1.disabled = false;
+                  checkbox2.disabled = false;
+                }
+              }
 
               ";
         if (isset($alert) && isset($message)) {

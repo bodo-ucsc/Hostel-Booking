@@ -7,7 +7,7 @@ class Search
 
         if($filter==null){
             echo " 
-            <form action='$base/searchProperty' method='POST'>
+            <form action='$base/searchProperty/Search' method='POST'>
                 <div class='row border-rounded-more searchbar '>
                     <div class='display-small-block  display-none  col-1 '>
                         <i data-feather='search'></i>
@@ -17,7 +17,6 @@ class Search
                         <input id='search-key'  class=' header-nb border-none fill-container' required name='searchText' type='text'
                             placeholder='Search Boarding places, Hostels...'>
                     </div>
-
                     <div class='display-none display-small-block  col-3 fill-container'>
                         <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Search</button>
                     </div>
@@ -33,11 +32,11 @@ class Search
 
             $closeFilter = 'closeFilter("FilterSidebar")';
             $toglFilter= 'toggleFilter("FilterSidebar")';
-            $resetFilter='resetFilter("price-range","price-output","price-type","street","city","no-of-room","no-of-members","no-of-members","no-of-wash-rooms","gender","boarder-type","square-feet","parking")';
-            $price='showPrice("price-range","price-output")';
+            $price='showPrice("priceRange","priceOutput")';
+            $toglCheckbox = 'toggleBox("parkingYes","parkingNo")';
 
-            echo " 
-        <form action='$base/searchProperty' method='POST'>
+        echo " 
+        <form action='$base/searchProperty/Search' method='POST'>
         
             <div class='row border-rounded-more searchbar '>
                 <div class='display-small-block  display-none  col-1 '>
@@ -65,6 +64,7 @@ class Search
                 <div class='display-small-none display-block col-1 fill-container'>
                     <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
                 </div>
+                <input type='hidden' id='filters' name='filters' value='no'>
             </div>
         </form>
         ";
@@ -79,7 +79,8 @@ class Search
                     </button> 
                 </div>
                 
-                <form id='Filter-Form' action='$base/searchProperty/FilterProperty' method='POST'>
+                <form id='Filter-Form' action='$base/searchProperty/Search' method='POST'>
+                    <input type='hidden' id='filters' name='filters' value='yes'>
                     <div class='row padding-2  margin-top-3'>
                         <div class='col-3 fill-container'>
                         <label for='Sort'>Sort By</label>
@@ -99,18 +100,19 @@ class Search
                             <label for='price'>Price</label>
                         </div>
                         <div class='col-7 fill-container'>
-                            <input type='range' onclick=$price id='price-range' min='0' max='70000' step='1000' value='2000' name='price-range'>
-                            <div  class='header-nb'>Rs: <span id='price-output' class='header-nb'name='price-output' ></span></div>
-                            <input type='hidden' id='price' name='price'>
+                            <input type='range' onchange=$price id='priceRange' min='0' max='70000' value='0' step='1000' name='priceRange'>
+                            <div  class='header-nb'>Rs: <span id='priceOutput' class='header-nb' name='priceOutput' ></span></div>
+                            <input type='hidden' id='price' name='price' >
                         </div>
                     </div>
 
                     <div class='row padding-2'>
                         <div class='col-4 fill-container'>
-                            <label for='price-type'>Price Type</label>
+                            <label for='priceType'>Price Type</label>
                         </div>
                         <div class='col-6 fill-container'>
-                            <select id='price-type' name='price-type'>
+                            <select id='priceType' name='priceType'>
+                                <option value=''></option>
                                 <option value='monthly'>Monthly</option>
                                 <option value='weekly'>Weekly</option>
                                 <option value='daily'>Daily</option>
@@ -138,28 +140,28 @@ class Search
 
                     <div class='row padding-2'>
                         <div class='col-5 fill-container'>
-                            <label for='no-of-rooms'>No. of Rooms</label>
+                            <label for='NoOfRooms'>No. of Rooms</label>
                         </div>
                             <div class='col-4 fill-container'>
-                                <input type='number' id='no-of-rooms' name='no-of-rooms' min='0' value='1'>
+                                <input type='number' id='NoOfRooms' name='NoOfRooms' min=1>
                             </div>
                         </div>
 
                         <div class='row padding-2'>
                         <div class='col-5 fill-container'>
-                            <label for='no-of-members'>No. of Members</label>
+                            <label for='NoOfMembers'>No. of Members</label>
                         </div>
                             <div class='col-4 fill-container'>
-                                <input type='number' id='no-of-members' name='no-of-members' min='0' value='1'>
+                                <input type='number' id='NoOfMembers' name='NoOfMembers' min='1'>
                             </div>
                         </div>
 
                     <div class='row padding-2'>
                         <div class='col-6 fill-container'>
-                            <label for='no-of-wash-rooms'>No of Washrooms</label>
+                            <label for='NoOfWashrooms'>No of Washrooms</label>
                         </div>
                         <div class='col-4 fill-container'>
-                            <input type='number' id='no-of-wash-rooms' name='no-of-wash-rooms' min='0' value='1'>
+                            <input type='number' id='NoOfWashrooms' name='NoOfWashrooms' min='1'>
                         </div>
                     </div>
 
@@ -178,10 +180,10 @@ class Search
 
                     <div class='row padding-2'>
                         <div class='col-5 fill-container'>
-                            <label for='boarder-type'>Boarder Type</label>
+                            <label for='boarderType'>Boarder Type</label>
                         </div>
                         <div class='col-5 fill-container'>
-                            <select id='boarder-type' name='boarder-type'>
+                            <select id='boarderType' name='boarderType'>
                                 <option value=''>Any</option>
                                 <option value='single'>Single</option>
                                 <option value='family'>Family</option>
@@ -192,10 +194,10 @@ class Search
 
                     <div class='row padding-2'>
                         <div class='col-5 fill-container'>
-                            <label for='square-feet'>Square Feet</label>
+                            <label for='squareFeet'>Square Feet</label>
                         </div>
                         <div class='col-4 fill-container'>
-                            <input type='number' id='square-feet' name='square-feet' min='0'>
+                            <input type='number' id='squareFeet' name='squareFeet' min='0'>
                         </div>
                     </div>
 
@@ -203,30 +205,40 @@ class Search
                         <div class='col-4 fill-container'>
                             <label for='parking'>Parking</label>
                         </div>
-                        <div class='col-2 fill-container'>
-                            <input type='checkbox' id='parking' name='parking'>
+                    </div>
+                    <div class='row padding-2 '>
+                        <div class='col-4 fill-container'> 
+                            <label for='parking'>Yes</label>
+                            <input type='checkbox' onchange=$toglCheckbox id='parkingYes' name='parking' value='y'>
+                        </div>
+                        <div class='col-4 fill-container'> 
+                            <label for='parking'>No</label>
+                            <input type='checkbox' onchange=$toglCheckbox id='parkingNo' name='parking' value='n'>
                         </div>
                     </div>
                    
-                    <div class='padding-vertical-5'>
+                    <div class='row padding-2 margin-bottom-5'>
+                        <div class='col-5 fill-container'>
+                            <input type='reset'  id='reset' class=' padding-3 header-nb fill-container border-1 bg-blue-hover white-hover border-rounded-more'></button>
+                        </div>
                         <div class='col-5 fill-container'>
                             <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Apply</button>
                         </div>
+                        
+                    </div>
             
                     </div>  
                 </form>
-                <div class=' margin-bottom-5'>
-                    <div class='col-5 fill-container'>
-                        <button onclick=$resetFilter id='reset' class='header-nb fill-container border-1 bg-blue-hover white-hover border-rounded-more'>Reset</button>
-                    </div>
-                </div>
-                
-                
+            
             </div> ";
 
         }
    }
-        
+//    <div class='row padding-5 margin-bottom-5'>
+//    <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Apply</button>
+// </div>
+// <div class='col-5 fill-container'>
+// <input type='reset' class='header-nb fill-container border-1 bg-blue-hover white-hover border-rounded-more'>Reset</button>
        
         // echo " 
         // <form action='$base/searchProperty' method='POST'>

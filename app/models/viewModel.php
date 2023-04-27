@@ -329,9 +329,15 @@ class viewModel extends Model
         // else{
         //     return null;
         // }
-
-
     }
+
+    public function FilterBoarding($query,$cond){
+
+        $result= $this->get('boardingplace',"Title LIKE '%$query%' OR CityName LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%' AND $cond");
+        return $result;
+        
+    }
+    
     
 
     public function getFromUser($userid)
