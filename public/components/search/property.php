@@ -14,7 +14,7 @@ class Search
                     </div>
             
                     <div id='search-bar' class='col-small-8 col-10 fill-container'>
-                        <input id='search-key'  class=' header-nb border-none fill-container' required name='searchText' type='text'
+                        <input id='searchText'  class=' header-nb border-none fill-container' required name='searchText' type='text'
                             placeholder='Search Boarding places, Hostels...'>
                     </div>
                     <div class='display-none display-small-block  col-3 fill-container'>
@@ -23,7 +23,7 @@ class Search
                     <div class='display-small-none display-block col-1 fill-container'>
                     <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
                 </div>
-                    
+                <input type='hidden' id='filters' name='filters' value='no'>
                 </div> 
             </from>  
             ";
@@ -44,7 +44,7 @@ class Search
                 </div>
         
                 <div id='search-bar' class='col-small-7 col-10 fill-container'>
-                    <input id='search-key'  class=' header-nb border-none fill-container' required name='searchText' type='text'
+                    <input id='searchText'  class=' header-nb border-none fill-container' required name='searchText' type='text'
                         placeholder='Search Boarding places, Hostels...'>
                 </div>
                 <div class='display-none display-small-block col-2'>
@@ -113,9 +113,25 @@ class Search
                         <div class='col-6 fill-container'>
                             <select id='priceType' name='priceType'>
                                 <option value=''></option>
-                                <option value='monthly'>Monthly</option>
-                                <option value='weekly'>Weekly</option>
-                                <option value='daily'>Daily</option>
+                                <option value='month'>Monthly</option>
+                                <option value='week'>Weekly</option>
+                                <option value='dail'>Daily</option>
+                                <option value='member'>Per Member</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class='row padding-2'>
+                        <div class='col-4 fill-container'>
+                            <label for='propertyType'>Property Type</label>
+                        </div>
+                        <div class='col-6 fill-container'>
+                            <select id='propertyType' name='propertyType'>
+                                <option value=''></option>
+                                <option value='house'>House</option>
+                                <option value='hostel'>Hostel</option>
+                                <option value='apartment'>Apartment</option>
+                                <option value='room'>Room</option>
                             </select>
                         </div>
                     </div>
@@ -248,7 +264,7 @@ class Search
         //         </div>
         
         //         <div id='search-bar' class='col-small-8 col-10 fill-container'>
-        //             <input id='search-key'  class=' header-nb border-none fill-container' required name='searchText' type='text'
+        //             <input id='searchText'  class=' header-nb border-none fill-container' required name='searchText' type='text'
         //                 placeholder='Search Boarding places, Hostels...'>
         //         </div>
 

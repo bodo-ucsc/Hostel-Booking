@@ -11,7 +11,7 @@ $base = BASEURL;
         <div class='col-12'>
             <?php
             $search = new Search("true");
-    ?>
+            ?>
         </div>
     </div>
     <?php
@@ -25,7 +25,8 @@ $base = BASEURL;
                     Search result for '" . $searchText . "'<br>
                     There are " . $resultCount . " results found!!!
                 </span>
-            </div>";
+            </div>
+            ";
 
     if ($resultCount > 0) {
 
@@ -46,23 +47,23 @@ $base = BASEURL;
             // echo $row['NoOfMembers']."<br>";
             // echo $row['NoOfRooms']."<br>";
 
-            $dataArray[$PlaceId] = array(
-                'PlaceId' => $row['PlaceId'],
-                'Title' => $row['Title'],
-                'Description' => $row['Description'],
-                'Price' => $row['Price'],
-                'PriceType' => $row['PriceType'],
-                'Street' => $row['Street'],
-                'CityName' => $row['CityName'],
-                'NoOfMembers' => $row['NoOfMembers'],
-                'NoOfRooms' => $row['NoOfRooms'],
-                'NoOfWashRooms' => $row['NoOfWashRooms'],
-                'BoarderType' => $row['BoarderType'],
-                'SquareFeet' => $row['SquareFeet'],
-                'Parking' => $row['Parking']
-            );
+            // $dataArray[$PlaceId] = array(
+            //     'PlaceId' => $row['PlaceId'],
+            //     'Title' => $row['Title'],
+            //     'Description' => $row['Description'],
+            //     'Price' => $row['Price'],
+            //     'PriceType' => $row['PriceType'],
+            //     'Street' => $row['Street'],
+            //     'CityName' => $row['CityName'],
+            //     'NoOfMembers' => $row['NoOfMembers'],
+            //     'NoOfRooms' => $row['NoOfRooms'],
+            //     'NoOfWashRooms' => $row['NoOfWashRooms'],
+            //     'BoarderType' => $row['BoarderType'],
+            //     'SquareFeet' => $row['SquareFeet'],
+            //     'Parking' => $row['Parking']
+            // );
         }
-        $jsonData = json_encode($dataArray);
+        //$jsonData = json_encode($dataArray);
     }
 
     ?>
@@ -74,7 +75,7 @@ new HTMLFooter();
 ?>
 
 <script>
-  
+
     var displayed = true;
 
     function closeFilter() {
@@ -90,7 +91,7 @@ new HTMLFooter();
     var priceRange = document.getElementById("price-range");
     var priceOutput = document.getElementById("price-output");
     priceOutput.innerHTML = priceRange.value;
-    
+
     priceRange.addEventListener("input", () => {
         priceOutput.innerHTML = priceRange.value;
         document.getElementById('price').value = priceRange.value;
