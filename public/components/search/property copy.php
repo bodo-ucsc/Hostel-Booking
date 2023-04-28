@@ -7,6 +7,7 @@ class Search
 
         if ($filter == null) {
 
+            $suggs='show("searchText")';
             echo " 
             <form action='$base/searchProperty/Search' method='POST' autocomplete='off'>
                 <div class='row border-rounded-more searchbar '>
@@ -15,7 +16,7 @@ class Search
                     </div>
             
                     <div id='searchBar' class='suggest col-small-8 col-10 fill-container'>
-                        <input id='searchText' class=' header-nb border-none fill-container' required name='searchText' type='text'
+                        <input id='searchText'  class=' header-nb border-none fill-container' required name='searchText' type='text'
                             placeholder='Search Boarding places, Hostels...'>
                     </div>
                     <div class='display-none display-small-block  col-3 fill-container'>
@@ -26,17 +27,20 @@ class Search
                 </div>
                 <input type='hidden' id='filters' name='filters' value='no'>
                 </div> 
-            </from> 
+
+                <div class='autocomplete' style='width:300px;'>
+                    <input id='searchText' onkey=$suggs type='text' name='myCountry' placeholder='Country'>
+                </div>
+            </from>  
             ";
         } else {
             if ($filter == 'true') {
 
-                
                 $closeFilter = 'closeFilter("FilterSidebar")';
                 $toglFilter = 'toggleFilter("FilterSidebar")';
                 $price = 'showPrice("priceRange","priceOutput")';
                 $toglCheckbox = 'toggleBox("parkingYes","parkingNo")';
-                
+
                 echo " 
         <form action='$base/searchProperty/Search' method='POST'>
         
@@ -45,7 +49,7 @@ class Search
                     <i data-feather='search'></i>
                 </div>
         
-                <div id='searchBar' class='suggest col-small-7 col-10 fill-container'>
+                <div id='searchBar' class='col-small-7 col-10 fill-container'>
                     <input id='searchText'  class=' header-nb border-none fill-container' required name='searchText' type='text'
                         placeholder='Search Boarding places, Hostels...'>
                 </div>

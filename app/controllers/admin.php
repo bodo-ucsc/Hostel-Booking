@@ -237,6 +237,4 @@ class Admin extends Controller
             echo "not set location";
         }
     }
-
-
 }
