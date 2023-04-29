@@ -9,25 +9,8 @@ class Listing extends Controller
             header("Location: " . BASEURL . "/listing/viewPlace/" . $placeId);
         } else {
 
-            $base = BASEURL;
-            new HTMLHeader("Listing | Place");
-            new Navigation("listing");
-
-
-
-
-            echo "<div class='navbar-offset full-width center'>";
-
             $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId');
-            while ($row = $data->fetch_assoc()) {
-                new PropertyCard(
-                    $row['PlaceId']
-                );
-            }
-
-            echo "</div>";
-            new HTMLFooter();
-
+            $this->view('listing/index',['result' => $data]);
         }
     }
     public function placeRest($PlaceId = null)
@@ -52,7 +35,7 @@ class Listing extends Controller
         }
         $json_response = json_encode($array);
         echo $json_response;
-        //viewPlace($json['PlaceId']);
+        $this->viewPlace($json_response['PlaceId']);
     }
 
     public function imageRest($PlaceId = null)
@@ -70,21 +53,19 @@ class Listing extends Controller
     public function viewPlace($PlaceId = null)
     {
         if (isset($PlaceId)) {
-            new HTMLHeader("Listing | Place");
-            new Navigation("listing");
+            header("Location: " . BASEURL . "/listing/viewPlace/" . $PlaceId);
+            // new HTMLHeader("Listing | Place");
+            // new Navigation("listing");
 
+            // echo "<div class='navbar-offset full-width center'>";
+            // new PropertyCard(
+            //     $PlaceId
+            // );
 
-
-            echo "<div class='navbar-offset full-width center'>";
-            new PropertyCard(
-                $PlaceId
-            );
-
-
-            echo "</div>";
-            new HTMLFooter();
+            // echo "</div>";
+            // new HTMLFooter();
         }else{
-            header("Location: " . BASEURL . "/listing");
+            header("Location: " . BASEURL . "/listing/index");
         }
     }
 

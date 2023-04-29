@@ -63,7 +63,7 @@ class SearchProperty extends Controller
                 }
             }
         } else {
-            //echo "Not submitted";
+            echo "Not submitted";
             $this->view('home/index');
         }
     }

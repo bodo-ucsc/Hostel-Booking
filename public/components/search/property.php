@@ -19,10 +19,10 @@ class Search
                             placeholder='Search Boarding places, Hostels...'>
                     </div>
                     <div class='display-none display-small-block  col-3 fill-container'>
-                        <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Search</button>
+                        <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Search</button>
                     </div>
                     <div class='display-small-none display-block col-1 fill-container'>
-                    <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
+                    <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
                 </div>
                 <input type='hidden' id='filters' name='filters' value='no'>
                 </div> 
@@ -61,10 +61,10 @@ class Search
                     </button>
                 </div>
                 <div class='display-none display-small-block  col-2 fill-container'>
-                    <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Search</button>
+                    <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Search</button>
                 </div>
                 <div class='display-small-none display-block col-1 fill-container'>
-                    <button class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
+                    <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
                 </div>
                 <input type='hidden' id='filters' name='filters' value='no'>
             </div>

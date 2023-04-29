@@ -12,7 +12,6 @@ class HTMLFooter
             <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 
             <script> 
-
             function toggleNav(openElement,closeElement) {
                 document.getElementById(openElement).classList.add('display-block');
                 document.getElementById(closeElement).classList.add('display-none'); 
@@ -20,7 +19,6 @@ class HTMLFooter
                 document.getElementById(closeElement).classList.remove('display-block'); 
               } 
 
-               
             var displayed = false;
             function toggleFilter(BarId) {
                 
@@ -33,7 +31,6 @@ class HTMLFooter
                     displayed = true;
                 }
             }
-
 
              function openFilter(openElement) {
                 document.getElementById(openElement).classList.add('display-block');
