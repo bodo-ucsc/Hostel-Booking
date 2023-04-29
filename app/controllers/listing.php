@@ -35,7 +35,7 @@ class Listing extends Controller
         }
         $json_response = json_encode($array);
         echo $json_response;
-        $this->viewPlace($json_response['PlaceId']);
+        //$this->viewPlace($json_response['PlaceId']);
     }
 
     public function imageRest($PlaceId = null)
