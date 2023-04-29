@@ -359,7 +359,7 @@ class viewModel extends Model
         if (isset($Parking) && $Parking != null) {
             $append .= " AND Parking = '$Parking'";
         }
-        $result= $this->get('boardingplace',"(Title LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%')$append");
+        $result= $this->get('boardingplace',"(Title LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%' OR CityName LIKE '%$query%')$append");
         return $result;
 
     }

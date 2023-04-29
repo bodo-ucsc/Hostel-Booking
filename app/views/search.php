@@ -1,7 +1,7 @@
 <?php
 
-new HTMLHeader("Search | Place");
-new Navigation();
+new HTMLHeader("Listing | Place");
+new Navigation("listing");
 $base = BASEURL;
 
 ?>
@@ -18,6 +18,7 @@ $base = BASEURL;
     if ($data) {
         $resultCount = $data['resultCount'];
         $searchText = $data['searchText'];
+        $searchText = str_replace("%", " ", $searchText);
     }
     echo "
             <div class='row full-width'>
@@ -34,36 +35,8 @@ $base = BASEURL;
         while ($row = $data['result']->fetch_assoc()) {
 
             $PlaceId = $row['PlaceId'];
-            //echo $PlaceId;
             $place = new PropertyCard($PlaceId);
-
-            // echo "place id= ".$row['PlaceId']."<br>";
-            // echo $row['Title']."<br>";
-            // echo $row['Description']."<br>";
-            // echo $row['Price']."<br>";
-            // echo $row['PriceType']."<br>";
-            // echo $row['Street']."<br>";
-            // echo $row['CityName']."<br>";
-            // echo $row['NoOfMembers']."<br>";
-            // echo $row['NoOfRooms']."<br>";
-
-            // $dataArray[$PlaceId] = array(
-            //     'PlaceId' => $row['PlaceId'],
-            //     'Title' => $row['Title'],
-            //     'Description' => $row['Description'],
-            //     'Price' => $row['Price'],
-            //     'PriceType' => $row['PriceType'],
-            //     'Street' => $row['Street'],
-            //     'CityName' => $row['CityName'],
-            //     'NoOfMembers' => $row['NoOfMembers'],
-            //     'NoOfRooms' => $row['NoOfRooms'],
-            //     'NoOfWashRooms' => $row['NoOfWashRooms'],
-            //     'BoarderType' => $row['BoarderType'],
-            //     'SquareFeet' => $row['SquareFeet'],
-            //     'Parking' => $row['Parking']
-            // );
         }
-        //$jsonData = json_encode($dataArray);
     }
 
     ?>
