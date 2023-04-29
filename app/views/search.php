@@ -18,6 +18,7 @@ $base = BASEURL;
     if ($data) {
         $resultCount = $data['resultCount'];
         $searchText = $data['searchText'];
+        $searchText = str_replace("%", " ", $searchText);
     }
     echo "
             <div class='row full-width'>
