@@ -227,7 +227,7 @@ $header = new HTMLHeader("About");
                         </div>
                     </div>
 
-                    <div class='col-4 padding-3 margin-1'>
+                    <div class='col-4 padding-3 margin-2'>
                         <div class="shadow-small  padding-4 bg-black1">
                             <div class='text-4 white'>Advertising</div>
                             <div class='text-5 white'>Advertising boarding places on BODO can provide increased
@@ -362,7 +362,7 @@ $header = new HTMLHeader("About");
 
             <div class="col-4"></div>
             <div class="col-4">
-                <div class="title-1">Our Team</div>
+                <div class="title-1">Our Team Members</div>
             </div>
             <div class="col-4"></div>
             <div class="col-12"></div>
@@ -371,21 +371,77 @@ $header = new HTMLHeader("About");
 
 
 
-        <div class="row fill-container">
-            <div class="row">
-                <div class="col-12"></div>
-                <div class="col-4">
-                    <div class="image">
-                        <img src="<?php echo BASEURL . '/public/images/1.jpg' ?>">
+        <div class="row bg-black fill-container">
+            <div class="padding-3 border-rounded  fill-container col-12  display-medium-block">
+                <div class="row margin-top-2 fill-container">
+                    <div class="col-1"></div>
+                    <div class='col-2 padding-3 margin-2'>
+                        <div class="shadow-small  padding-4 bg-black">
+                            <div class="image">
+                                <img src="<?php echo BASEURL . '/public/images/1.jpg' ?>">
+                            </div>
+
+                        </div>
+                        <!-- <div class="col-1"></div> -->
+                        <div class="text-42 padding-3 margin-2">Abdullah Jasmin</div>
                     </div>
+
+                    <div class='col-2 padding-3 margin-2'>
+                        <div class="shadow-small  padding-4 bg-black">
+                            <div class="image">
+                                <img src="<?php echo BASEURL . '/public/images/2.jpg' ?>">
+                            </div>
+                        </div>
+                        <div class="text-42 padding-1">Shamalka Manorathne</div>
+                    </div>
+
+                    <div class='col-2 padding-3 margin-2'>
+                        <div class="shadow-small  padding-4 bg-black">
+
+                            <div class="image">
+                                <img src="<?php echo BASEURL . '/public/images/3.jpg' ?>">
+                            </div>
+                        </div>
+                        <div class="text-42 padding-3  margin-left-5"> Janidu Idusara</div>
+
+                    </div>
+
+                    <div class='col-2 padding-3 margin-2'>
+                        <div class="shadow-small  padding-4 bg-black">
+                            <div class="image">
+                                <img src="<?php echo BASEURL . '/public/images/4.jpg' ?>">
+                            </div>
+                        </div>
+                        <div class="text-42 padding-3 margin-left-5">Vishal Lochana</div>
+                    </div>
+
+                    <div class='col-2 padding-3 margin-2'>
+                        <div class="shadow-small  padding-4 bg-black">
+                            <div class="image">
+                                <img src="<?php echo BASEURL . '/public/images/5.jpg' ?>">
+                            </div>
+                        </div>
+                        <div class="text-42 padding-3 margin-2">Tharusha Pathirana</div>
+                    </div>
+                    <div class="col-1"></div>
+                    <!-- <div class="col-12"></div>
+                    <div class="col-12"></div>
+                    <div class="col-12"></div>
+                    <div class="col-12"></div> -->
+
+
+
 
                 </div>
 
             </div>
 
 
-
         </div>
+
+
+
+
 
 
 
@@ -396,19 +452,26 @@ $header = new HTMLHeader("About");
 
     </div>
 
+    <!-- <div class="fill-container">
+        <div class="row">
+            <div class="col-12"></div>
+
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="title">Our Skills</div>
+
+            </div>
+            <div class="col-4"></div>
+
+
+        </div>
 
 
 
 
 
 
-
-
-
-
-
-
-
+    </div> -->
 
 
 

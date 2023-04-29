@@ -639,7 +639,7 @@ textarea {
   background: #F2F2F2;
   box-sizing: border-box;
   overflow: hidden;
-} 
+}
 
 input[type=text].bg-red,
 input[type=password].bg-red,
@@ -648,10 +648,9 @@ input[type=number].bg-red,
 input[type=email].bg-red,
 input[type=datetime].bg-red,
 input[type=datetime-local].bg-red,
-input[type=date].bg-red
-{
-    background: #C83A3A;
-    color: #fff;
+input[type=date].bg-red {
+  background: #C83A3A;
+  color: #fff;
 }
 
 /* components */
@@ -751,7 +750,8 @@ header .nav-signup {
   object-fit: cover;
 }
 
-.listing,.listing.def{
+.listing,
+.listing.def {
   width: 100%;
   max-width: 300px;
 }
@@ -962,6 +962,9 @@ header .nav-signup {
   text-align: right;
 }
 
+.bottom {
+  bottom: 0;
+}
 
 .top {
   align-content: flex-start;
@@ -1789,11 +1792,13 @@ header .nav-signup {
     width: 500px;
     margin: 20px;
   }
+
   .listing {
-    max-width: 530px; 
+    max-width: 530px;
   }
+
   .listing.def {
-    max-width: 350px; 
+    max-width: 350px;
   }
 
 }
@@ -1818,12 +1823,12 @@ header .nav-signup {
 .text-2 {
   font-size: 100px;
   font-weight: 600;
-  
+
 }
 
 .text-3 {
   font-size: 40px;
-  
+
 }
 
 .btn {
@@ -1844,21 +1849,21 @@ header .nav-signup {
   background: none;
 }
 
-.title{
+.title {
   font-family: 'Montserrat', sans-serif;
   font-size: 25px;
   font-weight: 600;
-  
+
 }
 
-.title-1{
+.title-1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 25px;
   font-weight: 600;
   color: #fff;
 }
 
-.text-4{
+.text-4 {
   font-size: 25px;
   font-weight: 600;
   margin-bottom: 10px;
@@ -1866,7 +1871,7 @@ header .nav-signup {
   font-family: 'Montserrat', sans-serif;
 }
 
-.text-41{
+.text-41 {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
@@ -1874,14 +1879,23 @@ header .nav-signup {
   font-family: 'Montserrat', sans-serif;
 }
 
-.text-5{
+.text-42 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+}
+
+.text-5 {
   text-align: justify;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 18px;
 }
 
-.btn-1{
+.btn-1 {
   display: inline-block;
   background: #288684;
   color: #fff;
@@ -1893,28 +1907,29 @@ header .nav-signup {
   border: 2px solid #288684;
   transition: all 0.3s ease;
 }
-.btn-1:hover{
-  color:#288684;
+
+.btn-1:hover {
+  color: #288684;
   background: none;
 }
 
 .bg-black1 {
   background-color: #333;
-  
+
 }
 
-.image{
-  width: 100%;
-  height: 100vh;
+.image {
+  /* width: 100%;
+  height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #288684;
+  /* background-color: #288684; */
 }
 
-.image img{
+.image img {
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  border: 10px solid #fff;
+  border: 5px solid #fff;
 }
