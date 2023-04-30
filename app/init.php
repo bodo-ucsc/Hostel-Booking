@@ -11,7 +11,6 @@ require_once '../public/components/navigation.php';
 require_once '../public/components/search/property.php';
 require_once '../public/components/search/user.php';
 require_once '../public/components/sidebarNav.php';
-
 require_once '../public/components/viewCard.php';
 require_once '../public/components/propertyCard.php'; 
 require_once '../public/components/comment.php';

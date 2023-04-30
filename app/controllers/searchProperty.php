@@ -2,10 +2,10 @@
 
 class SearchProperty extends Controller
 {
-    public function Search()
+    public function index()
     {
         if (isset($_POST['submit'])) {
-
+            
             if ($_POST['filters'] == 'no') {
                 if (isset($_POST['searchText'])) {
 
@@ -28,9 +28,9 @@ class SearchProperty extends Controller
                 }
             } else {
                 if (isset($_POST['submit'])) {
-
-                    $text = $_SESSION['search'];
                     
+                    $text = $_SESSION['search'];
+                    $SortSearch = $_POST['sortSearch'];
                     $Price = $_POST['price'];
                     $Price = floatval($Price);
                     $PriceType = $_POST['priceType'];
@@ -49,9 +49,10 @@ class SearchProperty extends Controller
                     $SquareFeet = floatval($SquareFeet);
                     if (isset($_POST['parking']) && $_POST['parking'] != null) {
                         $Parking = $_POST['parking'];
-                        $result = $this->model('viewModel')->searchBoarding($text, $Price, $PriceType, $PropertyType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
+                        $result = $this->model('viewModel')->searchBoarding($text, $SortSearch, $Price, $PriceType, $PropertyType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
+                        
                     } else {
-                        $result = $this->model('viewModel')->searchBoarding($text, $Price, $PriceType, $PropertyType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet);
+                        $result = $this->model('viewModel')->searchBoarding($text, $SortSearch, $Price, $PriceType, $PropertyType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet);
                     }
 
                     if ($result == null) {

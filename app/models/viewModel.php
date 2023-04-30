@@ -319,11 +319,11 @@ class viewModel extends Model
         return $result;
     }
 
-    public function searchBoarding($query, $Price = null, $PriceType = null,$PropertyType=null, $Street = null, $CityName = null, $NoOfMembers = null, $NoOfRooms = null, $NoOfWashRooms = null, $Gender = null, $BoarderType = null, $SquareFeet = null, $Parking = null)
+    public function searchBoarding($query,$SortSearch = null, $Price = null, $PriceType = null, $PropertyType = null, $Street = null, $CityName = null, $NoOfMembers = null, $NoOfRooms = null, $NoOfWashRooms = null, $Gender = null, $BoarderType = null, $SquareFeet = null, $Parking = null)
     {
         $append = null;
         if (isset($Price) && $Price != 0) {
-            $append .= "AND Price BETWEEN '0' AND $Price";
+            $append .= " AND Price BETWEEN '0' AND $Price";
         }
         if (isset($PriceType) && $PriceType != null) {
             $append .= " AND PriceType LIKE '%$PriceType%'";
@@ -359,7 +359,20 @@ class viewModel extends Model
         if (isset($Parking) && $Parking != null) {
             $append .= " AND Parking = '$Parking'";
         }
-        $result= $this->get('boardingplace',"(Title LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%' OR CityName LIKE '%$query%' )$append");
+        if (isset($SortSearch) && $SortSearch != null) {
+            if ($SortSearch == 'lowTohigh') {
+                $order = " ORDER BY Price ASC";
+                $append .= $order;
+            } else if ($SortSearch == 'highTolow') {
+                $order = " ORDER BY Price DESC";
+                $append .= $order;
+            } elseif ($SortSearch == 'bestMatch') {
+                $order = null;
+                $append .= $order;
+            }
+        }
+        //echo $append;
+        $result= $this->get('boardingplace',"(Title LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%' OR CityName LIKE '%$query%')$append");
         return $result;
 
     }

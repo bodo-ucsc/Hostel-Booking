@@ -151,6 +151,35 @@ class HTMLFooter
           
               autocomplete(document.getElementById('searchText'), place);
 
+              function addFilterTag(label) {
+                var tagEl = document.createElement('div');
+                tagEl.classList.add('filter-tag');
+              
+                var labelEl = document.createElement('span');
+                labelEl.classList.add('tag-label');
+                labelEl.textContent = label;
+                tagEl.appendChild(labelEl);
+              
+                var closeEl = document.createElement('span');
+                closeEl.classList.add('tag-close');
+                closeEl.textContent = 'x';
+                closeEl.addEventListener('click', function() {
+                  tagEl.remove();
+                });
+                tagEl.appendChild(closeEl);
+              
+                var filterTagsEl = document.getElementById('filter-tags');
+                filterTagsEl.appendChild(tagEl);
+              }
+              
+              addFilterTag('Category: Electronics');
+              
+              var clearBtnEl = document.getElementById('filter-clear-btn');
+              clearBtnEl.addEventListener('click', function() {
+                var filterTagsEl = document.getElementById('filter-tags');
+                filterTagsEl.innerHTML = '';
+              });
+            
               ";
     if (isset($alert) && isset($message)) {
       $title = ucfirst($alert);
