@@ -25,7 +25,7 @@ class Listing extends Controller
             new PropertyCard($placeId);
 
         } else {
-            $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId');
+            $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId','VerifiedStatus = "verified"');
             while ($row = $data->fetch_assoc()) {
                 new PropertyCard($row['PlaceId']);
             }
@@ -65,9 +65,10 @@ class Listing extends Controller
                     $array['VerifiedStatus'] = $row['VerifiedStatus'];
                 }
             }
+            $json_response = json_encode($array);
+            echo $json_response;
+            
         }
-        $json_response = json_encode($array);
-        echo $json_response;
     }
     public function placeRestArray()
     {
@@ -101,7 +102,7 @@ class Listing extends Controller
             array_push($json, $array);
         }
         $json_response = json_encode($json);
-        echo $json_response;
+        echo $json_response; 
     }
 
     public function imageRest($PlaceId = null)

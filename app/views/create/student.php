@@ -1,6 +1,6 @@
 <?php
 $header = new HTMLHeader("Add User | Student");
-$nav = new Navigation("home");
+$nav = new Navigation("management");
 $sidebar = new SidebarNav("user", "student");
 $base = BASEURL;
 

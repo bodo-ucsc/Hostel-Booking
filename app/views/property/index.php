@@ -38,7 +38,7 @@ $result = restAPI('property/getBoardingOwner');
                         new ownerCard($value);
                     }
                 } else {
-                    echo "<h2 class='text-center'>No Post Found</h2>";
+                    echo "<h2 class='text-center col-12'>No Owners Found</h2>";
                 }
                 ?>
 

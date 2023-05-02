@@ -14,22 +14,25 @@ class Feed extends Controller
 
     public function postRest($PostId = null, $OwnerId = null)
     {
+        // $json = array(); 
+        // while ($row = $data->fetch_assoc()) {
+        //     $array['FirstName'] = $row['FirstName'];
+        //     $array['LastName'] = $row['LastName'];
+        //     $array['UserType'] = $row['UserType'];
+        //     $array['UserId'] = $row['UserId'];
+        //     $array['ProfilePicture'] = $row['ProfilePicture'];
+        //     $array['PostId'] = $row['PostId'];
+        //     $array['PlaceId'] = $row['PlaceId'];
+        //     $array['DateTime'] = $row['DateTime'];
+        //     $array['Caption'] = $row['Caption']; 
+        //     array_push($json, $array);
+        // }
+        // $json_response = json_encode($json);
+        // echo $json_response;
         $data = $this->model('viewModel')->getPost($PostId, $OwnerId);
-        $json = array(); 
-        while ($row = $data->fetch_assoc()) {
-            $array['FirstName'] = $row['FirstName'];
-            $array['LastName'] = $row['LastName'];
-            $array['UserType'] = $row['UserType'];
-            $array['UserId'] = $row['UserId'];
-            $array['ProfilePicture'] = $row['ProfilePicture'];
-            $array['PostId'] = $row['PostId'];
-            $array['PlaceId'] = $row['PlaceId'];
-            $array['DateTime'] = $row['DateTime'];
-            $array['Caption'] = $row['Caption']; 
-            array_push($json, $array);
-        }
-        $json_response = json_encode($json);
-        echo $json_response;
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
     }
 
     public function likeRest($PostId = null, $userId = null)

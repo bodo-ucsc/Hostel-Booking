@@ -1,15 +1,15 @@
 <?php
 
-if (!($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'VerificationTeam' || $_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
-    header('Location: ' . BASEURL);
-}
+
 
 class property extends Controller
 {
 
     public function index()
     {
-
+        if (!($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'VerificationTeam' || $_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL);
+        }
         if ($_SESSION['role'] == 'BoardingOwner') {
             header('Location: ' . BASEURL . '/property/place/' . $_SESSION['UserId']);
         } else {
@@ -19,6 +19,9 @@ class property extends Controller
 
     public function place($id = null)
     {
+        if (!($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'VerificationTeam' || $_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL);
+        }
         if ($_SESSION['role'] == 'BoardingOwner') {
             if ($id != $_SESSION['UserId']) {
                 header('Location: ' . BASEURL . '/property/place/' . $_SESSION['UserId']);
@@ -44,9 +47,150 @@ class property extends Controller
         }
     }
 
+    public function addPlace($id = null)
+    {
+        if ($id == null) {
+            header('Location: ' . BASEURL . '/property');
+        }
+        if (!($_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL . '/property');
+        } else {
+            $this->view('property/add', ['id' => $id]);
+        }
+    }
+
+    public function addProperty()
+    {
+        print_r($_POST);
+
+        $OwnerId = $_POST['owner'];
+        $Title = $_POST['title'];
+        $UtilityBillReceiptLink = $_POST['utilityuploadlink'];
+        $SummaryLine1 = $_POST['sml1'];
+        $SummaryLine2 = $_POST['sml2'];
+        $SummaryLine3 = $_POST['sml3'];
+        $Description = $_POST['description'];
+        $Price = $_POST['price'];
+        $PriceType = $_POST['priceType'];
+        $HouseNo = $_POST['houseNo'];
+        $Street = $_POST['street'];
+        $CityName = $_POST['city'];
+        $PropertyType = $_POST['propertytype'];
+        $NoOfMembers = $_POST['noofmembers'];
+        $NoOfRooms = $_POST['noofrooms'];
+        $NoOfWashRooms = $_POST['noofwashrooms'];
+        $Gender = $_POST['gender'];
+        $BoarderType = $_POST['boardertype'];
+        $SquareFeet = $_POST['squarefeet'];
+        $Parking = $_POST['parking'];
+
+        $imagePaths = $_POST['imagePaths'];
+
+        $PlaceId = $this->model('addModel')->addPlace($OwnerId, $Title, $UtilityBillReceiptLink, $SummaryLine1, $SummaryLine2, $SummaryLine3, $Description, $Price, $PriceType, $HouseNo, $Street, $CityName, $PropertyType, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
+
+
+
+        $imagePaths = explode(",", $imagePaths);
+
+        $result = 'success';
+        foreach ($imagePaths as $imagePath) {
+            $result = $this->model('addModel')->addImage($PlaceId, $imagePath);
+            if ($result == 'fail') {
+                echo "Error";
+                break;
+            }
+        }
+
+        echo $result;
+        // json_decode($imagePaths, true);
+    }
+
+    public function editImage()
+    {
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        if (isset($_POST['PlaceId'])) {
+            $PlaceId = $_POST['PlaceId'];
+        } else {
+            $PlaceId = null;
+        }
+        if (isset($_POST['ImagePaths'])) {
+            $imagePaths = $_POST['ImagePaths'];
+            $imagePaths = explode(",", $imagePaths);
+            foreach ($imagePaths as $imagePath) {
+                $result = $this->model('addModel')->addImage($PlaceId, $imagePath);
+                if ($result == 'fail') {
+                    $json['Status'] = "Failed";
+                    break;
+                }
+            }
+        }
+        if ($result == 'success') {
+            $json['Status'] = "Success";
+        } else {
+            $json['Status'] = "Failed";
+        }
+        echo json_encode($json);
+    }
+
+    public function edit($placeId = null)
+    {
+        if ($placeId == null) {
+            header('Location: ' . BASEURL . '/property');
+        }
+        if (!($_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL . '/property');
+        } else {
+            $this->view('edit/property', ['id' => $placeId]);
+        }
+
+    }
+
 
     public function getBoardingOwner($id = null)
     {
+        $prejson = array();
+        $result = $this->model('viewModel')->getOwnerAll($id);
+        while ($resrow = $result->fetch_assoc()) {
+            $array['OwnerId'] = $resrow['BoardingOwnerId'];
+            $array['Name'] = $resrow['FirstName'] . " " . $resrow['LastName'];
+            $array['ProfilePicture'] = $resrow['ProfilePicture'];
+            $array['Count'] = 0;
+            array_push($prejson, $array);
+        }
+        // $json_response = json_encode($prejson);
+        // echo $json_response;
+
+        // echo json_encode(
+        //     $result->fetch_all(MYSQLI_ASSOC)
+        // );
+
+        // $data = $this->model('viewModel')->getOwner($id);
+        // $json = array();
+        // if ($data != null) {
+        //     $result = $data->fetch_assoc();
+        //     $owner['OwnerId'] = $result['OwnerId'];
+        //     $owner['Name'] = $result['FirstName'] . " " . $result['LastName'];
+        //     $owner['ProfilePicture'] = $result['ProfilePicture'];
+        //     $count = 1;
+        //     while ($row = $data->fetch_assoc()) {
+
+        //         if ($row['OwnerId'] == $owner['OwnerId']) {
+        //             $count++;
+        //         } else {
+        //             $owner['Count'] = $count;
+        //             array_push($json, $owner);
+        //             $count = 1;
+        //         }
+        //         $owner['OwnerId'] = $row['OwnerId'];
+        //         $owner['Name'] = $row['FirstName'] . " " . $row['LastName'];
+        //         $owner['ProfilePicture'] = $row['ProfilePicture'];
+        //     }
+        //     $owner['Count'] = $count;
+        //     array_push($json, $owner);
+        // }
+        // $json_response = json_encode($json);
+        // echo $json_response;
+
         $data = $this->model('viewModel')->getOwner($id);
         $json = array();
         if ($data != null) {
@@ -71,8 +215,25 @@ class property extends Controller
             $owner['Count'] = $count;
             array_push($json, $owner);
         }
-        $json_response = json_encode($json);
-        echo $json_response;
+
+        // echo json_encode($prejson);
+        // echo "<br>";
+        // echo "<br>";
+        // echo json_encode($json);
+        // echo "<br>";
+        // echo "<br>";
+
+        foreach ($json as $item) {
+            foreach ($prejson as &$item1) {
+                if ($item['OwnerId'] === $item1['OwnerId']) {
+                    $item1['Count'] = $item['Count'];
+                    break;
+                }
+            }
+        }
+        echo json_encode($prejson);
+        // $json_response = json_encode($json);
+        // echo $json_response;
     }
 
     public function getBoardingPlace($id = null)
@@ -112,21 +273,17 @@ class property extends Controller
     public function boardingMembersRest($placeId = null, $status = null)
     {
         $data = $this->model('viewModel')->retrieveBoardingMembers($placeId, $status);
-        $json = array();
-        while ($row = $data->fetch_assoc()) {
-            $array['Id'] = $row['UserId'];
-            $array['Place'] = $row['Place'];
-            $array['FirstName'] = $row['FirstName'];
-            $array['LastName'] = $row['LastName'];
-            $array['BoarderStatus'] = $row['BoarderStatus'];
-            $array['ProfilePicture'] = $row['ProfilePicture'];
-            $array['ContactNumber'] = $row['ContactNumber'];
-            $array['Tagline'] = $row['Tagline'];
-            $array['Bed'] = $row['Bed'];
-            array_push($json, $array);
-        }
-        $json_response = json_encode($json);
-        echo $json_response;
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+
+    public function boardingMemberStatusRest($userId = null, $status = null, $placeId = null)
+    {
+        $data = $this->model('viewModel')->retrieveBoardingMemberStatus($userId, $status, $placeId);
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
     }
 
     public function boardingMemberTypes($placeId = null)
@@ -209,6 +366,46 @@ class property extends Controller
             $json['Status'] = "Success";
         } else {
             $json['Status'] = "Failed";
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function provinceRest()
+    {
+        $data = $this->model('viewModel')->get('Province');
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            array_push($json, $row['ProvinceName']);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function districtRest($province = null)
+    {
+        if ($province == null) {
+            $data = $this->model('viewModel')->get('District');
+        } else {
+            $data = $this->model('viewModel')->get('District', "ProvinceName = '$province'");
+        }
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            array_push($json, $row['DistrictName']);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+    public function cityRest($district = null)
+    {
+        if ($district == null) {
+            $data = $this->model('viewModel')->get('City');
+        } else {
+            $data = $this->model('viewModel')->get('City', "DistrictName = '$district'");
+        }
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            array_push($json, $row['CityName']);
         }
         $json_response = json_encode($json);
         echo $json_response;

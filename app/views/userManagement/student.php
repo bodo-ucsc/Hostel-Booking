@@ -3,7 +3,7 @@ $header = new HTMLHeader("Student Management");
 $nav = new Navigation('management');
 $sidebar = new SidebarNav("user", "student");
 $basePage = BASEURL . '/userManagement/student';
-$base = BASEURL . '/userManagement' ;
+$base = BASEURL . '/userManagement';
 
 ?>
 <main class=" full-width ">
@@ -40,7 +40,8 @@ $base = BASEURL . '/userManagement' ;
                 <div class=" shadow-small border-rounded-more   fill-container col-12 ">
                     <div class="row no-gap fill-container">
                         <div id="table"
-                            class="col-8 col-small-9 table fill-container border-rounded-more-left padding-top-4 padding-bottom-5 shadow-small bg-white "  data-current-page="<?php if (isset($data['page'])) {
+                            class="col-8 col-small-9 table fill-container border-rounded-more-left padding-top-4 padding-bottom-5 shadow-small bg-white "
+                            data-current-page="<?php if (isset($data['page'])) {
                                 echo $data['page'];
                             } ?>" aria-live="polite">
                             <div class="hs padding-horizontal-5 padding-vertical-3">
@@ -62,7 +63,7 @@ $base = BASEURL . '/userManagement' ;
 
                                 $useridArray = array();
                                 foreach ($data['result'] as $key => $value) {
-                                    array_push($useridArray, $value->UserId);
+                                    array_push($useridArray, [$value->UserId, $value->Email]);
                                     $gender = $value->Gender;
                                     if ($gender == 'm') {
                                         $gender = 'Male';
@@ -101,21 +102,38 @@ $base = BASEURL . '/userManagement' ;
 
                             <?php
                             if (isset($useridArray)) {
-                                foreach ($useridArray as $userid) {
-                                    echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>";
-                                    echo "<div class='col-6 fill-container '>";
-                                    echo "<a href='" . $base . "/userEdit/student/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
-                                    echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
-                                    echo "</div></a>";
-                                    echo "</div>";
+                                if ($_SESSION['role'] == 'Admin') {
+                                    foreach ($useridArray as $row) {
+                                        $userid = $row[0];
+                                        echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>";
+                                        echo "<div class='col-6 fill-container '>";
+                                        echo "<a href='" . $base . "/userEdit/student/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                        echo "<i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Edit</span>";
+                                        echo "</div></a>";
+                                        echo "</div>";
 
-                                    echo "<div class='col-6 fill-container '>";
-                                    echo "<a onclick='deleteUser($userid)' class='cursor-pointer'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
-                                    echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
-                                    echo "</div></a>";
+                                        echo "<div class='col-6 fill-container '>";
+                                        echo "<a onclick='deleteUser($userid)' class='cursor-pointer'><div class=' fill-container border-red bg-white red-hover border-1 border-rounded padding-vertical-1  center'>";
+                                        echo "<i data-feather='trash' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Delete</span>";
+                                        echo "</div></a>";
 
-                                    echo "</div>";
-                                    echo "</div>";
+                                        echo "</div>";
+                                        echo "</div>";
+                                    }
+                                }
+                                else{
+                                    foreach ($useridArray as $row) {
+
+                                        $email = $row[1];
+                                        echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>
+                                                <div class='col-12 fill-container '>
+                                                    <div onclick='emailModal(\"$email\")' class=' cursor-default fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>
+                                                        <i data-feather='mail' class='feather-body display-inline-block display-small-none'></i> 
+                                                        <span class='display-small-block  display-none'>Send Email</span>
+                                                    </div>
+                                                </div>
+                                             </div>"; 
+                                    }
                                 }
                             }
                             ?>
@@ -174,7 +192,7 @@ $base = BASEURL . '/userManagement' ;
                                             } else {
                                                 echo '<option value="100">100</option>';
                                             }
-                                        }else{
+                                        } else {
                                             echo '<option value="' . $data['perPage'] . '" selected>' . $data['perPage'] . '</option>';
                                             echo '<option value="2">2</option>';
                                             echo '<option value="5">5</option>';
@@ -184,7 +202,7 @@ $base = BASEURL . '/userManagement' ;
                                             echo '<option value="80">80</option>';
                                             echo '<option value="100">100</option>';
                                         }
- 
+
                                     }
                                     ?>
                                 </select>
@@ -214,8 +232,8 @@ $base = BASEURL . '/userManagement' ;
 
 <script>
 
-function deleteUser(id) {
-        const data = { 
+    function deleteUser(id) {
+        const data = {
             UserId: id
         };
         Swal.fire({
@@ -262,6 +280,70 @@ function deleteUser(id) {
 
 
     };
+
+    function emailModal(email) {
+        Swal.fire({
+            title: 'Reply',
+
+            html:
+                '<div class="row no-gap">' +
+                '<div class="col-12 fill-container left">' +
+                // '<label for="email-from">From</label>' +
+                '<input type="hidden" class="fill-container" id="email-from" placeholder="jvatsbodo@gmail.com" value="jvatsbodo@gmail.com"/>' +
+                '<label for="email-to">To</label>'+
+                '<input type="email" class="fill-container" id="email-to" placeholder="Enter email here" value="' + email + '"/>' +
+                '<label for="email-subject">Subject</label>'+
+                '<input type="text" class="fill-container" id="email-subject" placeholder="Enter subject here" />' +
+                '<label for="email-text">Message</label>'+
+                '<textarea class="fill-container" id="email-text" rows="10" placeholder="Enter your reply here"></textarea>' +
+                '</div>' +
+                '</div>',
+            showCancelButton: true,
+            confirmButtonText: 'Send',
+
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const data = {
+                    emailFrom: document.getElementById('email-from').value,
+                    emailTo: document.getElementById('email-to').value,
+                    emailSubject: document.getElementById('email-subject').value,
+                    emailText: document.getElementById('email-text').value,
+                };
+
+                fetch("<?php echo BASEURL ?>/support/email/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                }).then(response => response.json())
+                    .then(json => {
+                        if (json.Status === 'Success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Email Sent',
+                                text: 'Email sent successfully!',
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            })
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!'
+                        })
+                    });
+            }
+        });
+
+    }
 
     <?php
     if (isset($data['page']) && isset($data['perPage'])) {

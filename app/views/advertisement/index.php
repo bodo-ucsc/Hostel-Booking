@@ -12,7 +12,7 @@ new SideBarNav("Advertisement");
             <div class="row margin-horizontal-5 ">
                 <div class="col-8 left fill-container">
                     <h1 class="header-1 ">
-                        Advertisement Management
+                        Advertisements
                     </h1>
                 </div>
 
@@ -20,7 +20,7 @@ new SideBarNav("Advertisement");
                     <button class="bg-blue-hover white border-rounded header-nb padding-3 right"
                         onclick="location.href='<?php echo $base ?>/advertisement/addUpdate'">
                         <i data-feather="plus" class=" vertical-align-middle "></i>
-                        <span class="display-large-inline-block padding-left-2 display-none">Add Ad</span>
+                        <span class="display-large-inline-block padding-left-2 display-none">Add Advert</span>
                     </button>
                 </div>
             </div>
@@ -36,7 +36,7 @@ new SideBarNav("Advertisement");
                         new ViewCard($value, null, 'y');
                     }
                 } else {
-                    echo "<h1 class='text-center'>No Post Found</h1>";
+                    echo "<h2 class='text-center'>No Post Found</h2>";
                 }
             
             ?>

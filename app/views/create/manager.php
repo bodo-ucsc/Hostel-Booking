@@ -1,6 +1,6 @@
 <?php
 $header = new HTMLHeader("Register | Manager");
-$nav = new Navigation("home");
+$nav = new Navigation("management");
 $sidebar = new SidebarNav("user", "manager");
 $base = BASEURL;
 ?>

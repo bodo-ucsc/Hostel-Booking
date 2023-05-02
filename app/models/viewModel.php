@@ -170,13 +170,39 @@ class viewModel extends Model
             $append .= null;
         }
         // $result = $this->getColumn("User,Boarder,BoardingPlaceTenant", "UserId,FirstName,LastName,UserType,Place, BoarderStatus, ProfilePicture", "TenantId=BoarderId AND BoarderId=UserId  $append");
-        $result = $this->unionMultiple("User,Boarder,BoardingPlaceTenant,Professional", "User,Boarder,BoardingPlaceTenant,Student", "UserId,FirstName,LastName,WorkPlace AS Tagline,Place, BoarderStatus, ProfilePicture, ContactNumber", "UserId,FirstName,LastName,StudentUniversity AS Tagline,Place, BoarderStatus, ProfilePicture, ContactNumber", "TenantId=BoarderId AND BoarderId=UserId AND UserType='Professional' AND ProfessionalId=UserId $append", "TenantId=BoarderId AND BoarderId=UserId AND UserType='Student' AND StudentId=UserId $append");
+        $result = $this->unionMultiple("User,Boarder,BoardingPlaceTenant,Professional", "User,Boarder,BoardingPlaceTenant,Student", "UserId,FirstName,LastName,WorkPlace AS Tagline,Place, BoarderStatus, ProfilePicture, ContactNumber, DateTime, LeaveNotice", "UserId,FirstName,LastName,StudentUniversity AS Tagline,Place, BoarderStatus, ProfilePicture, ContactNumber, DateTime, LeaveNotice", "TenantId=BoarderId AND BoarderId=UserId AND UserType='Professional' AND ProfessionalId=UserId $append", "TenantId=BoarderId AND BoarderId=UserId AND UserType='Student' AND StudentId=UserId $append");
         if ($result->num_rows > 0) {
             return $result;
         } else {
             return null;
         }
     }
+
+    public function retrieveBoardingMemberStatus($userId = null, $status = null, $placeId = null)
+    {
+        if (isset($userId)) {
+            $append = "AND BoarderId = '$userId'";
+        } else {
+            $append = null;
+        }
+        if (isset($status)) {
+            $append .= "AND BoarderStatus = '$status'";
+        } else {
+            $append .= null;
+        }
+        if (isset($placeId)) {
+            $append .= "AND Place = '$placeId'";
+        } else {
+            $append .= null;
+        }
+        $result = $this->getColumn("User,Boarder,BoardingPlaceTenant", "BoarderId, Place, BoarderStatus", "TenantId=BoarderId AND BoarderId=UserId  $append");
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
     public function retrieveBed($placeId = null)
     {
         if (isset($placeId)) {
@@ -268,7 +294,23 @@ class viewModel extends Model
         } else {
             $append = null;
         }
-        $result = $this->getColumn("BoardingPlace,BoardingOwner,User", "FirstName, LastName, PlaceId, OwnerId, ProfilePicture ", "user.UserId=BoardingOwner.BoardingOwnerId AND BoardingOwner.BoardingOwnerId=BoardingPlace.OwnerId $append ");
+        $result = $this->getColumn("BoardingPlace,BoardingOwner,User", "FirstName, LastName, PlaceId, OwnerId, ProfilePicture ", "user.UserId=BoardingOwner.BoardingOwnerId AND BoardingOwner.BoardingOwnerId=BoardingPlace.OwnerId AND BoardingPlace.VerifiedStatus='verified' $append ");
+
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
+    public function getOwnerAll($ownerId = null)
+    {
+        if (isset($ownerId)) {
+            $append = "AND BoardingOwnerId = '$ownerId'";
+        } else {
+            $append = null;
+        }
+        $result = $this->getColumn(" BoardingOwner,User", "FirstName, LastName, BoardingOwnerId, ProfilePicture ", "UserId=BoardingOwnerId  AND BoardingOwner.VerifiedStatus='verified'  $append ");
 
         if ($result->num_rows > 0) {
             return $result;
@@ -280,7 +322,7 @@ class viewModel extends Model
     public function getOwnerPlace($ownerId = null)
     {
         if (isset($ownerId)) {
-            $append = "OwnerId = '$ownerId'";
+            $append = "AND OwnerId = '$ownerId'";
         } else {
             $append = null;
         }
@@ -298,7 +340,7 @@ class viewModel extends Model
         CONCAT(HouseNo, ', ', Street) AS Address,
         NoOfMembers,
         (SELECT COUNT(Place) FROM BoardingPlaceTenant WHERE Place = PlaceId AND BoarderStatus='boarded') AS Boarded",
-            "$append",
+            " BoardingPlace.VerifiedStatus='verified' $append",
             " FirstName, 
         LastName, 
         PlaceId, 
@@ -313,12 +355,17 @@ class viewModel extends Model
         }
     }
     // support
-    public function getSupport($type, $userid = null)
+    public function getSupport($type, $userType, $userid = null)
     {
-        if (isset($userid)) {
-            $append = "AND UserId = $userid";
+        if (isset($userType)) {
+            $append = "AND RequestTo = $userType";
         } else {
             $append = null;
+        }
+        if (isset($userid)) {
+            $append .= "AND UserId = $userid";
+        } else {
+            $append .= null;
         }
 
         $result = $this->get("User,Support", "UserId = RequestBy AND SupportType = '$type' $append");
@@ -330,16 +377,28 @@ class viewModel extends Model
     }
 
 
-    public function getAllSupport($type, $page = 1, $perPage = 1)
+
+    public function getWorkUni($usertype = null, $id = null)
     {
-        $start = ($page - 1) * $perPage;
-        $result = $this->get("User,Support", "UserId = RequestBy AND SupportType = '$type'", null, "$start,$perPage");
+        if (isset($id)) {
+            $append = "AND UserId = $id";
+        } else {
+            $append = null;
+        }
+
+        if ($usertype == 'Student') {
+            $result = $this->getColumn("User,Boarder,Student", "StudentUniversity AS Place", "BoarderId=UserId AND UserType='Student' AND StudentId=UserId $append");
+        } else if ($usertype == 'Professional') {
+            $result = $this->getColumn("User,Boarder,Professional", "WorkPlace AS Place", "BoarderId=UserId AND UserType='Professional' AND ProfessionalId=UserId $append");
+        }
+
         if ($result->num_rows > 0) {
             return $result;
         } else {
             return null;
         }
     }
+
 
 
 }

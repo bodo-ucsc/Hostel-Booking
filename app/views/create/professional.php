@@ -1,6 +1,6 @@
 <?php
 $header = new HTMLHeader("Add User | Professional");
-$nav = new Navigation("home");
+$nav = new Navigation("management");
 $sidebar = new SidebarNav("user", "professional");
 $base = BASEURL;
 

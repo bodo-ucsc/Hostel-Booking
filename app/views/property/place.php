@@ -15,12 +15,12 @@ $sidebar = new SidebarNav("properties");
                 <?php
                 if ($_SESSION['role'] == 'BoardingOwner') {
                     echo "
-                 <div class='col-12 col-medium-8 fill-container left'>
+                 <div class='col-8 fill-container left'>
                     <h1 class='header-1 black-hover cursor-pointer'> Hey
                  ";
                 } else {
                     echo "
-                 <div class='col-12 col-medium-8 fill-container left' onclick=\" location.href='" . BASEURL . "/property'\">
+                 <div class='col-8 fill-container left' onclick=\" location.href='" . BASEURL . "/property'\">
                     <h1 class='header-1 black-hover cursor-pointer'> 
                     <i data-feather='chevron-left' class='feather-large vertical-align-middle'></i>
 
@@ -42,9 +42,9 @@ $sidebar = new SidebarNav("properties");
                 if ($_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager') {
 
                     echo "
-                    <div class='col-12 col-medium-4 fill-container right'>
+                    <div class='col-4 fill-container right'>
                     <button class='bg-blue white border-rounded header-nb padding-3 right'
-                        onclick='location.href=\"". BASEURL ."/property/add\"'>
+                        onclick='location.href=\"". BASEURL ."/property/addPlace/".$data['id']."\"'>
                         <i data-feather='plus' class=' vertical-align-middle '></i>
                         <span class='display-small-inline-block padding-left-2 display-none'>Add Property</span>
                     </button>
@@ -65,7 +65,7 @@ $sidebar = new SidebarNav("properties");
                         new viewPropertyCard($value);
                     }
                 } else {
-                    echo "<h2 class='text-center'>No Post Found</h2>";
+                    echo "<h2 class='text-center col-12'>No Property Found</h2>";
                 }
                 ?>
 

@@ -279,7 +279,7 @@ $base = BASEURL;
             if (json.Status === 'Success') {
                 Swal.fire({
                     icon: 'success',
-                    title: 'User Verified'
+                    title: 'Boarding Place Verified'
                 }).then((result) => {
                     location.reload();
                 });

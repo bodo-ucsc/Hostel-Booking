@@ -8,8 +8,7 @@ $base = BASEURL;
     <div class="row sidebar-offset navbar-offset ">
         <div class="col-12 col-medium-12 width-90">
             <div class="row ">
-                <div class="col-12 col-medium-8 fill-container left"
-                    onclick=" location.href='<?= $base ?>/advertisement'">
+                <div class="col-10 col-small-9 fill-container left" onclick=" location.href='<?= $base ?>/advertisement'">
                     <h1 class="header-1 black-hover cursor-pointer">
 
                         <i data-feather="chevron-left" class="feather-large vertical-align-middle"></i>
@@ -17,11 +16,11 @@ $base = BASEURL;
                     </h1>
                 </div>
 
-                <div class="col-12 col-medium-4 fill-container right ">
+                <div class="col-2 col-small-3 fill-container right ">
                     <button onclick="postAd()" class="bg-blue white border-rounded header-nb padding-3 right"
                         value="Save Changes">
-                        <i data-feather="save" class=" vertical-align-bottom padding-right-2"></i>
-                        <span>Save Changes</span></button>
+                        <i data-feather="save" class=" vertical-align-bottom "></i>
+                        <span class="display-small-inline-block padding-left-2 display-none">Save</span></button>
                 </div>
             </div>
 
@@ -59,7 +58,7 @@ $base = BASEURL;
                     <div class="row">
                         <?php
                         if ($_SESSION['role'] == 'BoardingOwner') {
-                            echo "<input type='hidden' name='userId' id='userId' value='".$_SESSION['UserId']."'/>";
+                            echo "<input type='hidden' name='userId' id='userId' value='" . $_SESSION['UserId'] . "'/>";
                         } else {
 
                             echo "
@@ -168,7 +167,7 @@ $base = BASEURL;
             ";
         }
         ?>
- 
+
 
         let url = "<?php echo BASEURL ?>/userManagement/boardingUserRest/" + userType + "/" + userId;
         fetch(url)
@@ -201,7 +200,7 @@ $base = BASEURL;
         let url = "<?php echo BASEURL ?>/listing/placeRest/" + place;
         fetch(url)
             .then((response) => response.json())
-            .then((json) => { 
+            .then((json) => {
                 document.getElementById('city-preview').innerHTML = json.CityName;
                 document.getElementById('address-preview').innerHTML = json.Street + ", " + json.CityName;
                 document.getElementById('price-preview').innerHTML = "Rs. " + json.Price;
@@ -225,7 +224,7 @@ $base = BASEURL;
         let url2 = "<?php echo $base; ?>/listing/imageRest/" + place;
         fetch(url2)
             .then((response) => response.json())
-            .then((json) => { 
+            .then((json) => {
                 //check if json array is empty
                 if (json.length != 0) {
                     document.getElementById('image-preview').src = "<?php echo $base; ?>/" + json[0].Image;
@@ -272,7 +271,7 @@ $base = BASEURL;
             "place": place,
             "caption": caption
         };
- 
+
 
 
         fetch("<?php echo BASEURL ?>/advertisement/postUpdate", {

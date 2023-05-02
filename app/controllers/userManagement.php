@@ -87,108 +87,110 @@ class userManagement extends Controller
         $json = array();
         if ($user == 'admin') {
             $result = $this->model('viewModel')->getUser("admin", $id);
-            while ($row = $result->fetch_assoc()) {
-                $array['UserId'] = $row['UserId'];
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-                $array['Username'] = $row['Username'];
-                $array['Email'] = $row['Email'];
-                $array['ContactNumber'] = $row['ContactNumber'];
-                array_push($json, $array);
-            }
+            // while ($row = $result->fetch_assoc()) {
+            //     $array['UserId'] = $row['UserId'];
+            //     $array['FirstName'] = $row['FirstName'];
+            //     $array['LastName'] = $row['LastName'];
+            //     $array['Username'] = $row['Username'];
+            //     $array['Email'] = $row['Email'];
+            //     $array['ContactNumber'] = $row['ContactNumber'];
+            //     array_push($json, $array);
+            // } 
         } else if ($user == 'student') {
             $result = $this->model('viewModel')->getUser("student", $id);
-            while ($row = $result->fetch_assoc()) {
-                $array['UserId'] = $row['UserId'];
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-                $array['Username'] = $row['Username'];
-                $array['NICScanLink'] = $row['NICScanLink'];
-                $array['UniversityIDCopyLink'] = $row['UniversityIDCopyLink'];
-                $array['UniversityAdmissionLetterCopyLink'] = $row['UniversityAdmissionLetterCopyLink'];
-                $array['Email'] = $row['Email'];
-                $array['Gender'] = $row['Gender'];
-                $array['VerifiedStatus'] = $row['VerifiedStatus'];
-                $array['StudentUniversity'] = $row['StudentUniversity'];
-                $array['UniversityIDNo'] = $row['UniversityIDNo'];
-                $array['DateOfBirth'] = $row['DateOfBirth'];
-                $array['NIC'] = $row['NIC'];
-                $array['ContactNumber'] = $row['ContactNumber'];
-                $array['Address'] = $row['Address'];
-                array_push($json, $array);
-            }
+            // while ($row = $result->fetch_assoc()) {
+            //     $array['UserId'] = $row['UserId'];
+            //     $array['FirstName'] = $row['FirstName'];
+            //     $array['LastName'] = $row['LastName'];
+            //     $array['Username'] = $row['Username'];
+            //     $array['NICScanLink'] = $row['NICScanLink'];
+            //     $array['UniversityIDCopyLink'] = $row['UniversityIDCopyLink'];
+            //     $array['UniversityAdmissionLetterCopyLink'] = $row['UniversityAdmissionLetterCopyLink'];
+            //     $array['Email'] = $row['Email'];
+            //     $array['Gender'] = $row['Gender'];
+            //     $array['VerifiedStatus'] = $row['VerifiedStatus'];
+            //     $array['StudentUniversity'] = $row['StudentUniversity'];
+            //     $array['UniversityIDNo'] = $row['UniversityIDNo'];
+            //     $array['DateOfBirth'] = $row['DateOfBirth'];
+            //     $array['NIC'] = $row['NIC'];
+            //     $array['ContactNumber'] = $row['ContactNumber'];
+            //     $array['Address'] = $row['Address'];
+            //     array_push($json, $array);
+            // } 
         } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
             $result = $this->model('viewModel')->getUser("boardingowner", $id);
-            while ($row = $result->fetch_assoc()) {
-                $array['UserId'] = $row['UserId'];
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-                $array['Username'] = $row['Username'];
-                $array['NICScanLink'] = $row['NICScanLink'];
-                $array['Email'] = $row['Email'];
-                $array['Gender'] = $row['Gender'];
-                $array['VerifiedStatus'] = $row['VerifiedStatus'];
-                $array['WorkPlace'] = $row['WorkPlace'];
-                $array['Occupation'] = $row['Occupation'];
-                $array['DateOfBirth'] = $row['DateOfBirth'];
-                $array['NIC'] = $row['NIC'];
-                $array['ContactNumber'] = $row['ContactNumber'];
-                $array['Address'] = $row['Address'];
-                array_push($json, $array);
-            }
+            // while ($row = $result->fetch_assoc()) {
+            //     $array['UserId'] = $row['UserId'];
+            //     $array['FirstName'] = $row['FirstName'];
+            //     $array['LastName'] = $row['LastName'];
+            //     $array['Username'] = $row['Username'];
+            //     $array['NICScanLink'] = $row['NICScanLink'];
+            //     $array['Email'] = $row['Email'];
+            //     $array['Gender'] = $row['Gender'];
+            //     $array['VerifiedStatus'] = $row['VerifiedStatus'];
+            //     $array['WorkPlace'] = $row['WorkPlace'];
+            //     $array['Occupation'] = $row['Occupation'];
+            //     $array['DateOfBirth'] = $row['DateOfBirth'];
+            //     $array['NIC'] = $row['NIC'];
+            //     $array['ContactNumber'] = $row['ContactNumber'];
+            //     $array['Address'] = $row['Address'];
+            //     array_push($json, $array);
+            // } 
         } else if ($user == 'professional') {
             $result = $this->model('viewModel')->getUser("professional", $id);
-            while ($row = $result->fetch_assoc()) {
-                $array['UserId'] = $row['UserId'];
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-                $array['Username'] = $row['Username'];
-                $array['Email'] = $row['Email'];
-                $array['NICScanLink'] = $row['NICScanLink'];
-                $array['Gender'] = $row['Gender'];
-                $array['VerifiedStatus'] = $row['VerifiedStatus'];
-                $array['WorkPlace'] = $row['WorkPlace'];
-                $array['Occupation'] = $row['Occupation'];
-                $array['DateOfBirth'] = $row['DateOfBirth'];
-                $array['NIC'] = $row['NIC'];
-                $array['ContactNumber'] = $row['ContactNumber'];
-                $array['Address'] = $row['Address'];
-                array_push($json, $array);
-            }
+            // while ($row = $result->fetch_assoc()) {
+            //     $array['UserId'] = $row['UserId'];
+            //     $array['FirstName'] = $row['FirstName'];
+            //     $array['LastName'] = $row['LastName'];
+            //     $array['Username'] = $row['Username'];
+            //     $array['Email'] = $row['Email'];
+            //     $array['NICScanLink'] = $row['NICScanLink'];
+            //     $array['Gender'] = $row['Gender'];
+            //     $array['VerifiedStatus'] = $row['VerifiedStatus'];
+            //     $array['WorkPlace'] = $row['WorkPlace'];
+            //     $array['Occupation'] = $row['Occupation'];
+            //     $array['DateOfBirth'] = $row['DateOfBirth'];
+            //     $array['NIC'] = $row['NIC'];
+            //     $array['ContactNumber'] = $row['ContactNumber'];
+            //     $array['Address'] = $row['Address'];
+            //     array_push($json, $array);
+            // } 
         } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
             $result = $this->model('viewModel')->getUser("verificationTeam", $id);
-            while ($row = $result->fetch_assoc()) {
-                $array['UserId'] = $row['UserId'];
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-                $array['Username'] = $row['Username'];
-                $array['Email'] = $row['Email'];
-                $array['Gender'] = $row['Gender'];
-                $array['DateOfBirth'] = $row['DateOfBirth'];
-                $array['NIC'] = $row['NIC'];
-                $array['ContactNumber'] = $row['ContactNumber'];
-                $array['Address'] = $row['Address'];
-                array_push($json, $array);
-            }
+            // while ($row = $result->fetch_assoc()) {
+            //     $array['UserId'] = $row['UserId'];
+            //     $array['FirstName'] = $row['FirstName'];
+            //     $array['LastName'] = $row['LastName'];
+            //     $array['Username'] = $row['Username'];
+            //     $array['Email'] = $row['Email'];
+            //     $array['Gender'] = $row['Gender'];
+            //     $array['DateOfBirth'] = $row['DateOfBirth'];
+            //     $array['NIC'] = $row['NIC'];
+            //     $array['ContactNumber'] = $row['ContactNumber'];
+            //     $array['Address'] = $row['Address'];
+            //     array_push($json, $array);
+            // } 
         } else if ($user == 'manager') {
             $result = $this->model('viewModel')->getUser("manager", $id);
-            while ($row = $result->fetch_assoc()) {
-                $array['UserId'] = $row['UserId'];
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-                $array['Username'] = $row['Username'];
-                $array['Email'] = $row['Email'];
-                $array['Gender'] = $row['Gender'];
-                $array['DateOfBirth'] = $row['DateOfBirth'];
-                $array['NIC'] = $row['NIC'];
-                $array['ContactNumber'] = $row['ContactNumber'];
-                $array['Address'] = $row['Address'];
-                array_push($json, $array);
-            }
-        }
-        $json_response = json_encode($json);
-        echo $json_response;
-
+            // while ($row = $result->fetch_assoc()) {
+            //     $array['UserId'] = $row['UserId'];
+            //     $array['FirstName'] = $row['FirstName'];
+            //     $array['LastName'] = $row['LastName'];
+            //     $array['Username'] = $row['Username'];
+            //     $array['Email'] = $row['Email'];
+            //     $array['Gender'] = $row['Gender'];
+            //     $array['DateOfBirth'] = $row['DateOfBirth'];
+            //     $array['NIC'] = $row['NIC'];
+            //     $array['ContactNumber'] = $row['ContactNumber'];
+            //     $array['Address'] = $row['Address'];
+            //     array_push($json, $array);
+            // }
+        } 
+        echo json_encode(
+            $result->fetch_all(MYSQLI_ASSOC)
+        );
+        // $json_response = json_encode($json);
+        // echo $json_response;
     }
 
 
@@ -604,5 +606,23 @@ echo $StudentId;
             header("Location: " . BASEURL . "/userManagement/student");
         }
     }
+
+    public function getWorkUni($usertype, $id = null)
+    {
+        $res = $this->model('viewModel')->getWorkUni($usertype, $id);
+        $data = array();
+        while ($row = $res->fetch_assoc()) {
+            array_push($data,$row['Place']);
+        }
+        echo json_encode($data);
+
+    }
+
+    public function test(){
+        $data = restAPI('userManagement/getWorkUni/Student/77');
+        echo $data[0];
+    }
+
+
 
 }

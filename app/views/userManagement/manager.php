@@ -106,8 +106,7 @@ $base = BASEURL . '/userManagement';
                             <?php
                             if (isset($useridArray)) {
                                 if ($_SESSION['role'] == 'Admin') {
-
-                                    foreach ($useridArray as $userid) {
+                                    foreach ($useridArray as $userid) { 
                                         echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>";
                                         echo "<div class='col-6 fill-container '>";
                                         echo "<a href='" . $base . "/userEdit/manager/$userid'><div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
@@ -123,12 +122,14 @@ $base = BASEURL . '/userManagement';
                                         echo "</div>";
                                         echo "</div>";
                                     }
-                                }else{
-                                    foreach ($useridArray as $userid) {
+                                }
+                                else{
+                                    foreach ($useridArray as $row) {
+
                                         echo "<div class='row less-gap padding-1 padding-horizontal-3 list-item-action'>
                                                 <div class='col-12 fill-container '>
                                                     <div class=' cursor-default fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>
-                                                        <i data-feather='edit' class='feather-body display-inline-block display-small-none'></i> 
+                                                        <i data-feather='alert-circle' class='feather-body display-inline-block display-small-none'></i> 
                                                         <span class='display-small-block  display-none'>No Actions</span>
                                                     </div>
                                                 </div>

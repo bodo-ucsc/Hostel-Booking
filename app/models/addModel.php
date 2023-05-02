@@ -56,7 +56,7 @@ class addModel extends Model
             'BoarderId' => $BoarderId,
             'VerifiedStatus' => $VerifiedStatus,
             'NICScanLink' => $NICScanLink,
-            'DateOfBirth' => $DateOfBirth, 
+            'DateOfBirth' => $DateOfBirth,
             'Address' => $Address
         ]);
         if ($result) {
@@ -103,7 +103,7 @@ class addModel extends Model
             'BoardingOwnerId' => $BoardingOwnerId,
             'VerifiedStatus' => $VerifiedStatus,
             'NICScanLink' => $NICScanLink,
-            'DateOfBirth' => $DateOfBirth, 
+            'DateOfBirth' => $DateOfBirth,
             'Address' => $Address,
             'WorkPlace' => $WorkPlace,
             'Occupation' => $Occupation
@@ -125,31 +125,61 @@ class addModel extends Model
         }
     }
 
-    public function addABoarding($ownerid, $title, $verifiedStatus, $summaryL1, $summaryL2, $summaryL3, $description, $price, $priceType, $houseNo, $street, $cityName, $googleMaps, $propertyType, $noofMembers, $noofRooms, $noofWashRooms, $gender, $boarderType, $sqft, $parking)
-    {
-        $result = $this->insert('boardingPlace', [
-            'OwnerId' => $ownerid,
-            'Title' => $title,
-            'VerifiedStatus' => $verifiedStatus,
-            'SummaryLine1' => $summaryL1,
-            'SummaryLine2' => $summaryL2,
-            'SummaryLine3' => $summaryL3,
-            'Description' => $description,
-            'Price' => $price,
-            'PriceType' => $priceType,
-            'HouseNo' => $houseNo,
-            'Street' => $street,
-            'CityName' => $cityName,
-            'GoogleMap' => $googleMaps,
-            'PropertyType' => $propertyType,
-            'NoOfMembers' => $noofMembers,
-            'NoOfRooms' => $noofRooms,
-            'NoOfWashRooms' => $noofWashRooms,
-            'Gender' => $gender,
-            'BoarderType' => $boarderType,
-            'SquareFeet' => $sqft,
-            'Parking' => $parking
+    public function addPlace(
+        $OwnerId,
+        $Title,
+        $UtilityBillReceiptLink,
+        $SummaryLine1,
+        $SummaryLine2,
+        $SummaryLine3,
+        $Description,
+        $Price,
+        $PriceType,
+        $HouseNo,
+        $Street,
+        $CityName,
+        $PropertyType,
+        $NoOfMembers,
+        $NoOfRooms,
+        $NoOfWashRooms,
+        $Gender,
+        $BoarderType,
+        $SquareFeet,
+        $Parking
+    ) {
+        $result = $this->insert('BoardingPlace', [
+            'OwnerId' => "$OwnerId",
+            'Title' => "$Title",
+            'UtilityBillReceiptLink' => "$UtilityBillReceiptLink",
+            'SummaryLine1' => "$SummaryLine1",
+            'SummaryLine2' => "$SummaryLine2",
+            'SummaryLine3' => "$SummaryLine3",
+            'Description' => "$Description",
+            'Price' => "$Price",
+            'PriceType' => "$PriceType",
+            'HouseNo' => "$HouseNo",
+            'Street' => "$Street",
+            'CityName' => "$CityName",
+            'PropertyType' => "$PropertyType",
+            'NoOfMembers' => "$NoOfMembers",
+            'NoOfRooms' => "$NoOfRooms",
+            'NoOfWashRooms' => "$NoOfWashRooms",
+            'Gender' => "$Gender",
+            'BoarderType' => "$BoarderType",
+            'SquareFeet' => "$SquareFeet",
+            'Parking' => "$Parking"
         ]);
+  
+        if ($result) {
+            return $this->lastInsertId();
+        } else {
+            return 'fail';
+        }
+    }
+
+    public function addImage($placeId, $imageLink)
+    {
+        $result = $this->insert('BoardingPlacePicture', ['BoardingPlace' => "$placeId", 'PictureLink' => "$imageLink"]);
         if ($result) {
             return 'success';
         } else {
@@ -189,9 +219,9 @@ class addModel extends Model
             return 'fail';
         }
     }
-    public function addSupport($type, $userId, $support, $description, $requestTo = 7)
+    public function addSupport($type, $userId, $support, $description, $image, $requestTo = 'Admin')
     {
-        $result = $this->insert('Support', ['SupportType' => $type, 'RequestBy' => $userId, 'SupportTitle' => $support, 'SupportMessage' => $description, 'RequestTo' => $requestTo]);
+        $result = $this->insert('Support', ['SupportType' => $type, 'RequestBy' => $userId, 'SupportTitle' => $support, 'SupportMessage' => $description, 'SupportImageLink' => $image, 'RequestTo' => $requestTo]);
         if ($result) {
             return 'success';
         } else {

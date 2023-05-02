@@ -32,6 +32,10 @@ class SignIn extends Controller
             $password = $_POST['password'];
 
             $result = $this->model('loginModel')->login($username, $password);
+            if ($result == null) {
+                header("Location: " . BASEURL . "/signin/error");
+                return;
+            }
 
             $row = $result->fetch_assoc();
             if($row['UserType'] == 'Student' || $row['UserType'] == 'Professional' || $row['UserType'] == 'BoardingOwner'){
@@ -54,6 +58,18 @@ class SignIn extends Controller
                 $_SESSION['lastname'] = $row['LastName'];
                 $_SESSION['UserId'] = $row['UserId'];
                 $_SESSION['role'] = $row['UserType'];
+
+                if($row['UserType'] == 'Student' || $row['UserType'] == 'Professional'){
+                    $data = restAPI('userManagement/getWorkUni/' . $row['UserType'] . '/' . $row['UserId']);
+                    if ($data != null) {
+                        $_SESSION['workuni'] = $data[0];
+                    }
+                    $data2= restAPI('property/boardingMemberStatusRest/' . $row['UserId']. '/boarded');
+                    if($data2 != null){ 
+                        $_SESSION['Place'] = $data2[0]->Place;
+                    }
+                }
+
                 if (isset($row['ProfilePicture']) && $row['ProfilePicture'] != null) {
                     $_SESSION['profilepic'] = $row['ProfilePicture'];
                 }

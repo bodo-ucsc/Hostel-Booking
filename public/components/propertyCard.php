@@ -70,12 +70,12 @@ class PropertyCard
         } else {
             $Parking = "Not Available";
         }
-        if ($Gender == "m") {
-            $Gender = "Male";
-        } else if ($Gender == "f") {
-            $Gender = "Female";
+        if ($Gender == "M") {
+            $Gender = "Male Only";
+        } else if ($Gender == "F") {
+            $Gender = "Female Only";
         } else {
-            $Gender = "Any";
+            $Gender = "Any Gender";
         }
         if (!isset($image)) { 
             $image = "images/defboarding.png";
@@ -87,7 +87,7 @@ class PropertyCard
                 <div class='row'>
 
                 <div class='col-12 $feed5 fill-container property-image fill-vertical padding-5 '>
-                    <img id='image-$PostId'  src='$base/$image' class='fill-container fill-vertical border-rounded-more' alt=''>
+                    <img id='image-$PostId'  src='$base/$image' class='fill-container fill-vertical border-rounded-more img-cover' alt=''>
                     <div class='flex  margin-top-n4'>
                         <div class='bg-light-grey border-rounded-more shadow '>
                             <button id='vacancy-$PostId' class='border-circle shadow bg-accent padding-horizontal-3 padding-vertical-2 white display-inline-block'>$vacancy</button> 

@@ -1,5 +1,3 @@
-
-
 <?php
 
 class Edit extends Controller
@@ -16,19 +14,33 @@ class Edit extends Controller
         $table = $_POST['Table'];
         $id = $_POST['Id'];
         $idvalue = $_POST['IdValue'];
+
+        if (isset($_POST['Id2']) && isset($_POST['IdValue2'])) {
+            $append = " AND " . $_POST['Id2'] . " = '" . $_POST['IdValue2'] . "'";
+        } else {
+            $append = "";
+        }
+
         $key = $_POST['Key'];
         $value = $_POST['Value'];
-        if($key == 'Password'){
+        if ($key == 'Password') {
             $value = password_hash($value, PASSWORD_DEFAULT);
-        } 
+        }
+
+        $data = $this->model('editModel')->modifyData($table, [$key => $value], "$id = '$idvalue' $append");
 
 
-        $data = $this->model('editModel')->modifyData($table, [$key => $value], "$id = '$idvalue'");
+
         if ($data == 'success') {
             $json['Status'] = "Success";
         } else {
             $json['Status'] = "Failed";
         }
+
+        if ($table == 'BoardingPlaceTenant' && $key == 'BoarderStatus' && $id == 'TenantId' && $value == 'boarded' && $data == 'success') {
+            $data = $this->model('deleteModel')->deleteData($table, $key, "requested", $id, $idvalue);
+        }
+
         $json_response = json_encode($json);
         echo $json_response;
     }

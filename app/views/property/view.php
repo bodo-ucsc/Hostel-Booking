@@ -35,14 +35,14 @@ $vacancy = $NoOfMembers - $Boarded;
 if ($Parking == 'y') {
     $Parking = "Available";
 } else {
-    $Parking = "Not Available";
+    $Parking = "N/A";
 }
-if ($Gender == "m") {
-    $Gender = "Male";
-} else if ($Gender == "f") {
-    $Gender = "Female";
+if ($Gender == "M") {
+    $Gender = "Male Only";
+} else if ($Gender == "F") {
+    $Gender = "Female Only";
 } else {
-    $Gender = "Any";
+    $Gender = "Any Gender";
 }
 
 $owner = restAPI("userManagement/boardingUserRest/boardingowner/$OwnerId");
@@ -143,17 +143,36 @@ if (isset($owner[0]->FirstName)) {
             <?php
 
 
+
             $imageResult = restAPI("listing/imageRest/$placeId");
             if (isset($imageResult[0])) {
                 $image1 = $imageResult[0]->Image;
+
             } else {
                 $image1 = "images/defboarding.png";
             }
             // foreach ($images as $key => $value) {
             //         $image = $value->Image;
             // }
-            echo "<img src='$base/$image1' class='shadow border-rounded-more fill-container'>";
+            echo "<img id='MainPic' src='$base/$image1' class='shadow border-rounded-more fill-container'>";
             ?>
+            <div class="display-medium-none display-block">
+                <div class='row less-gap padding-4 shadow margin-vertical-4 border-rounded-more '>
+                    <?php
+                    if (isset($imageResult)) {
+                        foreach ($imageResult as $image) {
+                            $pic = $image->Image;
+                            echo "
+                                <div class='col-3 h-100px'>
+                                    <img onclick=changeImg('$base/$pic') src='$base/$pic' class='shadow border-rounded-more fill-container cursor-pointer'>
+                                </div>
+                                ";
+                        }
+
+                    }
+                    ?>
+                </div>
+            </div>
             <div
                 class='row less-gap margin-vertical-4 shadow padding-vertical-4 border-rounded-more display-block display-medium-none'>
                 <div title='No. of Members' class='col-3 center fill-container small grey'>
@@ -188,7 +207,7 @@ if (isset($owner[0]->FirstName)) {
                     <span class='display-block center'>
                         <i data-feather='user' class='accent'></i></span>
                     <span id='gender-$PostId' class=' display-block center'>
-                        Gender
+                         
                         <?= $Gender ?>
                     </span>
                 </div>
@@ -213,6 +232,77 @@ if (isset($owner[0]->FirstName)) {
                         Parking
                         <?= $Parking ?>
                     </span>
+                </div>
+            </div>
+            <div
+                class='row less-gap padding-4 shadow margin-vertical-4 border-rounded-more display-block display-medium-none'>
+                <div class="col-6 fill-container">
+                    <span class='header-2'>Vacancies</span>
+                </div>
+                <div class="col-6 right fill-container">
+                    <?php
+                    if ($vacancy == 0) {
+                        echo "
+                                <span class='red'>No Vacancies</span>
+                                ";
+                    } else if ($vacancy == 1) {
+                        echo "
+                                <span class='red'>1 Vacancy</span>
+                                ";
+                    } else {
+                        echo "
+                                <span class='accent'>$vacancy Vacancies</span>
+                                ";
+                    } 
+                    if (isset($_SESSION['Place'])) {
+                        $appendclass = "bg-grey";
+                        $append = "disabled title='You are already boarded'";
+                    } else {
+                        $datax = restAPI('property/boardingMemberStatusRest/' . $_SESSION['UserId'] . '/requested/' . $placeId);
+                        if (!empty($datax)) {
+                            $appendclass = "bg-grey";
+                            $append = "disabled title='You have already requested for boarding'";
+                        } else {
+                            $appendclass = "bg-black-hover";
+                            $append = "";
+                        }
+                    }
+                    ?>
+                </div>
+                <div class="col-6 fill-container">
+                    <button class='bg-white-hover border-1 border-rounded-more fill-container'
+                        onclick="window.location.href='tel:<?= $OwnerContact ?>'">
+                        <i data-feather="phone-call" class=" vertical-align-middle"></i>
+                        <span class="vertical-align-middle padding-2">Book Appointment</span>
+                    </button>
+                </div>
+                <div class="col-6 right fill-container">
+                    <?php
+
+
+                    if ($_SESSION['role'] == 'Student' || $_SESSION['role'] == 'Professional') {
+                        if (isset($_SESSION['Place'])) {
+                            $appendclass = "bg-grey";
+                            $append = "disabled title='You are already boarded'";
+                        } else {
+                            $datax = restAPI('property/boardingMemberStatusRest/' . $_SESSION['UserId'] . '/requested/' . $placeId);
+                            if (!empty($datax)) {
+                                $appendclass = "bg-grey";
+                                $append = "disabled title='You have already requested for boarding'";
+                            } else {
+                                $appendclass = "bg-black-hover";
+                                $append = "onclick='requestBoarding()'";
+                            }
+                        }
+                    } else {
+                        $appendclass = "bg-grey";
+                        $append = "disabled title='You have to login as a student or professional to request for boarding'";
+                    }
+                    ?>
+                    <button class=' white border-1 border-rounded-more fill-container <?= $appendclass ?>' <?= $append ?>>
+                        <i data-feather="shield" class=" vertical-align-middle"></i>
+                        <span class="vertical-align-middle padding-2">Request Boarding</span>
+                    </button>
                 </div>
             </div>
             <div class="row margin-vertical-3">
@@ -265,6 +355,18 @@ if (isset($owner[0]->FirstName)) {
                     <p class=''>
                         <?= $Description ?>
                     </p>
+                </div>
+            </div>
+            <div class="row flex">
+                <div class='col-12 fill-container'>
+                    <?php
+                    $addressMap = "$HouseNo, $Street, $CityName";
+                    $workuni = NULL;
+                    if (isset($_SESSION['workuni'])) {
+                        $workuni = $_SESSION['workuni'];
+                    }
+                    // $mapcard = new ShowMap($addressMap, $workuni);
+                    ?>
                 </div>
             </div>
         </div>
@@ -383,8 +485,7 @@ if (isset($owner[0]->FirstName)) {
                         <span class='display-block center'>
                             <i data-feather='user' class='accent'></i></span>
                         <span id='gender-$PostId' class=' display-block center'>
-                            Gender
-                            <?= $Gender ?>
+                            <?= $Gender ?> 
                         </span>
                     </div>
                     <div title='Type of Tenant' class='col-3 center fill-container small grey'>
@@ -412,42 +513,67 @@ if (isset($owner[0]->FirstName)) {
                 </div>
             </div>
 
-            <div class='row less-gap padding-4 shadow margin-vertical-4 border-rounded-more'>
-                <div class="col-6 fill-container">
-                    <span class='header-2'>Vacancies</span>
-                </div>
-                <div class="col-6 right fill-container">
+            <div class="display-none display-medium-block">
+                <div class='row less-gap padding-4 shadow margin-vertical-4 border-rounded-more '>
+                    <span class='col-12 fill-container left header-2'>Images</span>
                     <?php
-                    if ($vacancy == 0) {
-                        echo "
-                                <span class='red'>No Vacancies</span>
+                    if (isset($imageResult)) {
+                        foreach ($imageResult as $image) {
+                            $pic = $image->Image;
+                            echo "
+                                <div class='col-3 h-100px'>
+                                    <img onclick=changeImg('$base/$pic') src='$base/$pic' class='shadow border-rounded-more fill-container cursor-pointer'>
+                                </div>
                                 ";
-                    } else if ($vacancy == 1) {
-                        echo "
-                                <span class='red'>1 Vacancy</span>
-                                ";
-                    } else {
-                        echo "
-                                <span class='accent'>$vacancy Vacancies</span>
-                                ";
+                        }
+
                     }
                     ?>
                 </div>
-                <div class="col-6 fill-container">
-                    <button class='bg-white-hover border-1 border-rounded-more fill-container'
-                        onclick="window.location.href='tel:<?= $OwnerContact ?>'">
-                        <i data-feather="phone-call" class=" vertical-align-middle"></i>
-                        <span class="vertical-align-middle padding-2">Book Appointment</span>
-                    </button>
-                </div>
-                <div class="col-6 right fill-container">
-                    <button class='bg-black-hover white border-1 border-rounded-more fill-container'
-                        onclick="requestBoarding()">
-                        <i data-feather="shield" class=" vertical-align-middle"></i>
-                        <span class="vertical-align-middle padding-2">Request Boarding</span>
-                    </button>
+            </div>
+
+            <div class="display-none display-medium-block">
+
+                <div class='row less-gap padding-4 shadow margin-vertical-4 border-rounded-more '>
+                    <div class="col-6 fill-container">
+                        <span class='header-2'>Vacancies</span>
+                    </div>
+                    <div class="col-6 right fill-container">
+                        <?php
+                        if ($vacancy == 0) {
+                            echo "
+                                <span class='red'>No Vacancies</span>
+                                ";
+                        } else if ($vacancy == 1) {
+                            echo "
+                                <span class='red'>1 Vacancy</span>
+                                ";
+                        } else {
+                            echo "
+                                <span class='accent'>$vacancy Vacancies</span>
+                                ";
+                        }
+                        ?>
+                    </div>
+                    
+                    <div class="col-6 fill-container">
+                        <button class='bg-white border-1 border-rounded-more fill-container'
+                            onclick="window.location.href='tel:<?= $OwnerContact ?>'" <?= $append ?>>
+                            <i data-feather="phone-call" class=" vertical-align-middle"></i>
+                            <span class="vertical-align-middle padding-2">Book Appointment</span>
+                        </button>
+                    </div>
+                    <div class="col-6 right fill-container">
+
+                        <button class=' white border-1 border-rounded-more fill-container  <?= $appendclass ?>'
+                            onclick='requestBoarding()' <?= $append ?>>
+                            <i data-feather="shield" class=" vertical-align-middle"></i>
+                            <span class="vertical-align-middle padding-2">Request Boarding</span>
+                        </button>
+                    </div>
                 </div>
             </div>
+
 
         </div>
 </main>
@@ -462,6 +588,8 @@ if (isset($owner[0]->FirstName)) {
                     icon: 'success',
                     title: 'Join Request Sent',
                     text: 'You will be notified when your request is accepted'
+                }).then((result) => {
+                    location.reload();
                 })
             }
             else {
@@ -473,6 +601,10 @@ if (isset($owner[0]->FirstName)) {
             }
 
         });
+    }
+
+    function changeImg(img) {
+        document.getElementById('MainPic').src = img;
     }
 </script>
 

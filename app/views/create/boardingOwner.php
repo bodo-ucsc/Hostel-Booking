@@ -1,6 +1,6 @@
 <?php
 $header = new HTMLHeader("Add User | Boarding Owner");
-$nav = new Navigation("home");
+$nav = new Navigation("management");
 $sidebar = new SidebarNav("user", "boardingOwner");
 $base = BASEURL;
 

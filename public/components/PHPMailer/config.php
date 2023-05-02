@@ -10,7 +10,7 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
-function sendEmail($email, $subject, $body)
+function sendEmail($email, $subject, $body, $emailFrom = 'jvatsbodo@gmail.com')
 {
     $mail = new PHPMailer(true);
     //Create an instance; passing `true` enables exceptions
@@ -27,7 +27,7 @@ function sendEmail($email, $subject, $body)
         $mail->Port = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         //Recipients
-        $mail->setFrom('jvatsbodo@gmail.com', 'BODO');
+        $mail->setFrom("$emailFrom", 'BODO');
         $mail->addAddress($email); //Add a recipient
 
         //Content
@@ -40,5 +40,6 @@ function sendEmail($email, $subject, $body)
         //echo 'Message has been sent';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        return 'error';
     }
 }

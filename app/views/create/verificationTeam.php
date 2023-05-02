@@ -1,6 +1,6 @@
 <?php
 $header = new HTMLHeader("Register | Verification Team");
-$nav = new Navigation("home");
+$nav = new Navigation("management");
 $sidebar = new SidebarNav("user", "verification");
 $base = BASEURL;
 

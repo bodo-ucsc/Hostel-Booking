@@ -39,11 +39,11 @@ class ViewCard
         if (isset($crud)) {
             //edit and delete buttons
             echo " 
-    <div class='bg-white border-rounded-more display-inline-block margin-top-5'> 
+    <div class='bg-white border-rounded-more display-inline-block margin-top-5 hover'> 
 
         <div class='row no-gap vertical-align-middle zindex'>
             <div class='col-8 margin-n4'></div>
-            <div class='col-4 margin-n4 right'>
+            <div class='col-4 margin-n4 right  hover-child'>
                 <div class='row less-gap '>";
             if ($_SESSION['role'] == 'Manager' || ($_SESSION['role'] == 'BoardingOwner' && $_SESSION['UserId'] == $value->UserId)) {
                 echo "<div class='col-6'>

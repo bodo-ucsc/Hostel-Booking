@@ -186,10 +186,10 @@ class SideBarNav
             }
         }
 
-        if ($_SESSION['role'] == 'Admin') {
+        if ($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'VerificationTeam') {
             if ($active == "support") {
                 echo "              
-            <a href='$base/admin/support/issue' class='cursor-pointer' >
+            <a href='$base/support/issue' class='cursor-pointer' >
             <div class='row padding-top-3 padding-bottom-1 padding-horizontal-4 '> 
 
             <div class='col-12 flex left fill-container  padding-horizontal-3'>
@@ -202,7 +202,7 @@ class SideBarNav
         ";
             } else {
                 echo "              
-            <a href='$base/admin/support/issue' class='cursor-pointer' >
+            <a href='$base/support/issue' class='cursor-pointer' >
             <div class='row padding-top-3 padding-bottom-1  padding-horizontal-4'> 
             <div class='col-12 flex left fill-container  padding-horizontal-3'>
                 <i data-feather='headphones' class='grey-hover'></i>
@@ -214,14 +214,14 @@ class SideBarNav
             }
             if ($active == 'support' && $type == 'Issue') {
                 echo "   
-            <a href='$base/admin/support/issue' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base/support/issue' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2  fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Issue</span> 
             </div></a> 
                 ";
             } else {
                 echo "    
-            <a href='$base/admin/support/issue' class=''><div class='row padding-vertical-1'>   
+            <a href='$base/support/issue' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey-hover '>Issue</span> 
             </div></a> 
@@ -229,14 +229,14 @@ class SideBarNav
             }
             if ($active == 'support' && $type == 'Suggestion') {
                 echo "   
-            <a href='$base/admin/support/suggestion' class=''><div class='row padding-vertical-1 fill-container'>   
+            <a href='$base/support/suggestion' class=''><div class='row padding-vertical-1 fill-container'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 border-rounded padding-vertical-2 bg-blue white '>Suggestion</span> 
             </div></a> 
                 ";
             } else {
                 echo "    
-            <a href='$base/admin/support/suggestion' class=''><div class='row padding-vertical-1'>   
+            <a href='$base/support/suggestion' class=''><div class='row padding-vertical-1'>   
                 <div class='col-1'></div>
                 <span class='col-10 margin-left-2 fill-container padding-left-4 grey-hover '>Suggestion</span> 
             </div></a> 
@@ -398,12 +398,13 @@ class SideBarNav
             }
         }
 
-        if ($_SESSION['role'] == 'Admin') {
+        if ($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'VerificationTeam') {
+
 
             if ($active == 'support') {
                 echo "    
             <div class=' padding-bottom-1 padding-top-2 '> 
-                <button class=' bg-blue center fill-container  padding-horizontal-3' onclick='location.href=\"$base/admin/support/issue\"'> 
+                <button class=' bg-blue center fill-container  padding-horizontal-3' onclick='location.href=\"$base/support/issue\"'> 
                     <i data-feather='headphones' class='white'></i>
                 </button>   
             </div>   
@@ -411,7 +412,7 @@ class SideBarNav
             } else {
                 echo "    
             <div class=' padding-bottom-1 padding-top-2 '> 
-                <button class=' bg-white-hover center fill-container  padding-horizontal-3 grey-hover' onclick='location.href=\"$base/admin/support/issue\"'> 
+                <button class=' bg-white-hover center fill-container  padding-horizontal-3 grey-hover' onclick='location.href=\"$base/support/issue\"'> 
                     <i data-feather='headphones' class=''></i>
                 </button>   
             </div>   
