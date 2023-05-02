@@ -8,10 +8,17 @@ $basePage = BASEURL . '/boarding';
 
 ?>
 <main class=" full-width ">
+
+
+
+
+
     <?php
 
     echo "<div id='sidebar-open'
         class='display-none display-medium-block navbar-offset shadow border-rounded-more full-height position-fixed sidebar small left bg-white'>
+
+        
 
         <div class='row padding-bottom-2 padding-top-2 padding-horizontal-4 '>
             <div class='col-12 fill-container  padding-horizontal-3 '>
@@ -19,21 +26,25 @@ $basePage = BASEURL . '/boarding';
             </div>
         </div>";
 
-    
 
     if (isset($data['result'])) {
 
         $info['res'] = $data['result'];
         $rows = array();
-
+        // $postId = $data['postId'];
+    
         while ($row = $data['result']->fetch_assoc()) {
 
             $price = $row['Price'];
+            $price = number_format($price);
             $rows[] = $row;
+
 
             if ($row['BoarderStatus'] == 'boarded') {
                 $FirstName = $row['FirstName'];
                 $LastName = $row['LastName'];
+
+                $profilepic = $row['ProfilePicture'];
 
                 if ($row['UserType'] == 'Student') {
                     $borderType = $row['StudentUniversity'];
@@ -44,14 +55,26 @@ $basePage = BASEURL . '/boarding';
                 }
 
                 echo "<div class='row no-gap vertical-align-middle'>
-            <div class=' padding-2'>
-                <img class='dp1 '
-                    src='https://ui-avatars.com/api/?background=288684&amp;color=fff&amp;name=$FirstName+$LastName' alt='user'>
+            <div class=' padding-2'>";
+
+                if (isset($profilepic)) {
+                    echo "
+                <img class='dp border-1 border-blue border-circle' src='$base/$profilepic' alt='user'>";
+                } else {
+                    echo "
+                    <img class='dp border-1 border-blue border-circle'
+                    src='https://ui-avatars.com/api/?background=288684&amp;color=fff&amp;name=$FirstName+$LastName' alt='user'>";
+                }
+                echo "
+                
             </div>
             <div class='col-11 fill-container left margin-left-2'>
                 <div class='row no-gap padding-horizontal-3'>
                     
-                    <div class='col-5 vertical-align-middle fill-container bold'>$FirstName $LastName</div>
+                <div class=' col-7  fill-container'>
+                    <div class='col-12 bold'>$FirstName $LastName</div>
+                    <div class='col-12'>$borderType</div>
+                </div>
                     <div class='col-2 fill-container'></div>
                     <div class='col-3 fill-container border-rounded-more  padding-1 margin-left-5 vertical-align-middle'>
                     <i data-feather='phone-call' class='grey right'></i>
@@ -59,20 +82,11 @@ $basePage = BASEURL . '/boarding';
                     </div>
     
                     
-                    <div class='col-12 fill-container left'>
-                    $borderType
-                    </div>
                 </div>
                 </div>
           </div> ";
-
-
             }
-
-
-
         }
-
 
         echo "<br>";
         echo "<div class='row padding-bottom-2 padding-top-2 padding-horizontal-4'>
@@ -87,38 +101,44 @@ $basePage = BASEURL . '/boarding';
                 $FirstName = $row['FirstName'];
                 $LastName = $row['LastName'];
 
+                $profilepic = $row['ProfilePicture'];
                 if ($row['UserType'] == 'Student') {
                     $borderType = $row['StudentUniversity'];
-
                 } else if ($row['UserType'] == 'Professional') {
                     $borderType = $row['UserType'];
                 }
 
 
                 echo "<div class=' margin-left-2 row no-gap vertical-align-middle'>
-                    <div class=' padding-2'>
-                        <img class='dp1 '
-                            src='https://ui-avatars.com/api/?background=288684&amp;color=fff&amp;name=$FirstName+$LastName' alt='user'>
+                    <div class=' padding-2'>";
+
+                if (isset($profilepic)) {
+                    echo "
+                <img class='dp border-circle border-1 border-blue' src='$base/$profilepic' alt='user'>";
+                } else {
+                    echo "
+                    <img class='dp border-circle border-1 border-blue'
+                    src='https://ui-avatars.com/api/?background=288684&amp;color=fff&amp;name=$FirstName+$LastName' alt='user'>";
+                }
+                echo "
                     </div>
                     <div class='col-11 fill-container left margin-left-2'>
                         <div class=' row padding-horizontal-3 no-gap'>
                             
-                            <div class=' col-5 bold fill-container'>$FirstName $LastName</div>
+                            <div class=' col-7 fill-container'>
+                                <div class='col-12 bold'>$FirstName $LastName</div>
+                                <div class='col-12'>$borderType</div>
+                            </div>
                             <div class='col-2 fill-container'></div>
                             <div class=' col-3  fill-container
                              border-rounded-more  padding-1 margin-left-5'>
                             <i data-feather='phone-call' class='grey right'></i>
                                     
                             </div>
-            
-                            
-                            <div class=' col-12 fill-container left'>
-                            $borderType
-                            </div>
+             
                         </div>
                         </div>
                     </div> ";
-
             }
         }
 
@@ -128,10 +148,17 @@ $basePage = BASEURL . '/boarding';
             <span class=' fill-container margin-left-0 header-2'>Invite Friends</span>
         </div>
         </div>";
-
-
-
     }
+
+    echo "<div class='container margin-top-5'>
+    <button data-modal-target='#modal'
+        class='padding-4 border-rounded bg-white-hover border-blue border-1 blue-hover'> Professional</button>
+
+
+
+
+</div>";
+
 
     echo "</div>";
     ?>
@@ -151,25 +178,25 @@ $basePage = BASEURL . '/boarding';
                 <div class="shadow-small padding-3 border-rounded-more  fill-container col-9  display-medium-block">
                     <span class=' fill-container margin-left-0 header-2'>Payments Due</span>
                     <div class="row margin-top-2 fill-container">
-                        <div class='col-4 fill-container padding-3 margin-2'>
-                            <div class="shadow-small border-rounded-more accent padding-4 bg-white-hover">
+                        <div class='col-4 fill-container padding-3 '>
+                            <div class="shadow-small border-rounded-more accent padding-4 bg-white-hover ">
                                 <div class='header-2'>Rent Payable</div>
-                                <div class='header-1'>
-                                    <?php echo "Rs. " . $price . "/=" ?>
+                                <div class='header-1 fill-container'>
+                                    <?php echo "Rs. " . $price ?>
                                 </div>
                             </div>
                         </div>
 
-                        <div class='col-4 fill-container padding-3 margin-2'>
+                        <div class='col-4 fill-container padding-3 '>
                             <div class="shadow border-rounded-more bg-white-hover blue padding-4">
                                 <div class='header-2'>Water Bill</div>
-                                <div class='header-1'>Rs.5000</div>
+                                <div class='header-1'>Rs. 1,000</div>
                             </div>
                         </div>
-                        <div class='col-4 fill-container padding-3 margin-2 '>
+                        <div class='col-4 fill-container padding-3  '>
                             <div class="shadow border-rounded-more red padding-4 bg-white-hover">
                                 <div class='header-2'>Electicity Bill</div>
-                                <div class='header-1'>Rs.10000</div>
+                                <div class='header-1'>Rs. 8,000</div>
                             </div>
                         </div>
 
@@ -178,9 +205,12 @@ $basePage = BASEURL . '/boarding';
 
                 </div>
                 <div
-                    class=" margin-left-5 shadow border-rounded-more padding-5  fill-container col-3 bg-blue-hover display-medium-block ">
-                    key money<br>
-                    Rs 330,oooo/=
+                    class=" row  white fill-vertical  margin-left-5  shadow border-rounded-more fill-container col-3 bg-blue-hover ">
+                    <div class="col-12">
+                        <div class='header-2'>Key Money</div>
+                        <div class='header-1'>Rs.33,000</div>
+                    </div>
+
                 </div>
             </div>
 
@@ -204,7 +234,7 @@ $basePage = BASEURL . '/boarding';
                         <div class='col-4 fill-container padding-3 margin-2 '>
                             <div class="shadow border-rounded-more white padding-4 bg-red">
                                 <div class='header-2'>Trash Collection</div>
-                                <div class='header-1'>Rs.10000</div>
+                                <div class='header-1'>All Trash</div>
                             </div>
                         </div>
 
@@ -212,9 +242,36 @@ $basePage = BASEURL . '/boarding';
 
 
                 </div>
-                <div class=" margin-left-5 shadow border-rounded-more padding-3  fill-container col-3 bg-blue-hover ">
-                    key money<br>
-                    Rs 330,oooo/=
+
+                <div
+                    class="   black fill-vertical  margin-left-5  shadow border-rounded-more fill-container col-3 bg-white ">
+                    <div class="row padding-2  ">
+                        <div class="col-12">
+                            <div class='header-2 fill-container padding-vertical-3'>Bed Allocation</div>
+                            <div class='row shadow fill-container'>
+                                <div class="col-2 fill-container padding-left-4">
+                                    <i data-feather="battery"></i>
+                                </div>
+                                <div class="col-3 fill-container">Bed 1</div>
+                                <div class="col-7 left fill-container">Stuart Pitt</div>
+                            </div>
+                            <div class='row shadow'>
+                                <div class="col-2 fill-container padding-left-4">
+                                    <i data-feather="battery"></i>
+                                </div>
+                                <div class="col-3 fill-container">Bed 2</div>
+                                <div class="col-7 left fill-container">Kate Guiness</div>
+                            </div>
+                            <div class='row shadow'>
+                                <div class="col-2 fill-container padding-left-4">
+                                    <i data-feather="battery"></i>
+                                </div>
+                                <div class="col-3 fill-container">Bed 3</div>
+                                <div class="col-7 left fill-container">Katsun Pieris</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -222,7 +279,7 @@ $basePage = BASEURL . '/boarding';
             <div class=" fill-container right ">
 
                 <?php
-                
+                //echo $data['postId'];
                 $result = restAPI("feed/postRest/11");
                 if ($result != null) {
                     foreach ($result as $key => $value) {
@@ -341,13 +398,141 @@ $basePage = BASEURL . '/boarding';
 
 
 
+
+
+
+
+
+
+
         </div>
 
 
 
 
 
+
+
+
+    </div>
+    <!-- <div class="position-fixed"> -->
+        <div class="row ">
+            <div class=" col-12  bg-white flex full-height ">
+                <div class="modal" id="modal">
+                    <div class="shadow-small border-rounded padding-5">
+                        <!-- <div class='row'> -->
+                        <div class='col-3'>
+
+                            <img src="<?php echo BASEURL . '/public/images/group.svg' ?>">
+
+                        </div>
+                        <!-- </div> -->
+
+                        <h1 class="header-1">Thank you for Boarding with BODO!</h2>
+                            <h2 class="header-nb">We hope you enjoyed your stay!</h2>
+                            <h2 class="header-2">Please consider rating and providing a review about your boarding
+                                experience!
+                            </h2>
+
+                            <!-- <form action="<?php echo BASEURL ?>/signin/login" method="post"> -->
+                            <label for="username" class="bold black">How was your experience?</label><br><br>
+                            <input type="text" id="username" name="username" placeholder="Describe your experience"><br>
+                            <div class="row">
+                                <div class="col-2 fill-container">
+                                    <!-- <input class=" bg-accent-hover white-hover bold padded border-rounded fill-container "
+                                    type="submit" value="Cancel">
+                                    <button
+                                    class="padding-4 border-rounded fill-container bg-white-hover border-black border-1">
+                                    Cancel</button>  -->
+                                    <button data-close-button
+                                        class="padding-4 border-rounded bg-white-hover border-black border-1 black-hover fill-container">Cancel</button>
+                                </div>
+                                <div class="col-5 fill-container">
+                                    <!-- <input class=" bg-accent-hover white-hover bold padded border-rounded fill-container " type="submit"
+                                    value="Leave without review">
+
+                                <button
+                                    class="padding-4 border-rounded fill-container bg-white-hover border-red border-1">
+                                    Leave without review</button> -->
+
+                                    <button
+                                        class="padding-4 border-rounded bg-white-hover border-red border-1 red-hover fill-container">Leave
+                                        without review</button>
+
+                                </div>
+                                <div class="col-5 fill-container">
+                                    <input class="bg-blue white-hover bold padded border-rounded fill-container"
+                                        type="submit" value="Submit Review & Leave">
+                                </div><br>
+                            </div>
+                            <!-- <div class="center padding-top-3 ">
+                            Forgot Password?
+                            <a class="inverse" href="<?php echo BASEURL ?>/forgotPassword">Reset
+                                Password</a>
+                            <br>
+                        </div>
+                        <div class="center  ">
+                            No account?
+                            <a class="inverse" href="<?php echo BASEURL ?>/Register">Register</a>
+                            <br>
+                        </div> -->
+                            <!-- </form> -->
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    <!-- </div> -->
+
+
+    <div id="overlay"></div>
+
+
+
+
 </main>
+
+
+<script>
+    const openModalButtons = document.querySelectorAll('[data-modal-target]')
+    const closeModalButtons = document.querySelectorAll('[data-close-button]')
+    const overlay = document.getElementById('overlay')
+
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = document.querySelector(button.dataset.modalTarget)
+            openModal(modal)
+        })
+    })
+
+    overlay.addEventListener('click', () => {
+        const modals = document.querySelectorAll('.modal.active')
+        modals.forEach(modal => {
+            closeModal(modal)
+        })
+    })
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal')
+            closeModal(modal)
+        })
+    })
+
+    function openModal(modal) {
+        if (modal == null) return
+        modal.classList.add('active')
+        overlay.classList.add('active')
+    }
+
+    function closeModal(modal) {
+        if (modal == null) return
+        modal.classList.remove('active')
+        overlay.classList.remove('active')
+    }
+
+</script>
 
 
 <?php

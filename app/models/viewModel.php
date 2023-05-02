@@ -19,7 +19,25 @@ class viewModel extends Model
     public function checkData($table, $condition = NULL)
     {
         $result = $this->get($table, $condition);
-        
+
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
+    public function getBoardingUsers($PlaceId = null, $userId = null)
+    {
+        if (isset($PlaceId)) {
+            $append = "AND PlaceId = $PlaceId";
+        } else {
+            $append = "";
+        }
+        if (isset($userId)) {
+            $append .= "AND UserId != $userId";
+        }
+        $result = $this->unionalt("student,user,boardingplacetenant,boarder", "professional,user,boardingplacetenant,boarder", " firstname,lastname,studentuniversity as tagline, profilepicture", "firstname,lastname,usertype as tagline, profilepicture", "BoarderId = TenantID AND userId = BoarderId  AND userId=StudentId $append", "BoarderId = TenantID AND userId = BoarderId  AND userId=ProfessionalId $append");
         if ($result->num_rows > 0) {
             return $result;
         } else {
@@ -69,7 +87,7 @@ class viewModel extends Model
         $result = $this->getGroup("React", "Post, COUNT(Post) AS Likes", "Reaction = 'y' $append", "Post");
         return $result;
     }
-    public function getLike($PostId = NULL,$userId = NULL)
+    public function getLike($PostId = NULL, $userId = NULL)
     {
         if (isset($PostId) && $PostId != 0) {
             $append = "AND Post = '$PostId'";
@@ -114,24 +132,23 @@ class viewModel extends Model
             return null;
         }
     }
-    public function retrieveBoardingUsers($usertype = null)
+    public function retrieveBoardingUsers($usertype = null, $userId = null)
     {
         if (isset($usertype)) {
             $append = "AND UserType = '$usertype'";
         } else {
             $append = null;
         }
-        $result = $this->union("User,BoardingPlaceTenant,BoardingPlace", "User,BoardingPlaceTenant,BoardingPlace,BoardingOwner", "UserId,FirstName,LastName,UserType,Place,Title", "TenantId=UserId AND PlaceId = Place $append", "PlaceId = Place AND OwnerId=BoardingOwnerId AND BoardingOwnerId=UserId $append");
-        if ($result->num_rows > 0) {
-            return $result;
+        if (isset($userId)) {
+            $append .= "AND UserId = '$userId'";
         } else {
-            return null;
+            $append .= null;
         }
     }
     public function getUser($user = "admin", $page = 1, $perPage = 1)
     {
         $start = ($page - 1) * $perPage;
-        $result = $this->get("User,$user", 'UserId = ' . $user . 'Id', null, "$start,$perPage");
+        $result = $this->get("User,boarder,$user", 'UserId = ' . $user . 'Id group by UserId', null, "$start,$perPage");
         if ($result->num_rows > 0) {
             return $result;
         } else {
@@ -139,26 +156,88 @@ class viewModel extends Model
         }
     }
 
-    public function getUserById($user, $id)
+    public function getImage($PlaceId = NULL)
     {
-        $result = $this->get("User,$user", 'UserId = ' . $user . 'Id AND UserId = ' . $id);
-        if ($result->num_rows > 0) {
-            return $result;
+        if (isset($PlaceId)) {
+            $append = "BoardingPlace = '$PlaceId'";
         } else {
-            return null;
+            $append = null;
         }
+        $result = $this->get("BoardingPlacePicture", "$append");
+        return $result;
     }
-    public function getCities()
+
+    // public function getUser($user = "admin", $id = null)
+    // {
+    //     if (isset($id)) {
+    //         $append = "AND UserId = '$id'";
+    //     } else {
+    //         $append = null;
+    //     } 
+    //     if ($user == "student" || $user == "profesional") { 
+    //         $result = $this->get("User, Boarder, $user", 'UserId = BoarderId AND BoarderId = ' . $user . "Id $append"   );
+
+    //     } else {
+    //         $result = $this->get("User, $user", 'UserId = ' . $user . "Id $append" );
+
+    //     }
+
+    //     if ($result->num_rows > 0) {
+    //         return $result;
+    //     } else {
+    //         return null;
+    //     }
+    // }
+
+    public function getPlace($PlaceId = NULL)
+
+    {
+        $result = $this->getColumn("BoardingPlace", "PlaceId,SummaryLine1, SummaryLine2,SummaryLine3,Price,PriceType,HouseNo,Street,CityName,PropertyType,NoOfMembers,NoOfRooms,NoOfWashRooms,Gender,BoarderType,SquareFeet,Parking", "PlaceId = '$PlaceId'");
+        return $result;
+    }
+
+    public function getCitiesAsc()
     {
         $result = $this->get('City', null, 'CityName ASC', null);
         return $result;
     }
 
-    public function getPlace($PlaceId)
+    public function getCities($districtName = null)
     {
-        $result = $this->getColumn("BoardingPlace", "PlaceId,SummaryLine1, SummaryLine2,SummaryLine3,Price,PriceType,HouseNo,Street,CityName,PropertyType,NoOfMembers,NoOfRooms,NoOfWashRooms,Gender,BoarderType,SquareFeet,Parking", "PlaceId = '$PlaceId'");
+        $append = null;
+        if (isset($districtName)) {
+            $append = "DistrictName = '$districtName'";
+        }
+        $result = $this->get('city', $append);
         return $result;
     }
+
+    public function getDistricts($provinceName = null)
+    {
+        $append = null;
+        if (isset($provinceName)) {
+            $append = "ProvinceName = '$provinceName'";
+        }
+        $result = $this->get('district', $append);
+        // $sql = "SELECT * FROM distric WHERE ProvinceName = $provinceName";
+        // $result = $this->runQuery($sql);
+        return $result;
+        // return $result;
+    }
+
+    public function getProvinces()
+    {
+        $result = $this->get('province');
+        return $result;
+    }
+    // public function getSupport($type, $userid = null)
+    // {
+    // }
+    // public function getPlace($PlaceId)
+    // {
+    //     $result = $this->getColumn("BoardingPlace", "PlaceId,SummaryLine1, SummaryLine2,SummaryLine3,Price,PriceType,HouseNo,Street,CityName,PropertyType,NoOfMembers,NoOfRooms,NoOfWashRooms,Gender,BoarderType,SquareFeet,Parking", "PlaceId = '$PlaceId'");
+    //     return $result;
+    // }
 
     public function getSupport($type, $userid = null)
     {
@@ -218,5 +297,82 @@ class viewModel extends Model
         }
     }
 
+    public function getBoardingReviewsbyPlace($placeId)
+    {
+        // $result = $this->get('reviewrating',"Place = $placeId");
+        $sql = "SELECT * FROM reviewrating INNER JOIN user ON reviewrating.BoarderId = user.UserId AND reviewrating.Place = $placeId";
+        $result = $this->runQuery($sql);
+        return $result;
+    }
 
+    public function getRentCount($placeid)
+    {
+        $sql = "SELECT COUNT($placeid) AS numrows FROM boardingplacerent";
+        // $result = $this->numRowsWhere('boardingplacerent',"PlaceId = $placeid");
+        $result = $this->runQuery($sql);
+        return $result;
+    }
+
+    public function getCurrentlyBoarded($placeid)
+    {
+        $result = $this->get('boardingplacetenant', "PlaceId = $placeid AND BoarderStatus = 'boarded'");
+        return $result;
+    }
+
+    public function searchBoarding($query, $Price = null, $PriceType = null,$PropertyType=null, $Street = null, $CityName = null, $NoOfMembers = null, $NoOfRooms = null, $NoOfWashRooms = null, $Gender = null, $BoarderType = null, $SquareFeet = null, $Parking = null)
+    {
+        $append = null;
+        if (isset($Price) && $Price != 0) {
+            $append .= "AND Price BETWEEN '0' AND $Price";
+        }
+        if (isset($PriceType) && $PriceType != null) {
+            $append .= " AND PriceType LIKE '%$PriceType%'";
+        }
+        if (isset($PropertyType) && $PropertyType != null) {
+            $append .= " AND PropertyType LIKE '%$PropertyType%'";
+        }
+        if (isset($Street) && $Street != null) {
+            $append .= " AND Street LIKE '%$Street%'";
+        }
+        if (isset($CityName) && $CityName != null) {
+            $append .= " AND CityName LIKE '%$CityName%'";
+        }
+        if (isset($NoOfRooms) && $NoOfRooms != 0) {
+            echo "rooms=" . $NoOfRooms;
+            $append .= " AND NoOfRooms = '$NoOfRooms'";
+        }
+        if (isset($NoOfMembers) && $NoOfMembers != 0) {
+            $append .= " AND NoOfMembers >= '$NoOfMembers'";
+        }
+        if (isset($NoOfWashRooms) && $NoOfWashRooms != 0) {
+            $append .= " AND NoOfWashRooms >= '$NoOfWashRooms'";
+        }
+        if (isset($Gender) && $Gender != null) {
+            $append .= " AND Gender = '$Gender'";
+        }
+        if (isset($BoarderType) && $BoarderType != null) {
+            $append .= " AND BoarderType = '$BoarderType'";
+        }
+        if (isset($SquareFeet) && $SquareFeet != 0) {
+            $append .= " AND SquareFeet >= '$SquareFeet'";
+        }
+        if (isset($Parking) && $Parking != null) {
+            $append .= " AND Parking = '$Parking'";
+        }
+        $result= $this->get('boardingplace',"(Title LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%')$append");
+        return $result;
+
+    }
+
+    public function getFromUser($userid)
+    {
+        $result = $this->get('user', "UserId = $userid");
+        return $result;
+    }
+
+    public function getBoardingRequests($placeid)
+    {
+        $result = $this->get('boardingplacetenant', "PlaceId = $placeid AND BoarderStatus = 'not'");
+        return $result;
+    }
 }
