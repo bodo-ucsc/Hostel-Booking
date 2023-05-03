@@ -31,7 +31,7 @@ class Search
         } else {
             if ($filter == 'true') {
 
-        echo " 
+                echo " 
         <form action='$base/searchProperty' method='POST'>
         
             <div class='row border-rounded-more searchbar '>
@@ -44,10 +44,10 @@ class Search
                         placeholder='Search Boarding places, Hostels...'>
                 </div>
                 <div class='display-none display-small-block col-2'>
-                    <button id='filterButton' onclick=toggleFilter() class='flex grey  bg-transparent'>
-                        <i data-feather='filter'></i>
-                        <span class=' margin-left-2 header-nb'>Filters</span>
-                    </button>
+                <button id='filterButton' onclick=toggleFilter() class='flex grey  bg-transparent'>
+                    <i data-feather='filter'></i>
+                    <span class=' margin-left-2 header-nb'>Filters</span>
+                </button>
                 </div>
                 <div class='display-block  display-small-none col-1 '>
                     <button id='filterButton' onclick=toggleFilter() class='flex grey  bg-transparent'>
@@ -62,10 +62,12 @@ class Search
                 </div>
                 <input type='hidden' id='filters' name='filters' value='no'>
             </div>
+
         </form>
+                
         ";
 
-        echo "
+            echo "
             <div id='FilterSidebar' class='display-none padding-top-5 shadow border-rounded-more full-height position-fixed sidebar large right bg-white'>
                 <div class='row padding-top-5 margin-top-5'>
                     <span class='header-2 col-5 '>Filters</span>
