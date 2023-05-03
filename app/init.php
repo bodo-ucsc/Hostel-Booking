@@ -18,8 +18,6 @@ require_once '../public/components/likeSection.php';
 require_once '../public/components/PHPMailer/config.php'; 
 require_once '../public/components/map/mapCard.php';
 require_once '../public/components/sidebarNavBO.php'; 
-//require_once '../public/components/filterProperty.php';
-
 
 
 function restAPI($urlAppend, $external = null)

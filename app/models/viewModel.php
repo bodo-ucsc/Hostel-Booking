@@ -319,14 +319,20 @@ class viewModel extends Model
         return $result;
     }
 
-    public function searchBoarding($query,$SortSearch = null, $Price = null, $PriceType = null, $PropertyType = null, $Street = null, $CityName = null, $NoOfMembers = null, $NoOfRooms = null, $NoOfWashRooms = null, $Gender = null, $BoarderType = null, $SquareFeet = null, $Parking = null)
+    public function searchBoarding($query, $SortSearch = null, $Price = null, $PriceType = null, $PropertyType = null, $Street = null, $CityName = null, $NoOfMembers = null, $NoOfRooms = null, $NoOfWashRooms = null, $Gender = null, $BoarderType = null, $SquareFeet = null, $Parking = null)
     {
+        $terms = explode(" ", $query);
+        $sql = "(Title LIKE '%$terms[0]%' OR PropertyType LIKE '%$terms[0]%' OR Description LIKE '%$terms[0]%')";
+        for ($i = 1; $i < count($terms); $i++) {
+            $sql .= " AND (Title LIKE '%$terms[$i]%' OR PropertyType LIKE '%$terms[$i]%' OR Description LIKE '%$terms[$i]%')";
+        }
+        //echo $sql;
         $append = null;
         if (isset($Price) && $Price != 0) {
             $append .= " AND Price BETWEEN '0' AND $Price";
         }
         if (isset($PriceType) && $PriceType != null) {
-            $append .= " AND PriceType LIKE '%$PriceType%'";
+            $append .= " AND PriceType = '$PriceType'";
         }
         if (isset($PropertyType) && $PropertyType != null) {
             $append .= " AND PropertyType LIKE '%$PropertyType%'";
@@ -371,10 +377,9 @@ class viewModel extends Model
                 $append .= $order;
             }
         }
-        //echo $append;
-        $result= $this->get('boardingplace',"(Title LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%' OR CityName LIKE '%$query%')$append");
+        //$result = $this->get('boardingplace', "(Title LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%' OR CityName LIKE '%$query%')$append");
+        $result = $this->get('boardingplace', "$sql $append");
         return $result;
-
     }
 
     public function getFromUser($userid)

@@ -84,16 +84,15 @@ class Admin extends Controller
             $rowCount = $this->model('viewModel')->numRows('verificationteam');
             $result = restAPI("userManagement/getUser/verificationteam");
         }
-        
-        if($page <= 0){
+
+        if ($page <= 0) {
             header("Location: " . BASEURL . "/admin/userManagement/$user/1/$perPage");
         }
-        if($perPage <= 0){
+        if ($perPage <= 0) {
             header("Location: " . BASEURL . "/admin/userManagement/$user/$page/1");
         }
 
         $this->view("userManagement/$user", ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
-
     }
 
 
@@ -120,17 +119,16 @@ class Admin extends Controller
         } else if ($user == 'professional') {
             $rowCount = $this->model('viewModel')->numRows('professional');
             $result = restAPI("userManagement/getUser/professional");
-        } 
-        
-        if($page <= 0){
+        }
+
+        if ($page <= 0) {
             header("Location: " . BASEURL . "/admin/verification/$user/1/$perPage");
         }
-        if($perPage <= 0){
+        if ($perPage <= 0) {
             header("Location: " . BASEURL . "/admin/verification/$user/$page/1");
         }
 
         $this->view("verification/$user", ['result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
-
     }
 
     public function advertisement($message = null)
@@ -147,10 +145,9 @@ class Admin extends Controller
         } else {
             $message = null;
             $alert = null;
-        } 
+        }
 
-        $this->view('advertisement/index', [ 'message' => $message, 'alert' => $alert]);
-
+        $this->view('advertisement/index', ['message' => $message, 'alert' => $alert]);
     }
 
     public function support($type = 'issue', $page = 1, $perPage = 2, $message = null)
@@ -172,11 +169,10 @@ class Admin extends Controller
         $rowCount = $this->model('viewModel')->numRowsWhere('Support', "Supporttype = '$type'");
         $result = $this->model('viewModel')->getAllSupport($type, $page, $perPage);
         $this->view('support/index', ['type' => $type, 'result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
-
-
     }
 
-    public function property($message = null){
+    public function property($message = null)
+    {
         if ($message == 'editsuccess') {
             $message = "Property has been edited";
             $alert = 'Edited';
@@ -188,7 +184,7 @@ class Admin extends Controller
             $alert = null;
         }
 
-        $this->view('property/viewAllBoarding',['message' => $message, 'alert' => $alert]);
+        $this->view('property/viewAllBoarding', ['message' => $message, 'alert' => $alert]);
     }
 
 
@@ -236,5 +232,9 @@ class Admin extends Controller
         } else {
             echo "not set location";
         }
+    }
+    public function filter()
+    {
+        $this->view('filterShow');
     }
 }
