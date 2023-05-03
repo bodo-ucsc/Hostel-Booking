@@ -62,12 +62,10 @@ class SearchProperty extends Controller
                 }
             }
         } else {
-            echo "Not submitted";
+            //echo "Not submitted";
             $this->view('listing/index');
         }
     }
-    public function hello(){
-        print_r($_POST);
-    }
+   
 }
 

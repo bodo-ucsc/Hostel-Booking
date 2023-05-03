@@ -44,13 +44,13 @@ class Search
                         placeholder='Search Boarding places, Hostels...'>
                 </div>
                 <div class='display-none display-small-block col-2'>
-                <button id='filterButton' onclick=toggleFilter() class='flex grey  bg-transparent'>
+                <button id='filterButton' type='button' onclick=toggleFilter() class='flex grey  bg-transparent'>
                     <i data-feather='filter'></i>
                     <span class=' margin-left-2 header-nb'>Filters</span>
                 </button>
                 </div>
                 <div class='display-block  display-small-none col-1 '>
-                    <button id='filterButton' onclick=toggleFilter() class='flex grey  bg-transparent'>
+                    <button id='filterButton' type='button' onclick=toggleFilter() class='flex grey  bg-transparent'>
                         <i data-feather='filter'></i> 
                     </button>
                 </div>
@@ -72,7 +72,7 @@ class Search
                 <div class='row padding-top-5 margin-top-5'>
                     <span class='header-2 col-5 '>Filters</span>
                     <div class='col-4'></div>
-                    <button id='filter-close-button' onclick=closeFilter()  class='right fill-container padding-top-4 bg-transparent position-absolute'>
+                    <button id='filter-close-button' type='button' onclick=closeFilter()  class='right fill-container padding-top-4 bg-transparent position-absolute'>
                         <i data-feather='x-circle' class='col-3 red-hover '></i>
                     </button> 
                 </div>
@@ -154,14 +154,14 @@ class Search
                             <label for='NoOfRooms'>No. of Rooms</label>
                         </div>
                         <div class='col-4 fill-container'>
-                                <input type='number' id='NoOfRooms' name='NoOfRooms' min=1>
+                            <input type='number' id='NoOfRooms' name='NoOfRooms' min=1>
                         </div>
                     </div>
 
                     <div class='row padding-2 margin-left-5 col-11 position-fixed'>
                     
                         <div class='col-4 fill-container'>
-                            <input type='reset'  id='reset' class=' padding-3 header-nb fill-container border-1 bg-blue-hover white-hover border-rounded-more'></button>
+                            <button type='reset'  id='reset' class='header-nb fill-container border-1 bg-blue-hover white-hover border-rounded-more'>Reset</button>
                         </div>
                        
                         <div class='col-4 fill-container'>

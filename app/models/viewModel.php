@@ -321,6 +321,13 @@ class viewModel extends Model
 
     public function searchBoarding($query, $SortSearch = null, $Price = null, $PriceType = null, $PropertyType = null, $Street = null, $CityName = null, $NoOfMembers = null, $NoOfRooms = null, $NoOfWashRooms = null, $Gender = null, $BoarderType = null, $SquareFeet = null, $Parking = null)
     {
+
+        // $stopwords = array('the', 'and', 'a', 'an', 'of','in','is','to','for','on','that','this','with','need'');
+        // $words = explode(" ", $query);
+        // $filtered_words = array_diff($words, $stopwords);
+        // $new_string = implode(' ', $filtered_words);
+
+
         $terms = explode(" ", $query);
         $sql = "(Title LIKE '%$terms[0]%' OR PropertyType LIKE '%$terms[0]%' OR Description LIKE '%$terms[0]%')";
         for ($i = 1; $i < count($terms); $i++) {
