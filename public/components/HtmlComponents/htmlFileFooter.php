@@ -20,9 +20,12 @@ class HTMLFooter
                 document.getElementById(openElement).classList.remove('display-none');
                 document.getElementById(closeElement).classList.remove('display-block'); 
               } 
+              
+               
               ";
+
         if (isset($alert) && isset($message)) {
-            $title = ucfirst($alert); 
+            $title = ucfirst($alert);
             echo "
                 Swal.fire({
                     icon: '$alert',
@@ -32,6 +35,7 @@ class HTMLFooter
         }
         echo "
                 feather.replace();
+
             </script>
         </body>
         

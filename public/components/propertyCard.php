@@ -81,7 +81,7 @@ class PropertyCard
             $image = "images/defboarding.png";
         }
         echo "   
-        <div class='listing display-inline-block  $def' onclick='window.location.href=\"$base/listing/viewPlace/$PlaceId \"'>
+        <div class='listing display-inline-block top  $def' onclick='window.location.href=\"$base/listing/viewPlace/$PlaceId \"'>
         <div class='row padding-4 '>
             <div class='col-12 shadow cursor-pointer bg-white-hover fill-container padding-3 border-rounded-more'>
                 <div class='row'>

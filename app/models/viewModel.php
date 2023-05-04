@@ -33,6 +33,72 @@ class viewModel extends Model
             return null;
         }
     }
+
+   
+public function searchBoarding($query, $SortSearch = null, $Price = null, $PriceType = null, $PropertyType = null, $Street = null, $CityName = null, $NoOfMembers = null, $NoOfRooms = null, $NoOfWashRooms = null, $Gender = null, $BoarderType = null, $SquareFeet = null, $Parking = null)
+{
+    $terms = explode(" ", $query);
+    $sql = "(Title LIKE '%$terms[0]%' OR PropertyType LIKE '%$terms[0]%' OR Description LIKE '%$terms[0]%')";
+    for ($i = 1; $i < count($terms); $i++) {
+        $sql .= " AND (Title LIKE '%$terms[$i]%' OR PropertyType LIKE '%$terms[$i]%' OR Description LIKE '%$terms[$i]%')";
+    }
+    //echo $sql;
+    $append = null;
+    if (isset($Price) && $Price != 0) {
+        $append .= " AND Price BETWEEN '0' AND $Price";
+    }
+    if (isset($PriceType) && $PriceType != null) {
+        $append .= " AND PriceType = '$PriceType'";
+    }
+    if (isset($PropertyType) && $PropertyType != null) {
+        $append .= " AND PropertyType LIKE '%$PropertyType%'";
+    }
+    if (isset($Street) && $Street != null) {
+        $append .= " AND Street LIKE '%$Street%'";
+    }
+    if (isset($CityName) && $CityName != null) {
+        $append .= " AND CityName LIKE '%$CityName%'";
+    }
+    if (isset($NoOfRooms) && $NoOfRooms != 0) {
+        echo "rooms=" . $NoOfRooms;
+        $append .= " AND NoOfRooms = '$NoOfRooms'";
+    }
+    if (isset($NoOfMembers) && $NoOfMembers != 0) {
+        $append .= " AND NoOfMembers >= '$NoOfMembers'";
+    }
+    if (isset($NoOfWashRooms) && $NoOfWashRooms != 0) {
+        $append .= " AND NoOfWashRooms >= '$NoOfWashRooms'";
+    }
+    if (isset($Gender) && $Gender != null) {
+        $append .= " AND Gender = '$Gender'";
+    }
+    if (isset($BoarderType) && $BoarderType != null) {
+        $append .= " AND BoarderType = '$BoarderType'";
+    }
+    if (isset($SquareFeet) && $SquareFeet != 0) {
+        $append .= " AND SquareFeet >= '$SquareFeet'";
+    }
+    if (isset($Parking) && $Parking != null) {
+        $append .= " AND Parking = '$Parking'";
+    }
+    if (isset($SortSearch) && $SortSearch != null) {
+        if ($SortSearch == 'lowTohigh') {
+            $order = " ORDER BY Price ASC";
+            $append .= $order;
+        } else if ($SortSearch == 'highTolow') {
+            $order = " ORDER BY Price DESC";
+            $append .= $order;
+        } elseif ($SortSearch == 'bestMatch') {
+            $order = null;
+            $append .= $order;
+        }
+    }
+    //$result = $this->get('boardingplace', "(Title LIKE '%$query%' OR PropertyType LIKE '%$query%' OR Description LIKE '%$query%' OR CityName LIKE '%$query%')$append");
+    $result = $this->get('boardingplace', "$sql $append");
+    return $result;
+}
+
+
     // feed
 
     public function getPost($PostId = NULL, $OwnerId = NULL)

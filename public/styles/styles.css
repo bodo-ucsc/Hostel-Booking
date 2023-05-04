@@ -567,6 +567,8 @@ button.padded {
   padding: 15px;
 }
 
+
+
 /* Sweet Alert  */
 .swal2-popup {
   border-radius: 15px !important;
@@ -603,6 +605,69 @@ input[type=date] {
   background-color: #F2F2F2;
   box-sizing: border-box;
 }
+
+input[type=range]{
+  
+  width: 100%;
+  height: 40px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  display: inline-block; 
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  background-color: #F2F2F2;
+  border: 2px solid #EAEAEA;
+  
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #006DFF;
+  cursor: pointer;
+   margin-top: -5px; /*You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+
+}
+
+/* add line colour to slider */
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  background: #EAEAEA;
+  border-radius: 5px; 
+}
+ 
+/* checkbox styles */
+
+input[type=checkbox] {
+  width: 18px;
+  height:18px;
+  padding: 10px 10px;
+  border-radius: 2px; 
+  display: inline-block;
+  border: 3px solid #EAEAEA;
+  outline: 2px solid #EAEAEA;
+  background-color: #F2F2F2;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+
+input[type=checkbox]:checked {
+  border-radius: 15px;
+
+  outline: 2px solid #006DFF;
+  background-color: #006DFF; 
+}
+
+
 
 select {
   width: 100%;
@@ -1028,7 +1093,11 @@ header .nav-signup {
 }
 
 .suggest-items {
+  margin-top: 10px;
   position: absolute;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.1);
   z-index: 99;
   top: 100%;
   left: 0;
@@ -1040,12 +1109,11 @@ header .nav-signup {
   padding: 8px;
   cursor: pointer;
   background-color: #fff;
-  border-bottom: 1px solid #d4d4d4;
-  border-radius: 2px;
+  border-bottom: 1px solid rgb(245, 245, 245);
 }
 
 .suggest-items div:hover {
-  background-color: rgb(133, 147, 167);
+  background-color: rgb(245, 245, 245);
 }
 
 .suggest-active {
@@ -1076,6 +1144,7 @@ header .nav-signup {
 
 
 .top {
+  vertical-align:top;
   align-items: start !important;
   align-content: flex-start;
 }
@@ -1685,12 +1754,17 @@ header .nav-signup {
   }
 
   .header-2 {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .header-nb {
+    font-size: 18px;
+  }
+
+  .big {
     font-size: 14px;
   }
+ 
 
 }
 
