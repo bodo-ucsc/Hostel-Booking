@@ -292,7 +292,7 @@ class MessageBufferTest extends TestCase
             false,
             null,
             0,
-            0x8000000000000000
+            
         );
     }
 

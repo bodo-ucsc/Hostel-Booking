@@ -73,5 +73,18 @@ class editModel extends Model
         $result = $this->update('boardingplacetenant',['BoarderStatus'=>'boarded'],"TenantId = $userid AND PlaceId = $placeid");
         return $result;
     }
+    public function leaveBoardingMember($UserId,$review=null)
+    {
+        if($review==null){
+            $result = $this->update('boardingplacetenant',['BoarderStatus'=>'leaved'],"TenantId = $UserId");
+            
+            return $result;
+            
+        }else{
+            //update review
+        }
+       
+    }
+    
 
 }

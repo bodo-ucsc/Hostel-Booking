@@ -1,9 +1,20 @@
 <?php
 $header = new HTMLHeader("My Boarding");
-$nav = new Navigation('My Boarding');
+// if (isset($data['bStatus'])){
+//     $bStatus = $data['bStatus'];
+//     if($bStatus == 'leaved'){
+//         $nav = new Navigation('My Boarding','boarded');
+//     }else if($bStatus == 'boarded'){
+//         $nav = new Navigation('My Boarding','boarded');
+//     }
+// }
+
+$nav = new Navigation('My Boarding','boarded');
 $base = BASEURL;
+$uname = $_SESSION['username'];
 
 $basePage = BASEURL . '/boarding';
+
 
 
 ?>
@@ -42,7 +53,7 @@ $basePage = BASEURL . '/boarding';
                 if ($row['UserType'] == 'Student') {
                     $borderType = $row['StudentUniversity'];
                     //$rows['StudentUniversity'] = $row['StudentUniversity'];
-
+    
                 } else if ($row['UserType'] == 'Professional') {
                     $borderType = $row['UserType'];
                 }
@@ -142,6 +153,12 @@ $basePage = BASEURL . '/boarding';
         </div>
         </div>";
     }
+    //    <button data-modal-target='#modal' id='PopUpbutton' onclick='openPopup'
+    
+    echo "<div class='container margin-top-5'>
+    <button id='PopUpbutton' onclick='openPopup()'
+        class='padding-4 border-rounded bg-white-hover border-blue border-1 blue-hover'> Professional</button>
+    </div>";
 
     echo "</div>";
     ?>
@@ -187,7 +204,8 @@ $basePage = BASEURL . '/boarding';
 
 
                 </div>
-                <div class=" row  white fill-vertical  margin-left-5  shadow border-rounded-more fill-container col-3 bg-blue-hover ">
+                <div
+                    class=" row  white fill-vertical  margin-left-5  shadow border-rounded-more fill-container col-3 bg-blue-hover ">
                     <div class="col-12">
                         <div class='header-2'>Key Money</div>
                         <div class='header-1'>Rs.33,000</div>
@@ -225,7 +243,8 @@ $basePage = BASEURL . '/boarding';
 
                 </div>
 
-                <div class="   black fill-vertical  margin-left-5  shadow border-rounded-more fill-container col-3 bg-white ">
+                <div
+                    class="  black fill-vertical  margin-left-5  shadow border-rounded-more fill-container col-3 bg-white ">
                     <div class="row padding-2  ">
                         <div class="col-12">
                             <div class='header-2 fill-container padding-vertical-3'>Bed Allocation</div>
@@ -383,12 +402,133 @@ $basePage = BASEURL . '/boarding';
 
 
         </div>
+        <div class=" col-12 bg-white flex margin-bottom-5 position-fixed ">
+
+            <div id='popUpWindow' class=" display-none shadow-small border-rounded padding-5">
+                <div class='col-3'>
+
+                    <img src="<?php echo BASEURL . '/public/images/group.svg' ?>">
+                </div>
+
+                <h1 class="header-1">Thank you for Boarding with BODO!</h2>
+                    <h2 class="header-nb">We hope you enjoyed your stay!</h2>
+                    <h2 class="header-2">Please consider rating and providing a review about your boarding
+                        experience!
+                    </h2>
+
+                    <form action="<?php echo BASEURL ?>/tenent/leave" method="post">
+                        <input type="hidden" name="username" value="<?php echo $uname ?>">
+                        <label class="bold black">How was your experience?</label><br><br>
+                        <input type="text" id="userReview" name="userReview" placeholder="Describe your experience"><br>
+                        <div class="row">
+                            <div class="col-2 fill-container">
+
+                                <button id="cancel" type="button"
+                                    class="padding-4 border-rounded bg-white-hover border-black border-1 black-hover fill-container">Cancel</button>
+                            </div>
+                            <div class="col-5 fill-container">
+                                <button id="leaveWithoutReview" name="leaveWithoutReview"
+                                    class="padding-4 border-rounded bg-white-hover border-red border-1 red-hover fill-container">Leave
+                                    without review</button>
+                            </div>
+                            <div class="col-5 fill-container">
+                                <button id="leaveWithReview" name="leaveWithReview" type="submit"
+                                    class="padding-4 border-rounded bg-white-hover border-red border-1 red-hover fill-container">Submit
+                                    Review & Leave</button>
+                            </div>
+
+                        </div>
+                    </form>
+            </div>
+            <!-- </div> -->
+        </div>
+
+        <!-- </div> -->
+
+        <!-- <div class="position-fixed" id="overlay"> -->
+
+
+        <div id="overlay"></div>
 
 
 
 
 
 </main>
+
+<script>
+
+    let displayed = false;
+    function openPopup() {
+
+        let window = document.getElementById('popUpWindow');
+        if (displayed) {
+            window.style.display = 'none';
+            window.classList.add('display-none');
+            window.classList.remove('display-block');
+            displayed = false;
+        } else {
+            window.classList.add('display-block');
+            window.classList.remove('display-none');
+            window.style.display = 'block';
+            displayed = true;
+
+        }
+    }
+
+    
+    $('#cancel').click(function (e) {
+        e.preventDefault();
+        // hide the popup window or do any other desired action
+    });
+
+    // function press() {
+    //     const closeModalButtons = document.querySelectorAll('[data-close-button]')
+    //     closeModalButtons.forEach(button => {
+    //         button.addEventListener('click', () => {
+    //             const modal = button.closest('.modal')
+    //             closeModal(modal)
+    //         })
+    //     })
+    // }
+    // const openModalButtons = document.querySelectorAll('[data-modal-target]')
+    // const closeModalButtons = document.querySelectorAll('[data-close-button]')
+    // const overlay = document.getElementById('overlay')
+
+    // openModalButtons.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //         const modal = document.querySelector(button.dataset.modalTarget)
+    //         openModal(modal)
+    //     })
+    // })
+
+    // overlay.addEventListener('click', () => {
+    //     const modals = document.querySelectorAll('.modal.active')
+    //     modals.forEach(modal => {
+    //         closeModal(modal)
+    //     })
+    // })
+
+    // closeModalButtons.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //         const modal = button.closest('.modal')
+    //         closeModal(modal)
+    //     })
+    // })
+
+    // function openModal(modal) {
+    //     if (modal == null) return
+    //     modal.classList.add('active')
+    //     overlay.classList.add('active')
+    // }
+
+    // function closeModal(modal) {
+    //     if (modal == null) return
+    //     modal.classList.remove('active')
+    //     overlay.classList.remove('active')
+    // }
+
+</script>
 
 
 <?php

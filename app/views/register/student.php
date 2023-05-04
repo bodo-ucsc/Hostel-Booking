@@ -31,7 +31,7 @@ $nav = new Navigation();
             </div>
         </div>
         <div class="col-12 col-medium-8 width-90">
-            <form action="<?php echo BASEURL ?>/register/studentSignUp" method="post">
+            <form action="<?php echo BASEURL ?>/register/studentSignUp" autocomplete="on" method="post">
                 <div class="row">
                     <div class="col-10 fill-container">
                         <h1 class="header-1 margin-0">

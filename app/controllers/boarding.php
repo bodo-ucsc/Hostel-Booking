@@ -6,11 +6,25 @@ class Boarding extends Controller
     {
 
         $uname = $_SESSION['username'];
+        
+        $userId = $_SESSION['UserId'];
+        $placeId = $this->model('viewModel')->getID("user,boardingplace,boardingplacetenant", "boardingplace.placeID", "user.UserID = '$userId' AND user.UserId=boardingplacetenant.TenantID AND boardingplacetenant.Place=boardingplace.placeID");
+        $place = $placeId->fetch_assoc();
+        //print_r($place);
+        if($place!= null){
+            echo $place['placeID'];
+            // $this->viewBoarders($uname,'boarded');
+        }else{
+            //$this->viewBoarders($uname,'leaved');
+        }
+        
+
+
         $this->viewBoarders($uname);
         // $this->view('boarding/index');
     }
 
-    public function viewBoarders($uname)
+    public function viewBoarders($uname,$status=null)
     {
 
         $userId = $_SESSION['UserId'];
@@ -26,7 +40,8 @@ class Boarding extends Controller
 
         // SELECT firstname,lastname,studentuniversity as tagline, profilepicture FROM `student`,`user`,`boardingplacetenant`,`boarder` WHERE place = 1 AND  BoarderId = TenantID AND userId = BoarderId  AND userId=StudentId UNION SELECT firstname,lastname,usertype as tagline, profilepicture FROM `professional`,`user`,`boardingplacetenant`,`boarder` WHERE place = 1 AND  BoarderId = TenantID AND userId = BoarderId  AND userId=professionalId;
         
-        $this->view('boarding/index', ['result' => $result, 'postId' => $postId]);
+       // $this->view('boarding/index', ['result' => $result, 'postId' => $postId, 'bStatus' => $status]);
+       $this->view('boarding/index', ['result' => $result, 'postId' => $postId]);
         //$this->view('boarding/index', $data);
 
         // while ($row = $result->fetch_assoc()) {
