@@ -3,6 +3,17 @@ class Search
 {
     public function __construct($filter = null)
     {
+        $provinces = array(
+            "Western" => array("Colombo", "Gampaha", "Kaluthara"),
+            "Southern" => array("Galle", "Matara", "Hambantota"),
+            "Eastern" => array("Ampara", "Batticaloa", "Trincomalee"),
+            "Northern" => array("Jaffna", "Kilinochchi", "Vavuniya", "Mullaitivu", "Mannar"),
+            "North Western" => array("Kurunegala", "Puttalam"),
+            "North Central" => array(" Polonnaruwa", "Anuradhapure"),
+            "Uva" => array("Badulla", "Moneragala"),
+            "Sabaragamuwa" => array("Kegalle", "Ratnapura"),
+            "Central" => array("Kandy", "Matale", "Nuwara Eliya")
+        );
         $base = BASEURL;
 
         if ($filter == null) {
@@ -67,7 +78,7 @@ class Search
                 
         ";
 
-            echo "
+                echo "
             <div id='FilterSidebar' class='display-none padding-top-5 shadow border-rounded-more full-height position-fixed sidebar large right bg-white'>
                 <div class='row padding-top-5 margin-top-5'>
                     <span class='header-2 col-5 '>Filters</span>
@@ -79,6 +90,16 @@ class Search
                 
                 <form id='Filter-Form' action='$base/searchProperty' method='POST'>
                     <input type='hidden' id='filters' name='filters' value='yes'>
+
+                    <div class='row  margin-top-5 margin-bottom-5 padding-2 margin-left-5 col-11 position-fixed'>
+                        <div class='col-4 fill-container'>
+                            <button type='reset'  id='reset' class='header-nb fill-container border-1 bg-blue-hover white-hover border-rounded-more'>Reset</button>
+                        </div>
+                        <div class='col-4 fill-container'>
+                            <button class=' header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Apply</button>
+                        </div>    
+                    </div>
+                    
                     <div class='row padding-2  margin-top-3'>
                         <div class='col-3 fill-container'>
                             <label for='sortSearch'>Sort By</label>
@@ -129,6 +150,31 @@ class Search
                                 <option value='room'>Room</option>
                             </select>
                         </div>
+                    </div>";
+echo"
+                    <div class='row padding-2'>
+                        <div class='col-4 fill-container'>
+                            <label for='province'>Province</label>
+                        </div>
+                        <div class='col-6 fill-container'>
+                            <select id='province' name='province' onchange='updateDistricts()'>
+                                <option value=''></option>";
+                                foreach($provinces as $province => $districts) {
+                                    echo "<option value='$province'>$province</option>";
+                                }
+            echo"
+                            </select>
+                        </div>
+                    </div>";
+echo"
+                    <div class='row padding-2'>
+                        <div class='col-4 fill-container'>
+                            <label for='district'>District</label>
+                        </div>
+                        <div class='col-6 fill-container'>
+                            <select id='district' name='district'></select>
+                            </select>
+                        </div>
                     </div>
 
                     <div class='row padding-2'>
@@ -156,17 +202,6 @@ class Search
                         <div class='col-4 fill-container'>
                             <input type='number' id='NoOfRooms' name='NoOfRooms' min=1>
                         </div>
-                    </div>
-
-                    <div class='row padding-2 margin-left-5 col-11 position-fixed'>
-                    
-                        <div class='col-4 fill-container'>
-                            <button type='reset'  id='reset' class='header-nb fill-container border-1 bg-blue-hover white-hover border-rounded-more'>Reset</button>
-                        </div>
-                       
-                        <div class='col-4 fill-container'>
-                            <button class=' header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Apply</button>
-                        </div>    
                     </div>
 
                     <div class='row padding-2'>

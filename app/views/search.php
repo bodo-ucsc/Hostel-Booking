@@ -3,7 +3,17 @@
 new HTMLHeader("Listing | Place");
 new Navigation("listing");
 $base = BASEURL;
-
+$provinces = array(
+    "Western" => array("Colombo", "Gampaha", "Kaluthara"),
+    "Southern" => array("Galle", "Matara", "Hambantota"),
+    "Eastern" => array("Ampara", "Batticaloa", "Trincomalee"),
+    "Northern" => array("Jaffna", "Kilinochchi", "Vavuniya", "Mullaitivu", "Mannar"),
+    "North Western" => array("Kurunegala", "Puttalam"),
+    "North Central" => array(" Polonnaruwa", "Anuradhapure"),
+    "Uva" => array("Badulla", "Moneragala"),
+    "Sabaragamuwa" => array("Kegalle", "Ratnapura"),
+    "Central" => array("Kandy", "Matale", "Nuwara Eliya")
+);
 ?>
 
 <div class='navbar-offset full-width'>
@@ -49,6 +59,7 @@ new HTMLFooter();
 
 <script>
     let show = false;
+
     function toggleFilter() {
 
         if (!show) {
@@ -175,4 +186,17 @@ new HTMLFooter();
     ];
 
     autocomplete(document.getElementById('searchText'), place);
+
+    function updateDistricts() {
+        let province = document.getElementById('province').value;
+        let districtSelect = document.getElementById('district');
+        districtSelect.innerHTML = '';
+        let districts = <?php echo json_encode($provinces); ?>[province];
+        for (let i = 0; i < districts.length; i++) {
+            let option = document.createElement('option');
+            option.value = districts[i];
+            option.innerHTML = districts[i];
+            districtSelect.appendChild(option);
+        }
+    }
 </script>
