@@ -120,7 +120,7 @@ new Navigation("listing");
     }
 
     function updateSearchBox() {
-        document.getElementById("searchText").value = document.getElementById("searchQuery").value;
+        document.getElementById("searchText").value = document.getElementById("searchQuery").value; 
     }
 
     let filterArray = [];
@@ -138,10 +138,10 @@ new Navigation("listing");
 
 
     function clearfilters() {
+        //make filter array empty
         filterArray = [];
+        console.log(filterArray);
         updateFilterTags();
- 
-
     }
     function assignFilterValues() {
         filterArray.forEach(element => {
@@ -165,6 +165,7 @@ new Navigation("listing");
             }
 
         });
+        document.getElementById('searchQuery').defaultValue = '';
     }
 
     // console.log(filterArray);
@@ -214,28 +215,30 @@ new Navigation("listing");
 
     // add all filter array values to tags
     function updateFilterTags() {
+        let clearBtn = document.getElementById('filter-clear-btn');
+
         let filterTags = document.getElementById("filter-tags");
         if (filterArray.length === 0) {
             filterTags.innerHTML = "";
+            document.getElementById("searchQuery").defaultValue = document.getElementById("searchText").defaultValue;
+            clearBtn.classList.add("display-none");
             return;
         }
 
         filterTags.innerHTML = "";
         let appFilter = document.createElement("div");
-        appFilter.classList.add("display-block", "padding-2" );
+        appFilter.classList.add("display-block", "padding-2");
         appFilter.innerHTML = "Applied Filters:";
         filterTags.appendChild(appFilter);
         filterArray.forEach(element => {
             let tag = document.createElement("div");
-            tag.classList.add("display-inline-block", "padding-left-4", "padding-1", "margin-2", "white","border-rounded",  "bg-black", 'small', "rounded");
+            tag.classList.add("display-inline-block", "padding-left-4", "padding-1", "margin-2", "white", "border-rounded", "bg-black", 'small', "rounded");
             tag.innerHTML = element.id + " : " + element.value;
             // close button
             let close = document.createElement("button");
-            close.classList.add( "border-rounded", "white","bold",    "padding-horizontal-3","padding-vertical-2","margin-left-4", "bg-red", "cursor-pointer");
+            close.classList.add("border-rounded", "white", "bold", "padding-horizontal-3", "padding-vertical-2", "margin-left-4", "bg-red", "cursor-pointer");
             close.innerHTML = " X ";
             close.addEventListener("click", () => {
-                // set the element.id value to default value
-                // if element is select use default Selected
 
                 if (document.querySelector('input[name="' + element.id + '"]:checked')) {
                     document.querySelector('input[name="' + element.id + '"]:checked').checked = false;
@@ -254,6 +257,9 @@ new Navigation("listing");
                 // set element values to value in array
                 console.log(filterArray);
                 updateFilterTags();
+                // submit form
+                document.getElementById("submitBtn").click();
+                
             });
             tag.appendChild(close);
             filterTags.appendChild(tag);
@@ -276,21 +282,12 @@ new Navigation("listing");
             // });
             // filterTags.appendChild(tag);
         });
-        // <button type='reset' class='border-rounded bg-white border-red red border-1' id='filter-clear-btn' onclick='clearfilters()'>Clear All</button>
-        let clearBtnContainer = document.createElement("div");
-        clearBtnContainer.classList.add("display-block", "padding-2","center");
-        let clearBtn = document.createElement("button");
-        clearBtn.classList.add("border-rounded", "bg-white", "border-red", "red", "border-1" );
-        clearBtn.innerHTML = "Clear All";
-        clearBtn.addEventListener("click", () => {
-            clearfilters();
-        });
-        clearBtnContainer.appendChild(clearBtn);
-        filterTags.appendChild(clearBtnContainer);
+        clearBtn.classList.remove("display-none");
+
+
+
 
     }
-
-
 
 
 </script>

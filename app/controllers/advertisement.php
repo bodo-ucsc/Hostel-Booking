@@ -16,7 +16,7 @@ class Advertisement extends Controller{
 
     public function postUpdate()
     {
-        $_POST = json_decode(file_get_contents('php://input'), true);
+        json_decode(file_get_contents('php://input'), true);
         if (empty($_POST)) {
             $json['Status'] = "Failed no values";
             $json_response = json_encode($json);

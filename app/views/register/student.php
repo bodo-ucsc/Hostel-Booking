@@ -120,38 +120,37 @@ $nav = new Navigation();
                     <div class="col-12 col-medium-3 fill-container padding-bottom-4">
                         <div class="big black padding-bottom-2 ">University Email</div>
                         <div>
-                            <input type="radio" name="uniemail" value="y" id="yes" checked>
+                            <input type="radio" name="uniemail" value="y" id="yes" oninput='uniIdAd()' checked>
                             <lable for="y">Yes</lable>
-                            <input type="radio" name="uniemail" value="n" id="no">
+                            <input type="radio" name="uniemail" value="n" id="no" oninput='uniIdAd()'>
                             <lable for="n">No</lable>
                         </div>
                     </div>
-                    <div class="col-12 col-medium-4 fill-container">
+                    <div id='uniIDElement' class="col-12 col-medium-4 fill-container">
                         <label class="big" for="uniid">University ID Number</label>
                         <input class="margin-top-2" type="text" name="uniid" placeholder="University ID Number"
-                            id="uniid">
+                            id="uniid" required>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-medium-4 fill-container">
+
+                    <div id='uniEmailElement' class="col-12 col-medium-4 fill-container">
                         <label id="emailLabel" class="big" for="email">University Email Address</label>
                         <input class="margin-top-2" type="text" name="email" placeholder="University Email Address"
                             onkeyup="checkUserEmail()" id="email" required>
                     </div>
 
-                    <div class="col-12 col-medium-4 fill-container">
+                    <div id='uniIdUploadElement' class="col-12 col-medium-4 fill-container">
                         <label class="big" for="uniidupload">University ID</label>
                         <input id="uniidupload" name='uniidupload' credits='false'
                             accept="image/png, image/jpeg, image/gif" type="file">
                     </div>
-                    <input type="hidden" id="uniidlink" name="uniidlink" required>
+                    <input type="hidden" id="uniidlink" name="uniidlink">
 
-                    <div class="col-12 col-medium-4 fill-container">
+                    <div id='uniAdElement' class="display-none col-12 col-medium-4 fill-container">
                         <label class="big" for="uniadupload">University Admission Letter</label>
                         <input id="uniadupload" name='uniadupload' credits='false'
                             accept="image/png, image/jpeg, image/gif" type="file">
                     </div>
-                    <input type="hidden" id="uniadmission" name="uniadmission" required>
+                    <input type="hidden" id="uniadmission" name="uniadmission">
 
 
 
@@ -212,6 +211,44 @@ $nav = new Navigation();
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
 <script>
+
+    // run uniIdAd onload
+    uniIdAd();
+
+    function uniIdAd() {
+        //         uniid
+        // emailLabel
+        // uniidupload
+        // uniidlink
+        // uniadupload
+        // uniadmission
+        if (document.getElementById('yes').checked) {
+            document.getElementById('uniIDElement').classList.remove('display-none');
+            document.getElementById('uniIdUploadElement').classList.remove('display-none');
+            document.getElementById('uniAdElement').classList.add('display-none');
+            document.getElementById('emailLabel').innerHTML = "University Email Address";
+           
+            document.querySelector('input[name="uniidupload"]').required = true;
+            document.querySelector('input[name="uniadupload"]').required = false;
+            document.querySelector('input[name="uniid"]').required = true;
+
+           
+
+
+        } else {
+            document.getElementById('emailLabel').innerHTML = "Personal Email Address";
+            document.getElementById('uniIDElement').classList.add('display-none');
+            document.getElementById('uniIdUploadElement').classList.add('display-none');
+            document.getElementById('uniAdElement').classList.remove('display-none'); 
+           
+            document.querySelector('input[name="uniidupload"]').required = false;
+            document.querySelector('input[name="uniadupload"]').required = true;
+            document.querySelector('input[name="uniid"]').required = false;
+
+
+        }
+    }
+
     let emailArray = [];
     // fetch post
     fetch("<?php echo BASEURL ?>/userManagement/getUserEmail", {

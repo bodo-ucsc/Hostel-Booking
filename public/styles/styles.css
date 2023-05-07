@@ -2,6 +2,7 @@
 * {
   transition: all 0.25s;
   font-family: 'Montserrat', sans-serif;
+  scroll-behavior: smooth;
 }
 
 .border-box {
@@ -77,6 +78,11 @@ body {
 .feather-body {
   width: 11px;
   height: 11px;
+}
+
+.feather-small {
+  width: 16px;
+  height: 16px;
 }
 
 .feather-default {
@@ -1208,6 +1214,14 @@ header .nav-signup {
 
 .table:hover {
   overflow-x: auto;
+}
+
+.snap-scroll{
+  scroll-snap-type: x proximity;
+}
+
+.snap-scroll > * {
+  scroll-snap-align: end;
 }
 
 .hs {

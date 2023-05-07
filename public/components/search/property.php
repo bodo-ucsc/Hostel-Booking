@@ -74,6 +74,8 @@ class Search
             <div class=' margin-top-3 margin-bottom-3'>
                 <div id='filter-bar' class='center'>
                     <div id='filter-tags'  ></div>
+                    <button type='reset' class=' display-none border-rounded bg-white border-red red border-1' id='filter-clear-btn' onclick='clearfilters()'>Clear All</button>
+
                 </div>
             </div> ";
 

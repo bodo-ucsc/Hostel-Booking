@@ -55,12 +55,17 @@ class Navigation
             } elseif ($role == 'Student' || $role == 'Professional') {
                 if ($active == 'friends') {
                     echo "          <a class='padding-3 active' href='$base/friends'>Friends</a>";
-                } else if ($active == 'boarding') {
-                    echo "          <a class='padding-3 active' href='$base/boarding'>My Boarding</a>";
-                } else {
+                } 
+                else
+                {
                     echo "          <a class='padding-3' href='$base/friends'>Friends</a>";
-                    echo "          <a class='padding-3' href='$base/boarding'>My Boarding</a>";
-
+                }
+                if(isset($_SESSION['Place'])){
+                    if ($active == 'boarding') {
+                        echo "          <a class='padding-3 active' href='$base/boarding'>My Boarding</a>";
+                    } else {
+                        echo "          <a class='padding-3' href='$base/boarding'>My Boarding</a>";
+                    }
                 }
             }
         }

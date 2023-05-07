@@ -115,6 +115,19 @@ class addModel extends Model
         }
     }
 
+
+    public function addFriend($userid = null, $friendid = null)
+    {
+        // `MainFriendId`, `FriendId`, `status`
+        $result = $this->insert('Friend', ['MainFriendId' => $userid, 'FriendId' => $friendid]);
+        if ($result) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
+    }
+
+
     public function addUniversity($uni)
     {
         $result = $this->insert('university', ['UniversityName' => $uni]);

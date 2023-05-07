@@ -135,7 +135,7 @@ class Register extends Controller
 
                 $message = $this->model('addModel')->addBoardingOwner($BoardingOwnerId, $VerifiedStatus, $NICScanLink, $DateOfBirth, $Address, $WorkPlace, $Occupation);
                 if ($message == "success") {
-                    header("Location: " . BASEURL . "/signin/boardingOwner/$message");
+                    header("Location: " . BASEURL . "/signin/$message");
                 } else {
                     header("Location: " . BASEURL . "/register/boardingOwner/$message");
                 }
@@ -199,12 +199,12 @@ class Register extends Controller
                     $message = $this->model('addModel')->addProfessional($ProfessionalId, $WorkPlace, $Occupation);
                     if ($message == "success") {
                         echo "success";
-                        header("Location: " . BASEURL . "/signin/professional/$message");
+                        header("Location: " . BASEURL . "/signin/$message");
                     } else {
                         echo "fail";
                         header("Location: " . BASEURL . "/register/professional/$message");
                     }
-                    header("Location: " . BASEURL . "/signin/professional/$message");
+                    header("Location: " . BASEURL . "/signin/$message");
                 } else {
                     echo "fail";
                     header("Location: " . BASEURL . "/register/professional/$message");
@@ -296,7 +296,7 @@ class Register extends Controller
                     $message = $this->model('addModel')->addStudent($StudentId, $UniversityIDCopyLink, $StudentUniversity, $UniversityIDNo, $UniversityAdmissionLetterCopyLink);
                     if ($message == "success") {
                         
-                        header("Location: " . BASEURL . "/signin/student/$message");
+                        header("Location: " . BASEURL . "/signin/$message");
                     } else {
                         header("Location: " . BASEURL . "/register/student/$message");
                     }
