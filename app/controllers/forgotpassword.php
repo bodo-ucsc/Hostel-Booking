@@ -161,8 +161,7 @@ class Forgotpassword extends Controller
 
                         $this->model('editModel')->modifyData("user", ['Password' => $password], "UserId = '$userId'");
                         session_start();
-                        $userType = $_SESSION['userType'];
-                        header("Location: " . BASEURL . "/signin/$userType");
+                        header("Location: " . BASEURL . "/signin/success");
                     } else {
                         echo "Password not matched";
                     }

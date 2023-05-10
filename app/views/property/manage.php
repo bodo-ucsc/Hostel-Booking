@@ -344,7 +344,9 @@ if (isset($data['place'])) {
 
         </div>
     </div>
+
 </main>
+
 
 <script>
     window.onload = function () {

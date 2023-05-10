@@ -4,7 +4,7 @@ new HTMLHeader("Listing | Place");
 new Navigation("listing");
 ?>
 
-<div class='navbar-offset full-width center top'>
+<main class='navbar-offset full-width center top'>
     <div class='row center'>
         <div class='col-12'>
             <?php
@@ -63,7 +63,9 @@ new Navigation("listing");
 
         ?>
     </div>
-</div>
+  
+    <?php new pageFooter(); ?>
+</main>
 
 
 
@@ -291,4 +293,10 @@ new Navigation("listing");
 
 
 </script>
-<?php new HTMLFooter(); ?>
+<?php
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
+} else {
+    $footer = new HTMLFooter();
+}
+?>

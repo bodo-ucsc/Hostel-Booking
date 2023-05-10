@@ -5,6 +5,13 @@ $nav = new Navigation('listing');
 $base = BASEURL;
 $placeId = $data['id'];
 
+$rating = restAPI("property/ratingCountRest/$placeId");
+if (isset($rating[0]->Rating)) {
+    $rating = number_format($rating[0]->Rating, 1);
+} else {
+    $rating = 'N/A';
+}
+
 $result = restAPI("listing/placeRest/$placeId/y");
 $Boarded = $result->Boarded;
 $SummaryLine1 = $result->SummaryLine1;
@@ -54,6 +61,8 @@ if (isset($owner[0]->FirstName)) {
     $OwnerName = "Not Available";
 }
 
+$reviews = restAPI("property/ratingRest/$placeId");
+
 ?>
 <main class=" full-width ">
 
@@ -90,7 +99,9 @@ if (isset($owner[0]->FirstName)) {
                 </div>
                 <div class="col-6 header-2 right fill-container">
                     <i data-feather="star" class=" vertical-align-middle"></i>
-                    <span class="vertical-align-middle">4.6</span>
+                    <span class="vertical-align-middle">
+                        <?= $rating ?>
+                    </span>
                 </div>
                 <div class="col-12 fill-container left">
                     <span class='header-1 margin-0'>
@@ -168,7 +179,6 @@ if (isset($owner[0]->FirstName)) {
                                 </div>
                                 ";
                         }
-
                     }
                     ?>
                 </div>
@@ -207,7 +217,7 @@ if (isset($owner[0]->FirstName)) {
                     <span class='display-block center'>
                         <i data-feather='user' class='accent'></i></span>
                     <span id='gender-$PostId' class=' display-block center'>
-                         
+
                         <?= $Gender ?>
                     </span>
                 </div>
@@ -253,7 +263,7 @@ if (isset($owner[0]->FirstName)) {
                         echo "
                                 <span class='accent'>$vacancy Vacancies</span>
                                 ";
-                    } 
+                    }
                     if (isset($_SESSION['Place'])) {
                         $appendclass = "bg-grey";
                         $append = "disabled title='You are already boarded'";
@@ -350,7 +360,7 @@ if (isset($owner[0]->FirstName)) {
                         </ul>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12 fill-container">
                     <span class='header-2'>Description</span>
                     <p class=''>
                         <?= $Description ?>
@@ -370,6 +380,9 @@ if (isset($owner[0]->FirstName)) {
                 </div>
             </div>
         </div>
+
+
+
         <div class="col-12 col-medium-5 margin-3  fill-container fill-vertical">
             <div class="display-none display-medium-block">
                 <div class="row less-gap">
@@ -403,7 +416,9 @@ if (isset($owner[0]->FirstName)) {
                     </div>
                     <div class="col-6 header-2 right fill-container">
                         <i data-feather="star" class=" vertical-align-middle"></i>
-                        <span class="vertical-align-middle">4.6</span>
+                        <span class="vertical-align-middle">
+                            <?= $rating ?>
+                        </span>
                     </div>
                     <div class="col-12 fill-container left">
                         <h1 class='header-1 margin-0'>
@@ -485,7 +500,7 @@ if (isset($owner[0]->FirstName)) {
                         <span class='display-block center'>
                             <i data-feather='user' class='accent'></i></span>
                         <span id='gender-$PostId' class=' display-block center'>
-                            <?= $Gender ?> 
+                            <?= $Gender ?>
                         </span>
                     </div>
                     <div title='Type of Tenant' class='col-3 center fill-container small grey'>
@@ -513,24 +528,25 @@ if (isset($owner[0]->FirstName)) {
                 </div>
             </div>
 
-            <div class="display-none display-medium-block">
-                <div class='row less-gap padding-4 shadow margin-vertical-4 border-rounded-more '>
-                    <span class='col-12 fill-container left header-2'>Images</span>
-                    <?php
-                    if (isset($imageResult)) {
-                        foreach ($imageResult as $image) {
-                            $pic = $image->Image;
-                            echo "
-                                <div class='col-3 h-100px'>
-                                    <img onclick=changeImg('$base/$pic') src='$base/$pic' class='shadow border-rounded-more fill-container cursor-pointer'>
-                                </div>
-                                ";
-                        }
-
-                    }
-                    ?>
+            <?php
+            if (isset($imageResult) && !empty($imageResult)) {
+                echo "
+                <div class='display-none display-medium-block'>
+                    <div class='row less-gap padding-4 shadow margin-vertical-4 border-rounded-more '>
+                        <span class='col-12 fill-container left header-2'>Images</span>";
+                foreach ($imageResult as $image) {
+                    $pic = $image->Image;
+                    echo "
+                        <div class='col-3 h-100px'>
+                            <img onclick=changeImg('$base/$pic') src='$base/$pic' class='shadow border-rounded-more fill-container cursor-pointer'>
+                        </div>";
+                }
+                echo "
+                    </div>
                 </div>
-            </div>
+                ";
+            }
+            ?>
 
             <div class="display-none display-medium-block">
 
@@ -555,7 +571,7 @@ if (isset($owner[0]->FirstName)) {
                         }
                         ?>
                     </div>
-                    
+
                     <div class="col-6 fill-container">
                         <button class='bg-white border-1 border-rounded-more fill-container'
                             onclick="window.location.href='tel:<?= $OwnerContact ?>'" <?= $append ?>>
@@ -575,8 +591,81 @@ if (isset($owner[0]->FirstName)) {
             </div>
 
 
+            <div class='row less-gap padding-4 shadow margin-vertical-4 border-rounded-more '>
+                <div class="col-12 fill-container">
+                    <span class='header-2 display-block'>Reviews</span>
+                    <?php
+                    if (isset($rating) && $rating != 'N/A') {
+                        echo "
+                            <div class='row  padding-2 border-rounded-more margin-vertical-3 '>
+                                <div class='col-1 fill-container'></div>
+                                <div class='col-10 fill-container shadow-small padding-2 border-box bg-light-grey center  border-rounded-more '>
+                                    <div class=' display-inline-block bg-white border-rounded-more padding-2 padding-horizontal-4 border-box '>
+                                        <i data-star='$rating'></i>
+                                        <span class='header-3'>$rating Stars</span>
+                                    </div> 
+                                    <div class='display-inline-block padding-horizontal-3'>";
+                        if (count($reviews) == 1) {
+                            echo count($reviews) . " Review Available";
+                        } else {
+                            echo count($reviews) . " Reviews Available";
+                        }
+
+                        echo "
+                                    </div>
+
+                                </div>
+                            </div>
+                            ";
+                        foreach ($reviews as $key => $revVal) {
+
+                            $fname = $revVal->FirstName;
+                            $lname = $revVal->LastName;
+                            $profilePicture = $revVal->ProfilePicture;
+                            $review = $revVal->Review;
+                            $UserType = $revVal->UserType;
+                            $userId = $revVal->UserId;
+                            $rating = $revVal->Rating;
+                            if ($profilePicture == null) {
+                                $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
+                            } else {
+                                $profilePicture = BASEURL . "/$profilePicture";
+                            }
+                            echo "
+                                <div class='col-12  fill-container margin-vertical-3'>
+                                    <div class=' bg-white border-rounded-more  padding-3 border-box  row no-gap vertical-align-middle'>
+                                            <div class='padding-horizontal-3'>
+                                                <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
+                                            </div>
+                                            <div class='col-6 left fill-container'>
+                                                <div class='  grey'>$fname $lname</div>
+                                                <span  class='small vertical-align-middle'>$UserType</span>
+                                            </div>
+                                            <div class='col-5 center fill-container'>
+                                                <i data-star='$rating'></i>
+                                                <span class='header-3'>$rating Stars</span>
+                                            </div>
+                                            <div class='col-12 fill-container'>
+                                                <div class='padding-3'>$review</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                ";
+                        }
+                    } else {
+                        echo "<div class='margin-vertical-3 border-box'>No Reviews Available yet<div>";
+                    }
+                    ?>
+                </div>
+            </div>
+
+
         </div>
+
 </main>
+<?php new pageFooter(); ?>
+
 
 <script>
     function requestBoarding() {

@@ -3,7 +3,7 @@ $header = new HTMLHeader("Home");
 $nav = new Navigation("home");
 ?>
 
-<main class=" home full-width full-height overflow-hidden ">
+<main class=" home full-width full-height  ">
     <div class="row  no-gap margin-medium-left-5 margin-horizontal-3 full-height">
         <div class="display-block  display-small-none"></div>
 
@@ -23,7 +23,9 @@ $nav = new Navigation("home");
     </div>
 
 
+    <?php new pageFooter(); ?>
 </main>
+
 
 <script>
 

@@ -17,7 +17,9 @@ echo "
                 <a href='$base'><button class=' bg-white border-blue border-1 blue padding-vertical-3 padding-horizontal-5 border-rounded'>Home</button></a>
             </div>
         </div>
-</main> 
+
+</main>
+ 
 ";
 
 $footer = new HTMLFooter();

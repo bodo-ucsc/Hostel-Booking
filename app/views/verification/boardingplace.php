@@ -250,7 +250,9 @@ $base = BASEURL;
 
         </div>
     </div>
+
 </main>
+
 
 <script>
     function showModal(elem){

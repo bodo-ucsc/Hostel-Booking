@@ -32,7 +32,10 @@ $header = new HTMLHeader("Forgot Password");
             </div>
         </div>
     </div>
+    
+    <?php new pageFooter(); ?>
 </main>
+
 
 <?php
 if (isset($data['alert'])) {

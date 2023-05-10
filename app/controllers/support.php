@@ -23,7 +23,7 @@ class Support extends Controller
                 $alert = null;
             }
 
-            $rowCount = $this->model('viewModel')->numRowsWhere('Support', "Supporttype = '$type' AND RequestTo = '".$_SESSION['role']."'");
+            $rowCount = $this->model('viewModel')->numRowsWhere('Support', "Supporttype = '$type' AND RequestTo = '" . $_SESSION['role'] . "'");
             $result = restAPI("support/supportRest/$type");
             $this->view('support/index', ['type' => $type, 'result' => $result, 'page' => $page, 'rowCount' => $rowCount, 'perPage' => $perPage, 'message' => $message, 'alert' => $alert]);
 
@@ -67,7 +67,7 @@ class Support extends Controller
             if (isset($_POST['requestTo'])) {
                 $requestTo = $_POST['requestTo'];
             } else {
-                $requestTo = 'Admin';
+                $requestTo = 'Manager';
             }
             echo $type;
             echo $userId;
@@ -75,16 +75,21 @@ class Support extends Controller
             echo $description;
             echo $images;
 
-
+            
 
             $message = $this->model('addModel')->addSupport($type, $userId, $support, $description, $images, $requestTo);
-            if ($message == "success") {
+
+            if ($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'VerificationTeam') {
                 header("Location: " . BASEURL . "/support/$type/1/2/$message");
-                echo ("success");
             } else {
-                header("Location: " . BASEURL . "/support/$type/1/2/$message");
-                echo ("fail");
+                if(isset($_POST['currUrl'])){
+                    header("Location: " . $_POST['currUrl'] . "/$message");
+                }
+                else{
+                    header("Location: " . BASEURL . "/home/$message");
+                } 
             }
+            echo ("success");
         }
     }
 
@@ -101,7 +106,8 @@ class Support extends Controller
         echo $json_response;
     }
 
-    public function email(){
+    public function email()
+    {
         $_POST = json_decode(file_get_contents('php://input'), true);
         if (empty($_POST)) {
             $json['Status'] = "Failed no values";
@@ -109,15 +115,14 @@ class Support extends Controller
             echo $json_response;
             return;
         }
-        // emailFrom: document.getElementById('email-from').value,
-        //             emailTo: document.getElementById('email-to').value,
-        //             emailSubject: document.getElementById('email-subject').value,
-        //             emailText: document.getElementById('email-text').value,
         $emailFrom = $_POST['emailFrom'];
         $emailTo = $_POST['emailTo'];
         $emailSubject = $_POST['emailSubject'];
         $emailText = $_POST['emailText'];
 
+        if($emailFrom != 'jvatsbodo@gmail.com'){
+            $emailText = $emailText . "<br/> Email Sent From: " . $emailFrom;
+        }
         //php mailer 
         if (sendEmail($emailTo, $emailSubject, $emailText, $emailFrom) == 'error') {
             $json['Status'] = "Failed";

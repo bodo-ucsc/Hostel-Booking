@@ -3,7 +3,7 @@ $header = new HTMLHeader("Register | Student");
 $nav = new Navigation();
 ?>
 
-<main class="full-height ">
+<main class=" ">
     <div class="row navbar-offset  ">
         <div class="col-12 col-medium-4 width-90   justify-content center">
             <div class="row">
@@ -177,8 +177,10 @@ $nav = new Navigation();
                 <div class="row fill-container">
                     <div class="col-12  fill-container center">
                         <input class="vertical-align-middle" type="checkbox" id="agreement" name="agreement" required>
-                        <span class="vertical-align-middle">I agree to all the <a class="inverse">Terms</a> and the <a
-                                class="inverse">Privacy Policy</a></span>
+                        <span class="vertical-align-middle">I agree to all the <span onclick='openTerms()'
+                                class="blue-hover cursor-pointer ">Terms</span> and the <span
+                                onclick='location.href="<?= BASEURL ?>/about/privacy"'
+                                class="blue-hover cursor-pointer ">Privacy Policy</spam></span>
                     </div>
                 </div>
                 <div class="row fill-container padding-vertical-2">
@@ -196,7 +198,12 @@ $nav = new Navigation();
             </form>
         </div>
     </div>
+
+    
 </main>
+<div class="navbar-offset"></div>
+<?php new pageFooter(); ?>
+
 
 
 
@@ -211,6 +218,53 @@ $nav = new Navigation();
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
 <script>
+
+
+function openTerms() {
+        Swal.fire({
+            title: 'Terms and Conditions',
+            customClass: 'swal-wide max-height-500 ',
+            html: '<div class="left padding-3 bg-light-grey border-rounded-more ">' +
+                '<div class="overflow-y-auto">' +
+                '<span class="header-nb">BODO (Boarding Booking and Management System)</span><br><br>' +
+                '<span class="big">1. Acceptance of Terms:</span><br>' +
+                'By using our Hostel Booking and Management System, you acknowledge that you have read, understood, and agree to comply with these Terms and Conditions.<br><br>' +
+                '<span class="big">2. User Obligations:</span><br>' +
+                '2.1 You must provide accurate and up-to-date information while using the system.<br>' +
+                '2.2 You are responsible for maintaining the confidentiality of your account and password.<br>' +
+                '2.3 You agree not to use the system for any unlawful or unauthorized purposes.<br>' +
+                '2.4 You agree not to interfere with the system\'s functionality or disrupt its operation.<br><br>' +
+                '<span class="big">3. Booking and Reservations:</span><br>' +
+                '3.1 The Hostel Booking and Management System allows users to make reservations for hostel accommodation.<br>' +
+                '3.2 All bookings are subject to availability, and confirmation is provided based on availability at the time of booking.<br>' +
+                '3.3 Users must provide accurate and complete information during the booking process.<br>' +
+                '3.4 Users must provide a valid email address and contact number during the booking process.<br><br>' +
+                '<span class="big">4. Pricing and Payment:</span><br>' +
+                '4.1 All prices are in Sri Lankan Rupees (LKR).<br>' +
+                '4.3 The pricing of hostel accommodations and associated services is displayed on the system and is subject to change without notice.<br>' +
+                '4.4 Users are responsible for paying the total amount due for their bookings.<br><br>' +
+                '<span class="big">5. Modifications and Cancellations:</span><br>' +
+                '5.1 Users may modify or cancel their bookings, subject to the terms and conditions specified during the booking process.<br>' +
+                '5.2 Any applicable modification or cancellation fees will be clearly communicated to users.<br><br>' +
+                '<span class="big">6. Intellectual Property:</span><br>' +
+                '6.1 The Hostel Booking and Management System and its content, including but not limited to logos, graphics, and text, are protected by intellectual property rights.<br>' +
+                '6.2 Users are prohibited from reproducing, distributing, or modifying any part of the system without prior written permission.<br><br>' +
+                '<span class="big">7. Limitation of Liability:</span><br>' +
+                '7.1 The Hostel Booking and Management System is provided on an "as-is" basis.We do not guarantee the system\'s uninterrupted or error-free operation.<br>' +
+                '7.2 We shall not be liable for any direct, indirect, incidental, consequential, or exemplary damages arising from the use of the system.<br><br>' +
+                '<span class="big">8. Privacy:</span><br>' +
+                '8.1 Our Privacy Policy outlines how we collect, use, and protect your personal information.By using the system, you consent to the practices described in our Privacy Policy.<br><br>' +
+                '<span class="big">Termination:</span><br>' +
+                '9.1 We reserve the right to terminate or suspend your access to the Hostel Booking and Management System at any time without prior notice.<br><br>' +
+                '<span class="big">10. Governing Law and Jurisdiction:</span><br>' +
+                'These Terms and Conditions shall be governed by and construed in accordance with the laws of[jurisdiction].Any disputes arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts of[jurisdiction].<br><br>' +
+                'By using our Hostel Booking and Management System, you acknowledge and agree to abide by these Terms and Conditions.' +
+                '</div>' +
+                '</div>',
+
+        })
+    };
+
 
     // run uniIdAd onload
     uniIdAd();

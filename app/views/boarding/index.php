@@ -220,7 +220,7 @@ $basePage = BASEURL . '/boarding';
             }
             ?>
         </div>
-        <div class=" bg-white-hover cursor-pointer   zindex max-width-300 red header-nb bottom position-fixed"
+        <div class=" bg-white-hover cursor-pointer   zindex max-width-300 red header-nb bottom-0 position-fixed"
             onclick='leaveBoarding()'>
             <div class=" center  padding-vertical-4">
 
@@ -419,7 +419,9 @@ $basePage = BASEURL . '/boarding';
         </div>
     </div>
 
+
 </main>
+
 
 
 

@@ -24,10 +24,17 @@ class PropertyCard
             $BoarderType = "Preview";
             $Parking = "Preview";
             $vacancy = "X";
+            $rating = "N/A";
         } else {
 
 
             $result = restAPI("listing/placeRest/$PlaceId");
+            $rating = restAPI("property/ratingCountRest/$PlaceId");
+            if (isset($rating[0])) {
+                $rating = number_format($rating[0]->Rating, 1);
+            } else {
+                $rating = 'N/A';
+            } 
             $Boarded = $result->Boarded;
             $SummaryLine1 = $result->SummaryLine1;
             $SummaryLine2 = $result->SummaryLine2;
@@ -108,7 +115,7 @@ class PropertyCard
                         </div>
                         <div class='col-4 big bold fill-container right'>
                             <i data-feather='star' class='fill-black vertical-align-middle'></i>
-                            <span id='rating-$PostId' class=' vertical-align-middle'>4.5</span>
+                            <span id='rating-$PostId' class=' vertical-align-middle'>$rating</span>
                         </div>
                     </div>
                     <div class='row'>

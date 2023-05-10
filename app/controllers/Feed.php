@@ -5,16 +5,27 @@ class Feed extends Controller
 {
     public function index($PostId = null)
     {
+
         if (!isset($PostId)) {
             $this->view('Feed/index');
         } else {
-            header("Location: " . BASEURL . "/feed/viewPost/$PostId");
+            if ($PostId == 'fail') {
+                $alert = 'error';
+                $message = "Failed";
+                $this->view('Feed/index', ['message' => $message, 'alert' => $alert]);
+            } else if ($PostId == 'success') {
+                $message = "Successful";
+                $alert = 'success';
+                $this->view('Feed/index', ['message' => $message, 'alert' => $alert]);
+            } else {
+                header("Location: " . BASEURL . "/feed/viewPost/$PostId");
+            }
         }
     }
 
     public function postRest($PostId = null, $OwnerId = null)
     {
-       
+
         $data = $this->model('viewModel')->getPost($PostId, $OwnerId);
         echo json_encode(
             $data->fetch_all(MYSQLI_ASSOC)
@@ -105,7 +116,8 @@ class Feed extends Controller
         echo $json_response;
     }
 
-    public function viewPost($PostId = NULL){ 
+    public function viewPost($PostId = NULL)
+    {
         $this->view('Feed/viewPost', ['PostId' => $PostId]);
     }
 

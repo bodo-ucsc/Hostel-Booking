@@ -3,12 +3,24 @@
 
 class Advertisement extends Controller{
 
-    public function index($message = null)
+    public function index($message = null) 
     {
+        if (isset($message)) {
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Failed";
+            } else if ($message == 'success') {
+                $message = "Successful";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
         if (!( $_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'BoardingOwner')) {
             header('Location: ' . BASEURL . '/home');
         }
-        $this->view('advertisement/index');
+        $this->view('advertisement/index' , ['message' => $message, 'alert' => $alert]);
     }
    public function addUpdate()
     {

@@ -6,8 +6,8 @@ $nav = new Navigation();
 
 <main class=" full-width overflow-hidden position-absolute">
     <div class="row full-height ">
-        <div class=" display-none display-small-inline-block col-small-7  bg-light-grey   full-height">
-            <div class=" padding-5  vertical-align-middle flex full-height ">
+        <div class=" display-none display-small-inline-block col-small-7 border-rounded-more bg-light-grey fill-container full-height">
+            <div class=" padding-5   vertical-align-middle flex full-height ">
                 <img class="  width-90 vertical-align-middle " src="<?php echo BASEURL . '/public/images/signin.svg' ?>">
             </div>
         </div>
@@ -38,7 +38,9 @@ $nav = new Navigation();
  
 
     </div>
+    <?php new pageFooter(); ?>
 </main>
+
 
 
 <?php

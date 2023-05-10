@@ -42,4 +42,7 @@ $header = new HTMLHeader("Password Mesaage");
     
 
     </div>
+
+    <?php new pageFooter(); ?>
 </main>
+

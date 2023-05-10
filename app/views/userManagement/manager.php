@@ -228,7 +228,9 @@ $base = BASEURL . '/userManagement';
 
         </div>
     </div>
+
 </main>
+
 
 <script>
     function deleteUser(id) {

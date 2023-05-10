@@ -46,7 +46,9 @@ $result = restAPI('property/getBoardingOwner');
 
         </div>
     </div>
+
 </main>
+
 
 
         <?php

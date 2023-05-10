@@ -468,7 +468,7 @@ if (isset($owner[0]->FirstName)) {
                                 <div class="col-10 fill-container">
                                     <textarea class="fill-container" onkeyup="preview(this,'description-prev')"
                                         id="description" name="description" placeholder="Enter Description"
-                                        required> <?= $Description ?></textarea>
+                                        required> <?= preg_replace('/\R+/', "\n", str_replace(["<br>", "<br/>", "<br />"], "\n", $Description)); ?></textarea>
                                 </div>
                                 <div class="col-2 fill-container right ">
                                     <button
@@ -692,7 +692,9 @@ if (isset($owner[0]->FirstName)) {
             </div>
         </div>
     </div>
+
 </main>
+
 
 
 <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
@@ -704,9 +706,14 @@ if (isset($owner[0]->FirstName)) {
         document.getElementById('MainPic').src = '<?= BASEURL ?>/' + img;
     }
 
-    function preview(e, id) {
-        let elem = document.getElementById(id);
-        elem.innerHTML = e.value;
+    function preview(e, id) { 
+        let elem = document.getElementById(id); 
+        if (id === 'description-prev') {
+            elem.innerHTML = e.value.replace(/\n/g, '<br/>');
+        }
+        else {
+            elem.innerHTML = e.value;
+        }
     }
 
     let imageArray = [];

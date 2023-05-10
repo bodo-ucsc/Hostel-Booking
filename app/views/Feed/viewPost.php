@@ -22,6 +22,7 @@ echo "<div class='navbar-offset full-width center'>";
 
 new ViewCard($result[0], "y");
 echo "</div>";
+new pageFooter();
 echo "
         <script>";
 

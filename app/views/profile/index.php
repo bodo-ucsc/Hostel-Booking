@@ -92,7 +92,7 @@ $ContactNumber = $data['User']->ContactNumber;
 
         </div>
     </div>
-
+    <?php new pageFooter(); ?>
 
     <?php
     if (isset($data['alert'])) {

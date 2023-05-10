@@ -4,10 +4,22 @@
 class friends extends Controller
 {
 
-    public function index()
+    public function index($message = null) 
     {
-
-        $this->view('friends/index');
+        if (isset($message)) {
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Failed";
+            } else if ($message == 'success') {
+                $message = "Successful";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
+        $this->view('friends/index', ['message' => $message, 'alert' => $alert]);
+        
     }
 
     public function sendFriendRequest()

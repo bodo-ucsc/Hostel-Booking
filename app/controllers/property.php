@@ -81,6 +81,7 @@ class property extends Controller
         $SummaryLine2 = $_POST['sml2'];
         $SummaryLine3 = $_POST['sml3'];
         $Description = $_POST['description'];
+        $Description = nl2br($Description);
         $Price = $_POST['price'];
         $PriceType = $_POST['priceType'];
         $HouseNo = $_POST['houseNo'];
@@ -451,5 +452,31 @@ class property extends Controller
         }
         $json_response = json_encode($json);
         echo $json_response;
+    }
+
+    public function ratingCountRest($placeId = null){
+        if ($placeId == null) {
+            $append = "";
+        }
+        else{
+            $append = "Place = $placeId";
+        }
+        $data = $this->model('viewModel')->get('placeratings', $append);
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+
+    public function ratingRest($placeId = null){
+        if ($placeId == null) {
+            $append = "";
+        }
+        else{
+            $append = "Place = $placeId";
+        }
+        $data = $this->model('viewModel')->get('placereviews', $append);
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
     }
 }

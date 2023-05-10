@@ -126,7 +126,9 @@ $base = BASEURL;
         </div>
     </form>
     </div>
+
 </main>
+
 
 <script>
     var password = document.getElementById("password"),

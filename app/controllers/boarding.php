@@ -2,9 +2,21 @@
 
 class Boarding extends Controller
 {
-    public function index()
+    public function index($message = null) 
     {
-        $this->view('boarding/index');
+        if (isset($message)) {
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Failed";
+            } else if ($message == 'success') {
+                $message = "Successful";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
+        $this->view('boarding/index', ['message' => $message, 'alert' => $alert]);
     }
 
     public function payables($placeId = null)

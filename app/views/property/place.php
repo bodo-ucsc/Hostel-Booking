@@ -73,7 +73,9 @@ $sidebar = new SidebarNav("properties");
 
         </div>
     </div>
+
 </main>
+
 
 
 

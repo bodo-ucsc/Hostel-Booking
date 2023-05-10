@@ -5,7 +5,21 @@ class Listing extends Controller
     public function index($placeId = null)
     {
         if (isset($placeId)) {
-            $this->view('listing/index', ['placeId' => $placeId]);
+            if ($placeId == 'fail') {
+                $alert = 'error';
+                $message = "Failed";
+                $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId', 'VerifiedStatus = "verified"');
+                $this->view('listing/index', ['places' => $data, 'message' => $message, 'alert' => $alert]);
+                
+            } else if ($placeId == 'success') {
+                $message = "Successful";
+                $alert = 'success';
+                $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId', 'VerifiedStatus = "verified"');
+                $this->view('listing/index', ['places' => $data, 'message' => $message, 'alert' => $alert]);
+                
+            } else {
+                $this->view('listing/index', ['placeId' => $placeId]);
+            }
         } else {
             $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId', 'VerifiedStatus = "verified"');
             $this->view('listing/index', ['places' => $data]);

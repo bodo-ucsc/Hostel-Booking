@@ -405,7 +405,9 @@ $borderType = 'Student';
     </div>
 
 
+    
 </main>
+
 
 <script>
     const buttonRight = document.getElementById('slideRight');

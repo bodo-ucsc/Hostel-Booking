@@ -195,7 +195,9 @@ $Address = $Address[0]->Address;
         </div>
     </div>
 
+    <?php new pageFooter(); ?>
 </main>
+
 
 
 <script

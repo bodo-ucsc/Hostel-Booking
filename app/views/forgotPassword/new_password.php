@@ -40,7 +40,10 @@ $header = new HTMLHeader("Password Mesaage");
         </div>
     </div>
     </div>
+
+    <?php new pageFooter(); ?>
 </main>
+
 
 <script>
        var password = document.getElementById("password")

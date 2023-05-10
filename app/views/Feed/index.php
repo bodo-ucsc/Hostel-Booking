@@ -20,7 +20,9 @@ $base = BASEURL;
         ?>
     </div>
 
+    <?php new pageFooter(); ?>
 </main>
+
 
 
 

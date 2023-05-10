@@ -90,7 +90,9 @@ $base = BASEURL;
             </div>
         </div>
     </form>
+
 </main>
+
 
 <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>

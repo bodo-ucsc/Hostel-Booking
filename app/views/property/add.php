@@ -106,7 +106,8 @@ $OwnerName = $result[0]->Name;
                             <div class="col-6 fill-container">
                                 <label class="big" for="utilityupload">Utiliy Bill Receipt</label>
                                 <input title='For verification' id="utilityupload" name='utilityupload' credits='false'
-                                    accept="image/png, image/jpeg, image/gif" type="file"  data-max-file-size="3MB"  required >
+                                    accept="image/png, image/jpeg, image/gif" type="file" data-max-file-size="3MB"
+                                    required>
                             </div>
                             <div class="col-12 fill-container">
                                 <input type="hidden" id="utilityuploadlink" name="utilityuploadlink" required>
@@ -291,7 +292,7 @@ $OwnerName = $result[0]->Name;
                                     </div>
                                 </div>
                                 <div class="col-6 fill-container margin-vertical-4 ">
-                                    <?php 
+                                    <?php
 
                                     if (isset($ownerDP) && $ownerDP != "") {
                                         echo "
@@ -445,7 +446,9 @@ $OwnerName = $result[0]->Name;
             </div>
         </div>
     </form>
+
 </main>
+
 
 
 <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
@@ -458,8 +461,13 @@ $OwnerName = $result[0]->Name;
     }
 
     function preview(e, id) {
-        let elem = document.getElementById(id);
-        elem.innerHTML = e.value;
+        let elem = document.getElementById(id); 
+        if (id === 'description-prev') {
+            elem.innerHTML = e.value.replace(/\n/g, '<br/>');
+        }
+        else {
+            elem.innerHTML = e.value;
+        }
     }
 
     let imageArray = [];

@@ -33,6 +33,10 @@ class Edit extends Controller
             $value = password_hash($value, PASSWORD_DEFAULT);
         }
 
+        if ($key == 'Description') {
+            $value = nl2br($value);
+        }
+
         $data = $this->model('editModel')->modifyData($table, [$key => $value], "$id = '$idvalue' $append");
 
 

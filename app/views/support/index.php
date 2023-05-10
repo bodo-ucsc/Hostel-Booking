@@ -209,7 +209,9 @@ $basePage = BASEURL . "/support/$type";
 
         </div>
     </div>
+
 </main>
+
 
 <script>
 
