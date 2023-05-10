@@ -1,22 +1,27 @@
 <?php
 
-if (!( $_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'BoardingOwner')) {
-    header('Location: ' . BASEURL . '/home');
-}
+
 class Advertisement extends Controller{
 
     public function index($message = null)
     {
+        if (!( $_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'BoardingOwner')) {
+            header('Location: ' . BASEURL . '/home');
+        }
         $this->view('advertisement/index');
     }
    public function addUpdate()
     {
+
+        if (!( $_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'BoardingOwner')) {
+            header('Location: ' . BASEURL . '/home');
+        }
         $this->view('advertisement/addUpdate');
     }
 
     public function postUpdate()
     {
-        json_decode(file_get_contents('php://input'), true);
+        $_POST = json_decode(file_get_contents('php://input'), true);
         if (empty($_POST)) {
             $json['Status'] = "Failed no values";
             $json_response = json_encode($json);

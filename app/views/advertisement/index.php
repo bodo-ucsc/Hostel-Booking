@@ -8,7 +8,7 @@ new SideBarNav("Advertisement");
 
 <main class=" full-width ">
     <div class="row sidebar-offset navbar-offset ">
-        <div class="col-12 col-small-12 fill-container">
+        <div class="col-12 fill-container">
             <div class="row margin-horizontal-5 ">
                 <div class="col-8 left fill-container">
                     <h1 class="header-1 ">

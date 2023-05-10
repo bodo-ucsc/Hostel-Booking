@@ -11,7 +11,7 @@ class friends extends Controller
     }
 
     public function sendFriendRequest()
-    {  
+    {
         $_POST = json_decode(file_get_contents('php://input'), true);
         if (empty($_POST)) {
             $json['status'] = "Failed no values";
@@ -58,8 +58,7 @@ class friends extends Controller
                 $array['type'] = 'main';
                 $array['status'] = $row['status'];
                 array_push($friendarray, $array);
-            }
-            else{
+            } else {
                 $array['UserId'] = $row['MainFriendId'];
                 $array['type'] = 'not';
                 $array['status'] = 'not';
@@ -108,7 +107,7 @@ class friends extends Controller
                 array_push($friendarray, $row['FriendId']);
             } else if ($row['FriendId'] == $userid) {
                 array_push($friendarray, $row['MainFriendId']);
-            } 
+            }
         }
 
 
@@ -128,7 +127,7 @@ class friends extends Controller
         });
 
         //remove the index
-        $data = array_values($data); 
+        $data = array_values($data);
 
         // remove duplicate row with same user id and no place
         foreach ($data as $key => $value) {
@@ -136,7 +135,7 @@ class friends extends Controller
                 unset($data[$key]);
             }
         }
-  
+
         usort($data, function ($a, $b) {
             if ($a['Tagline'] == $_SESSION['workuni']) {
                 return -1;
@@ -149,44 +148,66 @@ class friends extends Controller
         //  limit the result to 7
         $data = array_slice($data, 0, 7);
 
-        
+
 
 
 
         echo json_encode($data);
     }
 
-    // public function acceptFriendRequest($sender, $receiver, $userid)
-    // {
 
 
 
-    // }
 
-    // public function rejectFriendRequest($sender, $receiver)
-    // {
-
-    // }
-
-
-
-    // public function showRequests($userid)
-    // {
-
-    // }
-
-    // public function showFriends($userid)
-    // {
-
-    // }
-
-
-
-    public function peopleYouMayKnow($uni, $userid)
+    public function inviteFriend()
     {
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        if (empty($_POST)) {
+            $json['status'] = "Failed no values";
+            echo json_encode($json);
+            return;
+        }
+        $sender = $_POST['sender'];
+        $receiver = $_POST['receiver'];
+        $place = $_POST['place'];
+
+        $data = $this->model('addModel')->inviteFriend($sender, $receiver, $place);
+        if ($data == 'success') {
+            $json['Status'] = "Success";
+        } else {
+            $json['Status'] = "Failed";
+        }
+        echo json_encode($json);
 
     }
 
+    public function invitedFriends($userId = null, $friend = null, $status = null)
+    {
+        if ($userId == null || $userId == 0) {
+            $append = null;
+        } else {
+            $append = "Tenant = '$userId'";
+        }
+        if ($friend != null) {
+            if ($append == null) {
+                $append = "FriendId = '$friend'";
+            } else {
+                $append = $append . " AND FriendId = '$friend'";
+            }
+        }
+        if ($status != null) {
+            if ($append == null) {
+                $append = "status = '$status'";
+            } else {
+                $append = $append . " AND status = '$status'";
+            }
+        }
+        $result = $this->model('viewModel')->get('FriendInvite', "$append");
+        echo json_encode(
+            $result->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+ 
 
 
 }

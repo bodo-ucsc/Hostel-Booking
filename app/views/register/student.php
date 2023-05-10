@@ -68,8 +68,8 @@ $nav = new Navigation();
                         <input type="file" id="profilepic" credits='false' name="profilepic"
                             accept="image/png, image/jpeg, image/gif" />
                         <input type="hidden" id="pplink" name="pplink">
-
                     </div>
+
                 </div>
                 <div class="row fill-container">
                     <div class="col-12 col-medium-4 fill-container">

@@ -111,7 +111,7 @@ $Address = $value->Address;
                                 </div>
                                 <div class="col-1 fill-container right ">
                                     <button
-                                        onclick="updateGender('VerificationTeam','VerificationTeamId','<?= $id ?>','Gender','gender')"
+                                        onclick="updateGender('User','UserId','<?= $id ?>','Gender','gender')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
@@ -145,7 +145,7 @@ $Address = $value->Address;
                                         placeholder="Enter NIC Number" value='<?= $NIC ?>'>
                                 </div>
                                 <div class="col-2 fill-container right ">
-                                    <button onclick="update('VerificationTeam','VerificationTeamId','<?= $id ?>','NIC','nic')"
+                                    <button onclick="update('User','UserId','<?= $id ?>','NIC','nic')"
                                         class="bg-accent-hover white-hover border-rounded-more ">
                                         <i data-feather="check" class=" vertical-align-middle"></i>
                                     </button>
@@ -232,7 +232,7 @@ $Address = $value->Address;
                             <label for="password" class="bold black">Password</label><br>
                             <div class="searchbar row fill-container border-rounded-more">
                                 <div class="col-10 fill-container ">
-                                    <input type="text" class=" fill-container margin-0 " id="password" name="password"
+                                    <input type="password" class=" fill-container margin-0 " id="password" name="password"
                                         placeholder="Enter Password" value=''>
                                 </div>
                                 <div class="col-2 fill-container right ">

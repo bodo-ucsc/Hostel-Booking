@@ -185,12 +185,20 @@ class userManagement extends Controller
             //     $array['Address'] = $row['Address'];
             //     array_push($json, $array);
             // }
-        } 
+        }
         echo json_encode(
             $result->fetch_all(MYSQLI_ASSOC)
         );
         // $json_response = json_encode($json);
         // echo $json_response;
+    }
+
+    public function userIdRest($userId)
+    {
+        $result = $this->model('viewModel')->get("User", " UserId = '$userId'");
+        echo json_encode(
+            $result->fetch_all(MYSQLI_ASSOC)
+        );
     }
 
 
@@ -258,6 +266,23 @@ class userManagement extends Controller
             echo "You do not have access to this page";
         }
     }
+
+    public function getAddress($role = null, $id = null)
+    {
+        if ($role == null || $id == null) {
+            header('Location: ' . BASEURL . "/userManagement/$role");
+        }
+        if($role == "student" || $role == "Student" || $role == "Professional" || $role == "professional"){
+            $role = "Boarder";
+        }
+        $roleId = $role . "Id";
+        $data = $this->model('viewModel')->getColumn("$role", "Address", " $roleId = $id");
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+
+
 
     public function getVerified($userId = null)
     {
@@ -547,7 +572,7 @@ class userManagement extends Controller
 
 
                 $StudentId = $this->model('addModel')->register($firstname, $lastname, $username, $NIC, $Gender, $email, $ContactNumber, $password, $usertype);
-echo $StudentId;
+                echo $StudentId;
 
 
                 $VerifiedStatus = "verified";
@@ -612,13 +637,14 @@ echo $StudentId;
         $res = $this->model('viewModel')->getWorkUni($usertype, $id);
         $data = array();
         while ($row = $res->fetch_assoc()) {
-            array_push($data,$row['Place']);
+            array_push($data, $row['Place']);
         }
         echo json_encode($data);
 
     }
 
-    public function test(){
+    public function test()
+    {
         $data = restAPI('userManagement/getWorkUni/Student/77');
         echo $data[0];
     }

@@ -94,7 +94,7 @@ $OwnerName = $result[0]->Name;
 
                             <div class="col-3 fill-container">
 
-                                <label for="priceType" class="bold black">Property Type</label><br>
+                                <label for="priceType" class="bold black">Price Type</label><br>
                                 <select name="priceType" onchange="preview(this,'price-type-prev')" id="priceType"
                                     required>
                                     <option value="" disabled selected>Select Type</option>

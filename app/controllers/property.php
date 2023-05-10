@@ -17,8 +17,19 @@ class property extends Controller
         }
     }
 
-    public function place($id = null)
+    public function place($id = null, $message = null)
     {
+        if ($message == 'error') {
+            $message = "Failed to add property. Please try again.";
+            $alert = 'error';
+        } else if ($message == 'success') {
+            $message = "Property will be visible after verification.";
+            $alert = 'success';
+        } else {
+            $message = null;
+            $alert = null;
+        }
+
         if (!($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'VerificationTeam' || $_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
             header('Location: ' . BASEURL);
         }
@@ -31,7 +42,7 @@ class property extends Controller
         if ($id == null) {
             header('Location: ' . BASEURL . '/property');
         } else {
-            $this->view('property/place', ['id' => $id]);
+            $this->view('property/place', ['id' => $id, 'message' => $message, 'alert' => $alert]);
         }
     }
     public function manage($id = null)
@@ -101,7 +112,7 @@ class property extends Controller
             }
         }
 
-        echo $result;
+        header('Location: ' . BASEURL . '/property/place/' . $OwnerId . '/success');
         // json_decode($imagePaths, true);
     }
 
@@ -297,6 +308,37 @@ class property extends Controller
         echo json_encode($json);
 
     }
+
+    public function boardingRent($placeId = null, $month = null)
+    {
+        if ($placeId == null) {
+            $append = "";
+        } else {
+            $append = "Place = $placeId";
+        }
+        if ($month != null) {
+            if ($append == "") {
+                $append = "Month = $month";
+            } else {
+                $append = $append . " AND Month = '$month'";
+            }
+        }
+        $data = $this->model('viewModel')->get("BoardingPlaceRent", "$append", "Month DESC");
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+
+    //   CREATE EVENT `monthly_rent`
+    //   ON SCHEDULE EVERY 1 SECOND
+    //   STARTS CURRENT_TIMESTAMP + INTERVAL 1 SECOND
+    //   ON COMPLETION NOT PRESERVE
+    //   ENABLE
+    //   DO
+    //   INSERT INTO BoardingPlaceRent (Tenant, Place, Month, PaymentStatus) 
+    //   SELECT bpt.TenantId, bpt.Place, DATE_FORMAT(NOW(), '%m-%Y'), 'Not Paid' 
+    //   FROM BoardingPlaceTenant bpt 
+    //   WHERE bpt.BoarderStatus = 'boarded'
 
 
 

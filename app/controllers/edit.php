@@ -21,6 +21,12 @@ class Edit extends Controller
             $append = "";
         }
 
+        if (isset($_POST['Id3']) && isset($_POST['IdValue3'])) {
+            $append = " AND " . $_POST['Id3'] . " = '" . $_POST['IdValue3'] . "'";
+        } else {
+            $append = "";
+        }
+
         $key = $_POST['Key'];
         $value = $_POST['Value'];
         if ($key == 'Password') {

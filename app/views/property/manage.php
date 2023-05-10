@@ -204,6 +204,112 @@ if (isset($data['place'])) {
             </div>
 
 
+            <div class="row margin-top-5 margin-bottom-3 fill-container">
+                <div class="col-6 col-small-7 col-large-8 header-2 fill-container left padding-bottom-3">
+                    <span class='padding-left-3'>Rent Payments</span>
+                </div>
+                <div class='col-2 fill-container right big padding-bottom-3'>Month</div>
+                <div class="col-4 col-small-3 col-large-2  right fill-container ">
+                    <select class=" border-rounded-more" id="rentMonth" onchange="filterMonth()">
+                        <?php
+                        $rentresult = restAPI("property/boardingRent/$placeid");
+                        $month = $rentresult[0]->Month;
+                        echo "<option value='$month' selected>$month</option>";
+                        foreach ($rentresult as $res => $value) {
+                            if ($month != $value->Month) {
+                                $month = $value->Month;
+                                echo "<option value='$month'>$month</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row fill-container">
+                <div class=" shadow-small border-rounded-more   fill-container col-12 ">
+                    <div class="row no-gap fill-container">
+                        <div
+                            class="col-8 table fill-container border-rounded-more padding-top-4 padding-bottom-5   bg-white ">
+                            <div class="hs padding-horizontal-5 padding-vertical-3">
+                                <div class="col-4  text-overflow bold">Name</div>
+                                <div class="col-3  text-overflow bold">Status</div>
+                                <div class="col-4  text-overflow bold">Paid on</div>
+                            </div>
+                            <?php
+                            // [{"Tenant":77,"Place":1,"Month":"04-2023","PaymentStatus":"Paid","DateTime":"2023-05-09 15:37:11"}]
+                            
+                            $members = restAPI("property/boardingMembersRest/$placeid");
+                            // get name from members and merge with rentresult no decode
+                            if (isset($rentresult)) {
+                                $useridArray = array();
+                                foreach ($rentresult as $key => $value) {
+                                    foreach ($members as $key => $value2) {
+                                        if ($value->Tenant == $value2->UserId) {
+                                            $arr['Status'] = $value->PaymentStatus;
+                                            $arr['Month'] = $value->Month;
+                                            $arr['UserId'] = $value->Tenant;
+                                            $month = $value->Month;
+                                            array_push($useridArray, $arr);
+                                            if ($value->PaymentStatus == "Paid") {
+                                                $status = "accent";
+                                                $paidDate = date("M d, Y", strtotime($value->DateTime));
+                                            } else {
+                                                $status = "red";
+                                                $paidDate = '-';
+                                            }
+                                            echo "<div class='hs list-items l-$month  padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
+                                            echo "<div class='col-4  text-overflow ' title='" . $value2->FirstName . " " . $value2->LastName . "' >" . $value2->FirstName . " " . $value2->LastName . "</div>";
+                                            echo "<div class='col-3  text-overflow'><span class=' small padding-horizontal-2 border-rounded border-$status border-1 $status ' title='" . $value->PaymentStatus . "' >" . $value->PaymentStatus . "</span></div>";
+                                            echo "<div class='col-4  text-overflow ' title='" . $paidDate . "' >" . $paidDate . "</div>";
+                                            echo "</div>";
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (isset($data['result'])) {
+                                foreach ($data['result'] as $key => $value) {
+
+                                }
+                            }
+                            ?>
+
+                        </div>
+                        <div
+                            class="col-4 fill-container border-rounded-more-right padding-top-4 padding-bottom-5 bg-white shadow-small ">
+                            <div class="col-12 fill-container padding-3 bold ">Actions</div>
+
+                            <?php
+                            if (isset($useridArray)) {
+                                foreach ($useridArray as $user) {
+                                    $userid = $user['UserId'];
+                                    $status = $user['Status'];
+                                    $month = $user['Month'];
+                                    echo "<div class='row less-gap padding-1 l-a-$month padding-horizontal-3 list-item-action'>";
+                                    echo "<div class='col-12 fill-container cursor-pointer' onclick='togglePaid(\"$userid\", \"$month\", \"$status\")'>";
+                                    if ($status == "Paid") {
+                                        echo "<div class=' fill-container border-grey bg-white grey-hover border-1 border-rounded padding-vertical-1  center'>";
+                                        echo "<i data-feather='check-circle' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Mark as Not Paid</span>";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<div class=' fill-container border-blue bg-white blue-hover border-1 border-rounded padding-vertical-1  center'>";
+                                        echo "<i data-feather='check-circle' class='feather-body display-inline-block display-small-none'></i> <span class='display-small-block  display-none'>Mark as Paid</span>";
+                                        echo "</div>";
+                                    }
+                                    echo "</div>";
+                                    echo "</div>";
+                                }
+                            }
+                            ?>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
             <div class="row margin-top-5 fill-container">
                 <div class="col-12 header-2 fill-container left">
                     <span class='padding-left-3'>Bed Management</span>
@@ -230,6 +336,7 @@ if (isset($data['place'])) {
                 }
                 ?>
             </div>
+            <div class="padding-2 fill-container"></div>
 
 
 
@@ -291,17 +398,17 @@ if (isset($data['place'])) {
                 else {
                     for (var j = 1; j <= <?= $count ?>; j++) {
 
-                        var select2 = document.getElementById("bed" + j);
+            var select2 = document.getElementById("bed" + j);
 
-                        for (var i = 0; i < data.length; i++) {
-                            var opt = data[i].Name;
-                            var el = document.createElement("option");
-                            el.textContent = opt;
-                            el.value = data[i].Id;
-                            select2.appendChild(el);
-                        };
-                    };
-                };
+            for (var i = 0; i < data.length; i++) {
+                var opt = data[i].Name;
+                var el = document.createElement("option");
+                el.textContent = opt;
+                el.value = data[i].Id;
+                select2.appendChild(el);
+            };
+        };
+    };
             });
     };
 
@@ -332,62 +439,62 @@ if (isset($data['place'])) {
             title: 'Send Vacate Notice',
             html:
                 '<select id="tenant-vacate" class="" required>' +
-                '<option value="">Select Tenant</option>' +
+                    '<option value="">Select Tenant</option>' +
                 <?php
                 foreach ($boarded as $key => $value) {
                     echo "'<option value=\" " . $value->UserId . "\">" . $value->FirstName . " " . $value->LastName . "</option>'+";
                 }
                 ?>
-            '</select>',
-            showCancelButton: true,
+        '</select>',
+        showCancelButton: true,
             cancelButtonColor: '#788292',
         }).then((result) => {
-            if (result.isConfirmed && document.getElementById('tenant-vacate').value != "") {
+                if (result.isConfirmed && document.getElementById('tenant-vacate').value != "") {
 
-                //timestamp current 
-                var timestamp = new Date().toISOString().slice(0, 10) + " " + new Date().toLocaleTimeString('si-LK');
-                console.log(timestamp);
+                    //timestamp current 
+                    var timestamp = new Date().toISOString().slice(0, 10) + " " + new Date().toLocaleTimeString('si-LK');
+                    console.log(timestamp);
 
 
-                const data = {
-                    Table: 'BoardingPlaceTenant',
-                    Id: 'TenantId',
-                    IdValue: document.getElementById('tenant-vacate').value,
-                    Key: 'LeaveNotice',
-                    Value: timestamp
-                };
+                    const data = {
+                        Table: 'BoardingPlaceTenant',
+                        Id: 'TenantId',
+                        IdValue: document.getElementById('tenant-vacate').value,
+                        Key: 'LeaveNotice',
+                        Value: timestamp
+                    };
 
-                fetch("<?= BASEURL ?>/edit/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                }).then(response => response.json())
-                    .then(json => {
-                        if (json.Status === 'Success') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Leave Notice Sent',
-                                text: 'Leave Notice Sent to Tenant'
-                            }).then((result) => {
-                                location.reload();
-                            });
+                    fetch("<?= BASEURL ?>/edit/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    }).then(response => response.json())
+                        .then(json => {
+                            if (json.Status === 'Success') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Leave Notice Sent',
+                                    text: 'Leave Notice Sent to Tenant'
+                                }).then((result) => {
+                                    location.reload();
+                                });
 
-                        }
-                        else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!'
-                            })
-                        }
-                    }).catch(function (error) {
-                        console.log('Request failed', error);
-                    });
+                            }
+                            else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!'
+                                })
+                            }
+                        }).catch(function (error) {
+                            console.log('Request failed', error);
+                        });
 
-            }
-        })
+                }
+            })
     };
 
     function deleteTenant() {
@@ -396,8 +503,8 @@ if (isset($data['place'])) {
             title: 'Delete Tenant',
             html:
                 '<span>A minimum of 7 days notice is required to delete a tenant.</span><br/>' +
-                '<select id="tenant-delete" class="" required>' +
-                '<option value="">Select Tenant</option>' +
+                    '<select id="tenant-delete" class="" required>' +
+                    '<option value="">Select Tenant</option>' +
                 <?php
                 foreach ($boarded as $key => $value) {
                     if (isset($value->LeaveNotice)) {
@@ -412,71 +519,122 @@ if (isset($data['place'])) {
                     }
                 }
                 ?>
-                '</select>'+
-                '<br/><span class="red">*This action cannot be undone..</span>',
-            showCancelButton: true,
+        '</select>' +
+        '<br/><span class="red">*This action cannot be undone..</span>',
+        showCancelButton: true,
             cancelButtonColor: '#788292',
         }).then((result) => {
-            if (result.isConfirmed && document.getElementById('tenant-delete').value != "") {
-                let deleteVal = document.getElementById('tenant-delete').value;
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonColor: '#788292',
-                    confirmButtonColor: '#C83A3A',
-                    confirmButtonText: 'Yes, delete it!'
+                if (result.isConfirmed && document.getElementById('tenant-delete').value != "") {
+                    let deleteVal = document.getElementById('tenant-delete').value;
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonColor: '#788292',
+                        confirmButtonColor: '#C83A3A',
+                        confirmButtonText: 'Yes, delete it!'
 
 
 
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const data = {
-                            Table: 'BoardingPlaceTenant',
-                            Id: 'TenantId',
-                            IdValue: deleteVal,
-                            Key: 'BoarderStatus',
-                            Value: 'left'
-                        };
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const data = {
+                                Table: 'BoardingPlaceTenant',
+                                Id: 'TenantId',
+                                IdValue: deleteVal,
+                                Key: 'BoarderStatus',
+                                Value: 'left'
+                            };
 
-                        fetch("<?= BASEURL ?>/edit/", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(data)
-                        }).then(response => response.json())
-                            .then(json => {
-                                if (json.Status === 'Success') {
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Deleted Successfully'
-                                    }).then((result) => {
-                                        location.reload();
-                                    });
+                            fetch("<?= BASEURL ?>/edit/", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(data)
+                            }).then(response => response.json())
+                                .then(json => {
+                                    if (json.Status === 'Success') {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Deleted Successfully'
+                                        }).then((result) => {
+                                            location.reload();
+                                        });
 
-                                }
-                                else {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        text: 'Something went wrong!'
-                                    })
-                                }
-                            }).catch(function (error) {
-                                console.log('Request failed', error);
-                            });
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'Something went wrong!'
+                                        })
+                                    }
+                                }).catch(function (error) {
+                                    console.log('Request failed', error);
+                                });
 
-                    }
-                })
-            }
-        })
+                        }
+                    })
+                }
+            })
+    };
+
+    filterMonth();
+
+    function filterMonth(){
+        // id="rentMonth"
+        let month = document.getElementById('rentMonth').value; 
+        console.log(month);
+
+        // select  class with name l-<month>
+        let listItem = document.getElementsByClassName('list-items');
+        let listItemAction =document.getElementsByClassName('list-item-action');
+        // loop through the list and set display to none
+        for (let i = 0; i < listItem.length; i++) {
+            listItem[i].classList.add('display-none'); 
+            listItem[i].classList.remove('hs');
+            listItemAction[i].classList.add('display-none');
+            listItemAction[i].classList.remove('row');
+        }
+
+
+
+        let monthClass = document.getElementsByClassName('l-'+month);
+        let monthClassAction = document.getElementsByClassName('l-a-'+month);
+        for (let i = 0; i < monthClass.length; i++) {
+            monthClass[i].classList.remove('display-none'); 
+            monthClass[i].classList.add('hs'); 
+            monthClassAction[i].classList.remove('display-none');
+            monthClassAction[i].classList.add('row');
+        } 
+
+
+    }
+
+    function togglePaid(uid, month, status) {
+        if (status == 'Paid') {
+            status = 'Not Paid';
+        }
+        else {
+            status = 'Paid';
+        }
+        const data = {
+            Table: 'BoardingPlaceRent',
+            Id: 'Tenant',
+            IdValue: uid,
+            Id2: 'Place',
+            IdValue2: '<?= $placeid ?>',
+            Id3: 'Month',
+            IdValue3 : month,
+            Key: 'PaymentStatus',
+            Value: status,
+        };
+        updater(data);
     };
 
     function boarderStatus(id, Status) {
-
-
         const data = {
             Table: 'BoardingPlaceTenant',
             Id: 'TenantId',
@@ -486,7 +644,10 @@ if (isset($data['place'])) {
             Key: 'BoarderStatus',
             Value: Status,
         };
+        updater(data);
+    };
 
+    function updater(data){
         fetch("<?= BASEURL ?>/edit/", {
             method: "POST",
             headers: {

@@ -200,6 +200,16 @@ class addModel extends Model
         }
     }
 
+    public function inviteFriend($userid, $friendid, $place)
+    { 
+        $result = $this->insert('FriendInvite', ['Tenant' => $userid, 'FriendId' => $friendid, 'PlaceId' => $place]);
+        if ($result) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
+    }
+
     public function addTenant($placeId, $userId)
     {
         $result = $this->insert('BoardingPlaceTenant', ['Place' => $placeId, 'TenantId' => $userId, 'BoarderStatus' => 'requested']);
@@ -241,5 +251,16 @@ class addModel extends Model
             return 'fail';
         }
     }
+
+    public function postReview($userId, $placeId, $rating, $review)
+    { 
+        $result = $this->insert('ReviewRating', ['BoarderId' => $userId, 'Place' => $placeId, 'Rating' => $rating, 'Review' => $review]);
+        if ($result) {
+            return 'success';
+        } else {
+            return 'fail';
+        }
+    }
+
 
 }

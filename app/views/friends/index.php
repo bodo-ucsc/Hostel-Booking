@@ -51,10 +51,10 @@ $borderType = 'Student';
             </div>
 
             <?php
-            $result = restAPI('friends/getFriends/' . $_SESSION['UserId'] . '/pending');
+            $friendPending = restAPI('friends/getFriends/' . $_SESSION['UserId'] . '/pending');
             $req = 0;
-            if (isset($result)) {
-                foreach ($result as $res => $value) {
+            if (isset($friendPending)) {
+                foreach ($friendPending as $res => $value) {
                     if ($value->type == 'main') {
                         $req += 1;
                         $userId = $value->UserId;
@@ -115,10 +115,10 @@ $borderType = 'Student';
                 <span class=' fill-container margin-left-0 header-2'>My Friends</span>
             </div>
             <?php
-            $result = restAPI('friends/getFriends/' . $_SESSION['UserId'] . '/friend');
+            $friendAccept = restAPI('friends/getFriends/' . $_SESSION['UserId'] . '/friend');
             $req = 0;
-            if (isset($result)) {
-                foreach ($result as $res => $value) {
+            if (isset($friendAccept)) {
+                foreach ($friendAccept as $res => $value) {
 
                     $req += 1;
                     $userId = $value->UserId;
@@ -177,10 +177,9 @@ $borderType = 'Student';
             </div>
 
             <?php
-            $result = restAPI('friends/getFriends/' . $_SESSION['UserId'] . '/pending');
             $req = 0;
-            if (isset($result)) {
-                foreach ($result as $res => $value) {
+            if (isset($friendPending)) {
+                foreach ($friendPending as $res => $value) {
                     if ($value->type == 'friend') {
                         $req += 1;
                         $userId = $value->UserId;
@@ -251,9 +250,9 @@ $borderType = 'Student';
             </div>
         </div>
 
-        <div class="col-12 col-small-12 width-90">
+        <div class="col-12 width-90">
             <div class="row ">
-                <span class='col-8 fill-container fill-container margin-left-0 header-2'>You may know</span>
+                <span class='col-8 fill-container  margin-left-0 header-2'>You may know</span>
                 <div class="col-4 fill-container right">
                     <button id="slideLeft" type="button" class='bg-transparent blue padding-0'>
                         <i data-feather="chevron-left"></i>
@@ -266,9 +265,9 @@ $borderType = 'Student';
 
             <div id="suggestedFriends" class="table hs border-rounded-more padding-2 margin-top-3 snap-scroll">
                 <?php
-                $result = restAPI('friends/friendRecommendation/' . $_SESSION['UserId']);
-                if (isset($result)) {
-                    foreach ($result as $res => $value) {
+                $friendReccommend = restAPI('friends/friendRecommendation/' . $_SESSION['UserId']);
+                if (isset($friendReccommend)) {
+                    foreach ($friendReccommend as $res => $value) {
 
                         $req += 1;
                         $userId = $value->UserId;
@@ -327,6 +326,82 @@ $borderType = 'Student';
 
 
         </div>
+        <div class="col-12 width-90 ">
+            <span class=' display-block  margin-left-0 header-2 fill-container'>Boarding Invites</span>
+            <?php
+            $boardingInvite = restAPI('friends/invitedFriends/0/' . $_SESSION['UserId']. '/pending');
+            //get name and profile picture from friendAccept and merge to boardingInvite
+            if (isset($boardingInvite)) {
+                $c = 0;
+                foreach ($boardingInvite as $res => $value) {
+                    foreach ($friendAccept as $resu => $value2) {
+                        if ($value->Tenant == $value2->UserId) {
+                            $fname = $value2->FirstName;
+                            $lname = $value2->LastName;
+                            $profilePicture = $value2->ProfilePicture;
+                            break;
+                        }
+                    }
+
+
+                    $c += 1;
+                    // [{"Tenant":77,"FriendId":80,"PlaceId":1,"Status":"pending","DateTime":"2023-05-09 06:49:00"}]
+                    $tenant = $value->Tenant;
+                    $friendId = $value->FriendId;
+
+                    $placeId = $value->PlaceId;
+                    $status = $value->Status;
+                    $dateTime = $value->DateTime;
+
+                    echo "
+                    <div class='advert shadow bg-white border-rounded-more padding-3 display-inline-block '> 
+                        <div class='row no-gap vertical-align-middle'>
+                            <div class=' padding-2'>";
+                    if ($ProfilePicture == null) {
+                        echo "<img src='https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname' alt='' class='vertical-align-middle border-white border-3 shadow dp border-circle'>";
+                    } else {
+                        echo "<img src='$base/$ProfilePicture' alt='' class='vertical-align-middle border-white border-3 shadow dp border-circle'>";
+                    }
+                    echo " 
+                            </div>
+                            <div class='col-11 fill-container left margin-left-2'>
+                                <div class='row no-gap'>
+                                    <div class='col-9 fill-container left '>
+                                        <div class='display-inline-block big vertical-align-middle'>
+                                            $fname $lname
+                                        </div> 
+                                    </div>
+                                    <div class='col-3 fill-container right vertical-align-middle'>
+                                        <div class=' cursor-pointer display-inline-block accent padding-right-1' onclick='acceptrejectInvite($tenant,$friendId,$placeId, \"accept\" )'>
+                                        <i data-feather='check'></i>
+                                        </div>
+                                        <div class=' cursor-pointer display-inline-block red padding-left-1' onclick='acceptrejectInvite($tenant,$friendId,$placeId, \"reject\")'>
+                                        <i data-feather='x'></i>
+                                        </div>
+                                    </div>
+                                    <div class='col-12 fill-container left'>";
+                    $timestamp = strtotime($dateTime);
+                    echo date("M d, Y h.i A", $timestamp);
+                    echo "
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+        
+                        ";
+
+                    new PropertyCard($placeId, "yes");
+                    echo " </div>";
+
+
+                }
+            }
+            if ($c == 0){
+                echo "<div class=' padding-vertical-4 border-box'>No Invites</div>";
+            }
+            ?>
+
+        </div>
     </div>
 
 
@@ -344,7 +419,6 @@ $borderType = 'Student';
     };
 
     function update(table, id, idvalue, k, value) {
-
         const data = {
             Table: table,
             Id: id,
@@ -352,7 +426,52 @@ $borderType = 'Student';
             Key: k,
             Value: value,
         };
+        updater(data);
+    };
 
+    function acceptrejectInvite(tenant, friendId, placeId, status) {
+        const data = {
+            Table: 'FriendInvite',
+            Id: 'Tenant',
+            IdValue: tenant,
+            Id2: 'FriendId',
+            IdValue2: friendId,
+            Id3: 'PlaceId',
+            IdValue3: placeId,
+            Key: 'Status',
+            Value: status,
+        }; 
+        updater(data);
+        if (status == 'accept') {
+            requestBoarding(friendId); 
+        } 
+    };
+
+    function requestBoarding(id) {
+        let url = "<?= $base ?>/property/joinBoarding/<?= $placeId ?>/" + id;
+        fetch(url).then((response) => response.json()).then((json) => {
+            console.log(json);
+            if (json.Status === 'Success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Join Request Sent',
+                    text: 'You will be notified when your request is accepted'
+                }).then((result) => {
+                    location.reload();
+                })
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+
+        });
+    }
+
+    function updater(data) {
         fetch("<?php echo BASEURL ?>/edit/", {
             method: "POST",
             headers: {
@@ -364,7 +483,7 @@ $borderType = 'Student';
                 if (json.Status === 'Success') {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Edited Successfully'
+                        title: 'Update Successful'
                     }).then((result) => {
                         location.reload();
                     })

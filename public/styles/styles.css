@@ -581,8 +581,9 @@ button.padded {
 }
 
 button.swal2-styled.swal2-confirm,
-.swal2-styled.swal2-cancel {
+.swal2-styled.swal2-cancel, .swal2-styled.swal2-deny  {
   border-radius: 10px !important;
+  font-size: 15px !important;
 }
 
 button.swal2-styled.swal2-confirm {
@@ -590,6 +591,18 @@ button.swal2-styled.swal2-confirm {
   color: #fff;
 }
 
+button.swal2-styled.swal2-deny {
+  background-color: #C83A3A;
+  color: #fff;
+}
+
+.swal-wide{
+  width:550px !important;
+}
+
+.swal-wide button{
+  padding: 15px !important;
+}
 
 /* Form */
 
@@ -621,6 +634,7 @@ input[type=range]{
   margin-bottom: 15px;
   display: inline-block; 
   box-sizing: border-box;
+  appearance: none;
   -webkit-appearance: none;
   background-color: #F2F2F2;
   border: 2px solid #EAEAEA;
@@ -672,7 +686,6 @@ input[type=checkbox]:checked {
   outline: 2px solid #006DFF;
   background-color: #006DFF; 
 }
-
 
 
 select {
@@ -745,6 +758,43 @@ input[type=date].bg-red {
   background: #C83A3A;
   color: #fff;
 }
+
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  }
+  
+  
+  .rating > input{ display:none;}
+  
+  .rating > label {
+  position: relative;
+  width: 1.1em;
+  font-size: 30px;
+  color: #176fe2;
+  cursor: pointer;
+  }
+  
+  .rating > label::before{
+  content: "\2605";
+  position: absolute;
+  opacity: 0;
+  }
+  
+  .rating > label:hover:before,
+  .rating > label:hover ~ label:before {
+  opacity: 1 !important;
+  }
+  
+  .rating > input:checked ~ label:before{
+  opacity:1;
+  }
+  
+  .rating:hover > input:checked ~ label:before{ opacity: 0.4; }
+  
+  
 
 
 /*
@@ -919,6 +969,10 @@ header .nav-signup {
 
 .width-100px {
   width: 100px;
+}
+
+.width-150px {
+  width: 150px;
 }
 
 .h-100px img {
@@ -1148,6 +1202,11 @@ header .nav-signup {
   text-align: right;
 }
 
+.bottom{
+ 
+  bottom: 0;
+}
+
 
 .top {
   vertical-align:top;
@@ -1302,6 +1361,9 @@ header .nav-signup {
 .margin-n4 {
   margin: -4rem;
 }
+.margin-n5 {
+  margin: -5rem;
+}
 
 .margin-top-n1 {
   margin-top: -1rem;
@@ -1317,6 +1379,10 @@ header .nav-signup {
 
 .margin-top-n4 {
   margin-top: -4rem;
+}
+
+.margin-top-n5 {
+  margin-top: -5rem;
 }
 
 .margin-bottom-n1 {
@@ -1335,6 +1401,10 @@ header .nav-signup {
   margin-bottom: -4rem;
 }
 
+.margin-bottom-n5 {
+  margin-bottom: -5rem;
+}
+
 .margin-left-n1 {
   margin-left: -1rem;
 }
@@ -1351,6 +1421,10 @@ header .nav-signup {
   margin-left: -4rem;
 }
 
+.margin-left-n5{
+  margin-left: -5rem;
+}
+
 .margin-right-n1 {
   margin-right: -1rem;
 }
@@ -1365,6 +1439,10 @@ header .nav-signup {
 
 .margin-right-n4 {
   margin-right: -4rem;
+}
+
+.margin-right-n5 {
+  margin-right: -5rem;
 }
 
 

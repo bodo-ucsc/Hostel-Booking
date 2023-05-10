@@ -148,9 +148,9 @@ class viewModel extends Model
         }
         if (isset($OwnerId)) {
             $append .= " AND OwnerId = $OwnerId";
-            $result = $this->getColumn("User, BoardingOwner, BoardingPlace, PostUpdate", "FirstName,LastName,UserType ,ProfilePicture,PostId ,PostUpdate.PlaceId,DateTime,Caption,User.UserId", "User.UserId= PostUpdate.UserId AND PostUpdate.PlaceId = BoardingPlace.PlaceId AND OwnerId = BoardingOwnerId $append");
+            $result = $this->getColumn("User, BoardingOwner, BoardingPlace, PostUpdate", "FirstName,LastName,User.UserId, UserType ,ProfilePicture,PostId ,PostUpdate.PlaceId,DateTime,Caption,User.UserId", "User.UserId= PostUpdate.UserId AND PostUpdate.PlaceId = BoardingPlace.PlaceId AND OwnerId = BoardingOwnerId $append");
         } else {
-            $result = $this->getColumn("User, PostUpdate", "FirstName,LastName,UserType ,ProfilePicture,PostId ,PlaceId,DateTime,Caption", "User.UserId= PostUpdate.UserId $append");
+            $result = $this->getColumn("User, PostUpdate", "FirstName,LastName,User.UserId, UserType ,ProfilePicture,PostId ,PlaceId,DateTime,Caption", "User.UserId= PostUpdate.UserId $append");
         }
 
         if ($result->num_rows > 0) {
