@@ -1,54 +1,5 @@
 <?php
 
-// class HTMLFooter
-// {
-
-//     public function __construct($alert = null, $message = null)
-//     {
-//         $base = BASEURL;
-//         echo "
-
-//             <script src='https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js'></script>
-//             <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-
-//             <script> 
-
-
-//             function toggleNav(openElement,closeElement) {
-//                 document.getElementById(openElement).classList.add('display-block');
-//                 document.getElementById(closeElement).classList.add('display-none'); 
-//                 document.getElementById(openElement).classList.remove('display-none');
-//                 document.getElementById(closeElement).classList.remove('display-block'); 
-//               } 
-              
-               
-//               ";
-
-//         if (isset($alert) && isset($message)) {
-//             $title = ucfirst($alert);
-//             echo "
-//                 Swal.fire({
-//                     icon: '$alert',
-//                     title: '$title',
-//                     text: '$message'
-//                 })";
-//         }
-//         echo "
-//                 feather.replace();
-
-//             </script>
-//         </body>
-        
-//         </html>
-            
-//             ";
-
-
-//     }
-// }
-
-
-
 class HTMLFooter
 {
 
@@ -56,14 +7,14 @@ class HTMLFooter
     {
         $base = BASEURL;
 
-        ;
+        
         //$supuserid = $_SESSION['UserId'];
         if (isset($_SESSION['UserId'])) {
             $suprole = $_SESSION['role'];
             if ($suprole == 'Admin' || $suprole == 'Manager' || $suprole == 'VerificationTeam') {
                 echo "";
             } else {
-                echo "
+                 echo "
         <script src='https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js'></script>
         <script src='https://unpkg.com/filepond@^4/dist/filepond.js'></script>
         
@@ -108,7 +59,7 @@ class HTMLFooter
             });
         </script>
         ";
-            }
+           }
         } else {
             echo "
         
@@ -178,7 +129,7 @@ class HTMLFooter
             }
             </script>
         ";
-        }
+       }
 
         echo "
 
@@ -220,5 +171,6 @@ class HTMLFooter
 
     }
 }
+
 
 ?>
