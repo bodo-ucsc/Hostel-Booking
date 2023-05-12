@@ -1,90 +1,45 @@
 <?php
-
-new HTMLHeader("Listing | Place");
-new Navigation("listing");
-$base = BASEURL;
+$header = new HTMLHeader("Home");
+$nav = new Navigation("home");
 ?>
 
-<div class='navbar-offset full-width center'>
-    <div class='row full-width margin-bottom-4'>
-        <div class='col-12'>
-            <?php
-            $search = new Search("true");
-            ?>
+<main class=" home full-height overflow-hidden ">
+    <div class="row no-gap margin-medium-left-5 margin-horizontal-3 full-height">
+        <div class="display-block  display-small-none"></div>
+
+        <div class=" col-large-7 col-medium-9 col-12 fill-container padding-horizontal-3  ">
+            <div class="fill-container cover-text">Boarding?</div>
+            <div class="margin-medium-left-3">
+                <?php
+                $search = new Search();
+                //$filter = new Filter();
+                //$sidebar = new SideBarNav("user","admin"); //pass the parameter to set active
+                ?>
+            </div>
         </div>
+        <div class="fill-container padding-5 display-block  display-small-none"></div>
+        <div class="col-small-1 "></div>
+
     </div>
 
-    <?php
 
-    if ($data) {
-        echo "<div class='center'>";
-        while ($row = $data['result']->fetch_assoc()) {
-            new PropertyCard(
-                $row['PlaceId']
-            );
-        }
-    } else {
-        echo "<h1 class='text-center'>No Post Found</h1>";
-    }
+</main>
 
-    echo "</div>";
-
-new HTMLFooter();
+<?php
+if (isset($data['alert'])) {
+    $footer = new HTMLFooter($data['alert'], $data['message']);
+} else {
+    $footer = new HTMLFooter();
+}
 ?>
 
-
 <script>
-    let show = false;
-    function toggleFilter() {
-
-        if (!show) {
-            document.getElementById('FilterSidebar').classList.add('display-block');
-            document.getElementById('FilterSidebar').classList.remove('display-none');
-            show = true;
-        } else {
-            document.getElementById('FilterSidebar').classList.remove('display-block');
-            document.getElementById('FilterSidebar').classList.add('display-none');
-            show = false;
-        }
-    }
-
-    function closeFilter() {
-        document.getElementById('FilterSidebar').classList.remove('display-block');
-        document.getElementById('FilterSidebar').classList.add('display-none');
-    }
-
-    function showPrice() {
-        let priceRange = document.getElementById('priceRange');
-        let priceOutput = document.getElementById('priceOutput');
-        priceOutput.innerHTML = priceRange.value;
-
-        priceRange.addEventListener('input', () => {
-            priceOutput.innerHTML = priceRange.value;
-            document.getElementById('price').value = priceRange.value;
-        });
-    }
-
-    function toggleBox() {
-
-        const checkbox1 = document.getElementById('parkingYes');
-        const checkbox2 = document.getElementById('parkingNo');
-
-        if (checkbox1.checked) {
-            checkbox2.disabled = true;
-
-        } else if (checkbox2.checked) {
-            checkbox1.disabled = true;
-        } else {
-            checkbox1.disabled = false;
-            checkbox2.disabled = false;
-        }
-    }
 
     function autocomplete(inp, arr) {
 
-        let currentFocus;
+        var currentFocus;
         inp.addEventListener('input', function(e) {
-            let a, b, i, val = this.value;
+            var a, b, i, val = this.value;
 
             closeAllLists();
             if (!val) {
@@ -110,7 +65,7 @@ new HTMLFooter();
             }
         });
         inp.addEventListener('keydown', function(e) {
-            let x = document.getElementById(this.id + 'suggest-list');
+            var x = document.getElementById(this.id + 'suggest-list');
             if (x) x = x.getElementsByTagName('div');
             if (e.keyCode == 40) {
                 currentFocus++;
@@ -135,14 +90,14 @@ new HTMLFooter();
         }
 
         function removeActive(x) {
-            for (let i = 0; i < x.length; i++) {
+            for (var i = 0; i < x.length; i++) {
                 x[i].classList.remove('suggest-active');
             }
         }
 
         function closeAllLists(elmnt) {
-            let x = document.getElementsByClassName('suggest-items');
-            for (let i = 0; i < x.length; i++) {
+            var x = document.getElementsByClassName('suggest-items');
+            for (var i = 0; i < x.length; i++) {
                 if (elmnt != x[i] && elmnt != inp) {
                     x[i].parentNode.removeChild(x[i]);
                 }
@@ -153,7 +108,7 @@ new HTMLFooter();
         });
     }
 
-    let place = ['bambalapitiya', 'borella', 'colombo', 'colombo 5', 'colombo 3', 'colombo 2', 'colombo 7', 'colombo 10',
+    var place = ['bambalapitiya', 'borella', 'colombo', 'colombo 5', 'colombo 3', 'colombo 2', 'colombo 7', 'colombo 10',
         'kelaniya', 'kotte', 'kirulapana', 'kirula road', 'kohuwala', 'kolonnawa', 'gampaha', 'house', 'Hotels', 'nugegoda', 'rajagiriya', 'Ratmalana', 'wijerama',
         'house in nugegoda', 'hostel', 'hostel in kohuwala', 'room', 'Boarding places', 'Hostels', 'Hotels', 'Moratuwa', 'Vavuniya',
         'Battaramulla', 'Gonawala', 'Inn', 'RV park', 'Restaurants',

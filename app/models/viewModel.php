@@ -319,7 +319,7 @@ class viewModel extends Model
         return $result;
     }
 
-    public function searchBoarding($query, $SortSearch = null, $Price = null, $PriceType = null, $PropertyType = null, $Street = null, $CityName = null, $NoOfMembers = null, $NoOfRooms = null, $NoOfWashRooms = null, $Gender = null, $BoarderType = null, $SquareFeet = null, $Parking = null)
+    public function searchBoarding($query, $SortSearch = null, $Price = null, $PriceType = null, $PropertyType = null, $Province=null, $District=null, $Street = null, $CityName = null, $NoOfMembers = null, $NoOfRooms = null, $NoOfWashRooms = null, $Gender = null, $BoarderType = null, $SquareFeet = null, $Parking = null)
     {
 
         // $stopwords = array('the', 'and', 'a', 'an', 'of','in','is','to','for','on','that','this','with','need'');
@@ -343,6 +343,12 @@ class viewModel extends Model
         }
         if (isset($PropertyType) && $PropertyType != null) {
             $append .= " AND PropertyType LIKE '%$PropertyType%'";
+        }
+        if(isset($Province) && $Province != null){
+            $append .= " AND Description LIKE '%$Province%'";
+        }
+        if(isset($District) && $District != null){
+            $append .= " AND Description LIKE '%$District%'";
         }
         if (isset($Street) && $Street != null) {
             $append .= " AND Street LIKE '%$Street%'";

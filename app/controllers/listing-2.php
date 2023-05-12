@@ -1,74 +1,32 @@
 <?php
 
-class SearchProperty extends Controller
+class Listing extends Controller
 {
-    public function index1()
+    public function index($placeId = null)
     {
-        if (isset($_POST['submit'])) {
-            
-            if ($_POST['filters'] == 'no') {
-                if (isset($_POST['searchText'])) {
-
-                    //$search_query = mysqli_real_escape_string($this->model()->dbConnect, $_POST['q']);
-                    $search_query = $_POST['searchText'];
-                    $_SESSION['search'] = $search_query;
-
-                    $result = $this->model('viewModel')->searchBoarding($search_query);
-
-                    if ($result == null) {
-                        $resultCount = 0;
-                    } else {
-                        $resultCount = $result->num_rows;
-                    }
-                    $this->view('search', ['result' => $result, 'resultCount' => $resultCount, 'searchText' => $search_query]);
-                } else {
-                    echo "No text search";
-                }
+        if (isset($placeId)) {
+            if ($placeId == 'fail') {
+                $alert = 'error';
+                $message = "Failed";
+                $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId', 'VerifiedStatus = "verified"');
+                $this->view('listing/index', ['places' => $data, 'message' => $message, 'alert' => $alert]);
+                
+            } else if ($placeId == 'success') {
+                $message = "Successful";
+                $alert = 'success';
+                $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId', 'VerifiedStatus = "verified"');
+                $this->view('listing/index', ['places' => $data, 'message' => $message, 'alert' => $alert]);
+                
             } else {
-                if (isset($_POST['submit'])) {
-                    
-                    $text = $_SESSION['search'];
-                    $SortSearch = $_POST['sortSearch'];
-                    $Price = $_POST['price'];
-                    $Price = floatval($Price);
-                    $PriceType = $_POST['priceType'];
-                    $PropertyType = $_POST['propertyType'];
-                    $Street = $_POST['street'];
-                    $CityName = $_POST['city'];
-                    $NoOfRooms = $_POST['NoOfRooms'];
-                    $NoOfRooms = intval($NoOfRooms);
-                    $NoOfMembers = $_POST['NoOfMembers'];
-                    $NoOfMembers = intval($NoOfMembers);
-                    $NoOfWashRooms = $_POST['NoOfWashrooms'];
-                    $NoOfWashRooms = intval($NoOfWashRooms);
-                    $Gender = $_POST['gender'];
-                    $BoarderType = $_POST['boarderType'];
-                    $SquareFeet = $_POST['squareFeet'];
-                    $SquareFeet = floatval($SquareFeet);
-                    if (isset($_POST['parking']) && $_POST['parking'] != null) {
-                        $Parking = $_POST['parking'];
-                        $result = $this->model('viewModel')->searchBoarding($text, $SortSearch, $Price, $PriceType, $PropertyType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
-                        
-                    } else {
-                        $result = $this->model('viewModel')->searchBoarding($text, $SortSearch, $Price, $PriceType, $PropertyType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet);
-                    }
-
-                    if ($result == null) {
-                        $resultCount = 0;
-                    } else {
-                        $resultCount = $result->num_rows;
-                    }
-                    $this->view('search', ['result' => $result, 'resultCount' => $resultCount, 'searchText' => $text]);
-                }
+                $this->view('listing/index', ['placeId' => $placeId]);
             }
         } else {
-            //echo "Not submitted";
-            $this->view('listing/index');
+            $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId', 'VerifiedStatus = "verified"');
+            $this->view('listing/index', ['places' => $data]);
         }
     }
 
-
-    public function index()
+    public function search()
     {
 
         if (isset($_POST['submit'])) {
@@ -98,8 +56,6 @@ class SearchProperty extends Controller
                 $Price = floatval($Price);
                 $PriceType = $_POST['priceType'];
                 $PropertyType = $_POST['propertyType'];
-                $Province = $_POST['province'];
-                $District = $_POST['district'];
                 $Street = $_POST['street'];
                 $CityName = $_POST['city'];
                 $NoOfRooms = $_POST['NoOfRooms'];
@@ -117,7 +73,7 @@ class SearchProperty extends Controller
                 } else {
                     $Parking = null;
                 }
-                $result = $this->model('viewModel')->searchBoarding($text, $SortSearch, $Price, $PriceType, $PropertyType,$Province,$District, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
+                $result = $this->model('viewModel')->searchBoarding($text, $SortSearch, $Price, $PriceType, $PropertyType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
 
 
 
@@ -195,26 +151,6 @@ class SearchProperty extends Controller
                         array(
                             "id" => "propertyType",
                             "value" => $PropertyType
-                        )
-                    );
-                }
-                ;
-                if ($Province != null && $Province != "") {
-                    array_push(
-                        $json,
-                        array(
-                            "id" => "province",
-                            "value" => $Province
-                        )
-                    );
-                }
-                ;
-                if ($District != null && $District != "") {
-                    array_push(
-                        $json,
-                        array(
-                            "id" => "district",
-                            "value" => $District
                         )
                     );
                 }
@@ -318,6 +254,101 @@ class SearchProperty extends Controller
 
         }
     }
-   
-}
 
+    public function placeRest($PlaceId = null, $all = null)
+    {
+        if ($PlaceId == null) {
+            header("Location: " . BASEURL . "/listing");
+        } else {
+            $data = $this->model('viewModel')->getPlace($PlaceId, $all);
+            while ($row = $data->fetch_assoc()) {
+                $array['PlaceId'] = $row['PlaceId'];
+                $array['OwnerId'] = $row['OwnerId'];
+                $array['Boarded'] = $row['Boarded'];
+                $array['SummaryLine1'] = $row['SummaryLine1'];
+                $array['SummaryLine2'] = $row['SummaryLine2'];
+                $array['SummaryLine3'] = $row['SummaryLine3'];
+                $array['Price'] = $row['Price'];
+                $array['PriceType'] = $row['PriceType'];
+                $array['PropertyType'] = $row['PropertyType'];
+                $array['HouseNo'] = $row['HouseNo'];
+                $array['Street'] = $row['Street'];
+                $array['CityName'] = $row['CityName'];
+                $array['NoOfMembers'] = $row['NoOfMembers'];
+                $array['NoOfRooms'] = $row['NoOfRooms'];
+                $array['NoOfWashRooms'] = $row['NoOfWashRooms'];
+                $array['Gender'] = $row['Gender'];
+                $array['BoarderType'] = $row['BoarderType'];
+                $array['SquareFeet'] = $row['SquareFeet'];
+                $array['Parking'] = $row['Parking'];
+                if (isset($all)) {
+                    $array['Description'] = $row['Description'];
+                    $array['Title'] = $row['Title'];
+                    $array['VerifiedStatus'] = $row['VerifiedStatus'];
+                }
+            }
+            $json_response = json_encode($array);
+            echo $json_response;
+
+        }
+    }
+    public function placeRestArray()
+    {
+        $data = $this->model('viewModel')->getPlace(null, 'y');
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['PlaceId'] = $row['PlaceId'];
+            $array['OwnerId'] = $row['OwnerId'];
+            $array['OwnerName'] = $row['OwnerName'];
+            $array['Boarded'] = $row['Boarded'];
+            $array['SummaryLine1'] = $row['SummaryLine1'];
+            $array['SummaryLine2'] = $row['SummaryLine2'];
+            $array['SummaryLine3'] = $row['SummaryLine3'];
+            $array['Price'] = $row['Price'];
+            $array['PriceType'] = $row['PriceType'];
+            $array['PropertyType'] = $row['PropertyType'];
+            $array['HouseNo'] = $row['HouseNo'];
+            $array['Street'] = $row['Street'];
+            $array['CityName'] = $row['CityName'];
+            $array['NoOfMembers'] = $row['NoOfMembers'];
+            $array['NoOfRooms'] = $row['NoOfRooms'];
+            $array['NoOfWashRooms'] = $row['NoOfWashRooms'];
+            $array['Gender'] = $row['Gender'];
+            $array['BoarderType'] = $row['BoarderType'];
+            $array['SquareFeet'] = $row['SquareFeet'];
+            $array['Parking'] = $row['Parking'];
+            $array['Description'] = $row['Description'];
+            $array['Title'] = $row['Title'];
+            $array['VerifiedStatus'] = $row['VerifiedStatus'];
+            $array['UtilityBillReceiptLink'] = $row['UtilityBillReceiptLink'];
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function imageRest($PlaceId = null)
+    {
+        $data = $this->model('viewModel')->getImage($PlaceId);
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            $array['Place'] = $row['BoardingPlace'];
+            $array['Image'] = $row['PictureLink'];
+            array_push($json, $array);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+    public function viewPlace($PlaceId = null)
+    {
+        if (isset($PlaceId)) {
+            $this->view('property/view', ['id' => $PlaceId]);
+        } else {
+            header("Location: " . BASEURL . "/listing");
+        }
+    }
+
+
+
+
+}

@@ -2,6 +2,17 @@
 
 class Listing extends Controller
 {
+    // public function index($placeId = null)
+    // {
+
+    //     if (isset($placeId)) {
+    //         header("Location: " . BASEURL . "/listing/viewPlace/" . $placeId);
+    //     } else {
+
+    //         $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId');
+    //         $this->view('listing/index',['result' => $data]);
+    //     }
+    // }
     public function index($placeId = null)
     {
         if (isset($placeId)) {
@@ -254,60 +265,16 @@ class Listing extends Controller
 
         }
     }
-
-    public function placeRest($PlaceId = null, $all = null)
+    public function placeRest($PlaceId = null)
     {
-        if ($PlaceId == null) {
-            header("Location: " . BASEURL . "/listing");
-        } else {
-            $data = $this->model('viewModel')->getPlace($PlaceId, $all);
-            while ($row = $data->fetch_assoc()) {
-                $array['PlaceId'] = $row['PlaceId'];
-                $array['OwnerId'] = $row['OwnerId'];
-                $array['Boarded'] = $row['Boarded'];
-                $array['SummaryLine1'] = $row['SummaryLine1'];
-                $array['SummaryLine2'] = $row['SummaryLine2'];
-                $array['SummaryLine3'] = $row['SummaryLine3'];
-                $array['Price'] = $row['Price'];
-                $array['PriceType'] = $row['PriceType'];
-                $array['PropertyType'] = $row['PropertyType'];
-                $array['HouseNo'] = $row['HouseNo'];
-                $array['Street'] = $row['Street'];
-                $array['CityName'] = $row['CityName'];
-                $array['NoOfMembers'] = $row['NoOfMembers'];
-                $array['NoOfRooms'] = $row['NoOfRooms'];
-                $array['NoOfWashRooms'] = $row['NoOfWashRooms'];
-                $array['Gender'] = $row['Gender'];
-                $array['BoarderType'] = $row['BoarderType'];
-                $array['SquareFeet'] = $row['SquareFeet'];
-                $array['Parking'] = $row['Parking'];
-                if (isset($all)) {
-                    $array['Description'] = $row['Description'];
-                    $array['Title'] = $row['Title'];
-                    $array['VerifiedStatus'] = $row['VerifiedStatus'];
-                }
-            }
-            $json_response = json_encode($array);
-            echo $json_response;
-
-        }
-    }
-    public function placeRestArray()
-    {
-        $data = $this->model('viewModel')->getPlace(null, 'y');
-        $json = array();
+        $data = $this->model('viewModel')->getPlace($PlaceId);
         while ($row = $data->fetch_assoc()) {
             $array['PlaceId'] = $row['PlaceId'];
-            $array['OwnerId'] = $row['OwnerId'];
-            $array['OwnerName'] = $row['OwnerName'];
-            $array['Boarded'] = $row['Boarded'];
             $array['SummaryLine1'] = $row['SummaryLine1'];
             $array['SummaryLine2'] = $row['SummaryLine2'];
             $array['SummaryLine3'] = $row['SummaryLine3'];
             $array['Price'] = $row['Price'];
             $array['PriceType'] = $row['PriceType'];
-            $array['PropertyType'] = $row['PropertyType'];
-            $array['HouseNo'] = $row['HouseNo'];
             $array['Street'] = $row['Street'];
             $array['CityName'] = $row['CityName'];
             $array['NoOfMembers'] = $row['NoOfMembers'];
@@ -317,14 +284,10 @@ class Listing extends Controller
             $array['BoarderType'] = $row['BoarderType'];
             $array['SquareFeet'] = $row['SquareFeet'];
             $array['Parking'] = $row['Parking'];
-            $array['Description'] = $row['Description'];
-            $array['Title'] = $row['Title'];
-            $array['VerifiedStatus'] = $row['VerifiedStatus'];
-            $array['UtilityBillReceiptLink'] = $row['UtilityBillReceiptLink'];
-            array_push($json, $array);
         }
-        $json_response = json_encode($json);
+        $json_response = json_encode($array);
         echo $json_response;
+        //$this->viewPlace($json_response['PlaceId']);
     }
 
     public function imageRest($PlaceId = null)
@@ -343,12 +306,21 @@ class Listing extends Controller
     {
         if (isset($PlaceId)) {
             $this->view('property/view', ['id' => $PlaceId]);
-        } else {
-            header("Location: " . BASEURL . "/listing");
+            //header("Location: " . BASEURL . "/listing/viewPlace/" . $PlaceId);
+            // new HTMLHeader("Listing | Place");
+            // new Navigation("listing");
+
+            // echo "<div class='navbar-offset full-width center'>";
+            // new PropertyCard(
+            //     $PlaceId
+            // );
+
+            // echo "</div>";
+            // new HTMLFooter();
+        }else{
+            header("Location: " . BASEURL . "/listing/index");
         }
     }
-
-
 
 
 }
