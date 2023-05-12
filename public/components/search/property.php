@@ -39,7 +39,7 @@ class Search
 
                 echo " 
         
-                <form id='Filter-Form' action='$base/listing/search' method='POST'>
+                <form id='Filter-Form' action='$base/listing/search' method='POST' autocomplete='off'>
             <div class='row border-rounded-more searchbar '>
                 <div class='display-small-block  display-none  col-1 '>
                     <i data-feather='search'></i>
@@ -81,7 +81,7 @@ class Search
 
                 echo "
             <div id='FilterSidebar' class=' display-none overflow-y-auto padding-horizontal-3  shadow   fill-vertical position-fixed sidebar large right bg-white'>
-               
+            
                 
                     <div class='row navbar-offset '>
                         <span class='header-2 col-5 fill-container left'>Filters</span>
