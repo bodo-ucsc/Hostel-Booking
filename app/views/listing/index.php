@@ -64,7 +64,11 @@ new Navigation("listing");
         ?>
     </div>
   
+<<<<<<< Updated upstream
     <?php new pageFooter(); ?>
+=======
+    <?php //new pageFooter(); ?>
+>>>>>>> Stashed changes
 </main>
 
 
