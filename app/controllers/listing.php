@@ -31,6 +31,7 @@ class Listing extends Controller
 
         if (isset($_POST['submit'])) {
 
+            //print_r($_POST);
             if ($_POST['filters'] == 'no') {
                 if (isset($_POST['searchText']) && !empty($_POST['searchText'])) {
 
@@ -247,11 +248,12 @@ class Listing extends Controller
                 ;
                 $filters = json_encode($json);
 
-
-
                 $this->view('listing/index', ['result' => $result, 'resultCount' => $resultCount, 'searchText' => $text, 'filters' => $filters]);
             }
 
+        }else{
+            $data = $this->model('viewModel')->getId('BoardingPlace', 'PlaceId', 'VerifiedStatus = "verified"');
+            $this->view('listing/index', ['places' => $data]);
         }
     }
 

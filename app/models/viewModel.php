@@ -17,7 +17,7 @@ class viewModel extends Model
     }
 
 
-    public function getID($table, $column, $condition = NULL)
+    public function getId($table, $column, $condition = NULL)
     {
         $res = $this->getColumn($table, $column, $condition);
         return $res;

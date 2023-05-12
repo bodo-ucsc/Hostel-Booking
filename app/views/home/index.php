@@ -54,6 +54,8 @@ $nav = new Navigation("home");
                     b.innerHTML += "<input type='hidden' value='" + arr1[i] + "'>";
                     b.addEventListener('click', function (e) {
                         inp.value = this.getElementsByTagName('input')[0].value;
+                        updateFilterTags();
+                        closeAllLists();
                         closeAllLists();
                     });
                     a.appendChild(b);

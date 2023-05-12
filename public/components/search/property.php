@@ -130,7 +130,7 @@ class Search
                         </div>
                         <div class='col-9 fill-container'>
                             <select id='priceType' name='priceType' oninput='updateFilterArray(\"priceType\")'>
-                                <option selected disabled value=''> Select Price Type</option>
+                                <option value=''></option>
                                 <option value='per month'>Per Month</option>
                                 <option value='per boarder'>Per Boarder</option>
                             </select>
@@ -143,7 +143,7 @@ class Search
                         </div>
                         <div class='col-9 fill-container'>
                             <select id='propertyType' name='propertyType' oninput='updateFilterArray(\"propertyType\")'>
-                                <option selected disabled value=''> Select Property Type</option>
+                                <option value=''></option>
                                 <option value='house'>House</option>
                                 <option value='hostel'>Hostel</option> 
                             </select>
@@ -157,7 +157,7 @@ class Search
                         </div>
                         <div class='col-9 fill-container'>
                             <select id='city' name='city' oninput='updateFilterArray(\"city\")' >
-                                <option value='' disabled selected>Select City</option>";
+                                <option value=''></option>";
 
                 $districts = restAPI("property/cityRest/");
                 sort($districts);
@@ -218,7 +218,7 @@ class Search
                         </div>
                         <div class='col-9 fill-container'>
                             <select id='gender' name='gender' oninput='updateFilterArray(\"gender\")'>
-                                <option value='' disabled selected>Select Gender</option>
+                                <option value=''></option>
                                 <option value='A'>Any</option>
                                 <option value='M'>Male</option>
                                 <option value='F'>Female</option>
@@ -232,7 +232,7 @@ class Search
                         </div>
                         <div class='col-9 fill-container'>
                             <select id='boarderType' name='boarderType' oninput='updateFilterArray(\"boarderType\")'>
-                                <option value='' disabled selected>Select Boarder Type</option>
+                                <option value=''></option>
                                 <option value='Any'>Any</option>
                                 <option value='Student'>Student Only</option>
                                 <option value='Professional'>Professional Only</option>
