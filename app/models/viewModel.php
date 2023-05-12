@@ -98,7 +98,6 @@ class viewModel extends Model
             $append .= " AND CityName LIKE '%$CityName%'";
         }
         if (isset($NoOfRooms) && $NoOfRooms != 0) {
-            echo "rooms=" . $NoOfRooms;
             $append .= " AND NoOfRooms = '$NoOfRooms'";
         }
         if (isset($NoOfMembers) && $NoOfMembers != 0) {
