@@ -7,13 +7,14 @@ class HTMLFooter
     {
         $base = BASEURL;
 
-        $suprole = $_SESSION['role'];
-        $supuserid = $_SESSION['UserId'];
+        
+        //$supuserid = $_SESSION['UserId'];
         if (isset($_SESSION['UserId'])) {
+            $suprole = $_SESSION['role'];
             if ($suprole == 'Admin' || $suprole == 'Manager' || $suprole == 'VerificationTeam') {
                 echo "";
             } else {
-                echo "
+                 echo "
         <script src='https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js'></script>
         <script src='https://unpkg.com/filepond@^4/dist/filepond.js'></script>
         
@@ -58,7 +59,7 @@ class HTMLFooter
             });
         </script>
         ";
-            }
+           }
         } else {
             echo "
         
@@ -128,7 +129,7 @@ class HTMLFooter
             }
             </script>
         ";
-        }
+       }
 
         echo "
 
