@@ -158,32 +158,32 @@ class Search
                             </select>
                         </div>
                     </div>";
-echo"
-                    <div class='row padding-2'>
-                        <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
-                            <label for='province'>Province</label>
-                        </div>
-                        <div class='col-9 fill-container'>
-                            <select id='province' name='province' onchange='updateDistricts()' oninput='updateFilterArray(\"provice\")'>
-                                <option value=''></option>";
-                                foreach($provinces as $province => $districts) {
-                                    echo "<option value='$province'>$province</option>";
-                                }
-            echo"
-                            </select>
-                        </div>
-                    </div>";
-echo"
-                    <div class='row padding-2'>
-                        <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
-                            <label for='district'>District</label>
-                        </div>
-                        <div class='col-9 fill-container'>
-                            <select id='district' name='district' oninput='updateFilterArray(\"disrict\")'></select>
-                            </select>
-                        </div>
-                    </div>
-
+// echo"
+//                     <div class='row padding-2'>
+//                         <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
+//                             <label for='province'>Province</label>
+//                         </div>
+//                         <div class='col-9 fill-container'>
+//                             <select id='province' name='province' onchange='updateDistricts()' oninput='updateFilterArray(\"provice\")'>
+//                                 <option value=''></option>";
+//                                 foreach($provinces as $province => $districts) {
+//                                     echo "<option value='$province'>$province</option>";
+//                                 }
+//             echo"
+//                             </select>
+//                         </div>
+//                     </div>";
+// echo"
+//                     <div class='row padding-2'>
+//                         <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
+//                             <label for='district'>District</label>
+//                         </div>
+//                         <div class='col-9 fill-container'>
+//                             <select id='district' name='district' oninput='updateFilterArray(\"disrict\")'></select>
+//                             </select>
+//                         </div>
+//                     </div>";
+echo "
                     <div class='row padding-2'>
                         <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
                             <label for='street'>Street</label>

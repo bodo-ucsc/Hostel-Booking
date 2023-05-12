@@ -250,6 +250,8 @@ $provinces = array(
     ?>
 
     function clearfilters() {
+        document.getElementById("district").innerHTML = "";
+        document.getElementById("priceOutput").innerHTML = 0;
         //make filter array empty
         filterArray = [];
         console.log(filterArray);

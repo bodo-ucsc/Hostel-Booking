@@ -136,6 +136,11 @@ $provinces = array(
 
     function autocomplete(inp, arr1) {
 
+        function selectSuggestion() {
+        inp.value = this.getElementsByTagName('input')[0].value;
+        closeAllLists();
+    }
+        
         let currentFocus;
         inp.addEventListener('input', function(e) {
             let a, b, i, val = this.value;
@@ -221,7 +226,7 @@ $provinces = array(
         defaultOption.value = '';
         defaultOption.innerHTML = 'Select District';
         districtSelect.appendChild(defaultOption);
-        
+
         let districts = <?php echo json_encode($provinces); ?>[province];
         for (let i = 0; i < districts.length; i++) {
             let option = document.createElement('option');

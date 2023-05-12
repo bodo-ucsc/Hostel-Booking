@@ -98,8 +98,8 @@ class SearchProperty extends Controller
                 $Price = floatval($Price);
                 $PriceType = $_POST['priceType'];
                 $PropertyType = $_POST['propertyType'];
-                $Province = $_POST['province'];
-                $District = $_POST['district'];
+                // $Province = $_POST['province'];
+                // $District = $_POST['district'];
                 $Street = $_POST['street'];
                 $CityName = $_POST['city'];
                 $NoOfRooms = $_POST['NoOfRooms'];
@@ -117,7 +117,9 @@ class SearchProperty extends Controller
                 } else {
                     $Parking = null;
                 }
-                $result = $this->model('viewModel')->searchBoarding($text, $SortSearch, $Price, $PriceType, $PropertyType,$Province,$District, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
+               // $result = $this->model('viewModel')->searchBoarding($text, $SortSearch, $Price, $PriceType, $PropertyType,$Province,$District, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
+                $result = $this->model('viewModel')->searchBoarding($text, $SortSearch, $Price, $PriceType, $PropertyType, $Street, $CityName, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
+
 
 
 
@@ -199,26 +201,26 @@ class SearchProperty extends Controller
                     );
                 }
                 ;
-                if ($Province != null && $Province != "") {
-                    array_push(
-                        $json,
-                        array(
-                            "id" => "province",
-                            "value" => $Province
-                        )
-                    );
-                }
-                ;
-                if ($District != null && $District != "") {
-                    array_push(
-                        $json,
-                        array(
-                            "id" => "district",
-                            "value" => $District
-                        )
-                    );
-                }
-                ;
+                // if ($Province != null && $Province != "") {
+                //     array_push(
+                //         $json,
+                //         array(
+                //             "id" => "province",
+                //             "value" => $Province
+                //         )
+                //     );
+                // }
+                // ;
+                // if ($District != null && $District != "") {
+                //     array_push(
+                //         $json,
+                //         array(
+                //             "id" => "district",
+                //             "value" => $District
+                //         )
+                //     );
+                // }
+                // ;
                 if ($Street != null && $Street != "") {
                     array_push(
                         $json,
@@ -317,6 +319,7 @@ class SearchProperty extends Controller
             }
 
         }
+
     }
    
 }
