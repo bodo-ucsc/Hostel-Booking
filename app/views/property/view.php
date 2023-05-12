@@ -268,6 +268,7 @@ $reviews = restAPI("property/ratingRest/$placeId");
                         $appendclass = "bg-grey";
                         $append = "disabled title='You are already boarded'";
                     } else {
+                        if(isset($_SESSION['UserId'])){
                         $datax = restAPI('property/boardingMemberStatusRest/' . $_SESSION['UserId'] . '/requested/' . $placeId);
                         if (!empty($datax)) {
                             $appendclass = "bg-grey";
@@ -275,6 +276,7 @@ $reviews = restAPI("property/ratingRest/$placeId");
                         } else {
                             $appendclass = "bg-black-hover";
                             $append = "";
+                        }
                         }
                     }
                     ?>
@@ -289,22 +291,26 @@ $reviews = restAPI("property/ratingRest/$placeId");
                 <div class="col-6 right fill-container">
                     <?php
 
-
-                    if ($_SESSION['role'] == 'Student' || $_SESSION['role'] == 'Professional') {
-                        if (isset($_SESSION['Place'])) {
-                            $appendclass = "bg-grey";
-                            $append = "disabled title='You are already boarded'";
-                        } else {
-                            $datax = restAPI('property/boardingMemberStatusRest/' . $_SESSION['UserId'] . '/requested/' . $placeId);
-                            if (!empty($datax)) {
+                    if(isset($_SESSION['role'])){
+                        if ($_SESSION['role'] == 'Student' || $_SESSION['role'] == 'Professional') {
+                            if (isset($_SESSION['Place'])) {
                                 $appendclass = "bg-grey";
-                                $append = "disabled title='You have already requested for boarding'";
+                                $append = "disabled title='You are already boarded'";
                             } else {
-                                $appendclass = "bg-black-hover";
-                                $append = "onclick='requestBoarding()'";
+                                $datax = restAPI('property/boardingMemberStatusRest/' . $_SESSION['UserId'] . '/requested/' . $placeId);
+                                if (!empty($datax)) {
+                                    $appendclass = "bg-grey";
+                                    $append = "disabled title='You have already requested for boarding'";
+                                } else {
+                                    $appendclass = "bg-black-hover";
+                                    $append = "onclick='requestBoarding()'";
+                                }
                             }
+                        } else {
+                            $appendclass = "bg-grey";
+                            $append = "disabled title='You have to login as a student or professional to request for boarding'";
                         }
-                    } else {
+                    }else{
                         $appendclass = "bg-grey";
                         $append = "disabled title='You have to login as a student or professional to request for boarding'";
                     }
