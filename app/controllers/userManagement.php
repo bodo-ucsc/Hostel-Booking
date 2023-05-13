@@ -55,30 +55,34 @@ class userManagement extends Controller
 
     public function create($user = null, $message = null)
     {
-        if (isset($message)) {
+        if ($_SESSION['role'] == 'Manager' || $_SESSION['role'] == 'Admin') {
+            if (isset($message)) {
 
-            $alert = 'error';
-            if ($message == 'fail') {
-                $message = "Insertion Failed";
-            } else if ($message == 'success') {
-                $message = "Inserted Successfully";
-                $alert = 'success';
+                $alert = 'error';
+                if ($message == 'fail') {
+                    $message = "Insertion Failed";
+                } else if ($message == 'success') {
+                    $message = "Inserted Successfully";
+                    $alert = 'success';
+                }
+            } else {
+                $message = null;
+                $alert = null;
             }
-        } else {
-            $message = null;
-            $alert = null;
-        }
 
-        if ($user == 'student') {
-            $this->view('create/student', ['message' => $message, 'alert' => $alert]);
-        } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
-            $this->view('create/boardingOwner', ['message' => $message, 'alert' => $alert]);
-        } else if ($user == 'professional') {
-            $this->view('create/professional', ['message' => $message, 'alert' => $alert]);
-        } else if ($user == 'manager') {
-            $this->view('create/manager', ['message' => $message, 'alert' => $alert]);
-        } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
-            $this->view('create/verificationTeam', ['message' => $message, 'alert' => $alert]);
+            if ($user == 'student') {
+                $this->view('create/student', ['message' => $message, 'alert' => $alert]);
+            } else if ($user == 'boardingowner' || $user == 'boardingOwner') {
+                $this->view('create/boardingOwner', ['message' => $message, 'alert' => $alert]);
+            } else if ($user == 'professional') {
+                $this->view('create/professional', ['message' => $message, 'alert' => $alert]);
+            } else if ($user == 'manager') {
+                $this->view('create/manager', ['message' => $message, 'alert' => $alert]);
+            } else if ($user == 'verificationteam' || $user == 'verificationTeam') {
+                $this->view('create/verificationTeam', ['message' => $message, 'alert' => $alert]);
+            }
+        }else{
+            header("Location: " . BASEURL . "/userManagement");
         }
     }
 
@@ -272,7 +276,7 @@ class userManagement extends Controller
         if ($role == null || $id == null) {
             header('Location: ' . BASEURL . "/userManagement/$role");
         }
-        if($role == "student" || $role == "Student" || $role == "Professional" || $role == "professional"){
+        if ($role == "student" || $role == "Student" || $role == "Professional" || $role == "professional") {
             $role = "Boarder";
         }
         $roleId = $role . "Id";

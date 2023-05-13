@@ -25,11 +25,16 @@ $base = BASEURL . '/userManagement';
                 </div>
                 <div class="col-1 display-small-none"></div>
                 <div class="col-2 col-large-3 fill-container right">
-                    <button class="bg-blue white border-rounded header-nb padding-3 right"
-                        onclick=" location.href='<?= $base ?>/create/student'">
-                        <i data-feather="user-plus" class=" vertical-align-middle "></i>
-                        <span class="display-large-inline-block padding-left-2 display-none">Add User</span>
-                    </button>
+                    <?php
+                    if ($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'Manager') {
+                        echo "
+                <button class='bg-blue-hover white border-rounded header-nb padding-3 right'
+                        onclick='location.href=\"$base/create/student\"'>
+                        <i data-feather='user-plus' class=' vertical-align-middle '></i>
+                        <span class='display-large-inline-block padding-left-2 display-none'>Add User</span>
+                    </button>";
+                    }
+                    ?>
                 </div>
             </div>
 
@@ -120,8 +125,7 @@ $base = BASEURL . '/userManagement';
                                         echo "</div>";
                                         echo "</div>";
                                     }
-                                }
-                                else{
+                                } else {
                                     foreach ($useridArray as $row) {
 
                                         $email = $row[1];
@@ -132,7 +136,7 @@ $base = BASEURL . '/userManagement';
                                                         <span class='display-small-block  display-none'>Send Email</span>
                                                     </div>
                                                 </div>
-                                             </div>"; 
+                                             </div>";
                                     }
                                 }
                             }
@@ -292,11 +296,11 @@ $base = BASEURL . '/userManagement';
                 '<div class="col-12 fill-container left">' +
                 // '<label for="email-from">From</label>' +
                 '<input type="hidden" class="fill-container" id="email-from" placeholder="jvatsbodo@gmail.com" value="jvatsbodo@gmail.com"/>' +
-                '<label for="email-to">To</label>'+
+                '<label for="email-to">To</label>' +
                 '<input type="email" class="fill-container" id="email-to" placeholder="Enter email here" value="' + email + '"/>' +
-                '<label for="email-subject">Subject</label>'+
+                '<label for="email-subject">Subject</label>' +
                 '<input type="text" class="fill-container" id="email-subject" placeholder="Enter subject here" />' +
-                '<label for="email-text">Message</label>'+
+                '<label for="email-text">Message</label>' +
                 '<textarea class="fill-container" id="email-text" rows="10" placeholder="Enter your reply here"></textarea>' +
                 '</div>' +
                 '</div>',

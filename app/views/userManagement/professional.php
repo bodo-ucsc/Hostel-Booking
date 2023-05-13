@@ -26,11 +26,16 @@ $base = BASEURL . '/userManagement';
                 </div>
                 <div class="col-1 display-small-none"></div>
                 <div class="col-2 col-large-3 fill-container right">
-                    <button class="bg-blue white border-rounded header-nb padding-3 right"
-                        onclick="location.href='<?php echo $base ?>/create/professional'">
-                        <i data-feather="user-plus" class=" vertical-align-middle "></i>
-                        <span class="display-large-inline-block padding-left-2 display-none">Add User</span>
-                    </button>
+                    <?php
+                    if ($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'Manager') {
+                        echo "
+                <button class='bg-blue-hover white border-rounded header-nb padding-3 right'
+                        onclick='location.href=\"$base/create/professional\"'>
+                        <i data-feather='user-plus' class=' vertical-align-middle '></i>
+                        <span class='display-large-inline-block padding-left-2 display-none'>Add User</span>
+                    </button>";
+                    }
+                    ?>
                 </div>
             </div>
 
