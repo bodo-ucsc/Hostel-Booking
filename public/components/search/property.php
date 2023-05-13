@@ -26,7 +26,7 @@ class Search
                 </div>
                 <input type='hidden' id='filters' name='filters' value='no'>
                 </div> 
-            </from> 
+            </form> 
             ";
         } else {
             if ($filter == 'true') {
