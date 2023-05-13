@@ -309,15 +309,13 @@ $borderType = 'Student';
                             <img class='width-100px border-circle shadow' src='$profilePicture' alt=''>
                         </div>
 
-                        <div class='col-12 center fill-container padding-bottom-4 cursor-pointer' onclick='window.location.href = \"$base/profile/$userId\"'>
-                            <div class=' padding-vertical-2'>
+                        <div class='col-12 center fill-container padding-bottom-4 '>
+                            <div class=' padding-vertical-2 cursor-pointer' onclick='window.location.href = \"$base/profile/$userId\"'>
                                 <span class='big bold carousal-name'>$fname $lname</span>
                                 <br />
                                 <span class=''>$Tagline</span>
                                 <br />
-                                <br />
-                                ";
-                        echo "
+                                <br /> 
                             </div>
                             <button class='bg-white-hover border-1 border-rounded-more' onclick='sendRequest(\"$userId\")' >Send Friend Request</button>
                             <br/>
