@@ -22,11 +22,11 @@ class Search
                         <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Search</button>
                     </div>
                     <div class='display-small-none display-block col-1 fill-container'>
-                    <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
-                </div>
+                        <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
+                    </div>
                 <input type='hidden' id='filters' name='filters' value='no'>
                 </div> 
-            </from> 
+            </form> 
             ";
         } else {
             if ($filter == 'true') {

@@ -609,6 +609,14 @@ button.padded {
   border-radius: 15px !important;
 }
 
+.colored-toast.swal2-icon-success {
+  background-color: #359998 !important;
+}
+.colored-toast .swal2-title {
+  color: white;
+  font-size: 20px;
+}
+
 button.swal2-styled.swal2-confirm,
 .swal2-styled.swal2-cancel, .swal2-styled.swal2-deny  {
   border-radius: 10px !important;
@@ -903,7 +911,6 @@ input[type=date].bg-red {
   /* modal */
 
 .modal {
-  position: fixed; 
   left: 0;
   top: 0;
   overflow: auto;  
@@ -922,6 +929,23 @@ input[type=date].bg-red {
   animation-duration: 0.4s
 }
  
+.notification{
+  /* slide in from top when open and slide to top on close*/
+  -webkit-animation-name: slideInTop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: slideInTop;
+  animation-duration: 0.4s;
+}
+
+@-webkit-keyframes slideInTop {
+  from {top: -300px; opacity: 0} 
+  to {top: 0; opacity: 1}
+}
+
+@keyframes slideInTop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
   
  
  
@@ -1067,6 +1091,9 @@ header .nav-signup {
 .dp {
   width: 40px;
 }
+.dp.small {
+  width: 30px;
+}
 
 /* Feed, Listing & Adverts */
 
@@ -1138,6 +1165,16 @@ header .nav-signup {
 .max-height-500 {
   max-height: 500px;
   height: 100%;
+}
+
+.max-height-650 {
+  max-height: 650px;
+  height: 100vh;
+}
+
+.max-width-500 {
+  max-width: 500px;
+  width: 100vw;
 }
 
 .max-width-300 {
@@ -1242,6 +1279,11 @@ header .nav-signup {
   align-items: center;
   justify-items: center;
   justify-content: center;
+}
+
+.grid{
+  display: grid;
+  align-items: center;
 }
 
 .flex-column {
@@ -1366,6 +1408,10 @@ header .nav-signup {
 
 .right-0{
   right: 0;
+}
+
+.top-0{
+  top: 0;
 }
 
 

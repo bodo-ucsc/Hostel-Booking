@@ -16,6 +16,41 @@ class Navigation
         }
 
         $base = BASEURL;
+         // notification popup
+         echo "
+         <div id='notification' class='position-fixed zindex  bg-light notification border-rounded-more shadow margin-horizontal-4 border-box overflow-hidden padding-bottom-3 max-width-300  top-0 right-0 display-none'>
+            <div class=' margin-top-5 padding-bottom-3 border-box shadow-small bg-white padding-horizontal-4 border-box border-rounded-more '>
+                <div class=' margin-5 display-block ' > <br/><br/> </div>  
+                <div class=' margin-5 display-block display-medium-none ' > <br/> </div>
+                 <div class='row less-gap '>
+                     <div class='col-10 fill-container'>
+                         <h3 class=' header-2'>Notifications</h3>
+                     </div>
+                     <div class='col-2 fill-container right'>
+                         <button class='bg-white border-0' onclick='toggleNotification()'><i data-feather='x'></i></button>
+                     </div>
+                 </div> 
+                 <div class='row less-gap border-1 border-blue border-rounded-more  '>
+                     <div class='col-6 fill-container center'>
+                         <button id='readButton' class='bg-white  fill-container border-rounded-more' onclick='openReadNotif()'>Read</button>
+                     </div>
+                     <div class='col-6 fill-container  center'>
+                         <button id='unreadButton' class='bg-blue white  fill-container border-rounded-more' onclick='openUnreadNotif()'>Unread</button>
+                     </div>
+                 </div>
+            </div>
+            <div id='readNotif' class='border-box margin-top-3  border-box fill-vertical max-height-270 overflow-y-auto padding-vertical-2  display-none '>
+                  
+            </div>
+
+            <div id='unreadNotif' class='border-box margin-top-3  border-box fill-vertical max-height-270 overflow-y-auto padding-vertical-2  '>
+               
+            </div>
+           
+                 
+                 
+         </div>";
+
         echo "
                 <header class='bg-white display-medium-block display-none'>
                         <div class='row'>
@@ -76,7 +111,10 @@ class Navigation
 
             echo " 
                 <div class='col-3 flex fill-container '>
-                    <div class='padding-horizontal-4'><i data-feather='bell'></i></div>
+                    <div class='padding-2 bell-container cursor-pointer border-rounded-more' onclick='toggleNotification()'>
+                    <i class='vertical-align-middle display-block feather-small' data-feather='bell'></i>
+                    <span class='notifCount vertical-align-middle  small display-block'>0</span>
+                    </div>
                     <div class=' dropdown padding-2 '>
                         <div class=' dropdown-button  right-flex'>
                             <span class='header-2 padding-horizontal-2 text-overflow'>$fname $lname</span>";
@@ -129,7 +167,10 @@ class Navigation
 
             echo "
             <div class='col-3 right-flex fill-container '>
-            <div class='padding-horizontal-4'><i data-feather='bell'></i></div>
+            <div class='padding-3 bell-container cursor-pointer border-rounded-more' onclick='toggleNotification()'>
+                <i class='vertical-align-middle feather-small' data-feather='bell'></i> 
+                <span class='notifCount vertical-align-middle'>0</span>
+            </div>
             <div class=' dropdown padding-2 '>
                 <div class=' dropdown-button  right-flex'>
                     <span class='header-2 padding-horizontal-2 text-overflow'>$fname</span>
@@ -144,7 +185,7 @@ class Navigation
             echo "
                     </div>
                 <div class='dropdown-content'>
-                        <a href='$base/profile'><button class='fill-container border-rounded bg-white-hover left'><i class='vertical-align-middle padding-horizontal-2' data-feather='edit'></i><span class=' vertical-align-middle'>Profile</span></button></a>
+                        <a href='$base/profile'><button class='fill-container border-rounded bg-white-hover left'><i class='vertical-align-middle padding-horizontal-2' data-feather='user'></i><span class=' vertical-align-middle'>Profile</span></button></a>
                         <a href='$base/home/signout'><button class='fill-container border-rounded bg-white-hover left'><i class='vertical-align-middle padding-horizontal-2' data-feather='log-out'></i><span class=' vertical-align-middle'>Sign Out</span></button></a>
                 </div>
                 
@@ -226,6 +267,9 @@ class Navigation
                 </div>
                 </div>
             </header>";
+
+           
+            
     }
 
 }

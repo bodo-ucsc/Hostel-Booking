@@ -28,6 +28,7 @@ class ViewCard
             $PlaceId = $value->PlaceId;
             $DateTime = $value->DateTime;
             $Caption = $value->Caption;
+            $feedUserId = $value->UserId;
 
             if ($UserType == "BoardingOwner") {
                 $UserType = "Owner";
@@ -77,7 +78,7 @@ class ViewCard
         echo " </div>
         <div class='col-11 fill-container left margin-left-2'>
             <div class='row no-gap'>
-                <div class='col-12 fill-container left  '>
+                <div class='col-12 fill-container left  cursor-pointer ' onclick='window.location.href = \"$base/profile/$feedUserId\"'>
                     <div id='name-$PostId' class='display-inline-block big vertical-align-middle'>
                         $FirstName $LastName
                     </div>
