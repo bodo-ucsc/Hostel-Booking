@@ -619,6 +619,13 @@ $reviews = restAPI("property/ratingRest/$placeId");
                             ";
                         foreach ($reviews as $key => $revVal) {
 
+                            if (isset($revVal->BoardingOwnerReply)) {
+                                $reply = $revVal->BoardingOwnerReply;
+                            } else {
+                                $reply = "";
+                            }
+
+                            $revUser = $revVal->BoarderId;
                             $fname = $revVal->FirstName;
                             $lname = $revVal->LastName;
                             $profilePicture = $revVal->ProfilePicture;
@@ -626,30 +633,59 @@ $reviews = restAPI("property/ratingRest/$placeId");
                             $UserType = $revVal->UserType;
                             $userId = $revVal->UserId;
                             $rating = $revVal->Rating;
+                            $dateTime = $revVal->DateTime;
+                            $dateTime = strtotime($dateTime);
+                            $dateTime = date("M d, Y h.i A", $dateTime);
                             if ($profilePicture == null) {
                                 $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
                             } else {
                                 $profilePicture = BASEURL . "/$profilePicture";
                             }
                             echo "
-                                <div class='col-12  fill-container margin-vertical-3'>
-                                    <div class=' bg-white border-rounded-more  padding-3 border-box  row no-gap vertical-align-middle'>
-                                            <div class='padding-horizontal-3'>
-                                                <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
-                                            </div>
-                                            <div class='col-6 left fill-container'>
-                                                <div class='  grey'>$fname $lname</div>
-                                                <span  class='small vertical-align-middle'>$UserType</span>
-                                            </div>
-                                            <div class='col-5 center fill-container'>
+                                <div class='col-12  fill-container margin-vertical-3 shadow border-rounded-more'>
+                                    <div class=' bg-white border-rounded-more  padding-horizontal-3 padding-bottom-1 padding-top-3 border-box  row no-gap vertical-align-middle'>
+                                        <div class='padding-horizontal-3'>
+                                            <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
+                                        </div>
+                                        <div class='col-6 left fill-container cursor-pointer' onclick='window.location.href = \"$base/profile/$revUser\"'>
+                                            <div class=' big  grey'>$fname $lname</div>
+                                            <span  class=' vertical-align-middle'>$UserType</span>
+                                        </div>
+                                        <div class='col-5 center fill-container'>
+                                            <div class='block'>
                                                 <i data-star='$rating'></i>
                                                 <span class='header-3'>$rating Stars</span>
                                             </div>
-                                            <div class='col-12 fill-container'>
-                                                <div class='padding-3'>$review</div>
-                                            </div>
+                                            <span  class='small vertical-align-middle'>$dateTime</span>
                                         </div>
-                                    </div>
+                                        <div class='col-12 fill-container'>
+                                            <div class='padding-3'>$review</div>
+                                        </div>
+                                    </div> ";
+
+                            if ($reply != "") {
+                                echo "
+                                    <div class='shadow-small border-rounded-more  padding-horizontal-3 padding-vertical-1'>
+                                            <div class=' display-inline-block padding-horizontal-3'>";
+                                if (isset($ownerDP) && $ownerDP != "") {
+                                    echo "
+                                                    <img src='$base/$ownerDP' class='vertical-align-middle border-white border-3 shadow dp small border-circle'>
+                                                ";
+                                } else {
+                                    echo "
+                                                    <img src='https://ui-avatars.com/api/?background=288684&color=fff&name=$OwnerName' class='vertical-align-middle border-white border-3 shadow dp small border-circle'>
+                                                ";
+                                }
+                                echo "
+                                            </div>
+                                            <div class=' display-inline-block  left cursor-pointer' onclick='window.location.href = \"$base/profile/$OwnerId\"'>
+                                                <div class=' small  grey'>$OwnerName</div> 
+                                            </div>
+                                        
+                                            <div class='  display-inline-block small  padding-3'>$reply</div>
+                                    </div>";
+                            }
+                            echo "
                                 </div>
                                 ";
                         }
@@ -662,6 +698,7 @@ $reviews = restAPI("property/ratingRest/$placeId");
 
 
         </div>
+    </div>
 
 </main>
 <?php new pageFooter(); ?>

@@ -54,6 +54,12 @@ class friends extends Controller
         echo $json_response;
     }
 
+    // public function getAll(){
+
+    //     $data = $this->model('viewModel')->getBoarderDetails();
+    //     echo json_encode($data->fetch_all(MYSQLI_ASSOC));
+    // }
+
     public function getFriends($main = null, $status = null)
     {
         $result = $this->model('viewModel')->getFriend();
@@ -158,7 +164,7 @@ class friends extends Controller
         });
 
         //  limit the result to 7
-        $data = array_slice($data, 0, 7);
+        // $data = array_slice($data, 0, 7);
 
 
 

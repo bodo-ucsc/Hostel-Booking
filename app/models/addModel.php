@@ -182,7 +182,7 @@ class addModel extends Model
             'SquareFeet' => "$SquareFeet",
             'Parking' => "$Parking"
         ]);
-  
+
         if ($result) {
             return $this->lastInsertId();
         } else {
@@ -201,7 +201,7 @@ class addModel extends Model
     }
 
     public function inviteFriend($userid, $friendid, $place)
-    { 
+    {
         $result = $this->insert('FriendInvite', ['Tenant' => $userid, 'FriendId' => $friendid, 'PlaceId' => $place]);
         if ($result) {
             return 'success';
@@ -253,10 +253,35 @@ class addModel extends Model
     }
 
     public function postReview($userId, $placeId, $rating, $review)
-    { 
+    {
         $result = $this->insert('ReviewRating', ['BoarderId' => $userId, 'Place' => $placeId, 'Rating' => $rating, 'Review' => $review]);
         if ($result) {
             return 'success';
+        } else {
+            return 'fail';
+        }
+    }
+
+    public function sendBoarderReminder($placeId, $reminder, $data)
+    {
+        $result = $this->insert('BoarderNotification', ['NotificationTitle' => "$reminder"]);
+        if ($result) {
+            $id = $this->lastInsertId();
+            // $data = Array ( [0] => Array ( [TenantId] => 77 ) [1] => Array ( [TenantId] => 79 ) [2] => Array ( [TenantId] => 84 ) )
+            // if $data is an array, else if it is int
+            if (is_int($data)) {
+                $result2 = $this->insert('BoarderNotificationStatus', ['NotifId' => $id, 'Person' => $data]);
+            } else {
+                foreach ($data as $key => $value) {
+                    $result2 = $this->insert('BoarderNotificationStatus', ['NotifId' => $id, 'Person' => $value['TenantId']]);
+                }
+            }
+            if ($result2) {
+                return 'success';
+            } else {
+                return 'fail';
+            }
+
         } else {
             return 'fail';
         }

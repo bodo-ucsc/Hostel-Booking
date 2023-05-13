@@ -199,7 +199,7 @@ $nav = new Navigation();
         </div>
     </div>
 
-    
+
 </main>
 <div class="navbar-offset"></div>
 <?php new pageFooter(); ?>
@@ -220,7 +220,7 @@ $nav = new Navigation();
 <script>
 
 
-function openTerms() {
+    function openTerms() {
         Swal.fire({
             title: 'Terms and Conditions',
             customClass: 'swal-wide max-height-500 ',
@@ -281,20 +281,20 @@ function openTerms() {
             document.getElementById('uniIdUploadElement').classList.remove('display-none');
             document.getElementById('uniAdElement').classList.add('display-none');
             document.getElementById('emailLabel').innerHTML = "University Email Address";
-           
+
             document.querySelector('input[name="uniidupload"]').required = true;
             document.querySelector('input[name="uniadupload"]').required = false;
             document.querySelector('input[name="uniid"]').required = true;
 
-           
+
 
 
         } else {
             document.getElementById('emailLabel').innerHTML = "Personal Email Address";
             document.getElementById('uniIDElement').classList.add('display-none');
             document.getElementById('uniIdUploadElement').classList.add('display-none');
-            document.getElementById('uniAdElement').classList.remove('display-none'); 
-           
+            document.getElementById('uniAdElement').classList.remove('display-none');
+
             document.querySelector('input[name="uniidupload"]').required = false;
             document.querySelector('input[name="uniadupload"]').required = true;
             document.querySelector('input[name="uniid"]').required = false;
@@ -316,7 +316,7 @@ function openTerms() {
     })
         .then((response) => response.json())
         .then((json) => {
-            for (var i = 0; i < json.length; i++) {
+            for (let i = 0; i < json.length; i++) {
                 emailArray.push(json[i].Email);
             }
         });
@@ -336,7 +336,7 @@ function openTerms() {
     })
         .then((response) => response.json())
         .then((json) => {
-            for (var i = 0; i < json.length; i++) {
+            for (let i = 0; i < json.length; i++) {
                 numberArray.push(json[i].ContactNumber);
             }
         });
@@ -354,7 +354,7 @@ function openTerms() {
     })
         .then((response) => response.json())
         .then((json) => {
-            for (var i = 0; i < json.length; i++) {
+            for (let i = 0; i < json.length; i++) {
                 usernameArray.push(json[i].Username);
             }
         });
@@ -450,7 +450,7 @@ function openTerms() {
 
 
     async function checkUserName() {
-        var username = document.getElementById("username");
+        let username = document.getElementById("username");
         if (usernameArray.includes(username.value)) {
             username.classList.add("bg-red");
             document.getElementById("usernameLabel").classList.add("red");
@@ -469,7 +469,7 @@ function openTerms() {
 
     }
     async function checkUserEmail() {
-        var email = document.getElementById("email");
+        let email = document.getElementById("email");
         if (emailArray.includes(email.value)) {
             email.classList.add("bg-red"); document.getElementById("emailLabel").classList.add("red");
             document.getElementById("emailLabel").classList.remove("black");
@@ -485,7 +485,7 @@ function openTerms() {
 
     }
     async function checkUserNumber() {
-        var mobile = document.getElementById("mobile");
+        let mobile = document.getElementById("mobile");
         if (numberArray.includes(mobile.value)) {
             mobile.classList.add("bg-red"); document.getElementById("mobileLabel").classList.add("red");
             document.getElementById("mobileLabel").classList.remove("black");
@@ -501,19 +501,48 @@ function openTerms() {
 
     }
 
-    var password = document.getElementById("password")
+    let password = document.getElementById("password")
         , confirm_password = document.getElementById("repassword");
 
     function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
+        let passwordValue = password.value;
+        let confirmPasswordValue = confirm_password.value;
+
+        let pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]+$/;
+
+        if (passwordValue.length < 8) {
+            password.setCustomValidity("Password should be at least 8 characters long.");
+        }
+        else if (!/[A-Z]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one uppercase letter.");
+        }
+
+        else if (!/[a-z]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one lowercase letter.");
+        }
+        else if (!/\d/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one digit.");
+        }
+
+        else if (!/[^a-zA-Z0-9]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one special character.");
+        }
+        else if (!pattern.test(passwordValue)) {
+            password.setCustomValidity("Password should follow the pattern: at least one letter and one digit.");
         } else {
-            confirm_password.setCustomValidity('');
+            password.setCustomValidity("");
+        }
+
+        if (passwordValue !== confirmPasswordValue) {
+            confirm_password.setCustomValidity("Passwords don't match.");
+        } else {
+            confirm_password.setCustomValidity("");
         }
     }
 
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
+ 
+    password.addEventListener("keyup", validatePassword);
+    confirm_password.addEventListener("keyup", validatePassword);
 
 </script>
 

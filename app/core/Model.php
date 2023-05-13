@@ -277,9 +277,9 @@ class Model extends Database
             $sql .= " WHERE $where";
         }
         $stmt = $this->mysqli->prepare($sql);
-        if (isset($where)) {
-            $stmt->bind_param('s', $where);
-        }
+        // if (isset($where)) {
+        //     $stmt->bind_param('s', $where);
+        // }
         $stmt->execute();
         $stmt->bind_result($count);
         $stmt->fetch();

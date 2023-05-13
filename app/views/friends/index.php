@@ -27,7 +27,7 @@ $borderType = 'Student';
     </div>
 
     <div id='sidebar-open'
-        class='display-none display-medium-block navbar-offset shadow border-rounded-more full-height position-fixed sidebar  left bg-white padding-horizontal-3'>
+        class='display-none display-medium-block navbar-offset shadow border-rounded-more  position-fixed sidebar  fill-vertical   left bg-white padding-horizontal-3'>
         <div class='display-block display-medium-none padding-vertical-1 '>
             <button onclick='toggleNav("sidebar-collapse","sidebar-open")'
                 class='  left fill-container border-rounded-more padding-horizontal-3'>
@@ -43,49 +43,50 @@ $borderType = 'Student';
                 <?php new SearchUser('Friend'); ?>
             </div>
         </div>
+        <div class="overflow-y-auto max-height-650 display-block" id='friendBar'>
 
-        <div class='row padding-horizontal-3 padding-vertical-4 bg-accent border-rounded-more margin-top-2'>
+            <div class='row padding-horizontal-3 padding-vertical-4 bg-accent border-rounded-more margin-top-2'>
 
-            <div class='col-12 fill-container  padding-horizontal-3 '>
-                <span class=' fill-container margin-left-0 header-2 white'>Friend Requests</span>
-            </div>
+                <div class='col-12 fill-container  padding-horizontal-3 '>
+                    <span class=' fill-container margin-left-0 header-2 white'>Friend Requests</span>
+                </div>
 
-            <?php
-            $friendPending = restAPI('friends/getFriends/' . $_SESSION['UserId'] . '/pending');
-            $req = 0;
-            if (isset($friendPending)) {
-                foreach ($friendPending as $res => $value) {
-                    if ($value->type == 'main') {
-                        $req += 1;
-                        $userId = $value->UserId;
-                        $fname = $value->FirstName;
-                        $lname = $value->LastName;
-                        $city = $value->CityName;
-                        $place = $value->PlaceId;
-                        // $phone = $value->ContactNumber;
-                        $profilePicture = $value->ProfilePicture;
-                        if ($profilePicture == null) {
-                            $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
-                        } else {
-                            $profilePicture = BASEURL . "/$profilePicture";
-                        }
-                        $Tagline = $value->Tagline;
+                <?php
+                $friendPending = restAPI('friends/getFriends/' . $_SESSION['UserId'] . '/pending');
+                $req = 0;
+                if (isset($friendPending)) {
+                    foreach ($friendPending as $res => $value) {
+                        if ($value->type == 'main') {
+                            $req += 1;
+                            $userId = $value->UserId;
+                            $fname = $value->FirstName;
+                            $lname = $value->LastName;
+                            $city = $value->CityName;
+                            $place = $value->PlaceId;
+                            // $phone = $value->ContactNumber;
+                            $profilePicture = $value->ProfilePicture;
+                            if ($profilePicture == null) {
+                                $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
+                            } else {
+                                $profilePicture = BASEURL . "/$profilePicture";
+                            }
+                            $Tagline = $value->Tagline;
 
-                        echo "
-                            <div class='col-12    fill-container '>
+                            echo "
+                            <div class='col-12 filter-list   fill-container '>
                                 <div class='  bg-white black border-rounded padding-2  row no-gap vertical-align-middle'>
                                     <div class='padding-right-3'>
                                         <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
                                     </div>
-                                    <div class='col-8 left fill-container'>
-                                        <div class=' bold '>$fname $lname</div>
+                                    <div class='col-8 left fill-container cursor-pointer' onclick='window.location.href = \"$base/profile/$userId\"'>
+                                        <div class=' bold filter-list-name'>$fname $lname</div>
                                         <div class=' text-overflow small grey'>$Tagline</div>";
-                        if ($city != null) {
-                            echo "<div onclick='location.href=\"$base/listing/viewPlace/$place\"' class=' text-overflow cursor-pointer small blue border-1 padding-1 border-rounded-more center'>Boarded at $city</div>";
-                        } else {
-                            echo "<div  class=' cursor-default  small grey border-1 padding-1 border-rounded-more center'>Not Boarded yet</div>";
-                        }
-                        echo "
+                            if ($city != null) {
+                                echo "<div onclick='location.href=\"$base/listing/viewPlace/$place\"' class=' text-overflow cursor-pointer small blue border-1 padding-1 border-rounded-more center'>Boarded at $city</div>";
+                            } else {
+                                echo "<div  class=' cursor-default  small grey border-1 padding-1 border-rounded-more center'>Not Boarded yet</div>";
+                            }
+                            echo "
                                     </div>
                                     <div class='col-3 right fill-container' >
                                         <div class='margin-horizontal-2 display-inline-block center' >
@@ -98,58 +99,58 @@ $borderType = 'Student';
 
                             </div>
                             ";
+                        }
                     }
                 }
-            }
-            if ($req == 0) {
-                echo "<span class='left fill-container  col-12 white'>No Friend Requests</span>";
-            }
-            ?>
+                if ($req == 0) {
+                    echo "<span class='left fill-container  col-12 white'>No Friend Requests</span>";
+                }
+                ?>
 
-        </div>
-
-        <div class='row padding-3'>
-
-
-            <div class='col-12 fill-container  padding-horizontal-3 '>
-                <span class=' fill-container margin-left-0 header-2'>My Friends</span>
             </div>
-            <?php
-            $friendAccept = restAPI('friends/getFriends/' . $_SESSION['UserId'] . '/friend');
-            $req = 0;
-            if (isset($friendAccept)) {
-                foreach ($friendAccept as $res => $value) {
 
-                    $req += 1;
-                    $userId = $value->UserId;
-                    $fname = $value->FirstName;
-                    $lname = $value->LastName;
-                    $phone = $value->ContactNumber;
-                    $city = $value->CityName;
-                    $place = $value->PlaceId;
-                    $profilePicture = $value->ProfilePicture;
-                    if ($profilePicture == null) {
-                        $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
-                    } else {
-                        $profilePicture = BASEURL . "/$profilePicture";
-                    }
-                    $Tagline = $value->Tagline;
+            <div class='row padding-3' >
 
-                    echo "
-                            <div class='col-12    fill-container '>
+
+                <div class='col-12 fill-container  padding-horizontal-3 '>
+                    <span class=' fill-container margin-left-0 header-2'>My Friends</span>
+                </div>
+                <?php
+                $friendAccept = restAPI('friends/getFriends/' . $_SESSION['UserId'] . '/friend');
+                $req = 0;
+                if (isset($friendAccept)) {
+                    foreach ($friendAccept as $res => $value) {
+
+                        $req += 1;
+                        $userId = $value->UserId;
+                        $fname = $value->FirstName;
+                        $lname = $value->LastName;
+                        $phone = $value->ContactNumber;
+                        $city = $value->CityName;
+                        $place = $value->PlaceId;
+                        $profilePicture = $value->ProfilePicture;
+                        if ($profilePicture == null) {
+                            $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
+                        } else {
+                            $profilePicture = BASEURL . "/$profilePicture";
+                        }
+                        $Tagline = $value->Tagline;
+
+                        echo "
+                            <div class='col-12  filter-list  fill-container '>
                                 <div class='  bg-white black border-rounded-more  row no-gap vertical-align-middle'>
                                     <div class='padding-right-3'>
                                         <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
                                     </div>
-                                    <div class='col-8 left fill-container'>
-                                        <div class=' bold '>$fname $lname</div>
+                                    <div class='col-8 left fill-container cursor-pointer' onclick='window.location.href = \"$base/profile/$userId\"'>
+                                        <div class=' bold filter-list-name '>$fname $lname</div>
                                         <div class=' text-overflow small grey'>$Tagline</div>";
-                    if ($city != null) {
-                        echo "<div onclick='location.href=\"$base/listing/viewPlace/$place\"' class=' text-overflow cursor-pointer small blue border-1 padding-1 border-rounded-more center'>Boarded at $city</div>";
-                    } else {
-                        echo "<div  class=' cursor-default small grey border-1 padding-1 border-rounded-more center'>Not Boarded yet</div>";
-                    }
-                    echo "
+                        if ($city != null) {
+                            echo "<div onclick='location.href=\"$base/listing/viewPlace/$place\"' class=' text-overflow cursor-pointer small blue border-1 padding-1 border-rounded-more center'>Boarded at $city</div>";
+                        } else {
+                            echo "<div  class=' cursor-default small grey border-1 padding-1 border-rounded-more center'>Not Boarded yet</div>";
+                        }
+                        echo "
                                     </div>
                                     <div class='col-3 right fill-container' >
                                         <div class='margin-horizontal-2 display-inline-block center' >
@@ -161,56 +162,56 @@ $borderType = 'Student';
                             </div>
                             ";
 
+                    }
                 }
-            }
-            if ($req == 0) {
-                echo "<span class='left fill-container  col-12'>No Friends yet</span>";
-            }
-            ?>
+                if ($req == 0) {
+                    echo "<span class='left fill-container  col-12'>No Friends yet</span>";
+                }
+                ?>
 
-        </div>
-        <div class='row padding-3'>
-
-
-            <div class='col-12 fill-container  padding-horizontal-3 '>
-                <span class=' fill-container margin-left-0 header-2'>Requests I Sent</span>
             </div>
+            <div class='row padding-3'>
 
-            <?php
-            $req = 0;
-            if (isset($friendPending)) {
-                foreach ($friendPending as $res => $value) {
-                    if ($value->type == 'friend') {
-                        $req += 1;
-                        $userId = $value->UserId;
-                        $fname = $value->FirstName;
-                        $lname = $value->LastName;
-                        $city = $value->CityName;
-                        $place = $value->PlaceId;
-                        // $phone = $value->ContactNumber;
-                        $profilePicture = $value->ProfilePicture;
-                        if ($profilePicture == null) {
-                            $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
-                        } else {
-                            $profilePicture = BASEURL . "/$profilePicture";
-                        }
-                        $Tagline = $value->Tagline;
 
-                        echo "
-                            <div class='col-12    fill-container '>
+                <div class='col-12 fill-container  padding-horizontal-3 '>
+                    <span class=' fill-container margin-left-0 header-2'>Requests I Sent</span>
+                </div>
+
+                <?php
+                $req = 0;
+                if (isset($friendPending)) {
+                    foreach ($friendPending as $res => $value) {
+                        if ($value->type == 'friend') {
+                            $req += 1;
+                            $userId = $value->UserId;
+                            $fname = $value->FirstName;
+                            $lname = $value->LastName;
+                            $city = $value->CityName;
+                            $place = $value->PlaceId;
+                            // $phone = $value->ContactNumber;
+                            $profilePicture = $value->ProfilePicture;
+                            if ($profilePicture == null) {
+                                $profilePicture = "https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname";
+                            } else {
+                                $profilePicture = BASEURL . "/$profilePicture";
+                            }
+                            $Tagline = $value->Tagline;
+
+                            echo "
+                            <div class='col-12  filter-list  fill-container '>
                                 <div class='  bg-white black border-rounded-more  row no-gap vertical-align-middle'>
                                     <div class='padding-right-3'>
                                         <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
                                     </div>
-                                    <div class='col-8 left fill-container'>
-                                        <div class=' bold '>$fname $lname</div>
+                                    <div class='col-8 left fill-container cursor-pointer' onclick='window.location.href = \"$base/profile/$userId\"'>
+                                        <div class=' bold filter-list-name'>$fname $lname</div>
                                         <div class=' text-overflow small grey'>$Tagline</div>";
-                        if ($city != null) {
-                            echo "<div onclick='location.href=\"$base/listing/viewPlace/$place\"' class=' text-overflow cursor-pointer small blue border-1 padding-1 border-rounded-more center'>Boarded at $city</div>";
-                        } else {
-                            echo "<div  class=' cursor-default small grey border-1 padding-1 border-rounded-more center'>Not Boarded yet</div>";
-                        }
-                        echo "
+                            if ($city != null) {
+                                echo "<div onclick='location.href=\"$base/listing/viewPlace/$place\"' class=' text-overflow cursor-pointer small blue border-1 padding-1 border-rounded-more center'>Boarded at $city</div>";
+                            } else {
+                                echo "<div  class=' cursor-default small grey border-1 padding-1 border-rounded-more center'>Not Boarded yet</div>";
+                            }
+                            echo "
                                     </div>
                                     <div class='col-3 right fill-container' >
                                         <div class='margin-horizontal-2 display-inline-block center' >
@@ -222,13 +223,14 @@ $borderType = 'Student';
 
                             </div>
                             ";
+                        }
                     }
                 }
-            }
-            if ($req == 0) {
-                echo "<span class='left fill-container  col-12 '>No Friend Requests Sent</span>";
-            }
-            ?>
+                if ($req == 0) {
+                    echo "<span class='left fill-container  col-12 '>No Friend Requests Sent</span>";
+                }
+                ?>
+            </div>
         </div>
     </div>
 
@@ -244,8 +246,8 @@ $borderType = 'Student';
                 </div>
 
                 <div class='col-medium-8 col-10 fill-container'>
-                    <input id='searchUser' class=' header-nb border-none fill-container' type='text'
-                        onkeyup='searchUser()' placeholder='Search for a Friend... '>
+                    <input id='searchAllUsers' class=' header-nb border-none fill-container' type='text'
+                        onkeyup='searchAllUser()' placeholder='Search Friend suggestions... '>
                 </div>
             </div>
         </div>
@@ -267,9 +269,17 @@ $borderType = 'Student';
                 <?php
                 $friendReccommend = restAPI('friends/friendRecommendation/' . $_SESSION['UserId']);
                 if (isset($friendReccommend)) {
+                    $ycount = 0;
                     foreach ($friendReccommend as $res => $value) {
 
-                        $req += 1;
+                        $ycount += 1;
+
+                        if ($ycount >= 7) {
+                            $append ='display-none';
+                        }else{
+                            $append ='display-block';
+                        }
+
                         $userId = $value->UserId;
                         $fname = $value->FirstName;
                         $lname = $value->LastName;
@@ -293,15 +303,15 @@ $borderType = 'Student';
                         }
                         $Tagline = $value->Tagline;
                         echo "
-                    <div class='  col-6 shadow fill-container border-rounded-more overflow-hidden'>
+                    <div class=' carousal-items $append  col-6 shadow fill-container border-rounded-more overflow-hidden'>
                         <img class='fill-container  ' src='https://picsum.photos/200/100.jpg?random=$userId' alt=''>
                         <div class=' center fill-container margin-top-n4 '>
                             <img class='width-100px border-circle shadow' src='$profilePicture' alt=''>
                         </div>
 
-                        <div class='col-12 center fill-container padding-bottom-4'>
+                        <div class='col-12 center fill-container padding-bottom-4 cursor-pointer' onclick='window.location.href = \"$base/profile/$userId\"'>
                             <div class=' padding-vertical-2'>
-                                <span class='big bold'>$fname $lname</span>
+                                <span class='big bold carousal-name'>$fname $lname</span>
                                 <br />
                                 <span class=''>$Tagline</span>
                                 <br />
@@ -329,7 +339,7 @@ $borderType = 'Student';
         <div class="col-12 width-90 ">
             <span class=' display-block  margin-left-0 header-2 fill-container'>Boarding Invites</span>
             <?php
-            $boardingInvite = restAPI('friends/invitedFriends/0/' . $_SESSION['UserId']. '/pending');
+            $boardingInvite = restAPI('friends/invitedFriends/0/' . $_SESSION['UserId'] . '/pending');
             //get name and profile picture from friendAccept and merge to boardingInvite
             if (isset($boardingInvite)) {
                 $c = 0;
@@ -396,7 +406,7 @@ $borderType = 'Student';
 
                 }
             }
-            if ($c == 0){
+            if ($c == 0) {
                 echo "<div class=' padding-vertical-4 border-box'>No Invites</div>";
             }
             ?>
@@ -405,11 +415,64 @@ $borderType = 'Student';
     </div>
 
 
-    
+
 </main>
 
 
 <script>
+    function searchUser() {
+        // Declare variables
+        var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
+        input = document.getElementById("searchUser");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("friendBar");
+        tr = table.getElementsByClassName('filter-list'); 
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td1 = tr[i].getElementsByClassName("filter-list-name")[0];
+            if (td1) {
+                txtValue1 = td1.textContent || td1.innerText;
+                if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].classList.add('display-block');
+                    tr[i].classList.remove('display-none'); 
+                } else { 
+                    tr[i].classList.add('display-none');
+                    tr[i].classList.remove('display-block');
+                }
+            }
+        } 
+    }
+    function searchAllUser() {
+        // Declare variables
+        var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
+        input = document.getElementById("searchAllUsers");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("suggestedFriends");
+        tr = table.getElementsByClassName('carousal-items'); 
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td1 = tr[i].getElementsByClassName("carousal-name")[0];
+            if (td1) {
+                txtValue1 = td1.textContent || td1.innerText;
+                if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].classList.add('display-block');
+                    tr[i].classList.remove('display-none'); 
+                } else { 
+                    tr[i].classList.add('display-none');
+                    tr[i].classList.remove('display-block');
+                }
+            }
+        } 
+        if (filter == "") {
+            for (i = 6; i < tr.length; i++) {
+                tr[i].classList.add('display-none');
+                tr[i].classList.remove('display-block');
+            }
+        }
+    }
+
     const buttonRight = document.getElementById('slideRight');
     const buttonLeft = document.getElementById('slideLeft');
 
@@ -442,11 +505,11 @@ $borderType = 'Student';
             IdValue3: placeId,
             Key: 'Status',
             Value: status,
-        }; 
+        };
         updater(data);
         if (status == 'accept') {
-            requestBoarding(friendId); 
-        } 
+            requestBoarding(friendId);
+        }
     };
 
     function requestBoarding(id) {

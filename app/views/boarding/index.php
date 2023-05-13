@@ -64,7 +64,7 @@ $basePage = BASEURL . '/boarding';
                             <div class='padding-right-3'>
                                 <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
                             </div>
-                            <div class='col-8 left fill-container'>
+                            <div class='col-8 left fill-container cursor-pointer' onclick='window.location.href = \"$base/profile/$userId\"'>
                                 <div class=' bold '>$fname $lname</div>
                                 <div class=' text-overflow small grey'>$Tagline</div>
                             </div>
@@ -114,7 +114,7 @@ $basePage = BASEURL . '/boarding';
                             <div class='padding-right-3'>
                                 <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
                             </div>
-                            <div class='col-8 left fill-container'>
+                            <div class='col-8 left fill-container cursor-pointer' onclick='window.location.href = \"$base/profile/$userId\"'>
                                 <div class=' bold '>$fname $lname</div>
                                 <div class=' text-overflow small grey'>$Tagline</div>
                             </div>
@@ -153,11 +153,10 @@ $basePage = BASEURL . '/boarding';
                     $place = $value->PlaceId;
                     foreach ($result as $res => $value) {
                         if ($value->UserId == $friendId && $place == $placeid) {
-                            if ($status == 'rejected'  || $status == 'accept') {
+                            if ($status == 'rejected' || $status == 'accept') {
                                 unset($result[$res]);
                                 continue;
-                            }
-                            else if ($status == 'pending') { 
+                            } else if ($status == 'pending') {
                                 $pendingArray[] = $friendId;
                                 continue;
                             }
@@ -173,7 +172,7 @@ $basePage = BASEURL . '/boarding';
                         continue;
                     }
                     $req += 1;
-                    
+
                     if (isset($pendingArray) && in_array($value->UserId, $pendingArray)) {
                         $action = 'deleteInvite("' . $value->UserId . '")';
                         $actionIcon = 'x';
@@ -200,7 +199,7 @@ $basePage = BASEURL . '/boarding';
                                     <div class='padding-right-3'>
                                         <img class='vertical-align-middle dp border-1 border-accent border-circle' src='$profilePicture' >
                                     </div>
-                                    <div class='col-8 left fill-container'>
+                                    <div class='col-8 left fill-container cursor-pointer' onclick='window.location.href = \"$base/profile/$userId\"'>
                                         <div class=' bold '>$fname $lname</div>
                                         <div class=' text-overflow small grey'>$Tagline</div>
                                     </div>
@@ -240,7 +239,7 @@ $basePage = BASEURL . '/boarding';
                 <span class=' fill-container margin-left-0 header-2'>Payables</span>
                 <div class="row margin-top-2 ">
                     <div class='col-12 col-small-4 fill-container padding-3 '>
-                        <div class="shadow-small border-rounded-more accent padding-4 bg-white-hover ">
+                        <div class="shadow-small border-rounded-more accent padding-4 bg-white-hover cursor-default">
                             <div class='big'>Rent</div>
                             <div class='header-2 fill-container'>
                                 Rs.
@@ -250,7 +249,11 @@ $basePage = BASEURL . '/boarding';
                     </div>
 
                     <div class='col-12 col-small-4 fill-container padding-3 '>
-                        <div class="shadow border-rounded-more bg-white-hover blue padding-4">
+                        <div class="shadow border-rounded-more bg-white-hover blue padding-4 cursor-pointer"
+                            onclick='editModal("WaterBill","<?= $payables[0]->WaterBill ?>")'>
+                            <div class="float-right">
+                                <i data-feather="edit" class="feather-small"></i>
+                            </div>
                             <div class='big'>Water Bill</div>
                             <div class='header-2 fill-container'>
                                 Rs.
@@ -260,7 +263,11 @@ $basePage = BASEURL . '/boarding';
                         </div>
                     </div>
                     <div class='col-12 col-small-4 fill-container padding-3  '>
-                        <div class="shadow border-rounded-more red padding-4 bg-white-hover">
+                        <div class="shadow border-rounded-more red padding-4 bg-white-hover cursor-pointer"
+                            onclick='editModal("ElectricityBill","<?= $payables[0]->ElectricityBill ?>")'>
+                            <div class="float-right">
+                                <i data-feather="edit" class="feather-small"></i>
+                            </div>
                             <div class='big'>Electicity </div>
                             <div class='header-2 fill-container'>
                                 Rs.
@@ -274,7 +281,8 @@ $basePage = BASEURL . '/boarding';
             </div>
 
             <div class=" white fill-vertical fill-container col-6 col-small-4 padding-4 border-box ">
-                <div class="  fill-vertical shadow border-rounded-more bg-blue-hover   fill-container center flex ">
+                <div
+                    class="  fill-vertical shadow border-rounded-more bg-blue-hover cursor-default  fill-container center flex ">
                     <div class="">
                         <span class='big'>Key Money</span><br />
                         <span class='header-2'>
@@ -307,14 +315,49 @@ $basePage = BASEURL . '/boarding';
                 <div
                     class="bg-accent-hover border-rounded-more white shadow padding-vertical-2 padding-horizontal-3 fill-vertical">
                     <div class="padding-top-4 padding-horizontal-4">
-                        <span class=' fill-container  header-2'>Reminders</span>
-                        <div class="row  fill-container">
-                            <div class='col-6 fill-container padding-3 margin-2'>
-                                <div class="shadow-small border-rounded-more accent padding-4 bg-white">
-                                    <div class='big '>Rent Due</div>
-                                    <div class='header-2 '>21st Nov</div>
-                                </div>
-                            </div>
+                        <div class=' fill-container  header-2 padding-vertical-2'>Reminders</div>
+                        <div class="row  fill-container less-gap">
+                            <?php
+                            $notifi = restAPI("/notification/boarderNotificationRest/$UserId/unread");
+                            $notifCount = 0;
+                            if (isset($notifi) && count($notifi) > 0) {
+                                foreach ($notifi as $n => $v) {
+                                    // print_r($v);
+                                    $notiTitle = $v->NotificationTitle;
+
+                                    // $type = "$type Trash will be collected today";
+                                    // $type = "$type Bill has to be paid";
+                                    // $type = "Rent has to be paid";
+                            
+                                    // check if the notification is a reminder like rent, bill, trash
+                                    if (strpos($notiTitle, 'Rent') !== false || strpos($notiTitle, 'Bill') !== false || strpos($notiTitle, 'Trash') !== false) {
+
+                                        $notifCount++;
+
+                                        $dateTime = $v->DateTime;
+                                        $dateTime = strtotime($dateTime);
+                                        $dateTime = date("M d, Y h.i A", $dateTime);
+                                        $notiId = $v->NotificationId;
+                                        echo "
+                                        <div class='col-6 fill-container padding-1 fill-vertical '>
+                                            <div class='shadow-small border-rounded-more accent fill-vertical border-box padding-4 bg-white'>
+
+                                                <div class='float-right cursor-pointer ' onclick='toggleReadNotif(\"$notiId\", \"$UserId\", \"unread\");reloadPage();'>
+                                                    <i data-feather='check-circle' class='feather-small' ></i>
+                                                </div>
+                                                <div class='big '>$notiTitle</div>
+                                                <div class=' '>$dateTime</div>
+                                            </div>
+                                        </div>
+                                        ";
+                                    }
+                                    
+                                }
+                            }
+                            if($notifCount == 0){
+                                echo "<div class=' col-12 fill-container white border-box padding-vertical-2  '>No reminders</div>";
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -427,6 +470,11 @@ $basePage = BASEURL . '/boarding';
 
 <script>
 
+function reloadPage(){
+    setTimeout(function(){
+        location.reload();
+    }, 1000);
+}
 
     function leaveBoarding() {
         Swal.fire({
@@ -785,10 +833,58 @@ $basePage = BASEURL . '/boarding';
         })
     };
 
+    function editModal(field, value) {
+        Swal.fire({
+            title: 'Edit ' + field + ' Value',
+            html:
+                '<input type="number" class=" fill-container margin-0 " id="edit-value" name="firstname" placeholder="Enter ' + field + '" value="' + value + '" >',
+            showCancelButton: true,
+            cancelButtonColor: '#788292',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const data = {
+                    Table: 'BoardingMoney',
+                    Id: 'Place',
+                    IdValue: '<?= $placeid ?>',
+                    Key: field,
+                    Value: document.getElementById('edit-value').value,
+                };
+
+                fetch("<?php echo BASEURL ?>/edit/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                }).then(response => response.json())
+                    .then(json => {
+                        if (json.Status === 'Success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Updated Successfully'
+                            }).then((result) => {
+                                location.reload();
+                            });
+
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            })
+                        }
+                    }).catch(function (error) {
+                        console.log('Request failed', error);
+                    });
+
+            }
+        })
+
+
+    };
+
     function editPost(id, Caption) {
-
-
-
         Swal.fire({
             title: 'Edit Caption',
             html:

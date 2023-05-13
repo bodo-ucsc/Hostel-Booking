@@ -13,7 +13,11 @@ if (isset($result['0'])) {
 $FirstName = $value->FirstName;
 $LastName = $value->LastName;
 $role = $value->UserType;
-$profilepic = $value->ProfilePicture;
+if (isset($value->ProfilePicture) && !empty($value->ProfilePicture)) {
+    $profilepic = $value->ProfilePicture;
+} else {
+    $profilepic = "";
+}
 $Username = $value->Username;
 $Email = $value->Email;
 $ContactNumber = $value->ContactNumber;
@@ -21,7 +25,9 @@ $ContactNumber = $value->ContactNumber;
 $_SESSION['username'] = $Username;
 $_SESSION['firstname'] = $FirstName;
 $_SESSION['lastname'] = $LastName;
-$_SESSION['profilepic'] = $profilepic;
+if (isset($profilepic) && !empty($profilepic)) {
+    $_SESSION['profilepic'] = $profilepic;
+}
 
 $Address = restAPI("userManagement/getAddress/$role/$id");
 $Address = $Address[0]->Address;
@@ -215,7 +221,12 @@ $Address = $Address[0]->Address;
 
     FilePond.create(document.getElementById('profilepic'), {
         server: '<?php echo BASEURL ?>/imageUpload/profilepic',
-        labelIdle: `<img  src='<?php echo "$base/$profilepic" ?>'/>`,
+        <?php
+        if (isset($profilepic) && $profilepic != "")
+            echo ("labelIdle: `<img  src='$base/$profilepic'/>`,");
+        else
+            echo ("labelIdle: `<img src='$base/images/image.svg'/><br/> <span>Upload Profile Picture</span>`,");
+        ?> 
         allowImagePreview: true,
         imagePreviewHeight: 170,
         imageCropAspectRatio: '1:1',
@@ -242,6 +253,15 @@ $Address = $Address[0]->Address;
 
     function update(table, id, idvalue, k, value) {
         let v = document.getElementById(value).value;
+
+        if(k == 'Password'){
+            // check customvalidity
+            validatePassword();
+            if(document.getElementById('password').checkValidity() == false){
+                return;
+            }
+
+        }
 
         const data = {
             Table: table,
@@ -278,6 +298,42 @@ $Address = $Address[0]->Address;
                 console.log('Request failed', error);
             });
     };
+
+
+    let password = document.getElementById("password");
+
+    function validatePassword() {
+        let passwordValue = password.value;
+        password.reportValidity();
+
+        let pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]+$/;
+
+        if (passwordValue.length < 8) {
+            password.setCustomValidity("Password should be at least 8 characters long.");
+        }
+        else if (!/[A-Z]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one uppercase letter.");
+        }
+
+        else if (!/[a-z]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one lowercase letter.");
+        }
+        else if (!/\d/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one digit.");
+        }
+
+        else if (!/[^a-zA-Z0-9]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one special character.");
+        }
+        else if (!pattern.test(passwordValue)) {
+            password.setCustomValidity("Password should follow the pattern: at least one letter and one digit.");
+        } else {
+            password.setCustomValidity("");
+        }
+    }
+
+
+    password.addEventListener("keyup", validatePassword);
 
 </script>
 

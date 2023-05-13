@@ -21,7 +21,7 @@ $ContactNumber = $data['User']->ContactNumber;
             <div class=' center fill-container margin-top-n5 '>
                 <?php
 
-                if (isset($profilepic)) {
+                if (isset($profilepic) && !empty($profilepic)) {
                     echo "<img class='  width-150px border-blue border-1 border-circle' src='$base/$profilepic' alt='user'>";
                 } else {
                     echo "<img class=' width-150px border-blue border-1 border-circle' src='https://ui-avatars.com/api/?background=288684&color=fff&name=$fname+$lname' alt='user'>";

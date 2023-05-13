@@ -37,8 +37,21 @@ class Edit extends Controller
             $value = nl2br($value);
         }
 
-        $data = $this->model('editModel')->modifyData($table, [$key => $value], "$id = '$idvalue' $append");
-
+        if(isset($_POST['Key2']) && isset($_POST['Value2'])){
+            $key2 = $_POST['Key2'];
+            $value2 = $_POST['Value2'];
+            $key1 = $_POST['Key1'];
+            $value1 = $_POST['Value1']; 
+            $data = $this->model('editModel')->modifyData($table, [$key => $value, $key1 => $value1, $key2 => $value2], "$id = '$idvalue' $append");
+        }
+        else if(isset($_POST['Key1']) && isset($_POST['Value1'])){
+            $key1 = $_POST['Key1'];
+            $value1 = $_POST['Value1']; 
+            $data = $this->model('editModel')->modifyData($table, [$key => $value, $key1 => $value1], "$id = '$idvalue' $append");
+        }
+        else{
+            $data = $this->model('editModel')->modifyData($table, [$key => $value], "$id = '$idvalue' $append");
+        }
 
 
         if ($data == 'success') {
