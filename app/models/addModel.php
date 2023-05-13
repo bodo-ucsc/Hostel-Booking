@@ -11,9 +11,11 @@ class addModel extends Model
     {
         //hashing the password
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $result = $this->insert('User', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'NIC' => $NIC, 'Gender' => $Gender, 'Email' => $email, 'ContactNumber' => $ContactNumber, 'Password' => $password, 'UserType' => $usertype, 'ProfilePicture' => $profilepic]);
+        $this->insert('User', ['FirstName' => $firstname, 'LastName' => $lastname, 'Username' => $username, 'NIC' => $NIC, 'Gender' => $Gender, 'Email' => $email, 'ContactNumber' => $ContactNumber, 'Password' => $password, 'UserType' => $usertype, 'ProfilePicture' => $profilepic]);
         //return last id
         return $this->lastInsertId();
+
+        
     }
 
     public function addAdvertisement($userid, $placeid, $date, $message)
