@@ -3,6 +3,7 @@
 $header = new HTMLHeader("Property");
 $nav = new Navigation('management');
 $sidebar = new SidebarNav("properties");
+$base = BASEURL;
 
 if (isset($data['place'])) {
     $title = $data['place']->HouseNo . ", " . $data['place']->Street;
