@@ -1,8 +1,9 @@
 <?php
 $header = new HTMLHeader("Add User | Student");
-$nav = new Navigation("home");
+$nav = new Navigation("management");
 $sidebar = new SidebarNav("user", "student");
-$base = BASEURL . '/admin';
+$base = BASEURL;
+
 
 ?>
 <main class=" full-width ">
@@ -28,7 +29,7 @@ $base = BASEURL . '/admin';
                         </button> -->
                         <!-- <div class="row "> -->
 
-                        
+
                     </div>
                 </div>
                 <div class="row margin-top-3 fill-container">
@@ -48,10 +49,10 @@ $base = BASEURL . '/admin';
                             <div class="col-12 col-medium-2 fill-container padding-bottom-4">
                                 <!-- gender radio buttons-->
                                 <div class="bold black padding-bottom-2 ">Gender</div>
-                                <input type="radio" name="gender" value="m" id="male" id="" checked>
+                                <input type="radio" name="gender" value="m" id="male" checked>
                                 <label for="male" class="">Male</label>
 
-                                <input type="radio" name="gender" value="f" id="female" id="">
+                                <input type="radio" name="gender" value="f" id="female">
                                 <label for="female" class="">Female</label>
                             </div>
                             <div class="col-12 col-medium-3 fill-container">
@@ -83,8 +84,16 @@ $base = BASEURL . '/admin';
                         <h2 class="header-2">University Details</h2>
                         <div class="row">
                             <div class="col-12 col-medium-3 fill-container">
-                                <label class="bold black" for="university">University</label>
-                                <input type="text" name="uni" id="uni" required>
+                                <label class="bold black" for="uni">University</label>
+                                <select id='uni' name='uni' required>
+                                    <option value=''>Select University</option>
+                                    <?php
+                                    $university = restAPI('userManagement/universityRest');
+                                    foreach ($university as $uni) {
+                                        echo "<option value='" . $uni->Name . "'>" . $uni->Name . "</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="col-12 col-medium-2 fill-container padding-bottom-4">
                                 <div class="bold black padding-bottom-4 ">University Email</div>
@@ -134,22 +143,54 @@ $base = BASEURL . '/admin';
         </div>
     </form>
     </div>
+
 </main>
 
+
 <script>
-    var password = document.getElementById("password"),
-        confirm_password = document.getElementById("repassword");
+
+let password = document.getElementById("password")
+        , confirm_password = document.getElementById("repassword");
 
     function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
+        let passwordValue = password.value;
+        let confirmPasswordValue = confirm_password.value;
+
+        let pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]+$/;
+
+        if (passwordValue.length < 8) {
+            password.setCustomValidity("Password should be at least 8 characters long.");
+        }
+        else if (!/[A-Z]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one uppercase letter.");
+        }
+
+        else if (!/[a-z]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one lowercase letter.");
+        }
+        else if (!/\d/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one digit.");
+        }
+
+        else if (!/[^a-zA-Z0-9]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one special character.");
+        }
+        else if (!pattern.test(passwordValue)) {
+            password.setCustomValidity("Password should follow the pattern: at least one letter and one digit.");
         } else {
-            confirm_password.setCustomValidity('');
+            password.setCustomValidity("");
+        }
+
+        if (passwordValue !== confirmPasswordValue) {
+            confirm_password.setCustomValidity("Passwords don't match.");
+        } else {
+            confirm_password.setCustomValidity("");
         }
     }
 
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
+
+    password.addEventListener("keyup", validatePassword);
+    confirm_password.addEventListener("keyup", validatePassword);
 </script>
 
 <?php

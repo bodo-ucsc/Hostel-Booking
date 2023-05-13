@@ -5,7 +5,6 @@ use Ratchet\App;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-#[AllowDynamicProperties]
 class Chat implements MessageComponentInterface
 {
     protected $clients;
@@ -18,7 +17,7 @@ class Chat implements MessageComponentInterface
     }
 
 
-    #[AllowDynamicProperties]
+
     public function onOpen(ConnectionInterface $conn)
     {
         $route = $conn->route;
@@ -38,7 +37,7 @@ class Chat implements MessageComponentInterface
     }
 
 
-    #[AllowDynamicProperties]
+
     public function onClose(ConnectionInterface $conn)
     {
         $route = $conn->route;
@@ -58,7 +57,7 @@ class Chat implements MessageComponentInterface
     }
 
 
-    #[AllowDynamicProperties]
+
     public function onMessage(ConnectionInterface $from, $msg)
     {
         $data = json_decode($msg);
@@ -116,80 +115,10 @@ class Chat implements MessageComponentInterface
             }
         }
     }
-
-    //make a new route for the chat 
-    // public function route($route, $component, $allowedOrigins = [])
-    // {
-    //     $this->routes[$route] = [
-    //         'component' => $component,
-    //         'allowedOrigins' => $allowedOrigins
-    //     ];
-    //     echo "New route: $route\n";
-    // }
-
-    // public function onOpen(ConnectionInterface $conn)
-    // {
-    //     // Store the new connection to send messages to later
-    //     $this->clients->attach($conn); 
-
-    //     echo "New connection! ({$conn->resourceId})\n";
-    // }
-
-    // public function onMessage(ConnectionInterface $from, $msg)
-    // {
-    //     echo "Message received: $msg\n";
-    //     $data = json_decode($msg);
-    //     $route = $data->route;
-    //     $name = $data->name;
-    //     $date = $data->date;
-    //     $message = $data->msg;
-    //     $create = $data->create;
-
-    //     if($create == 'y'){
-    //         if(!isset($this->routes[$route])){
-    //             $this->route($route, new Chat, ['*']);
-    //         }
-    //         else{
-    //             echo "Route already exists\n";
-    //         }
-    //         $this->routes[$route]['component']->onOpen($from);
-    //     }else{
-    //         $numRecv = count($this->routes[$route]['component']->clients) - 1;
-    //         echo sprintf('Connection %d sending message "%s" to %d other connection%s through %s route' . "\n"
-    //             , $from->resourceId, $message, $numRecv, $numRecv == 1 ? '' : 's', $route);
-
-    //         foreach ($this->routes[$route]['component']->clients as $client) {
-    //             if ($from !== $client) {
-    //                 // The sender is not the receiver, send to each client connected
-    //                 $client->send(json_encode([
-    //                     'name' => $name,
-    //                     'date' => $date,
-    //                     'msg' => $message
-    //                 ]));
-    //             }
-    //         }
-    //     }
-    // }
-
-
-    // public function onClose(ConnectionInterface $conn)
-    // {
-    //     // The connection is closed, remove it, as we can no longer send it messages
-    //     $this->clients->detach($conn);
+ 
 
 
 
-
-    //     echo "Connection {$conn->resourceId} has disconnected\n";
-
-    //     // if(count($this->routes[$route]['component']->clients) == 0){
-    //     //     echo "No more connections, closing server\n";
-    //     //     $this->stop();
-    //     // }
-    // }
-
-
-    #[AllowDynamicProperties]
     public function onError(ConnectionInterface $conn, \Exception $e)
     {
         echo "An error has occurred: {$e->getMessage()}\n";
@@ -197,8 +126,4 @@ class Chat implements MessageComponentInterface
         $conn->close();
     }
 }
-
-// $app = new App('localhost', 8080, '0.0.0.0');
-// $app->route('/', new Chat, ['*']);
-// $app->route('/chat', new Chat, ['*']);
-// $app->run();
+ 

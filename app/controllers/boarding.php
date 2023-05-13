@@ -2,43 +2,78 @@
 
 class Boarding extends Controller
 {
-    public function index()
+    public function index($message = null) 
     {
-
-        $uname = $_SESSION['username'];
-        $this->viewBoarders($uname);
-        // $this->view('boarding/index');
+        if (isset($message)) {
+            $alert = 'error';
+            if ($message == 'fail') {
+                $message = "Failed";
+            } else if ($message == 'success') {
+                $message = "Successful";
+                $alert = 'success';
+            }
+        } else {
+            $message = null;
+            $alert = null;
+        }
+        $this->view('boarding/index', ['message' => $message, 'alert' => $alert]);
     }
 
-    public function viewBoarders($uname)
+    public function payables($placeId = null)
     {
+        if ($placeId == null) {
+            $append = null;
+        } else {
+            $append = "Place = '$placeId'";
+        }
+        $result = $this->model('viewModel')->get('BoardingPayables', "$append");
 
-        $userId = $_SESSION['UserId'];
-        $placeId = $this->model('viewModel')->getID("user,boardingplace,boardingplacetenant", "boardingplace.placeID", "user.Username = '$uname' AND user.UserId=boardingplacetenant.TenantID AND boardingplacetenant.Place=boardingplace.placeID");
-        $placeId = $placeId->fetch_assoc();
-        $placeId = $placeId['placeID'];
+        echo json_encode(
+            $result->fetch_all(MYSQLI_ASSOC)
+        );
+    }
 
-        $postId = $this->model('viewModel')->getID("postupdate", "postupdate.PostId", "postupdate.UserId = '$userId'");
-        $postId = $postId->fetch_assoc();
-        $postId = $postId['PostId'];
+    public function leave()
+    { 
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        if (empty($_POST)) {
+            $json['Status'] = "Failed no values";
+            echo json_encode($json); 
+            return;
+        }
 
-        $result = $this->model('viewModel')->checkData("user,boardingplace,boarder,postupdate,boardingplacetenant,student", "boardingplace.placeId = '$placeId' AND boardingplacetenant.place = '$placeId' AND user.userId=boardingplacetenant.TenantID AND boardingplacetenant.TenantId != '$userId' Group by user.userId ");
+        $placeId = $_POST['placeid'];
+        $userId = $_POST['userid'];
+        $data = $this->model('editModel')->modifyData('BoardingPlaceTenant', ['BoarderStatus' => 'left'], "Place = '$placeId' AND TenantId = '$userId'");
 
-        // SELECT firstname,lastname,studentuniversity as tagline, profilepicture FROM `student`,`user`,`boardingplacetenant`,`boarder` WHERE place = 1 AND  BoarderId = TenantID AND userId = BoarderId  AND userId=StudentId UNION SELECT firstname,lastname,usertype as tagline, profilepicture FROM `professional`,`user`,`boardingplacetenant`,`boarder` WHERE place = 1 AND  BoarderId = TenantID AND userId = BoarderId  AND userId=professionalId;
-        
-        $this->view('boarding/index', ['result' => $result, 'postId' => $postId]);
-        //$this->view('boarding/index', $data);
+        if (isset($_POST['rating'])) {
+            $rating = $_POST['rating'];
+        } else {
+            $rating = null;
+        }
+        if (isset($_POST['userReview'])) {
+            $userReview = $_POST['userReview'];
+        } else {
+            $userReview = null;
+        }
 
-        // while ($row = $result->fetch_assoc()) {
-        //     $array['FirstName'] = $row['FirstName'];
-        //     $array['LastName'] = $row['LastName'];
-
-
-        //     $json_response = json_encode($array);
-        //     echo $json_response;
-        // }
-        // $json_response = json_encode($array);
-        // echo $json_response;
+        if ($data == 'success') {
+            $data = $this->model('addModel')->postReview($userId, $placeId, $rating, $userReview);
+            if ($data == 'success') {
+                $json['Status'] = "Success";
+                echo json_encode($json); 
+                return;
+            } else {
+                $json['Status'] = "Failed, Review not posted";
+                echo json_encode($json); 
+                return;
+            }
+            
+        }else{
+            $json['Status'] = "Failed to leave";
+            echo json_encode($json); 
+            return;
+        }
 
     }
 }

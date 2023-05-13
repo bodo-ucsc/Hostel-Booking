@@ -1,372 +1,482 @@
 <?php
 
-class property extends Controller{
+
+
+class property extends Controller
+{
 
     public function index()
     {
-        $this->view('property/viewAllBoarding');
-    }
-    public function addBoarding(){
-        $this->view('property/addBoarding');
-    }
-
-    public function editDeleteBoarding($placeid = null){
-        if (isset($placeid)) {
-            $this->view('property/editDeleteBoarding', ['placeid' => $placeid]);
+        if (!($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'VerificationTeam' || $_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL);
         }
-        
+        if ($_SESSION['role'] == 'BoardingOwner') {
+            header('Location: ' . BASEURL . '/property/place/' . $_SESSION['UserId']);
+        } else {
+            $this->view('property/index');
+        }
     }
 
-    public function viewAllBoardings($message = null){
-        if ($message == 'editsuccess') {
-            $message = "Property has been edited";
-            $alert = 'Edited';
-        } else if ($message == 'deletesuccess') {
-            $message = "Property has been deleted";
-            $alert = 'Deleted';
+    public function place($id = null, $message = null)
+    {
+        if ($message == 'error') {
+            $message = "Failed to add property. Please try again.";
+            $alert = 'error';
+        } else if ($message == 'success') {
+            $message = "Property will be visible after verification.";
+            $alert = 'success';
         } else {
             $message = null;
             $alert = null;
         }
 
-        $this->view('property/viewAllBoarding',['message' => $message, 'alert' => $alert]);
-    }
+        if (!($_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'VerificationTeam' || $_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL);
+        }
+        if ($_SESSION['role'] == 'BoardingOwner') {
+            if ($id != $_SESSION['UserId']) {
+                header('Location: ' . BASEURL . '/property/place/' . $_SESSION['UserId']);
+            }
+        }
 
-    public function viewABoardingPlace($placeid = null){
-        if (isset($placeid)) {
-            $this->view('property/boardingManagement',  ['placeid' => $placeid]);
+        if ($id == null) {
+            header('Location: ' . BASEURL . '/property');
+        } else {
+            $this->view('property/place', ['id' => $id, 'message' => $message, 'alert' => $alert]);
         }
     }
-
-    public function boardingView($placeid = null)
+    public function manage($id = null)
     {
-        if (isset($placeid)) {
-            $this->view('property/boardingView',  ['placeid' => $placeid]);
+        if (!($_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL . '/listing/viewPlace/' . $id);
+        }
+        if ($id == null) {
+            header('Location: ' . BASEURL . '/property');
+        } else {
+            $place = restAPI("listing/placeRest/$id");
+            $this->view('property/manage', ['id' => $id, 'place' => $place]);
         }
     }
 
-    // public function boardingView()
-    // {
-    //     // if (isset($placeid)) {
-    //         $this->view('boardingOwner/boardingView');
-    //     // }
-    // }
+    public function addPlace($id = null)
+    {
+        if ($id == null) {
+            header('Location: ' . BASEURL . '/property');
+        }
+        if (!($_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL . '/property');
+        } else {
+            $this->view('property/add', ['id' => $id]);
+        }
+    }
 
-    public function addBoardingPlace(){
+    public function addProperty()
+    {
+        print_r($_POST);
 
-        $ownerid = $_SESSION['UserId'];
-        
-        
-        $verifiedStatus = "not";
-        $propertytitle = $_POST['propertytitle'];
-        $price = $_POST['price'];
-        $pricetype = "per month";
-        $houseNo = $_POST['houseNo'];
-        $street = $_POST['street'];
-        $city = $_POST['city'];
-        $googlemapsLink = "#";
-        $propertytype = $_POST['propertytype'];
-        $noofmembers = $_POST['noofmembers'];
-//        $currentBoarderCount = 0;
-        $noofrooms = $_POST['noofrooms'];
-        $noofwashrooms = $_POST['noofwashrooms'];
-        $gender = $_POST['gender'];
-        $boardertype = $_POST['boardertype'];
-        $sqfeet = $_POST['sqfeet'];
-        $parking = $_POST['parking'];
-        $summary1 = $_POST['summary1'];
-        $summary2 = $_POST['summary2'];
-        $summary3 = $_POST['summary3'];
-        $description = $_POST['description'];
-        
-        $this->model('addModel')->addABoarding($ownerid, $propertytitle, $verifiedStatus,
-        $summary1, $summary2, $summary3, $description, $price, $pricetype, $houseNo, $street, $city, $googlemapsLink, $propertytype, 
-        $noofmembers, $noofrooms, $noofwashrooms, $gender,
-        $boardertype, $sqfeet, $parking);
+        $OwnerId = $_POST['owner'];
+        $Title = $_POST['title'];
+        $UtilityBillReceiptLink = $_POST['utilityuploadlink'];
+        $SummaryLine1 = $_POST['sml1'];
+        $SummaryLine2 = $_POST['sml2'];
+        $SummaryLine3 = $_POST['sml3'];
+        $Description = $_POST['description'];
+        $Description = nl2br($Description);
+        $Price = $_POST['price'];
+        $PriceType = $_POST['priceType'];
+        $HouseNo = $_POST['houseNo'];
+        $Street = $_POST['street'];
+        $CityName = $_POST['city'];
+        $PropertyType = $_POST['propertytype'];
+        $NoOfMembers = $_POST['noofmembers'];
+        $NoOfRooms = $_POST['noofrooms'];
+        $NoOfWashRooms = $_POST['noofwashrooms'];
+        $Gender = $_POST['gender'];
+        $BoarderType = $_POST['boardertype'];
+        $SquareFeet = $_POST['squarefeet'];
+        $Parking = $_POST['parking'];
 
-        // if (isset($_FILES['files[]']) && !is_null($_FILES['files[]'])) {
+        $imagePaths = $_POST['imagePaths'];
 
-        //      // Count total files
-        //     $countfiles = count($_FILES['files']['name']);
+        $PlaceId = $this->model('addModel')->addPlace($OwnerId, $Title, $UtilityBillReceiptLink, $SummaryLine1, $SummaryLine2, $SummaryLine3, $Description, $Price, $PriceType, $HouseNo, $Street, $CityName, $PropertyType, $NoOfMembers, $NoOfRooms, $NoOfWashRooms, $Gender, $BoarderType, $SquareFeet, $Parking);
 
-        //     // Looping all files
-        //     for($i=0;$i<$countfiles;$i++){
-        //         $file = $_FILES['fileToUpload'];
-        //         $file_name = $file['name'];
-        //         $file_tmp = $file['tmp_name'];
-        //         $file_size = $file['size'];
-        //         $file_error = $file['error'];
 
-        //         $file_ext = explode('.', $file_name);
-        //         $file_ext = strtolower(end($file_ext));
-        //         $allowed = array('jpg', 'jpeg', 'png');
+
+        $imagePaths = explode(",", $imagePaths);
+
+        $result = 'success';
+        foreach ($imagePaths as $imagePath) {
+            $result = $this->model('addModel')->addImage($PlaceId, $imagePath);
+            if ($result == 'fail') {
+                echo "Error";
+                break;
+            }
+        }
+
+        header('Location: ' . BASEURL . '/property/place/' . $OwnerId . '/success');
+        // json_decode($imagePaths, true);
+    }
+
+    public function editImage()
+    {
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        if (isset($_POST['PlaceId'])) {
+            $PlaceId = $_POST['PlaceId'];
+        } else {
+            $PlaceId = null;
+        }
+        if (isset($_POST['ImagePaths'])) {
+            $imagePaths = $_POST['ImagePaths'];
+            $imagePaths = explode(",", $imagePaths);
+            foreach ($imagePaths as $imagePath) {
+                $result = $this->model('addModel')->addImage($PlaceId, $imagePath);
+                if ($result == 'fail') {
+                    $json['Status'] = "Failed";
+                    break;
+                }
+            }
+        }
+        if ($result == 'success') {
+            $json['Status'] = "Success";
+        } else {
+            $json['Status'] = "Failed";
+        }
+        echo json_encode($json);
+    }
+
+    public function edit($placeId = null)
+    {
+        if ($placeId == null) {
+            header('Location: ' . BASEURL . '/property');
+        }
+        if (!($_SESSION['role'] == 'BoardingOwner' || $_SESSION['role'] == 'Manager')) {
+            header('Location: ' . BASEURL . '/property');
+        } else {
+            $this->view('edit/property', ['id' => $placeId]);
+        }
+
+    }
+
+
+    public function getBoardingOwner($id = null)
+    {
+        $prejson = array();
+        $result = $this->model('viewModel')->getOwnerAll($id);
+        while ($resrow = $result->fetch_assoc()) {
+            $array['OwnerId'] = $resrow['BoardingOwnerId'];
+            $array['Name'] = $resrow['FirstName'] . " " . $resrow['LastName'];
+            $array['ProfilePicture'] = $resrow['ProfilePicture'];
+            $array['Count'] = 0;
+            array_push($prejson, $array);
+        }
+        // $json_response = json_encode($prejson);
+        // echo $json_response;
+
+        // echo json_encode(
+        //     $result->fetch_all(MYSQLI_ASSOC)
+        // );
+
+        // $data = $this->model('viewModel')->getOwner($id);
+        // $json = array();
+        // if ($data != null) {
+        //     $result = $data->fetch_assoc();
+        //     $owner['OwnerId'] = $result['OwnerId'];
+        //     $owner['Name'] = $result['FirstName'] . " " . $result['LastName'];
+        //     $owner['ProfilePicture'] = $result['ProfilePicture'];
+        //     $count = 1;
+        //     while ($row = $data->fetch_assoc()) {
+
+        //         if ($row['OwnerId'] == $owner['OwnerId']) {
+        //             $count++;
+        //         } else {
+        //             $owner['Count'] = $count;
+        //             array_push($json, $owner);
+        //             $count = 1;
+        //         }
+        //         $owner['OwnerId'] = $row['OwnerId'];
+        //         $owner['Name'] = $row['FirstName'] . " " . $row['LastName'];
+        //         $owner['ProfilePicture'] = $row['ProfilePicture'];
         //     }
-        
-            
+        //     $owner['Count'] = $count;
+        //     array_push($json, $owner);
         // }
+        // $json_response = json_encode($json);
+        // echo $json_response;
 
-        header("Location: " . BASEURL . "/boardingOwner/viewAllBoardings");
-    }
-
-    public function editBoardingPlace(){
-
-        $placeid = $_POST['placeid'];
-
-        $propertytitle = $_POST['propertytitle'];
-        $price = $_POST['price'];
-        $houseNo = $_POST['houseNo'];
-        $street = $_POST['street'];
-        $city = $_POST['city'];
-        $propertytype = $_POST['propertytype'];
-        $noofmembers = $_POST['noofmembers'];
-        $noofrooms = $_POST['noofrooms'];
-        $noofwashrooms = $_POST['noofwashrooms'];
-        $gender = $_POST['gender'];      
-        $googlemapsLink = "#";  
-        $boardertype = $_POST['boardertype'];
-        $sqfeet = $_POST['sqfeet'];
-        $parking = $_POST['parking'];
-        $summary1 = $_POST['summary1'];
-        $summary2 = $_POST['summary2'];
-        $summary3 = $_POST['summary3'];
-        $description = $_POST['description'];
-        
-        $this->model('editModel')->editABoarding( $placeid, $propertytitle, null, $summary1, $summary2, 
-        $summary3,  $description, $price, null, $houseNo, $street,  $city, $googlemapsLink, $propertytype,
-        $noofmembers, $noofrooms, $noofwashrooms, $gender, $boardertype, $sqfeet, $parking);
-
-        header("Location: " . BASEURL . "/property/viewAllBoardings/editsuccess");
-
-    }
-
-    public function deleteBoardingPlace(){
-        $placeid = $_POST['placeid'];
-        $this->model('deleteModel')->deleteABoarding($placeid);
-        header("Location: " . BASEURL . "/property/viewAllBoardings/deletesuccess");
-
-    }
-
-    public function viewBoardingPlaces($userid){
-        $result = $this->model('viewModel')->viewAllBoarding($userid);
-        if (isset($result)) {
-            return $result;
-        }      
-    }
-
-    public function viewBoardingPlace($placeid){
-        $result = $this->model('viewModel')->viewABoarding($placeid);
-        if (isset($result)) {
-            return $result;
-        }
-        
-    }
-
-    public function howManyBoardings($table, $where = null)
-    {
-        $result = $this->model('viewModel')->howMany($table, $where);
-        return $result;
-    }
-
-    public function getOwnerDetails($ownerid)
-    {
-        // $result = $this->model('boardingOwnerModel')->userDetails($ownerid);
-        $result = $this->model('viewModel')->getUserById('boardingOwner', $ownerid);
-        return $result;
-    }
-
-    public function getBoardingImages($placeid)
-    {
-
-        $result = $this->model('viewModel')->boardingImages($placeid);
-        return $result;
-        
-    }
-
-    public function getAllCities()
-    {
-        $result = $this->model('viewModel')->getCitiesAsc();
-        return $result;
-    }
-
-//     public function cityRest($districName)
-//     {
-//         $data = $this->model('viewModel')->getCities($districName);
-//         $json = array();
-//         while ($row = $data->fetch_assoc()) {
-//             $array['CityName'] = $row['CityName'];
-//             $array['DistricName'] = $row['DistricName'];
-//             array_push($json, $array);
-//         }
-//         $json_response = json_encode($json);
-//         echo $json_response;
-//     }
-
-//     public function DistricRest($provinceName)
-//     {
-//         $data = $this->model('viewModel')->getDistrics($provinceName);
-//         $json = array();
-//         while ($row = $data->fetch_assoc()) {
-//             $array['districName'] = $row['districName'];
-//             $array['ProvinceName'] = $row['ProvinceName'];
-//             array_push($json, $array);
-//         }
-//         $json_response = json_encode($json);
-//         echo $json_response;
-//     }
-
-//     public function provinceRest()
-//     {
-//         $data = $this->model('viewModel')->getProvinces();
-//         $json = array();
-//         while ($row = $data->fetch_assoc()) {
-//             $array['ProvinceName'] = $row['ProvinceName'];
-//             array_push($json, $array);
-//         }
-//         $json_response = json_encode($json);
-//         echo $json_response;
-//         return $json_response;
-//     }
-
-    public function viewReviewsByPlaceId($placeId)
-    {
-        $data = $this->model('viewmodel')->getBoardingReviewsbyPlace($placeId);
+        $data = $this->model('viewModel')->getOwner($id);
         $json = array();
-        while ($row = $data->fetch_assoc()) {
-            $array['ReviewId'] = $row['ReviewId'];
-            $array['Place'] = $row['Place'];
-            $array['BoarderId'] = $row['BoarderId'];
-            $array['Rating'] = $row['Rating'];
-            $array['Review'] = $row['Review'];
-            $array['DateTime'] = $row['DateTime'];
-            $array['BoardingOwnerReply'] = $row['BoardingOwnerReply'];
-            $array['FirstName'] = $row['FirstName'];
-            $array['LastName'] = $row['LastName'];
-            $array['UserType'] = $row['UserType'];
-            array_push($json, $array);
+        if ($data != null) {
+            $result = $data->fetch_assoc();
+            $owner['OwnerId'] = $result['OwnerId'];
+            $owner['Name'] = $result['FirstName'] . " " . $result['LastName'];
+            $owner['ProfilePicture'] = $result['ProfilePicture'];
+            $count = 1;
+            while ($row = $data->fetch_assoc()) {
+
+                if ($row['OwnerId'] == $owner['OwnerId']) {
+                    $count++;
+                } else {
+                    $owner['Count'] = $count;
+                    array_push($json, $owner);
+                    $count = 1;
+                }
+                $owner['OwnerId'] = $row['OwnerId'];
+                $owner['Name'] = $row['FirstName'] . " " . $row['LastName'];
+                $owner['ProfilePicture'] = $row['ProfilePicture'];
+            }
+            $owner['Count'] = $count;
+            array_push($json, $owner);
+        }
+
+        // echo json_encode($prejson);
+        // echo "<br>";
+        // echo "<br>";
+        // echo json_encode($json);
+        // echo "<br>";
+        // echo "<br>";
+
+        foreach ($json as $item) {
+            foreach ($prejson as &$item1) {
+                if ($item['OwnerId'] === $item1['OwnerId']) {
+                    $item1['Count'] = $item['Count'];
+                    break;
+                }
+            }
+        }
+        echo json_encode($prejson);
+        // $json_response = json_encode($json);
+        // echo $json_response;
+    }
+
+    public function getBoardingPlace($id = null)
+    {
+        $data = $this->model('viewModel')->getOwnerPlace($id);
+        $json = array();
+        if ($data != null) {
+            while ($row = $data->fetch_assoc()) {
+                $place['PlaceId'] = $row['PlaceId'];
+                $place['OwnerId'] = $row['OwnerId'];
+                $place['Name'] = $row['FirstName'] . " " . $row['LastName'];
+                $place['PictureLink'] = $row['PictureLink'];
+                $place['CityName'] = $row['CityName'];
+                $place['Address'] = $row['Address'];
+                $place['NoOfMembers'] = $row['NoOfMembers'];
+                $place['Boarded'] = $row['Boarded'];
+                array_push($json, $place);
+            }
         }
         $json_response = json_encode($json);
         echo $json_response;
     }
 
-    public function rentCount($placeid)
+    public function joinBoarding($placeId, $userId)
     {
-        $result = $this->model('viewmodel')->getRentCount($placeid);
-        return $result;  
+        $data = $this->model('addModel')->addTenant($placeId, $userId);
+        if ($data == 'success') {
+            $json['Status'] = "Success";
+        } else {
+            $json['Status'] = "Failed";
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+
     }
 
-    // public function currentlyBoarded($placeid)
-    // {
-    //     $result = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
-    //     return $result;  
-    // }
-
-    public function currentlyBoarded($placeid)
+    public function boardingMembersRest($placeId = null, $status = null)
     {
-        $data = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
+        $data = $this->model('viewModel')->retrieveBoardingMembers($placeId, $status);
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+
+    public function boardingMemberStatusRest($userId = null, $status = null, $placeId = null)
+    {
+        $data = $this->model('viewModel')->retrieveBoardingMemberStatus($userId, $status, $placeId);
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+
+    public function boardingMemberTypes($placeId = null)
+    {
+        $data = restAPI("property/boardingMembersRest/$placeId/boarded");
+        $array = array();
+        foreach ($data as $row => $value) {
+            array_push($array, $value->Tagline);
+        }
+        $json = array_count_values($array);
+        echo json_encode($json);
+
+    }
+
+    public function boardingRent($placeId = null, $month = null)
+    {
+        if ($placeId == null) {
+            $append = "";
+        } else {
+            $append = "Place = $placeId";
+        }
+        if ($month != null) {
+            if ($append == "") {
+                $append = "Month = $month";
+            } else {
+                $append = $append . " AND Month = '$month'";
+            }
+        }
+        $data = $this->model('viewModel')->get("BoardingPlaceRent", "$append", "Month DESC");
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+
+    //   CREATE EVENT `monthly_rent`
+    //   ON SCHEDULE EVERY 1 SECOND
+    //   STARTS CURRENT_TIMESTAMP + INTERVAL 1 SECOND
+    //   ON COMPLETION NOT PRESERVE
+    //   ENABLE
+    //   DO
+    //   INSERT INTO BoardingPlaceRent (Tenant, Place, Month, PaymentStatus) 
+    //   SELECT bpt.TenantId, bpt.Place, DATE_FORMAT(NOW(), '%m-%Y'), 'Not Paid' 
+    //   FROM BoardingPlaceTenant bpt 
+    //   WHERE bpt.BoarderStatus = 'boarded'
+
+
+
+    public function bedCountRest($placeId = null)
+    {
+        $data = $this->model('viewModel')->getColumn('BoardingPlace', 'NoOfMembers', "PlaceId = $placeId")->fetch_assoc()['NoOfMembers'];
+        $json['Count'] = $data;
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+    public function bedRest($placeId = null)
+    {
+        $count = restAPI("property/bedCountRest/$placeId")->Count;
+        $data = $this->model('viewModel')->retrieveBed($placeId);
+
         $json = array();
-        while ($row = $data->fetch_assoc()) {
-            $array['TenantId'] = $row['TenantId'];
+
+        for ($j = 1; $j <= $count; $j++) {
+            $array['Bed'] = $j;
+            $array['Id'] = null;
+            $array['Name'] = null;
             array_push($json, $array);
+        }
+
+
+        if ($data != null) {
+            while ($row = $data->fetch_assoc()) {
+                $json[$row['Bed'] - 1]['Id'] = $row['UserId'];
+                $json[$row['Bed'] - 1]['Name'] = $row['FirstName'] . " " . $row['LastName'];
+            }
+        }
+
+
+        $json_response = json_encode($json);
+        echo $json_response;
+
+    }
+
+    public function noBedRest($placeId = null)
+    {
+        $data = $this->model('viewModel')->retrieveNoBed($placeId);
+        $json = array();
+        if ($data != null) {
+            while ($row = $data->fetch_assoc()) {
+                $array['Id'] = $row['UserId'];
+                $array['Name'] = $row['FirstName'] . " " . $row['LastName'];
+                array_push($json, $array);
+            }
+        } else {
+            $json = null;
         }
         $json_response = json_encode($json);
         echo $json_response;
     }
 
-    public function getBoarderDetails($userid)
+    public function changeBed($placeId = null, $userId = null, $bed = null)
     {
-        // $result = $this->model('boardingOwnerModel')->userDetails($ownerid);
-        $result = $this->model('viewModel')->getFromUser($userid);
-        return $result;
-    }
+        if ($placeId == null) {
+            header('Location: ' . BASEURL . '/property');
+        }
+        if ($userId == 'remove' || $bed == null) {
+            $userId = null;
+        }
 
-    public function boardingRequests($placeid)
-    {
-        $data = $this->model('viewmodel')->getBoardingRequests($placeid);
-        $json = array();
-        while ($row = $data->fetch_assoc()) {
-            $array['TenantId'] = $row['TenantId'];
-            array_push($json, $array);
+        $data = $this->model('editModel')->changeBed($placeId, $bed, $userId);
+        if ($data == true) {
+            $json['Status'] = "Success";
+        } else {
+            $json['Status'] = "Failed";
         }
         $json_response = json_encode($json);
         echo $json_response;
     }
 
-    public function addBoardingMember($userid,$placeid)
+    public function provinceRest()
     {
-        $result = $this->model('editModel')->addABoardingMember($userid,$placeid);
-        // header("Location: " . BASEURL . "/property/viewABoardingPlace/$placeid");
-
-        $data0 = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
-
-        $data2 = $this->model('viewmodel')->getBoardingRequests($placeid);
+        $data = $this->model('viewModel')->get('Province');
         $json = array();
-        $json1 = array();
-        $json2 = array();
-        while ($row = $data0->fetch_assoc()) {
-            $array['TenantId'] = $row['TenantId'];
-            $data1 = $this->model('viewModel')->getFromUser($row['TenantId']);
-            while ($row = $data1->fetch_assoc()) {
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-            }
-            array_push($json1, $array);
+        while ($row = $data->fetch_assoc()) {
+            array_push($json, $row['ProvinceName']);
         }
-
-        array_push($json, $json1);
-
-        while ($row = $data2->fetch_assoc()) {
-            $array['TenantId'] = $row['TenantId'];
-            $data1 = $this->model('viewModel')->getFromUser($row['TenantId']);
-            while ($row = $data1->fetch_assoc()) {
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-            }
-            array_push($json2, $array);
-        }      
-
-        array_push($json, $json2);
-
         $json_response = json_encode($json);
-        echo $json_response;        
-
+        echo $json_response;
     }
 
-    public function deleteBoardingRequest($userid,$placeid)
+    public function districtRest($province = null)
     {
-        $result = $this->model('deleteModel')->deleteABoardingRequest($userid,$placeid);
-        // header("Location: " . BASEURL . "/property/viewABoardingPlace/$placeid");
-
-        $data0 = $this->model('viewmodel')->getCurrentlyBoarded($placeid);
-
-        $data2 = $this->model('viewmodel')->getBoardingRequests($placeid);
-        $json = array();
-        $json1 = array();
-        $json2 = array();
-        while ($row = $data0->fetch_assoc()) {
-            $array['TenantId'] = $row['TenantId'];
-            $data1 = $this->model('viewModel')->getFromUser($row['TenantId']);
-            while ($row = $data1->fetch_assoc()) {
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-            }
-            array_push($json1, $array);
+        if ($province == null) {
+            $data = $this->model('viewModel')->get('District');
+        } else {
+            $data = $this->model('viewModel')->get('District', "ProvinceName = '$province'");
         }
-
-        array_push($json, $json1);
-
-        while ($row = $data2->fetch_assoc()) {
-            $array['TenantId'] = $row['TenantId'];
-            $data1 = $this->model('viewModel')->getFromUser($row['TenantId']);
-            while ($row = $data1->fetch_assoc()) {
-                $array['FirstName'] = $row['FirstName'];
-                $array['LastName'] = $row['LastName'];
-            }
-            array_push($json2, $array);
-        }      
-
-        array_push($json, $json2);
-
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            array_push($json, $row['DistrictName']);
+        }
         $json_response = json_encode($json);
-        echo $json_response;        
+        echo $json_response;
     }
- }
+    public function cityRest($district = null)
+    {
+        if ($district == null) {
+            $data = $this->model('viewModel')->get('City');
+        } else {
+            $data = $this->model('viewModel')->get('City', "DistrictName = '$district'");
+        }
+        $json = array();
+        while ($row = $data->fetch_assoc()) {
+            array_push($json, $row['CityName']);
+        }
+        $json_response = json_encode($json);
+        echo $json_response;
+    }
+
+    public function ratingCountRest($placeId = null){
+        if ($placeId == null) {
+            $append = "";
+        }
+        else{
+            $append = "Place = $placeId";
+        }
+        $data = $this->model('viewModel')->get('placeratings', $append);
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+
+    public function ratingRest($placeId = null){
+        if ($placeId == null) {
+            $append = "";
+        }
+        else{
+            $append = "Place = $placeId";
+        }
+        $data = $this->model('viewModel')->get('placereviews', $append);
+        echo json_encode(
+            $data->fetch_all(MYSQLI_ASSOC)
+        );
+    }
+}

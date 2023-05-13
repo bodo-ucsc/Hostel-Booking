@@ -1,14 +1,14 @@
 <?php
 
 define('DB_TYPE', 'mysql');
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'mysql');
 define('DB_USER', 'bodo-admin'); 
 define('DB_NAME', 'BODO');
 define('DB_PASSWORD', 'jvatsbodo'); 
-define("BASEURL", "http://".$_SERVER['SERVER_NAME']."/Bodo");
+define("BASEURL", "https://".$_SERVER['SERVER_NAME']);
 
 $path = $_SERVER['DOCUMENT_ROOT'];
-   $path .= "/Bodo";
+   // $path .= "/Bodo";
 define("PATH", "$path");
 
 ?>

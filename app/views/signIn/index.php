@@ -1,13 +1,13 @@
 <?php
-$header = new HTMLHeader("Sign In");
+$header = new HTMLHeader("Sign In | Verification Team");
 $nav = new Navigation();
 ?>
 
 
 <main class=" full-width overflow-hidden position-absolute">
     <div class="row full-height ">
-        <div class=" display-none display-small-inline-block col-small-7  bg-light-grey   full-height">
-            <div class=" padding-5  vertical-align-middle flex full-height ">
+        <div class=" display-none display-small-inline-block col-small-7 border-rounded-more bg-light-grey fill-container full-height">
+            <div class=" padding-5   vertical-align-middle flex full-height ">
                 <img class="  width-90 vertical-align-middle " src="<?php echo BASEURL . '/public/images/signin.svg' ?>">
             </div>
         </div>
@@ -16,9 +16,9 @@ $nav = new Navigation();
                 <h2 class="header-2">Sign In</h2>
                 <form action="<?php echo BASEURL ?>/signin/login" method="post">
                     <label for="username" class="bold black">Username or Email</label><br>
-                    <input type="text" id="username" name="username" placeholder="Enter Username"><br>
+                    <input type="text" id="username" name="username" placeholder="Enter Username" required><br>
                     <label for="password" class="bold black">Password</label><br>
-                    <input type="password" id="password" name="password" placeholder="Enter Password">
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
                     <input class=" bg-accent-hover white-hover fill-container bold padded border-rounded " type="submit"
                         value="Sign In"><br>
                     <div class="center padding-top-3 ">
@@ -35,14 +35,16 @@ $nav = new Navigation();
                 </form>
             </div>
         </div>
-
+ 
 
     </div>
+    <?php new pageFooter(); ?>
 </main>
 
 
+
 <?php
-if (isset($data['alert'])) {
+if (isset($data['alert'])) { 
     $footer = new HTMLFooter($data['alert'], $data['message']);
 } else {
     $footer = new HTMLFooter();

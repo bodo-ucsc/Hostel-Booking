@@ -22,6 +22,7 @@ echo "<div class='navbar-offset full-width center'>";
 
 new ViewCard($result[0], "y");
 echo "</div>";
+new pageFooter();
 echo "
         <script>";
 
@@ -46,7 +47,11 @@ if (isset($_SESSION['UserId'])) {
             fetch(url)
                 .then((response) => response.json())
                 .then((json) => { 
+                    
                     if(json.length > 0){
+                        if(json[0].length === 0){
+                            return;
+                        }
                         if(json[0][0].Reaction === 'y'){
                             elem.classList.add('bg-accent');
                             elem.classList.add('white');
@@ -66,7 +71,7 @@ if (isset($_SESSION['UserId'])) {
 }
 
 echo "
-let conn = new WebSocket('ws://" . $_SERVER['SERVER_NAME'] . ":8080');
+let conn = new WebSocket('ws://localhost:8080');
 conn.onopen = function(e) {
     console.log('Connection established!'); 
     conn.send(JSON.stringify({  

@@ -3,7 +3,7 @@ $header = new HTMLHeader("Register | Student");
 $nav = new Navigation();
 ?>
 
-<main class="full-height ">
+<main class=" ">
     <div class="row navbar-offset  ">
         <div class="col-12 col-medium-4 width-90   justify-content center">
             <div class="row">
@@ -68,8 +68,8 @@ $nav = new Navigation();
                         <input type="file" id="profilepic" credits='false' name="profilepic"
                             accept="image/png, image/jpeg, image/gif" />
                         <input type="hidden" id="pplink" name="pplink">
-
                     </div>
+
                 </div>
                 <div class="row fill-container">
                     <div class="col-12 col-medium-4 fill-container">
@@ -78,7 +78,8 @@ $nav = new Navigation();
                     </div>
                     <div class="col-12 col-medium-4 fill-container">
                         <label id="mobileLabel" class="big" for="mobile">Mobile Number</label>
-                        <input class="margin-top-2" type="text" name="mobile" placeholder="Mobile" id="mobile" onkeyup="checkUserNumber()" required>
+                        <input class="margin-top-2" type="text" name="mobile" placeholder="Mobile" id="mobile"
+                            onkeyup="checkUserNumber()" required>
                     </div>
                     <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="dob">Date of Birth</label>
@@ -105,44 +106,51 @@ $nav = new Navigation();
                 <p></p>
                 <div class="row">
                     <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="university">University</label>
-                        <input class="margin-top-2" type="text" name="uni" placeholder="University" id="uni" required>
+                        <label class="big" for="uni">University</label>
+                        <select id='uni' name='uni' required>
+                            <option value=''>Select University</option>
+                            <?php
+                            $university = restAPI('userManagement/universityRest');
+                            foreach ($university as $uni) {
+                                echo "<option value='" . $uni->Name . "'>" . $uni->Name . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="col-12 col-medium-3 fill-container padding-bottom-4">
                         <div class="big black padding-bottom-2 ">University Email</div>
                         <div>
-                            <input type="radio" name="uniemail" value="y" id="yes" checked>
+                            <input type="radio" name="uniemail" value="y" id="yes" oninput='uniIdAd()' checked>
                             <lable for="y">Yes</lable>
-                            <input type="radio" name="uniemail" value="n" id="no">
+                            <input type="radio" name="uniemail" value="n" id="no" oninput='uniIdAd()'>
                             <lable for="n">No</lable>
                         </div>
                     </div>
-                    <div class="col-12 col-medium-4 fill-container">
+                    <div id='uniIDElement' class="col-12 col-medium-4 fill-container">
                         <label class="big" for="uniid">University ID Number</label>
                         <input class="margin-top-2" type="text" name="uniid" placeholder="University ID Number"
-                            id="uniid">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-medium-4 fill-container">
-                        <label id="emailLabel" class="big" for="email">University Email Address</label>
-                        <input class="margin-top-2" type="text" name="email" placeholder="University Email Address" onkeyup="checkUserEmail()"
-                            id="email" required>
+                            id="uniid" required>
                     </div>
 
-                    <div class="col-12 col-medium-4 fill-container">
+                    <div id='uniEmailElement' class="col-12 col-medium-4 fill-container">
+                        <label id="emailLabel" class="big" for="email">University Email Address</label>
+                        <input class="margin-top-2" type="text" name="email" placeholder="University Email Address"
+                            onkeyup="checkUserEmail()" id="email" required>
+                    </div>
+
+                    <div id='uniIdUploadElement' class="col-12 col-medium-4 fill-container">
                         <label class="big" for="uniidupload">University ID</label>
                         <input id="uniidupload" name='uniidupload' credits='false'
                             accept="image/png, image/jpeg, image/gif" type="file">
                     </div>
-                    <input type="hidden" id="uniidlink" name="uniidlink" required>
+                    <input type="hidden" id="uniidlink" name="uniidlink">
 
-                    <div class="col-12 col-medium-4 fill-container">
+                    <div id='uniAdElement' class="display-none col-12 col-medium-4 fill-container">
                         <label class="big" for="uniadupload">University Admission Letter</label>
                         <input id="uniadupload" name='uniadupload' credits='false'
                             accept="image/png, image/jpeg, image/gif" type="file">
                     </div>
-                    <input type="hidden" id="uniadmission" name="uniadmission" required>
+                    <input type="hidden" id="uniadmission" name="uniadmission">
 
 
 
@@ -151,9 +159,9 @@ $nav = new Navigation();
                 <h2 class="header-2 margin-top-2 margin-bottom-1">Login Credentials</h2>
                 <div class="row fill-container">
                     <div class="col-12 col-medium-4 fill-container">
-                        <label id="usernameLabel"  class="big" for="username">Username</label>
-                        <input class="margin-top-2" type="text" name="username" placeholder="User Name" id="username" onkeyup="checkUserName()"
-                            required>
+                        <label id="usernameLabel" class="big" for="username">Username</label>
+                        <input class="margin-top-2" type="text" name="username" placeholder="User Name" id="username"
+                            onkeyup="checkUserName()" required>
                     </div>
                     <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="password">Password</label>
@@ -169,8 +177,10 @@ $nav = new Navigation();
                 <div class="row fill-container">
                     <div class="col-12  fill-container center">
                         <input class="vertical-align-middle" type="checkbox" id="agreement" name="agreement" required>
-                        <span class="vertical-align-middle">I agree to all the <a class="inverse">Terms</a> and the <a
-                                class="inverse">Privacy Policy</a></span>
+                        <span class="vertical-align-middle">I agree to all the <span onclick='openTerms()'
+                                class="blue-hover cursor-pointer ">Terms</span> and the <span
+                                onclick='location.href="<?= BASEURL ?>/about/privacy"'
+                                class="blue-hover cursor-pointer ">Privacy Policy</spam></span>
                     </div>
                 </div>
                 <div class="row fill-container padding-vertical-2">
@@ -188,7 +198,12 @@ $nav = new Navigation();
             </form>
         </div>
     </div>
+
+
 </main>
+<div class="navbar-offset"></div>
+<?php new pageFooter(); ?>
+
 
 
 
@@ -203,6 +218,91 @@ $nav = new Navigation();
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
 <script>
+
+
+    function openTerms() {
+        Swal.fire({
+            title: 'Terms and Conditions',
+            customClass: 'swal-wide max-height-500 ',
+            html: '<div class="left padding-3 bg-light-grey border-rounded-more ">' +
+                '<div class="overflow-y-auto">' +
+                '<span class="header-nb">BODO (Boarding Booking and Management System)</span><br><br>' +
+                '<span class="big">1. Acceptance of Terms:</span><br>' +
+                'By using our Hostel Booking and Management System, you acknowledge that you have read, understood, and agree to comply with these Terms and Conditions.<br><br>' +
+                '<span class="big">2. User Obligations:</span><br>' +
+                '2.1 You must provide accurate and up-to-date information while using the system.<br>' +
+                '2.2 You are responsible for maintaining the confidentiality of your account and password.<br>' +
+                '2.3 You agree not to use the system for any unlawful or unauthorized purposes.<br>' +
+                '2.4 You agree not to interfere with the system\'s functionality or disrupt its operation.<br><br>' +
+                '<span class="big">3. Booking and Reservations:</span><br>' +
+                '3.1 The Hostel Booking and Management System allows users to make reservations for hostel accommodation.<br>' +
+                '3.2 All bookings are subject to availability, and confirmation is provided based on availability at the time of booking.<br>' +
+                '3.3 Users must provide accurate and complete information during the booking process.<br>' +
+                '3.4 Users must provide a valid email address and contact number during the booking process.<br><br>' +
+                '<span class="big">4. Pricing and Payment:</span><br>' +
+                '4.1 All prices are in Sri Lankan Rupees (LKR).<br>' +
+                '4.3 The pricing of hostel accommodations and associated services is displayed on the system and is subject to change without notice.<br>' +
+                '4.4 Users are responsible for paying the total amount due for their bookings.<br><br>' +
+                '<span class="big">5. Modifications and Cancellations:</span><br>' +
+                '5.1 Users may modify or cancel their bookings, subject to the terms and conditions specified during the booking process.<br>' +
+                '5.2 Any applicable modification or cancellation fees will be clearly communicated to users.<br><br>' +
+                '<span class="big">6. Intellectual Property:</span><br>' +
+                '6.1 The Hostel Booking and Management System and its content, including but not limited to logos, graphics, and text, are protected by intellectual property rights.<br>' +
+                '6.2 Users are prohibited from reproducing, distributing, or modifying any part of the system without prior written permission.<br><br>' +
+                '<span class="big">7. Limitation of Liability:</span><br>' +
+                '7.1 The Hostel Booking and Management System is provided on an "as-is" basis.We do not guarantee the system\'s uninterrupted or error-free operation.<br>' +
+                '7.2 We shall not be liable for any direct, indirect, incidental, consequential, or exemplary damages arising from the use of the system.<br><br>' +
+                '<span class="big">8. Privacy:</span><br>' +
+                '8.1 Our Privacy Policy outlines how we collect, use, and protect your personal information.By using the system, you consent to the practices described in our Privacy Policy.<br><br>' +
+                '<span class="big">Termination:</span><br>' +
+                '9.1 We reserve the right to terminate or suspend your access to the Hostel Booking and Management System at any time without prior notice.<br><br>' +
+                '<span class="big">10. Governing Law and Jurisdiction:</span><br>' +
+                'These Terms and Conditions shall be governed by and construed in accordance with the laws of[jurisdiction].Any disputes arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts of[jurisdiction].<br><br>' +
+                'By using our Hostel Booking and Management System, you acknowledge and agree to abide by these Terms and Conditions.' +
+                '</div>' +
+                '</div>',
+
+        })
+    };
+
+
+    // run uniIdAd onload
+    uniIdAd();
+
+    function uniIdAd() {
+        //         uniid
+        // emailLabel
+        // uniidupload
+        // uniidlink
+        // uniadupload
+        // uniadmission
+        if (document.getElementById('yes').checked) {
+            document.getElementById('uniIDElement').classList.remove('display-none');
+            document.getElementById('uniIdUploadElement').classList.remove('display-none');
+            document.getElementById('uniAdElement').classList.add('display-none');
+            document.getElementById('emailLabel').innerHTML = "University Email Address";
+
+            document.querySelector('input[name="uniidupload"]').required = true;
+            document.querySelector('input[name="uniadupload"]').required = false;
+            document.querySelector('input[name="uniid"]').required = true;
+
+
+
+
+        } else {
+            document.getElementById('emailLabel').innerHTML = "Personal Email Address";
+            document.getElementById('uniIDElement').classList.add('display-none');
+            document.getElementById('uniIdUploadElement').classList.add('display-none');
+            document.getElementById('uniAdElement').classList.remove('display-none');
+
+            document.querySelector('input[name="uniidupload"]').required = false;
+            document.querySelector('input[name="uniadupload"]').required = true;
+            document.querySelector('input[name="uniid"]').required = false;
+
+
+        }
+    }
+
     let emailArray = [];
     // fetch post
     fetch("<?php echo BASEURL ?>/userManagement/getUserEmail", {
@@ -216,7 +316,7 @@ $nav = new Navigation();
     })
         .then((response) => response.json())
         .then((json) => {
-            for (var i = 0; i < json.length; i++) {
+            for (let i = 0; i < json.length; i++) {
                 emailArray.push(json[i].Email);
             }
         });
@@ -236,7 +336,7 @@ $nav = new Navigation();
     })
         .then((response) => response.json())
         .then((json) => {
-            for (var i = 0; i < json.length; i++) {
+            for (let i = 0; i < json.length; i++) {
                 numberArray.push(json[i].ContactNumber);
             }
         });
@@ -254,14 +354,14 @@ $nav = new Navigation();
     })
         .then((response) => response.json())
         .then((json) => {
-            for (var i = 0; i < json.length; i++) {
+            for (let i = 0; i < json.length; i++) {
                 usernameArray.push(json[i].Username);
             }
         });
 
 
     FilePond.registerPlugin(FilePondPluginFileValidateType, FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginImageCrop, FilePondPluginImageResize, FilePondPluginImageTransform);
-    
+
     FilePond.create(document.getElementById('nicupload'), {
         server: '<?php echo BASEURL ?>/imageUpload/nic',
         allowImagePreview: false
@@ -280,7 +380,7 @@ $nav = new Navigation();
             document.getElementById('niclink').value = filepath;
         }
     });
-    
+
     FilePond.create(document.getElementById('uniidupload'), {
         server: '<?php echo BASEURL ?>/imageUpload/uniid',
         allowImagePreview: false
@@ -320,7 +420,7 @@ $nav = new Navigation();
         }
     });
 
-    
+
     FilePond.create(document.getElementById('profilepic'), {
         server: '<?php echo BASEURL ?>/imageUpload/profilepic',
         labelIdle: `<img src='<?php echo BASEURL ?>/images/image.svg'/><br/> <span>Upload Profile Picture</span>`,
@@ -350,7 +450,7 @@ $nav = new Navigation();
 
 
     async function checkUserName() {
-        var username = document.getElementById("username");
+        let username = document.getElementById("username");
         if (usernameArray.includes(username.value)) {
             username.classList.add("bg-red");
             document.getElementById("usernameLabel").classList.add("red");
@@ -369,7 +469,7 @@ $nav = new Navigation();
 
     }
     async function checkUserEmail() {
-        var email = document.getElementById("email");
+        let email = document.getElementById("email");
         if (emailArray.includes(email.value)) {
             email.classList.add("bg-red"); document.getElementById("emailLabel").classList.add("red");
             document.getElementById("emailLabel").classList.remove("black");
@@ -385,7 +485,7 @@ $nav = new Navigation();
 
     }
     async function checkUserNumber() {
-        var mobile = document.getElementById("mobile");
+        let mobile = document.getElementById("mobile");
         if (numberArray.includes(mobile.value)) {
             mobile.classList.add("bg-red"); document.getElementById("mobileLabel").classList.add("red");
             document.getElementById("mobileLabel").classList.remove("black");
@@ -401,19 +501,48 @@ $nav = new Navigation();
 
     }
 
-    var password = document.getElementById("password")
+    let password = document.getElementById("password")
         , confirm_password = document.getElementById("repassword");
 
     function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
+        let passwordValue = password.value;
+        let confirmPasswordValue = confirm_password.value;
+
+        let pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]+$/;
+
+        if (passwordValue.length < 8) {
+            password.setCustomValidity("Password should be at least 8 characters long.");
+        }
+        else if (!/[A-Z]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one uppercase letter.");
+        }
+
+        else if (!/[a-z]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one lowercase letter.");
+        }
+        else if (!/\d/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one digit.");
+        }
+
+        else if (!/[^a-zA-Z0-9]/.test(passwordValue)) {
+            password.setCustomValidity("Password should contain at least one special character.");
+        }
+        else if (!pattern.test(passwordValue)) {
+            password.setCustomValidity("Password should follow the pattern: at least one letter and one digit.");
         } else {
-            confirm_password.setCustomValidity('');
+            password.setCustomValidity("");
+        }
+
+        if (passwordValue !== confirmPasswordValue) {
+            confirm_password.setCustomValidity("Passwords don't match.");
+        } else {
+            confirm_password.setCustomValidity("");
         }
     }
 
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
+ 
+    password.addEventListener("keyup", validatePassword);
+    confirm_password.addEventListener("keyup", validatePassword);
 
 </script>
 

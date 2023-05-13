@@ -20,7 +20,9 @@ $base = BASEURL;
         ?>
     </div>
 
+    <?php new pageFooter(); ?>
 </main>
+
 
 
 
@@ -43,7 +45,12 @@ $base = BASEURL;
             fetch(url)
                 .then((response) => response.json())
                 .then((json) => { 
+                    
                         for(var i = 0; i < json.length; i++){ 
+                            // if json is empty
+                            if(json[i].length === 0){
+                                continue;
+                            }
                             var elem = document.getElementById('like-button-' + json[i][0].Post);  
                             elem.classList.add('black-hover');
                             elem.classList.add('bg-white-hover');

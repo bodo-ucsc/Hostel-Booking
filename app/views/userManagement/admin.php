@@ -31,10 +31,8 @@ $basePage = BASEURL . '/admin';
                                 <div class="col-3  text-overflow bold">Contact</div> 
                             </div>
                             <?php
-                            if (isset($data['result'])) {
-                                $useridArray = array();
-                                foreach ($data['result'] as $key => $value) {
-                                    array_push($useridArray, $value->UserId); 
+                            if (isset($data['result'])) { 
+                                foreach ($data['result'] as $key => $value) { 
                                     echo "<div class='hs padding-horizontal-5 padding-vertical-2 border-1 border-white'>";
                                     echo "<div class='col-4  text-overflow ' title='" . $value->FirstName . "' >" . $value->FirstName . "</div>";
                                     echo "<div class='col-4  text-overflow ' title='" . $value->LastName . "' >" . $value->LastName . "</div>";
@@ -55,7 +53,9 @@ $basePage = BASEURL . '/admin';
 
         </div>
     </div>
+
 </main>
+
 
 
 <?php
