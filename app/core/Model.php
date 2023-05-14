@@ -9,6 +9,9 @@ class Model extends Database
 
     public function get($table, $where = null, $order = null, $limit = null)
     {
+
+
+        //$table =user ,$where = "Username = 'Tharusha'"
         $sql = "SELECT * FROM $table";
         $bind_params = array();
         if ($where != null) {

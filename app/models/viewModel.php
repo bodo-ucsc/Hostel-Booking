@@ -8,7 +8,10 @@ class viewModel extends Model
     }
     public function checkUser($cond, $value)
     {
-        $result = $this->get('user', "$cond = '$value'");
+
+        //checkUser('Username', $username); Username, Tharusha
+
+        $result = $this->get('user', "$cond = '$value'"); //user table,"Username = 'Tharusha'"
         if ($result != null) {
             return $result;
         } else {

@@ -15,6 +15,7 @@ $nav = new Navigation();
             </div>
             <div class="row">
                 <div class="col-6 fill-container">
+                    <!-- after clicking this button show boarding owner registration form -->
                     <a href="<?php echo BASEURL; ?>/register/boardingOwner">
                         <button
                             class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
@@ -22,6 +23,7 @@ $nav = new Navigation();
                     </a>
                 </div>
                 <div class="col-6 fill-container">
+                    <!-- after clicking this button show  professional registration form -->
                     <a href="<?php echo BASEURL; ?>/register/professional">
                         <button
                             class="padding-4 border-rounded fill-container bg-white-hover border-blue border-1 blue-hover">
@@ -31,6 +33,7 @@ $nav = new Navigation();
             </div>
         </div>
         <div class="col-12 col-medium-8 width-90">
+            <!-- controller->register->(studentSignUp) function -->
             <form action="<?php echo BASEURL ?>/register/studentSignUp" method="post">
                 <div class="row">
                     <div class="col-10 fill-container">
@@ -39,14 +42,15 @@ $nav = new Navigation();
                         </h1>
 
                         <h2 class="header-2 margin-top-2 margin-bottom-1">Personal details</h2>
+                        
                         <div class="row fill-container">
                             <div class="col-12 col-medium-5 fill-container">
-                                <label class="big" for="firstname">First Name</label>
+                                <label class="big" for="firstname">First Name</label><!-- required -->
                                 <input class="margin-top-2" type="text" name="firstname" placeholder="First name"
                                     id="firstname" required>
                             </div>
                             <div class="col-12 col-medium-4 fill-container">
-                                <label class="big" for="lastname">Last Name</label>
+                                <label class="big" for="lastname">Last Name</label><!-- required -->
                                 <input class="margin-top-2" type="text" name="lastname" placeholder="Lastname"
                                     id="lastname" required>
                             </div>
@@ -64,27 +68,30 @@ $nav = new Navigation();
                         </div>
                     </div>
 
+                    <!-- field for profile picture -->
+
                     <div class="col-2 fill-container padding-0 ">
                         <input type="file" id="profilepic" credits='false' name="profilepic"
-                            accept="image/png, image/jpeg, image/gif" />
+                            accept="image/png, image/jpeg, image/gif" /> <!-- not required -->
                         <input type="hidden" id="pplink" name="pplink">
                     </div>
 
                 </div>
                 <div class="row fill-container">
                     <div class="col-12 col-medium-4 fill-container">
-                        <label class="big" for="nic">NIC Number</label>
+                        <label class="big" for="nic">NIC Number</label><!-- required -->
                         <input class="margin-top-2" type="text" name="nic" placeholder="NIC Number" id="nic" required>
                     </div>
                     <div class="col-12 col-medium-4 fill-container">
-                        <label id="mobileLabel" class="big" for="mobile">Mobile Number</label>
+                        <label id="mobileLabel" class="big" for="mobile">Mobile Number</label><!-- required -->
                         <input class="margin-top-2" type="text" name="mobile" placeholder="Mobile" id="mobile"
-                            onkeyup="checkUserNumber()" required>
+                            onkeyup="checkUserNumber()" required> 
+                            <!-- The onkeyup event occurs when the user releases a key on the keyboard. -->
                     </div>
                     <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="dob">Date of Birth</label>
                         <input class="margin-top-2" type="date" name="dob" placeholder="Date of Birth" id="dob"
-                            required>
+                            required> <!-- required -->
                     </div>
                 </div>
                 <div class="row">
@@ -92,13 +99,13 @@ $nav = new Navigation();
                         <div>
                             <label class="big" for="address">Address</label>
                             <input class="margin-top-2" type="text" placeholder="Address" name="address"
-                                placeholder="address" id="address" required>
+                                placeholder="address" id="address" required><!-- required -->
                         </div>
                     </div>
                     <div class="col-12 col-medium-5 fill-container">
                         <label class="big" for="nicupload">Upload NIC</label>
                         <input id="nicupload" name='nicupload' credits='false' accept="image/png, image/jpeg, image/gif"
-                            type="file" required>
+                            type="file" required><!-- required -->
                     </div>
                     <input type="hidden" id="niclink" name="niclink" required>
                 </div>
@@ -107,21 +114,26 @@ $nav = new Navigation();
                 <div class="row">
                     <div class="col-12 col-medium-4 fill-container">
                         <label class="big" for="uni">University</label>
-                        <select id='uni' name='uni' required>
-                            <option value=''>Select University</option>
+                        <!-- <input class="margin-top-2" type="text" placeholder="University" name="university"
+                                 id="university" required> -->
+                       <select id='uni' name='uni' required> 
+                            <option value=''>Select University</option> 
+                            <!-- empty value and the label "Select University". This serves as the default option when no other option is selected. -->
                             <?php
                             $university = restAPI('userManagement/universityRest');
                             foreach ($university as $uni) {
                                 echo "<option value='" . $uni->Name . "'>" . $uni->Name . "</option>";
                             }
                             ?>
-                        </select>
+                         </select>
                     </div>
                     <div class="col-12 col-medium-3 fill-container padding-bottom-4">
                         <div class="big black padding-bottom-2 ">University Email</div>
                         <div>
+                            <!-- uniemail = y -->
                             <input type="radio" name="uniemail" value="y" id="yes" oninput='uniIdAd()' checked>
                             <lable for="y">Yes</lable>
+                            <!-- uniemail = n -->
                             <input type="radio" name="uniemail" value="n" id="no" oninput='uniIdAd()'>
                             <lable for="n">No</lable>
                         </div>
@@ -140,7 +152,7 @@ $nav = new Navigation();
 
                     <div id='uniIdUploadElement' class="col-12 col-medium-4 fill-container">
                         <label class="big" for="uniidupload">University ID</label>
-                        <input id="uniidupload" name='uniidupload' credits='false'
+                        <input id="uniidupload" name='uniidupload' credits='false' class="margin-top-2"
                             accept="image/png, image/jpeg, image/gif" type="file">
                     </div>
                     <input type="hidden" id="uniidlink" name="uniidlink">
@@ -236,7 +248,11 @@ $nav = new Navigation();
 
 
         } else {
+
+            let inputElement = document.getElementById("email");
+
             document.getElementById('emailLabel').innerHTML = "Personal Email Address";
+            inputElement.placeholder = "Personal Email Address";
             document.getElementById('uniIDElement').classList.add('display-none');
             document.getElementById('uniIdUploadElement').classList.add('display-none');
             document.getElementById('uniAdElement').classList.remove('display-none'); 

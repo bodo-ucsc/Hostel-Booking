@@ -95,6 +95,7 @@ class Register extends Controller
             $username = $_POST['username'];
             //check user already exists
             $res = $this->model('viewModel')->checkUser('Username', $username);
+            //$res = $result
             $res = $res->fetch_assoc();
             if ($res != null) {
 
