@@ -4,7 +4,7 @@
 class friends extends Controller
 {
 
-    public function index($message = null) 
+    public function index($message = null)
     {
         if (isset($message)) {
             $alert = 'error';
@@ -19,7 +19,7 @@ class friends extends Controller
             $alert = null;
         }
         $this->view('friends/index', ['message' => $message, 'alert' => $alert]);
-        
+
     }
 
     public function sendFriendRequest()
@@ -120,22 +120,26 @@ class friends extends Controller
         $result = $this->model('viewModel')->getFriend($userid);
         $friendarray = array();
 
-        while ($row = $result->fetch_assoc()) {
-            if ($row['MainFriendId'] == $userid) {
-                array_push($friendarray, $row['FriendId']);
-            } else if ($row['FriendId'] == $userid) {
-                array_push($friendarray, $row['MainFriendId']);
+
+        if ($result != null) {
+            
+            while ($row = $result->fetch_assoc()) {
+                if ($row['MainFriendId'] == $userid) {
+                    array_push($friendarray, $row['FriendId']);
+                } else if ($row['FriendId'] == $userid) {
+                    array_push($friendarray, $row['MainFriendId']);
+                }
             }
+
+
+            $data = array_filter($data, function ($item) use ($friendarray) {
+                if (!in_array($item['UserId'], $friendarray)) {
+                    return true;
+                }
+                return false;
+            });
+
         }
-
-
-        $data = array_filter($data, function ($item) use ($friendarray) {
-            if (!in_array($item['UserId'], $friendarray)) {
-                return true;
-            }
-            return false;
-        });
-
         //remove the current user from the list
         $data = array_filter($data, function ($item) use ($userid) {
             if ($item['UserId'] != $userid) {
@@ -225,7 +229,7 @@ class friends extends Controller
             $result->fetch_all(MYSQLI_ASSOC)
         );
     }
- 
+
 
 
 }

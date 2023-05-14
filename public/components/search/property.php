@@ -22,8 +22,8 @@ class Search
                         <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'>Search</button>
                     </div>
                     <div class='display-small-none display-block col-1 fill-container'>
-                        <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
-                    </div>
+                    <button id='submitBtn' class='header-nb fill-container border-1 bg-black-hover white-hover border-rounded-more' type='submit' name='submit'><i data-feather='search'></i></button>
+                </div>
                 <input type='hidden' id='filters' name='filters' value='no'>
                 </div> 
             </form> 
@@ -99,7 +99,6 @@ class Search
                     </div>
                     
                     <input type='hidden' id='filters' name='filters' value='yes'>
-                    <input type='hidden' id='searchQuery' name='searchQuery' value='' >
                     <div class='row padding-2  margin-top-3'>
                         <div class='col-3 big fill-container vertical-align-middle left margin-bottom-4'>
                             <label for='sortSearch'>Sort By</label>
@@ -254,6 +253,7 @@ class Search
                             <label class=' vertical-align-middle' for='parking'>No</label>
                         </div>
                     </div>
+                    <input type='text' class='opacity-0 bg-transparent border-0 padding-0 margin-0' id='searchQuery' name='searchQuery' value='' >
 
                     <div class='row padding-2'>
                     </div>
