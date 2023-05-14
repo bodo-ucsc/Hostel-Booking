@@ -160,6 +160,10 @@ body {
 .red {
   color: #C83A3A;
 }
+.opacity-0{
+  opacity: 0;
+}
+
 
 /* fill colour */
 
