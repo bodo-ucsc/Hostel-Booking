@@ -412,7 +412,7 @@ $nav = new Navigation();
 
 
     async function checkUserName() {
-        var username = document.getElementById("username");
+        let username = document.getElementById("username");
         if (usernameArray.includes(username.value)) {
             username.classList.add("bg-red");
             document.getElementById("usernameLabel").classList.add("red");
