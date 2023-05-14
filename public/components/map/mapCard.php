@@ -21,7 +21,7 @@ class ShowMap
         $type = 'restaurant';
         $address = str_replace(array(','), '', $address);
         $address = str_replace(' ', '+', $address);
-        $APIKEY = 'AIzaSyD18HsT80v9YamFpa8KNovdzBNAZDkQgDA';
+        $APIKEY = 'AIzaSyDThIJiMmV0agiHjmxPev4f6VGMMmHHXCY';
         $url = "https://maps.googleapis.com/maps/api/geocode/json?address=$address&key=$APIKEY";
         $response = file_get_contents($url);
         $results = json_decode($response, true);

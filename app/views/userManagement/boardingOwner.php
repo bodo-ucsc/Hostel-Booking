@@ -256,6 +256,7 @@ $base = BASEURL . '/userManagement';
                     headers: {
                         "Content-Type": "application/json"
                     },
+                    //convert JS object to JSON string
                     body: JSON.stringify(data)
                 }).then(response => response.json())
                     .then(json => {
