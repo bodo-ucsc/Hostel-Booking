@@ -116,26 +116,26 @@ class Search
                     <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
                             <label for='price'>Price Limit</label>
                         </div>
-                        <div class='col-5 fill-container'>
+                        <div class='col-4 fill-container'>
                             <input type='range' oninput=$price id='priceRange' min='0' max='170000' value='0' step='1000' name='priceRange'>
                             
                         </div>
-                        <div  class='col-4 fill-container left'> <input type='number' min='0' max='170000' value='0'  id='price' name='price' oninput='updatePrice();updateFilterArray(\"price\")' /></div>
-                    </div>
-
-                    <div class='row padding-2'>
-                    <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
-                            <label for='priceType'>Price Type</label>
-                        </div>
-                        <div class='col-9 fill-container'>
-                            <select id='priceType' name='priceType' oninput='updateFilterArray(\"priceType\")'>
-                                <option value=''></option>
-                                <option value='per month'>Per Month</option>
-                                <option value='per boarder'>Per Boarder</option>
-                            </select>
-                        </div>
-                    </div>
-
+                        <div  class='col-5 fill-container left'> <input type='number' min='0' max='170000' value='0'  id='price' name='price' oninput='updatePrice();updateFilterArray(\"price\")' /></div>
+                    </div>";
+// echo "
+//                     <div class='row padding-2'>
+//                     <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
+//                             <label for='priceType'>Price Type</label>
+//                         </div>
+//                         <div class='col-9 fill-container'>
+//                             <select id='priceType' name='priceType' oninput='updateFilterArray(\"priceType\")'>
+//                                 <option value=''></option>
+//                                 <option value='per month'>Per Month</option>
+//                                 <option value='per boarder'>Per Boarder</option>
+//                             </select>
+//                         </div>
+//                     </div>";
+echo "
                     <div class='row padding-2'>
                     <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
                             <label for='propertyType'>Property Type</label>
@@ -175,8 +175,8 @@ class Search
                         <div class='col-9 fill-container'>
                             <input type='text' id='street' placeholder='Street Name' name='street' oninput='updateFilterArray(\"street\")'>
                         </div>
-                    </div>
-
+                    </div>";
+                echo "
                     <div class='row padding-2'>
                         <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
                             <label for='NoOfRooms'>Rooms</label>
@@ -191,8 +191,8 @@ class Search
                         <div class='col-3 fill-container'>
                             <input type='number' id='NoOfMembers' placeholder='1' name='NoOfMembers' min='1' oninput='updateFilterArray(\"NoOfMembers\")'>
                         </div> 
-                    </div>
-                    
+                    </div>";
+                echo "    
                     <div class='row padding-2'>
 
                         <div class='col-4 big fill-container vertical-align-middle left margin-bottom-3'>
@@ -209,37 +209,38 @@ class Search
                             <input type='number' id='squareFeet' name='squareFeet' placeholder='300' min='300' oninput='updateFilterArray(\"squareFeet\")'>
                         </div>
                     
-                    </div>
-
-                    <div class='row padding-2'>
-                        <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
-                            <label for='gender'>Gender</label>
-                        </div>
-                        <div class='col-9 fill-container'>
-                            <select id='gender' name='gender' oninput='updateFilterArray(\"gender\")'>
-                                <option value=''></option>
-                                <option value='A'>Any</option>
-                                <option value='M'>Male</option>
-                                <option value='F'>Female</option>
-                            </select>
-                        </div>
-                    </div>
-                            
-                    <div class='row padding-2'>
-                        <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
-                            <label for='boarderType'>Boarder Type</label>
-                        </div>
-                        <div class='col-9 fill-container'>
-                            <select id='boarderType' name='boarderType' oninput='updateFilterArray(\"boarderType\")'>
-                                <option value=''></option>
-                                <option value='Any'>Any</option>
-                                <option value='Student'>Student Only</option>
-                                <option value='Professional'>Professional Only</option>
-                            </select>
-                        </div>
-                    </div>
- 
-
+                    </div>";
+// echo "
+//                     <div class='row padding-2'>
+//                         <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
+//                             <label for='gender'>Gender</label>
+//                         </div>
+//                         <div class='col-9 fill-container'>
+//                             <select id='gender' name='gender' oninput='updateFilterArray(\"gender\")'>
+//                                 <option value=''></option>
+//                                 <option value='A'>Any</option>
+//                                 <option value='M'>Male</option>
+//                                 <option value='F'>Female</option>
+//                             </select>
+//                         </div>
+//                     </div>
+//                       ";
+//                       echo "      
+//                     <div class='row padding-2'>
+//                         <div class='col-3 big fill-container vertical-align-middle left margin-bottom-3'>
+//                             <label for='boarderType'>Boarder Type</label>
+//                         </div>
+//                         <div class='col-9 fill-container'>
+//                             <select id='boarderType' name='boarderType' oninput='updateFilterArray(\"boarderType\")'>
+//                                 <option value=''></option>
+//                                 <option value='Any'>Any</option>
+//                                 <option value='Student'>Student Only</option>
+//                                 <option value='Professional'>Professional Only</option>
+//                             </select>
+//                         </div>
+//                     </div>
+//  ";
+echo "
 
                     <div class='row padding-2'>
                         <div class='col-3 big fill-container vertical-align-middle left '>
