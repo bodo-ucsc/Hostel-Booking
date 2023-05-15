@@ -232,6 +232,15 @@ $basePage = BASEURL . '/boarding';
     <?php
     $payables = restAPI("boarding/payables/$placeid");
     ?>
+<!-- 
+// Array - $payables
+                    // Array 0 - $payables[0]
+                        // placed $payables[0][0] = $payables[0]->placeId
+                        // keymoney $payables[0][1]
+
+                        // Array
+                            // Array
+                                // placeId -->
 
     <div class=" sidebar-offset navbar-offset ">
         <div class="row less-gap">
