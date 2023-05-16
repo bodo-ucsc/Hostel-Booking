@@ -53,6 +53,12 @@ class PropertyCard
             $Parking = $result->Parking;
 
             $vacancy = $NoOfMembers - $Boarded;
+            if($vacancy <= 0){
+                $apPl='display-none';
+            }else{
+                $apPl=' display-inline-block ';
+            }
+
 
             $Price = number_format($Price);
 
@@ -91,7 +97,7 @@ class PropertyCard
         if ($PlaceId == 'preview') {
             echo "<div class='listing display-inline-block top  $def' >";
         } else {
-            echo "<div class='listing display-inline-block top  $def' onclick='window.location.href=\"$base/listing/viewPlace/$PlaceId \"'>";
+            echo "<div class='listing  $apPl top  $def' onclick='window.location.href=\"$base/listing/viewPlace/$PlaceId \"'>";
         }
         echo "
         <div class='row padding-4 '>
@@ -196,7 +202,7 @@ class PropertyCard
         </div>
 
         </div>
-        ";
+   ";
 
-    }
+}
 }
