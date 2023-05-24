@@ -375,7 +375,7 @@ $reviews = restAPI("property/ratingRest/$placeId");
                     if (isset($_SESSION['workuni'])) {
                         $workuni = $_SESSION['workuni'];
                     }
-                    // $mapcard = new ShowMap($addressMap, $workuni);
+                    $mapcard = new ShowMap($addressMap, $workuni);
                     ?>
                 </div>
             </div>
